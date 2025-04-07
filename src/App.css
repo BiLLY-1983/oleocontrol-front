@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+    --color-olive-50: #f8f9f3;
+    --color-olive-100: #eef0e5;
+    --color-olive-200: #dde2cc;
+    --color-olive-300: #c3cda6;
+    --color-olive-400: #a5b47c;
+    --color-olive-500: #8a9c5d;
+    --color-olive-600: #6b7c46;
+    --color-olive-700: #556339;
+    --color-olive-800: #475231;
+    --color-olive-900: #3d462c;
+    --color-olive-950: #1f2615;
+  }
