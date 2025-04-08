@@ -1,14 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from 'react-router-dom';
 import { loginRequest } from "@services/authRequests.js";
+import { UserContext } from '@context/UserContext';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import useUserAuth from '@hooks/useUserAuth'; 
 
 const LoginAdmin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const { setUserData } = useContext(UserContext);
+
   const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+
+  const navigate = useNavigate();
+
+  const { hasRole } = useUserAuth(); 
 
   useEffect(() => {
     const savedUsername = localStorage.getItem("rememberedUsername");
@@ -27,8 +35,29 @@ const LoginAdmin = () => {
 
     try {
       const data = await loginRequest(username, password);
-      setMessage("Login exitoso");
-      setError("");
+
+      console.log(data);
+
+      if (data.access_token) {
+        // Si se obtiene un access_token, significa que el login fue exitoso
+        setUserData({
+          token: data.access_token,
+          user: data.user,
+        });
+
+        localStorage.setItem('authToken', data.access_token);
+        localStorage.setItem('userData', JSON.stringify(data.user));
+
+        //Almacenar el tipo de Login
+        localStorage.setItem('loginType', 'admin');
+
+        if (hasRole("Administrador")) {
+          navigate('/dashboard/admin'); 
+        } else {
+          navigate('/');  
+        }
+
+      }
 
       if (rememberMe) {
         localStorage.setItem("rememberedUsername", username);
@@ -41,17 +70,15 @@ const LoginAdmin = () => {
       }
     } catch (error) {
       setError(error.message);
-      setMessage("");
     }
   };
 
   return (
     <div className="h-screen flex justify-center items-center bg-olive-50">
       <div className="w-full max-w-sm bg-white p-8 rounded-lg shadow-lg border border-olive-200">
-        {/* Cabecera con icono */}
         <div className="flex justify-center mb-6">
           <img
-            src="/logo.png" 
+            src="/logo.png"
             alt="Login Icon"
             className="w-48"
           />
@@ -62,11 +89,6 @@ const LoginAdmin = () => {
 
         {error && (
           <div className="text-red-500 text-sm text-center mb-4">{error}</div>
-        )}
-        {message && (
-          <div className="text-green-500 text-sm text-center mb-4">
-            {message}
-          </div>
         )}
 
         <form onSubmit={handleSubmit}>
@@ -104,7 +126,7 @@ const LoginAdmin = () => {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-olive-500 hover:text-olive-700 focus:outline-none"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-olive-500 hover:text-olive-700 focus:outline-none cursor-pointer"
             >
               {showPassword ? <FaEye /> : <FaEyeSlash />}
             </button>

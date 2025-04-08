@@ -10,10 +10,12 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@config': path.resolve(__dirname, 'src/config'),   // Alias para src/config
-      '@services': path.resolve(__dirname, 'src/services'), // Alias para src/services
-      '@pages': path.resolve(__dirname, 'src/pages'),     // Alias para src/pages
-      '@components': path.resolve(__dirname, 'src/components'), // Alias para src/components
+      '@config': path.resolve(__dirname, 'src/config'),  
+      '@services': path.resolve(__dirname, 'src/services'),
+      '@pages': path.resolve(__dirname, 'src/pages'),   
+      '@components': path.resolve(__dirname, 'src/components'),
+      '@context': path.resolve(__dirname, 'src/context'),
+      '@hooks': path.resolve(__dirname, 'src/hooks'),
     }
   }
 })
