@@ -5,14 +5,14 @@ import ChartSection from "@components/ChartSection";
 
 const DashboardAdmin = () => {
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-olive-50">
       <Sidebar />
 
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col bg-olive-50">
         <Topbar />
 
         <main className="p-6 space-y-6">
-          <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
+          <h1 className="text-2xl font-bold text-olive-800">Dashboard</h1>
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
             <StatCard title="Socios Activos" value="245" description="+12% respecto al año anterior" />
