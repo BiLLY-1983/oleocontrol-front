@@ -26,6 +26,8 @@
     "Mar": "Mar",
     "Abr": "Apr",
     "May": "May",
-    "Jun": "Jun"
+    "Jun": "Jun",
+    "Logout_title": "Logout",
+    "Logout_text": "Logged out successfully"
   }
   

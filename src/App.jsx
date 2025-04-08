@@ -5,6 +5,7 @@ import Error404 from '@pages/Error/Error404';
 import LoginAdmin from '@pages/Login/LoginAdmin';
 import LoginEmployee from '@pages/Login/LoginEmployee';
 import LoginMember from '@pages/Login/LoginMember';
+import Logout from '@components/Logout';
 import DashboardAdmin from '@pages/Dashboard/DashboardAdmin';
 import DashboardEmployee from '@pages/Dashboard/DashboardEmployee';
 import DashboradMember from '@pages/Dashboard/DashboardMember';
@@ -22,6 +23,9 @@ const App = () => {
           <Route path="/login/admin" element={<LoginAdmin />} />
           <Route path="/login/employee" element={<LoginEmployee />} />
           <Route path="/login/member" element={<LoginMember />} />
+
+        {/* Logout */}
+          <Route path="/logout" element={<Logout />} />
 
           {/* Protegidas */}
           <Route path="/dashboard/admin" element={
