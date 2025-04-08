@@ -1,8 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Settings, Sun, Globe, User, LogOut, ChevronRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function Topbar() {
+  /* Traducción */
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
+  /* ---------- */
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAppearanceOpen, setIsAppearanceOpen] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
@@ -57,7 +66,7 @@ export default function Topbar() {
             className="absolute top-full mt-1 right-43 w-48 bg-white shadow-lg rounded-lg border border-olive-200"
           >
             <ul className="text-olive-700">
-              <li className="px-4 py-2 font-medium text-olive-800">Configuración</li>
+              <li className="px-4 py-2 font-medium text-olive-800">{t("settings")}</li>
 
               <li
                 className="flex items-center gap-2 px-4 py-2 hover:bg-olive-100 cursor-pointer relative"
@@ -67,7 +76,7 @@ export default function Topbar() {
               >
                 <Sun size={20} />
                 <span className="flex items-center justify-between w-full">
-                  Apariencia <ChevronRight size={16} />
+                  {t("appearance")} <ChevronRight size={16} />
                 </span>
                 {isAppearanceOpen && (
                   <div className="absolute top-0 left-full w-48 bg-white shadow-lg rounded-lg border border-olive-200">
@@ -93,8 +102,8 @@ export default function Topbar() {
                 {isLanguageOpen && (
                   <div className="absolute top-0 left-full w-48 bg-white shadow-lg rounded-lg border border-olive-200">
                     <ul className="text-olive-700">
-                      <li className="px-4 py-2 hover:bg-olive-100 cursor-pointer">Español</li>
-                      <li className="px-4 py-2 hover:bg-olive-100 cursor-pointer">Inglés</li>
+                      <li className="px-4 py-2 hover:bg-olive-100 cursor-pointer" onClick={() => changeLanguage("es")}>{t("spanish")}</li>
+                      <li className="px-4 py-2 hover:bg-olive-100 cursor-pointer" onClick={() => changeLanguage("en")}>{t("english")}</li>
                     </ul>
                   </div>
                 )}
@@ -102,13 +111,13 @@ export default function Topbar() {
 
               <li className="flex items-center gap-2 px-4 py-2 hover:bg-olive-100 cursor-pointer">
                 <User size={20} />
-                <span>Perfil</span>
+                <span>{t("profile")}</span>
               </li>
 
               <li className="flex items-center gap-2 px-4 py-2 hover:bg-olive-100 cursor-pointer text-red-500">
                 <LogOut size={16} />
                 <button onClick={logout} className="w-full text-left">
-                  Cerrar sesión
+                  {t("logout")}
                 </button>
               </li>
             </ul>

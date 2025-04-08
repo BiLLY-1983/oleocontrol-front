@@ -11,6 +11,7 @@ import {
   Wallet,
   Droplets,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const menuItems = [
   { name: "Inicio", icon: <Home size={18} /> },
@@ -26,6 +27,10 @@ const menuItems = [
 ];
 
 export default function Sidebar() {
+  /* Traducción */
+  const { t } = useTranslation();
+  /* ---------- */
+
   const [activeItem, setActiveItem] = useState("Inicio");
 
   return (
@@ -51,7 +56,7 @@ export default function Sidebar() {
               onClick={() => setActiveItem(item.name)} // Cambiar el ítem activo al hacer clic
             >
               {item.icon}
-              {item.name}
+              {t(item.name)}
             </div>
           ))}
         </nav>
