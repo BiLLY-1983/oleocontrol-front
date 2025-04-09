@@ -31,7 +31,6 @@ const menuItems = [
 
 export default function Sidebar() {
   const { t } = useTranslation();
-  const [activeItem, setActiveItem] = useState("Inicio");
   const [collapsed, setCollapsed] = useState(false); // Estado para contraer/expandir
 
   return (
@@ -40,7 +39,7 @@ export default function Sidebar() {
         }`}
     >
       {/* Logo + Botón de colapsar */}
-      <div className="flex items-center justify-center px-4 py-4 relative border-b-1 border-olive-700 mb-5">
+      <div className="flex items-center justify-center px-4 py-4 relative border-b border-olive-700 mb-5">
         <img
           src="/logo.png"
           alt="Logo"
@@ -49,9 +48,9 @@ export default function Sidebar() {
         />
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="text-olive-600 hover:text-olive-800 transition absolute right-0"
+          className="text-olive-600 hover:text-olive-800 transition absolute right-0 "
         >
-          {collapsed ? <ChevronRight size={20} /> : <ChevronLeft size={32} />}
+          {collapsed ? <ChevronRight size={20} className="cursor-pointer"/> : <ChevronLeft size={32} className="cursor-pointer"/>}
         </button>
       </div>
 

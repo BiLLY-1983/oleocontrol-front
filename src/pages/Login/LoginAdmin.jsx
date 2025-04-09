@@ -24,8 +24,6 @@ const LoginAdmin = () => {
 
   const navigate = useNavigate();
 
-  const { hasRole } = useUserAuth();
-
   useEffect(() => {
     const savedUsername = localStorage.getItem("rememberedUsername");
     const savedPassword = localStorage.getItem("rememberedPassword");

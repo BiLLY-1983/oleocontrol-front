@@ -46,7 +46,7 @@ export default function Topbar() {
   }, []);
 
   return (
-    <header className="flex items-center justify-between px-6 py-4 bg-olive-50 border-b border-olive-200">
+    <header className="flex items-center justify-between px-6 py-4 bg-white border-b border-olive-700">
       <div></div>
       <div className="flex items-center gap-4 relative">
         <button
@@ -127,7 +127,13 @@ export default function Topbar() {
                 </div>
               </li>
 
-              <li className="flex items-center gap-2 px-4 py-2 hover:bg-olive-100 cursor-pointer">
+              <li
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  navigate("profile");
+                }}
+                className="flex items-center gap-2 px-4 py-2 hover:bg-olive-100 cursor-pointer"
+              >
                 <User size={20} />
                 <span>{t("profile")}</span>
               </li>

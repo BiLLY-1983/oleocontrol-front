@@ -8,6 +8,7 @@ import Department from '@pages/Department/Department';
 import Member from '@pages/Member/Member';
 import Settlement from '@pages/Settlement/Settlement';
 import Oil from '@pages/Oil/Oil';
+import Profile from '@pages/Profile/Profile';
 import Error404 from '@pages/Error/Error404';
 
 const dashboardRoutes = [
@@ -21,6 +22,7 @@ const dashboardRoutes = [
     { path: "members", element: <Member /> },
     { path: "settlements", element: <Settlement /> },
     { path: "oils", element: <Oil /> },
+    { path: "profile", element: <Profile /> },
     { path: "*", element: <Error404 /> }
 ];
 

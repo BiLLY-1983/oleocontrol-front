@@ -1,6 +1,7 @@
 import DashboardAdmin from '@pages/Dashboard/DashboardAdmin';
 import DashboardEmployee from '@pages/Dashboard/DashboardEmployee';
 import DashboardMember from '@pages/Dashboard/DashboardMember';
+import Profile from '@pages/Profile/Profile';
 import ProtectedRoute from '@components/ProtectedRoute';
 
 const protectedRoutes = [
