@@ -1,7 +1,16 @@
-import Home from '../pages/Home/Home.jsx';
+import Home from '@pages/Home/Home';
+import User from '@pages/User/User';
+import Entry from '@pages/Entry/Entry';
+import Analysis from '@pages/Analysis/Analysis';
+import Role from '@pages/Role/Role';
+import Employee from '@pages/Employee/Employee';
+import Department from '@pages/Department/Department';
+import Member from '@pages/Member/Member';
+import Settlement from '@pages/Settlement/Settlement';
+import Oil from '@pages/Oil/Oil';
+import Error404 from '@pages/Error/Error404';
 
 const dashboardRoutes = [
-    { path: "/", element: <Home />, exact: true },
     { path: "home", element: <Home /> },
     { path: "users", element: <User /> },
     { path: "entries", element: <Entry /> },

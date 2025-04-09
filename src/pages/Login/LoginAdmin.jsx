@@ -67,7 +67,7 @@ const LoginAdmin = () => {
             delay: 2000,
           });
 
-          navigate('/dashboard/admin');
+          navigate('/dashboard/admin/home');
         } else {
 
           error({
