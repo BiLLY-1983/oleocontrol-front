@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { logoutRequest } from "@services/authRequests";
 import { LogOut } from "lucide-react";
 
-import { success } from "@pnotify/core";
+import { success, error } from "@pnotify/core";
 import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
@@ -23,14 +23,20 @@ const Logout = () => {
         localStorage.removeItem("userData");
 
         success({
-            title: t("Logout_title"),
-            text: t("Logout_text"),
-            delay: 2000,
-          });
+          title: t("Logout_title"),
+          text: t("Logout_text_ok"),
+          delay: 2000,
+        });
 
         navigate("/");
       } catch (error) {
-        console.error("Error al cerrar sesión:", error.message);
+        
+        error({
+          title: t("Logout_title"),
+          text: t("Logout_text_fail"),
+          delay: 2000,
+        });
+
       }
     }
   };

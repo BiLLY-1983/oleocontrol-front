@@ -28,6 +28,11 @@
     "May": "May",
     "Jun": "Jun",
     "Logout_title": "Cerrar sesión",
-    "Logout_text": "Sesión cerrada con éxito"
+    "Logout_text_ok": "Sesión cerrada con éxito",
+    "Logout_text_fail": "Error al cerrar sesión",
+    "Login_text_ok": "Login exitoso",
+    "Login_title_ok": "Bienvenid@ ",
+    "Login_text_fail": "Error al iniciar sesión",
+    "Login_title_fail": "Hubo un error iniciando sesión"
   }
   

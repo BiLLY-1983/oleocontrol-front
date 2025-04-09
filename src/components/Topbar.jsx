@@ -53,7 +53,7 @@ export default function Topbar() {
           className="p-2 text-olive-700 hover:bg-olive-300 hover:text-olive-800 border border-olive-500 rounded-md cursor-pointer"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          <Settings size={20} />
+          <Settings size={18} className="text-yellow-700" />
         </button>
 
         {/* Menú principal */}
@@ -141,8 +141,8 @@ export default function Topbar() {
 
         {/* Perfil */}
         <div className="flex items-center gap-2">
-          <div className="bg-olive-600 text-white font-semibold w-8 h-8 flex items-center justify-center rounded-full">{user.first_name.charAt(0).toUpperCase()}{user.last_name.charAt(0).toUpperCase()}</div>
-          <div className="text-sm text-center">
+          <div className="bg-olive-700 text-white font-semibold w-8 h-8 flex items-center justify-center rounded-full">{user.first_name.charAt(0).toUpperCase()}{user.last_name.charAt(0).toUpperCase()}</div>
+          <div className="text-sm text-left">
             <div className="font-medium text-olive-800">{user.first_name} {user.last_name}</div>
             <div className="text-xs text-olive-500">{user.email}</div>
           </div>

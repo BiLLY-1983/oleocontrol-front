@@ -3,9 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import { loginRequest } from "@services/authRequests.js";
 import { UserContext } from '@context/UserContext';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import useUserAuth from '@hooks/useUserAuth'; 
+import useUserAuth from '@hooks/useUserAuth';
+import { useTranslation } from "react-i18next";
+
+import { success, error } from "@pnotify/core";
+import "@pnotify/core/dist/PNotify.css";
+import "@pnotify/core/dist/BrightTheme.css";
+import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
 const LoginAdmin = () => {
+  const { t } = useTranslation();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -16,7 +24,7 @@ const LoginAdmin = () => {
 
   const navigate = useNavigate();
 
-  const { hasRole } = useUserAuth(); 
+  const { hasRole } = useUserAuth();
 
   useEffect(() => {
     const savedUsername = localStorage.getItem("rememberedUsername");
@@ -52,9 +60,23 @@ const LoginAdmin = () => {
         localStorage.setItem('loginType', 'admin');
 
         if (hasRole("Administrador")) {
-          navigate('/dashboard/admin'); 
+
+          success({
+            title: t("Login_title_ok") + username,
+            text: t("Login_text_ok"),
+            delay: 2000,
+          });
+
+          navigate('/dashboard/admin');
         } else {
-          navigate('/');  
+
+          error({
+            title: t("Login_title_fail"),
+            text: t("Login_text_fail"),
+            delay: 2000,
+          });
+
+          navigate('/');
         }
 
       }
