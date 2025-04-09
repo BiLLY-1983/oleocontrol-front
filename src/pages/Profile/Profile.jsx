@@ -1,20 +1,19 @@
 import React, { useContext, useState } from "react";
+import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import { UserContext } from "@context/UserContext";
+import { useTheme } from "@context/ThemeContext";
 
 const UserProfile = () => {
   const { t } = useTranslation();
-
-  // Obtenemos los datos del usuario desde el contexto
   const { userData, setUserData } = useContext(UserContext);
+  const { theme } = useTheme(); // Usar el contexto del tema
 
   if (!userData?.token) {
     return <div>No estás autenticado</div>;
   }
 
   const { user } = userData;
-
-  // Controlamos el estado de los campos editables
   const [editedUser, setEditedUser] = useState(user);
 
   const handleChange = (e) => {
@@ -26,7 +25,7 @@ const UserProfile = () => {
   };
 
   const handleSave = () => {
-    setUserData({ ...userData, user: editedUser }); // Actualiza el contexto con los datos modificados
+    setUserData({ ...userData, user: editedUser });
     alert("Datos guardados con éxito!");
   };
 
@@ -34,23 +33,56 @@ const UserProfile = () => {
     .charAt(0)
     .toUpperCase()}`;
 
-  return (
-    <div className="flex justify-center items-center min-h-screen bg-white">
-      <div className="bg-olive-50 rounded-lg shadow-lg p-8 w-full max-w-2xl">
+  const isDarkMode = theme === "dark";
 
+  return (
+    <div
+      className={clsx(
+        "flex justify-center items-center min-h-screen",
+        isDarkMode ? "bg-dark-800" : "bg-white"
+      )}
+    >
+      <div
+        className={clsx(
+          "rounded-lg shadow-lg p-8 w-full max-w-2xl",
+          isDarkMode ? "bg-dark-900" : "bg-olive-50"
+        )}
+      >
         {/* Avatar */}
         <div className="flex items-center mb-6">
-          <div className="w-16 h-16 rounded-full bg-olive-700 text-white flex items-center justify-center text-xl font-bold">
+          <div
+            className={clsx(
+              "w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold",
+              isDarkMode ? "bg-dark-700 text-dark-50" : "bg-olive-700 text-white"
+            )}
+          >
             {initials}
           </div>
           <div className="ml-4">
-            <h2 className="text-xl font-bold">
+            <h2
+              className={clsx(
+                "text-xl font-bold",
+                isDarkMode ? "text-dark-50" : "text-olive-800"
+              )}
+            >
               {editedUser.first_name} {editedUser.last_name}
             </h2>
-            <p className="text-gray-500 text-sm">{editedUser.username}</p>
+            <p
+              className={clsx(
+                "text-sm",
+                isDarkMode ? "text-dark-200" : "text-gray-500"
+              )}
+            >
+              {editedUser.username}
+            </p>
           </div>
           <button
-            className="ml-auto text-white bg-olive-500 px-4 py-2 rounded-md hover:bg-olive-700 cursor-pointer"
+            className={clsx(
+              "ml-auto px-4 py-2 rounded-md font-semibold cursor-pointer transition",
+              isDarkMode
+                ? "bg-dark-700 text-dark-50 hover:bg-dark-500"
+                : "bg-olive-500 text-white hover:bg-olive-600"
+            )}
             onClick={handleSave}
           >
             {t("userProfile.edit")}
@@ -59,64 +91,43 @@ const UserProfile = () => {
 
         {/* Información Personal */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {[
+            { label: t("userProfile.firstName"), name: "first_name" },
+            { label: t("userProfile.lastName"), name: "last_name" },
+            { label: t("userProfile.email"), name: "email", type: "email" },
+            { label: t("userProfile.phone"), name: "phone" },
+            { label: t("userProfile.dni"), name: "dni" },
+          ].map(({ label, name, type = "text" }) => (
+            <div key={name}>
+              <label
+                className={clsx(
+                  "block font-semibold",
+                  isDarkMode ? "text-dark-50" : "text-olive-900"
+                )}
+              >
+                {label}
+              </label>
+              <input
+                name={name}
+                type={type}
+                value={editedUser[name]}
+                onChange={handleChange}
+                className={clsx(
+                  "mt-2 p-2 w-full border rounded-md focus:outline-2 transition",
+                  isDarkMode
+                    ? "bg-dark-700 text-dark-50 border-dark-600 focus:bg-dark-600 focus:outline-dark-500"
+                    : "bg-olive-100 text-olive-900 border-olive-300 focus:bg-olive-50 focus:outline-olive-300"
+                )}
+              />
+            </div>
+          ))}
           <div>
-            <label className="block text-olive-900 font-semibold">
-              {t("userProfile.firstName")}
-            </label>
-            <input
-              name="first_name"
-              value={editedUser.first_name}
-              onChange={handleChange}
-              className="mt-2 p-2 w-full border rounded-md focus:bg-olive-100  focus:outline-2 focus:outline-olive-300"
-            />
-          </div>
-          <div>
-            <label className="block text-olive-900 font-semibold">
-              {t("userProfile.lastName")}
-            </label>
-            <input
-              name="last_name"
-              value={editedUser.last_name}
-              onChange={handleChange}
-              className="mt-2 p-2 w-full border rounded-md focus:bg-olive-100  focus:outline-2 focus:outline-olive-300"
-            />
-          </div>
-          <div>
-            <label className="block text-olive-900 font-semibold">
-              {t("userProfile.email")}
-            </label>
-            <input
-              name="email"
-              type="email"
-              value={editedUser.email}
-              onChange={handleChange}
-              className="mt-2 p-2 w-full border rounded-md focus:bg-olive-100  focus:outline-2 focus:outline-olive-300"
-            />
-          </div>
-          <div>
-            <label className="block text-olive-900 font-semibold">
-              {t("userProfile.phone")}
-            </label>
-            <input
-              name="phone"
-              value={editedUser.phone}
-              onChange={handleChange}
-              className="mt-2 p-2 w-full border rounded-md focus:bg-olive-100  focus:outline-2 focus:outline-olive-300"
-            />
-          </div>
-          <div>
-            <label className="block text-olive-900 font-semibold">
-              {t("userProfile.dni")}
-            </label>
-            <input
-              name="dni"
-              value={editedUser.dni}
-              onChange={handleChange}
-              className="mt-2 p-2 w-full border rounded-md focus:bg-olive-100  focus:outline-2 focus:outline-olive-300"
-            />
-          </div>
-          <div>
-            <label className="block text-olive-900 font-semibold">
+            <label
+              className={clsx(
+                "block font-semibold",
+                isDarkMode ? "text-dark-50" : "text-olive-900"
+              )}
+            >
               {t("userProfile.status")}
             </label>
             <input
@@ -124,7 +135,12 @@ const UserProfile = () => {
               type="checkbox"
               checked={editedUser.status}
               onChange={handleChange}
-              className="w-4 h-4 accent-olive-600 bg-gray-100 border-gray-300 rounded focus:ring-olive-500 focus:ring-2 mt-2"
+              className={clsx(
+                "w-4 h-4 rounded mt-2 focus:ring-2",
+                isDarkMode
+                  ? "accent-dark-500 bg-dark-700 border-dark-600 focus:ring-dark-400"
+                  : "accent-olive-600 bg-gray-100 border-gray-300 focus:ring-olive-500"
+              )}
             />
           </div>
         </div>

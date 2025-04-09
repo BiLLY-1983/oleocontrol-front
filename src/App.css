@@ -12,4 +12,28 @@
     --color-olive-800: #475231;
     --color-olive-900: #3d462c;
     --color-olive-950: #1f2615;
+
+    --color-dark-50: #f0f6fc; /* Blanco muy claro */
+    --color-dark-100: #c9d1d9; /* Gris claro */
+    --color-dark-200: #b1bac4; /* Gris medio claro */
+    --color-dark-300: #8b949e; /* Gris medio */
+    --color-dark-400: #6e7681; /* Gris oscuro */
+    --color-dark-500: #484f58; /* Gris más oscuro */
+    --color-dark-600: #30363d; /* Fondo de contenedor */
+    --color-dark-700: #21262d; /* Fondo de menú */
+    --color-dark-800: #161b22; /* Fondo principal */
+    --color-dark-900: #0d1117; /* Fondo más oscuro */
+    --color-dark-950: #010409; /* Negro puro */
+}
+
+/* Estilo para el rectángulo del cursor en modo claro */
+.recharts-rectangle.recharts-tooltip-cursor {
+  fill: #ffffff; /* Color claro */
+  opacity: 0.5; /* Transparencia */
+}
+
+/* Estilo para el rectángulo del cursor en modo oscuro */
+.dark .recharts-rectangle.recharts-tooltip-cursor {
+  fill: #212427; /* Color oscuro */
+  opacity: 0.5; /* Transparencia */
 }

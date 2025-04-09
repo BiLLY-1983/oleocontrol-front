@@ -1,9 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import clsx from "clsx";
 
-const Error404 = () => {
+const Error404 = ({ isDarkMode }) => {
   return (
-    <div className="h-screen flex flex-col justify-center items-center bg-olive-50">
+    <div
+      className={clsx(
+        "h-screen flex flex-col justify-center items-center",
+        isDarkMode ? "bg-dark-900 text-dark-50" : "bg-olive-50 text-olive-800"
+      )}
+    >
       <h1 className="text-6xl font-bold text-olive-700 mb-4">404</h1>
       <p className="text-xl text-olive-600 mb-6">
         Lo sentimos, la página que buscas no existe.

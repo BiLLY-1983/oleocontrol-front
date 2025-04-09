@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import clsx from "clsx";
 import {
   Home,
   Users,
@@ -15,6 +16,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "@context/ThemeContext";
 
 const menuItems = [
   { name: "Inicio", icon: Home, to: "home" },
@@ -31,38 +33,60 @@ const menuItems = [
 
 export default function Sidebar() {
   const { t } = useTranslation();
-  const [collapsed, setCollapsed] = useState(false); // Estado para contraer/expandir
+  const { theme } = useTheme(); 
+  const [collapsed, setCollapsed] = useState(false); 
+
+  const isDarkMode = theme === "dark";
 
   return (
     <aside
-      className={`bg-olive-100 border-r border-olive-300 h-screen flex flex-col transition-all duration-300 ${collapsed ? "w-20" : "w-64"
-        }`}
+      className={clsx(
+        "flex flex-col min-h-screen h-screen overflow-hidden transition-all duration-300 border",
+        collapsed ? "w-20" : "w-64",
+        isDarkMode ? "bg-dark-900 border-dark-700" : "bg-olive-100 border-olive-300"
+      )}
     >
       {/* Logo + Botón de colapsar */}
-      <div className="flex items-center justify-center px-4 py-4 relative border-b border-olive-700 mb-5">
+      <div
+        className={clsx(
+          "flex items-center justify-center px-4 py-4 relative border-b mb-5",
+          isDarkMode ? "border-dark-600" : "border-olive-700"
+        )}
+      >
         <img
           src="/logo.png"
           alt="Logo"
-          className={`transition-all duration-300 ${collapsed ? "w-14" : "w-32"
-            }`}
+          className={clsx("transition-all duration-300", collapsed ? "w-14" : "w-32")}
         />
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="text-olive-600 hover:text-olive-800 transition absolute right-0 "
+          className={clsx(
+            "hover:opacity-80 transition absolute right-0",
+            isDarkMode ? "text-dark-200" : "text-olive-600"
+          )}
         >
-          {collapsed ? <ChevronRight size={20} className="cursor-pointer"/> : <ChevronLeft size={32} className="cursor-pointer"/>}
+          {collapsed ? <ChevronRight size={20} className="cursor-pointer" /> : <ChevronLeft size={32} className="cursor-pointer" />}
         </button>
       </div>
 
       {/* Menú */}
-      <nav className="flex-1 px-2 space-y-1">
+      <nav className="flex-1 px-2 space-y-1 overflow-auto">
         {menuItems.map((item, index) => (
           <NavLink
-            key={index} 
+            key={index}
             to={item.to}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${isActive ? "bg-olive-600 text-white" : "text-olive-700 hover:bg-olive-200"
-              } ${collapsed ? "justify-center" : ""}`
+              clsx(
+                "flex items-center gap-3 px-3 py-2 text-sm font-medium transition-all duration-300 rounded-lg",
+                collapsed && "justify-center",
+                isActive
+                  ? isDarkMode
+                    ? "bg-dark-700 text-dark-50"
+                    : "bg-olive-600 text-white"
+                  : isDarkMode
+                  ? "text-dark-200 hover:bg-dark-800"
+                  : "text-olive-700 hover:bg-olive-200"
+              )
             }
           >
             <item.icon size={18} />
