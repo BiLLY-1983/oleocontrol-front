@@ -1,4 +1,6 @@
 import React from "react";
+import { useContext } from 'react';
+import { UserContext } from "@context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { logoutRequest } from "@services/authRequests";
@@ -10,17 +12,22 @@ import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
 const Logout = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+
+  const { userData, setUserData } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     const token = localStorage.getItem("authToken");
     if (token) {
       try {
-        const response = await logoutRequest(token);
+        const message = await logoutRequest(userData.token); // Usamos la función logoutRequest
 
-        localStorage.removeItem("authToken");
-        localStorage.removeItem("userData");
+        setUserData(null); // Limpiar el estado del usuario
+        localStorage.removeItem('authToken'); // Eliminar el token del almacenamiento local
+        localStorage.removeItem('userData');
+
+        localStorage.removeItem('loginType'); // Eliminar el tipo de login
 
         success({
           title: t("Logout_title"),
@@ -29,8 +36,8 @@ const Logout = () => {
         });
 
         navigate("/");
-      } catch (error) {
-        
+      } catch (err) {
+
         error({
           title: t("Logout_title"),
           text: t("Logout_text_fail"),

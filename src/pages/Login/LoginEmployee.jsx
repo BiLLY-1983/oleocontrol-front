@@ -1,63 +1,195 @@
-// src/pages/LoginEmpleado.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { loginRequest } from "@services/authRequests.js";
+import { UserContext } from '@context/UserContext';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import useUserAuth from '@hooks/useUserAuth';
+import { useTranslation } from "react-i18next";
+
+import { success, error } from "@pnotify/core";
+import "@pnotify/core/dist/PNotify.css";
+import "@pnotify/core/dist/BrightTheme.css";
+import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
 const LoginEmployee = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { t } = useTranslation();
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const { setUserData } = useContext(UserContext);
+
+  const [err, setErr] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+
   const navigate = useNavigate();
+
+  const { hasRole } = useUserAuth();
+
+  useEffect(() => {
+    const savedUsername = localStorage.getItem("rememberedUsername");
+    const savedPassword = localStorage.getItem("rememberedPassword");
+    const remember = localStorage.getItem("rememberMe") === "true";
+
+    if (remember) {
+      setUsername(savedUsername || "");
+      setPassword(savedPassword || "");
+      setRememberMe(true);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.post('/api/login', { email, password });
+    // Validar que los campos no estén vacíos
+    if (!username || !password) {
+      setErr("Por favor, completa todos los campos.");
+      return;
+    }
 
-      if (response.data.role === 'empleado') {
-        navigate('/empleado-dashboard');
-      } else {
-        alert('Acceso denegado');
+    try {
+      const data = await loginRequest(username, password);
+
+      if (data.access_token) {
+        // Si se obtiene un access_token, significa que el login fue exitoso
+        setUserData({
+          token: data.access_token,
+          user: data.user,
+        });
+
+        localStorage.setItem('authToken', data.access_token);
+        localStorage.setItem('userData', JSON.stringify(data.user));
+
+        // Almacenar el tipo de Login
+        localStorage.setItem('loginType', 'admin');
+
+        if (hasRole("Administrador")) {
+          success({
+            title: t("Login_title_ok") + username,
+            text: t("Login_text_ok"),
+            delay: 2000,
+          });
+
+          navigate('/dashboard/admin/home');
+        } else {
+          
+          error({
+            title: t("Login_title_fail"),
+            text: t("Login_text_fail"),
+            delay: 2000,
+          });
+
+          navigate('/');
+        }
       }
-    } catch (error) {
-      console.error(error);
-      alert('Error de inicio de sesión');
+
+      if (rememberMe) {
+        localStorage.setItem("rememberedUsername", username);
+        localStorage.setItem("rememberedPassword", password);
+        localStorage.setItem("rememberMe", "true");
+      } else {
+        localStorage.removeItem("rememberedUsername");
+        localStorage.removeItem("rememberedPassword");
+        localStorage.setItem("rememberMe", "false");
+      }
+    } catch (err) {
+      error({
+        title: t("Login_text_fail"),
+        text: t("Login_title_fail_cred"),
+        delay: 2000,
+      });
+      setErr(err.message);
     }
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-olive-50">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
-        <h2 className="text-3xl font-semibold text-center text-olive-700 mb-6">Login Empleado</h2>
+    <div className="h-screen flex justify-center items-center bg-olive-50">
+      <div className="w-full max-w-sm bg-white p-8 rounded-lg shadow-lg border border-olive-200">
+        <div className="flex justify-center mb-6">
+          <img
+            src="/logo.png"
+            alt="Login Icon"
+            className="w-48"
+          />
+        </div>
+        <h2 className="text-2xl font-semibold text-olive-700 text-center mb-6">
+          Iniciar sesión
+        </h2>
+
+        {err && (
+          <div className="text-red-500 text-sm text-center mb-4">{err}</div>
+        )}
+
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-olive-700 font-medium">Correo electrónico</label>
+          <div className="mb-4 relative">
             <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 mt-2 border border-olive-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-olive-500"
-              required
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="peer bg-transparent h-12 w-full rounded-lg text-olive-700 placeholder-transparent ring-2 ring-olive-300 px-4 focus:ring-olive-500 focus:outline-none focus:border-olive-600 transition-all"
+              placeholder="Usuario"
             />
+            <label
+              htmlFor="username"
+              className="absolute cursor-text left-4 -top-3 text-sm text-olive-700 bg-white px-1 peer-placeholder-shown:text-base peer-placeholder-shown:text-olive-500 peer-placeholder-shown:top-3 peer-focus:-top-3 peer-focus:text-olive-600 peer-focus:text-sm transition-all"
+            >
+              Usuario
+            </label>
           </div>
-          <div className="mb-6">
-            <label htmlFor="password" className="block text-olive-700 font-medium">Contraseña</label>
+          <div className="mb-6 relative">
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-3 mt-2 border border-olive-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-olive-500"
-              required
+              className="peer bg-transparent h-12 w-full rounded-lg text-olive-700 placeholder-transparent ring-2 ring-olive-300 px-4 pr-12 focus:ring-olive-500 focus:outline-none focus:border-olive-600 transition-all"
+              placeholder=" "
             />
+            <label
+              htmlFor="password"
+              className="absolute cursor-text left-4 -top-3 text-sm text-olive-700 bg-white px-1 peer-placeholder-shown:text-base peer-placeholder-shown:text-olive-500 peer-placeholder-shown:top-3 peer-focus:-top-3 peer-focus:text-olive-600 peer-focus:text-sm transition-all"
+            >
+              Contraseña
+            </label>
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-olive-500 hover:text-olive-700 focus:outline-none cursor-pointer"
+            >
+              {showPassword ? <FaEye /> : <FaEyeSlash />}
+            </button>
           </div>
+
+          <div className="flex items-center mb-4">
+            <input
+              id="rememberMe"
+              type="checkbox"
+              checked={rememberMe}
+              onChange={() => setRememberMe(!rememberMe)}
+              className="w-4 h-4 accent-olive-600 bg-gray-100 border-gray-300 rounded focus:ring-olive-500 focus:ring-2"
+            />
+            <label htmlFor="rememberMe" className="ml-2 text-sm text-olive-700">
+              Recordar contraseña
+            </label>
+          </div>
+
           <button
             type="submit"
-            className="w-full bg-olive-600 text-white py-3 rounded-lg hover:bg-olive-700 transition"
+            className="w-full py-2 bg-olive-500 text-white font-semibold rounded-md hover:bg-olive-600 focus:outline-none focus:ring-2 focus:ring-olive-400 cursor-pointer"
           >
             Iniciar sesión
           </button>
+
+          {/* Enlace para contraseña olvidada */}
+          <div className="mt-4 text-center">
+            <a
+              href="/forgot-password" // Cambiar por la ruta real de "contraseña olvidada"
+              className="text-sm text-olive-500 hover:text-olive-700"
+            >
+              ¿Olvidaste tu contraseña?
+            </a>
+          </div>
         </form>
       </div>
     </div>

@@ -33,6 +33,8 @@
     "Login_text_ok": "Login successfully",
     "Login_title_ok": "Welcome ",
     "Login_text_fail": "Login error",
-    "Login_title_fail": "There was an error logging in"
+    "Login_title_fail": "There was an error logging in",
+    "Login_title_fail_cred": "Incorrect credentials",
+    "Login_text_fail_no_admin": "You do not have administrator permissions"
   }
   

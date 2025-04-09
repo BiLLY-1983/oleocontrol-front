@@ -33,6 +33,8 @@
     "Login_text_ok": "Login exitoso",
     "Login_title_ok": "Bienvenid@ ",
     "Login_text_fail": "Error al iniciar sesión",
-    "Login_title_fail": "Hubo un error iniciando sesión"
+    "Login_title_fail": "Hubo un error iniciando sesión",
+    "Login_title_fail_cred": "Credenciales incorrectas",
+    "Login_text_fail_no_admin": "No tiene permisos de administrador"
   }
   

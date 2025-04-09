@@ -17,9 +17,9 @@ const LoginAdmin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { setUserData } = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
 
-  const [error, setError] = useState("");
+  const [err, setErr] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
   const navigate = useNavigate();
@@ -41,10 +41,14 @@ const LoginAdmin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validar que los campos no estén vacíos
+    if (!username || !password) {
+      setErr("Por favor, completa todos los campos.");
+      return;
+    }
+
     try {
       const data = await loginRequest(username, password);
-
-      console.log(data);
 
       if (data.access_token) {
         // Si se obtiene un access_token, significa que el login fue exitoso
@@ -56,11 +60,10 @@ const LoginAdmin = () => {
         localStorage.setItem('authToken', data.access_token);
         localStorage.setItem('userData', JSON.stringify(data.user));
 
-        //Almacenar el tipo de Login
+        // Almacenar el tipo de Login
         localStorage.setItem('loginType', 'admin');
 
-        if (hasRole("Administrador")) {
-
+        if (data.user.roles.some(role => role.name === "Administrador")) {
           success({
             title: t("Login_title_ok") + username,
             text: t("Login_text_ok"),
@@ -69,16 +72,15 @@ const LoginAdmin = () => {
 
           navigate('/dashboard/admin/home');
         } else {
-
+          
           error({
-            title: t("Login_title_fail"),
-            text: t("Login_text_fail"),
+            title: t("Login_text_fail"),
+            text: t("Login_text_fail_no_admin"),
             delay: 2000,
           });
 
           navigate('/');
         }
-
       }
 
       if (rememberMe) {
@@ -90,8 +92,9 @@ const LoginAdmin = () => {
         localStorage.removeItem("rememberedPassword");
         localStorage.setItem("rememberMe", "false");
       }
-    } catch (error) {
-      setError(error.message);
+    } catch (err) {
+      
+      setErr(err.message);
     }
   };
 
@@ -109,8 +112,8 @@ const LoginAdmin = () => {
           Iniciar sesión
         </h2>
 
-        {error && (
-          <div className="text-red-500 text-sm text-center mb-4">{error}</div>
+        {err && (
+          <div className="text-red-500 text-sm text-center mb-4">{err}</div>
         )}
 
         <form onSubmit={handleSubmit}>
@@ -163,7 +166,7 @@ const LoginAdmin = () => {
               className="w-4 h-4 accent-olive-600 bg-gray-100 border-gray-300 rounded focus:ring-olive-500 focus:ring-2"
             />
             <label htmlFor="rememberMe" className="ml-2 text-sm text-olive-700">
-              Recordar contraseña
+              Recordar credenciales
             </label>
           </div>
 
@@ -173,6 +176,17 @@ const LoginAdmin = () => {
           >
             Iniciar sesión
           </button>
+
+          {/* 👉 Botón para volver al inicio */}
+          <div className="mt-3 text-center">
+            <button
+              type="button"
+              onClick={() => navigate('/')}
+              className="text-sm text-olive-500 hover:text-olive-700 underline cursor-pointer"
+            >
+              Volver al inicio
+            </button>
+          </div>
 
           {/* Enlace para contraseña olvidada */}
           <div className="mt-4 text-center">

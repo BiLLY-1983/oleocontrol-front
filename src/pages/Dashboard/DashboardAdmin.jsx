@@ -10,8 +10,6 @@ const DashboardAdmin = () => {
       <div className="flex-1 flex flex-col bg-white">
         <Topbar />
 
-        
-
         <Outlet />
       </div>
     </div>

@@ -1,7 +1,12 @@
 import axios from 'axios';
 
+import { alert } from "@pnotify/core";
+import "@pnotify/core/dist/PNotify.css";
+import "@pnotify/core/dist/BrightTheme.css";
+import "@pnotify/confirm/dist/PNotifyConfirm.css";
+
 // Configuración dinámica de la baseURL dependiendo del entorno
-const baseURL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api'; 
+const baseURL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api';
 
 // Crear una instancia de Axios
 const api = axios.create({
@@ -17,12 +22,12 @@ api.interceptors.request.use(
     (config) => {
         // Obtener el token del localStorage
         const token = localStorage.getItem('authToken');
-        
+
         if (token) {
             // Si el token existe, incluirlo en los headers de la solicitud
             config.headers['Authorization'] = `Bearer ${token}`;
         }
-        
+
         return config;  // Asegurarse de retornar la configuración modificada
     },
     (error) => {
@@ -40,14 +45,15 @@ api.interceptors.response.use(
             // Eliminar token y datos del usuario del localStorage
             localStorage.removeItem('authToken');
             localStorage.removeItem('userData');
-            
-            // Redirigir al login o mostrar un mensaje (según tu preferencia)
-            window.location.href = '/login';  // Redirigir al login, o lo que prefieras hacer
+
         } else if (error.response && error.response.status === 500) {
             // Manejo de error 500 (servidor caído)
-            alert('Error en el servidor. Por favor, intente nuevamente más tarde.');
+            alert({
+                title: "Internal server error",
+                delay: 2000,
+            });
         }
-        
+
         return Promise.reject(error);
     }
 );
