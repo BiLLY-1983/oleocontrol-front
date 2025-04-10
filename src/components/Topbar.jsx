@@ -74,8 +74,8 @@ export default function Topbar() {
           className={clsx(
             "p-2 border rounded-md cursor-pointer transition",
             isDarkMode
-              ? "text-dark-200 bg-dark-800 border-dark-600 hover:bg-dark-700"
-              : "text-olive-700 bg-olive-300 border-olive-500 hover:bg-olive-200"
+              ? "text-dark-200 bg-dark-800 border-dark-600 hover:bg-dark-900"
+              : "text-olive-700 bg-olive-100 border-olive-500 hover:bg-olive-300"
           )}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
@@ -140,26 +140,26 @@ export default function Topbar() {
                   <ul>
                     <li
                       className={clsx(
-                        "flex gap-1 px-4 py-2 cursor-pointer transition",
+                        "flex items-center gap-1 px-4 py-2 cursor-pointer transition",
                         isDarkMode
                           ? "hover:bg-dark-600 text-dark-200"
                           : "hover:bg-olive-100 text-olive-700"
                       )}
                       onClick={() => setTheme("light")}
                     >
-                      <Sun size={20} className="text-yellow-500" />
+                      <Sun size={18} className="text-yellow-500" />
                       Modo Claro
                     </li>
                     <li
                       className={clsx(
-                        "flex gap-1 px-4 py-2 cursor-pointer transition",
+                        "flex items-center gap-1 px-4 py-2 cursor-pointer transition",
                         isDarkMode
                           ? "hover:bg-dark-600 text-dark-200"
                           : "hover:bg-olive-100 text-olive-700"
                       )}
                       onClick={() => setTheme("dark")}
                     >
-                      <Moon size={20} className="text-blue-800" />
+                      <Moon size={18} className="text-blue-800" />
                       Modo Oscuro
                     </li>
                   </ul>
@@ -252,10 +252,10 @@ export default function Topbar() {
         {/* Perfil */}
         <div
           className={clsx(
-            "flex items-center gap-2 px-4 py-2 rounded-md cursor-pointer transition",
+            "flex items-center gap-2 px-4 py-2 rounded-md transition",
             isDarkMode
-              ? "hover:bg-dark-700 text-dark-200"
-              : "hover:bg-olive-100 text-olive-700"
+              ? " text-dark-200"
+              : " text-olive-700"
           )}
         >
           <div

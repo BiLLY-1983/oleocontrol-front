@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { useTheme } from "@context/ThemeContext";
 
 export default function StatCard({ title, value, subtext }) {
-  const { theme } = useTheme(); // Usar el contexto del tema
+  const { theme } = useTheme(); 
   const isDarkMode = theme === "dark";
 
   return (

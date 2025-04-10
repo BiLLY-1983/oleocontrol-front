@@ -41,7 +41,7 @@ export default function Sidebar() {
   return (
     <aside
       className={clsx(
-        "flex flex-col min-h-screen h-screen overflow-hidden transition-all duration-300 border",
+        "flex flex-col min-h-screen h-screen overflow-hidden transition-all duration-300 border-r",
         collapsed ? "w-20" : "w-64",
         isDarkMode ? "bg-dark-900 border-dark-700" : "bg-olive-100 border-olive-300"
       )}

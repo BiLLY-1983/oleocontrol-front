@@ -1,24 +1,26 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react'; // Importar useContext
-import { UserContext } from '@context/UserContext';
+import { useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "@context/UserContext";
+import { useTheme } from "@context/ThemeContext";
+import clsx from "clsx";
 
 const LandingPage = () => {
-  // Usar useContext para obtener el valor del contexto
   const { userData } = useContext(UserContext);
+  const { theme } = useTheme();
+  const isDarkMode = theme === "dark";
   const navigate = useNavigate();
 
   useEffect(() => {
     if (userData?.token && userData.user?.role) {
       switch (userData.user.role) {
-        case 'admin':
-          navigate('/admin');
+        case "admin":
+          navigate("/admin");
           break;
-        case 'empleado':
-          navigate('/empleado');
+        case "empleado":
+          navigate("/empleado");
           break;
-        case 'socio':
-          navigate('/socio');
+        case "socio":
+          navigate("/socio");
           break;
         default:
           break;
@@ -27,35 +29,67 @@ const LandingPage = () => {
   }, [userData, navigate]);
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center bg-olive-50 px-4 text-center">
-      <div className="flex justify-center mb-6">
-        <img
-          src="/logo.png"
-          alt="Login Icon"
-          className="w-48"
-        />
-      </div>
-      <h1 className="text-3xl font-bold text-olive-800 mb-6">Bienvenido a la plataforma</h1>
-      <p className="text-olive-700 mb-8">Selecciona cómo deseas iniciar sesión:</p>
-      <div className="flex flex-col gap-4 w-full max-w-sm">
-        <button
-          onClick={() => navigate('/login/admin')}
-          className="bg-olive-500 hover:bg-olive-600 text-white py-2 px-4 rounded-md transition cursor-pointer"
+    <div
+      className={clsx(
+        "min-h-screen flex items-center justify-center px-4",
+        isDarkMode ? "bg-dark-800 text-white" : "bg-olive-50 text-olive-900"
+      )}
+    >
+      <div
+        className={clsx(
+          "w-full max-w-md rounded-2xl shadow-lg p-8 text-center transition-colors",
+          isDarkMode ? "bg-dark-900" : "bg-white"
+        )}
+      >
+        <div className="flex justify-center mb-6">
+          <img src="/logo.png" alt="Logo" className="w-48" />
+        </div>
+        <h1 className="text-3xl font-semibold mb-2">
+          Bienvenido a la plataforma
+        </h1>
+        <p
+          className={clsx(
+            "text-sm mb-8",
+            isDarkMode ? "text-gray-400" : "text-gray-600"
+          )}
         >
-          Administrador
-        </button>
-        <button
-          onClick={() => navigate('/login/empleado')}
-          className="bg-olive-500 hover:bg-olive-600 text-white py-2 px-2 rounded-md transition cursor-pointer"
-        >
-          Empleado
-        </button>
-        <button
-          onClick={() => navigate('/login/socio')}
-          className="bg-olive-500 hover:bg-olive-600 text-white py-2 px-4 rounded-md transition cursor-pointer"
-        >
-          Socio
-        </button>
+          Selecciona cómo deseas iniciar sesión:
+        </p>
+        <div className="flex flex-col gap-4">
+          <button
+            onClick={() => navigate("/login/admin")}
+            className={clsx(
+              "py-2 px-4 rounded-xl font-medium transition cursor-pointer",
+              isDarkMode
+                ? "bg-gray-700 hover:bg-gray-600 text-white"
+                : "bg-olive-600 hover:bg-olive-700 text-white"
+            )}
+          >
+            Administrador
+          </button>
+          <button
+            onClick={() => navigate("/login/empleado")}
+            className={clsx(
+              "py-2 px-4 rounded-xl font-medium transition cursor-pointer",
+              isDarkMode
+                ? "bg-gray-700 hover:bg-gray-600 text-white"
+                : "bg-olive-600 hover:bg-olive-700 text-white"
+            )}
+          >
+            Empleado
+          </button>
+          <button
+            onClick={() => navigate("/login/socio")}
+            className={clsx(
+              "py-2 px-4 rounded-xl font-medium transition cursor-pointer",
+              isDarkMode
+                ? "bg-gray-700 hover:bg-gray-600 text-white"
+                : "bg-olive-600 hover:bg-olive-700 text-white"
+            )}
+          >
+            Socio
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -49,7 +49,7 @@ export default function ChartSection() {
                 "px-4 py-1 text-sm rounded-full border cursor-pointer transition-all duration-300",
                 tab === name
                   ? isDarkMode
-                    ? "bg-dark-700 text-dark-50 border-dark-500"
+                    ? "bg-dark-700 text-dark-50 border-dark-400"
                     : "bg-olive-600 text-white border-olive-300"
                   : isDarkMode
                   ? "bg-dark-800 text-dark-200 border-dark-600 hover:bg-dark-700"

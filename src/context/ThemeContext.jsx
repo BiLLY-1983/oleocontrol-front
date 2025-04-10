@@ -3,7 +3,9 @@ import { createContext, useContext, useState, useEffect } from "react";
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState("system");
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "";
+  });
 
   const applyTheme = (selectedTheme) => {
     const root = document.documentElement;
@@ -21,6 +23,8 @@ export function ThemeProvider({ children }) {
       }
     }
 
+    // Guardar el tema en localStorage
+    localStorage.setItem("theme", selectedTheme);
     setTheme(selectedTheme);
   };
 
