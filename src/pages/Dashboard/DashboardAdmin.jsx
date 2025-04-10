@@ -23,7 +23,7 @@ const DashboardAdmin = () => {
         )}
       >
         <Topbar />
-        <div>
+        <div className="flex-1 flex flex-col overflow-scroll">
           <Outlet />
         </div>
       </div>

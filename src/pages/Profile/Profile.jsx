@@ -38,13 +38,14 @@ const UserProfile = () => {
   return (
     <div
       className={clsx(
-        "flex justify-center items-center min-h-screen",
-        isDarkMode ? "bg-dark-800" : "bg-white"
+        "p-6 space-y-6",
+        isDarkMode ? "bg-dark-800 text-dark-50" : "bg-white text-olive-800"
       )}
     >
+      <h1 className="text-2xl font-bold">Perfil</h1>
       <div
         className={clsx(
-          "rounded-lg shadow-lg p-8 w-full max-w-2xl",
+          "rounded-lg shadow-lg p-8 w-full max-w-2xl m-auto",
           isDarkMode ? "bg-dark-900" : "bg-olive-50"
         )}
       >
@@ -53,7 +54,9 @@ const UserProfile = () => {
           <div
             className={clsx(
               "w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold",
-              isDarkMode ? "bg-dark-700 text-dark-50" : "bg-olive-700 text-white"
+              isDarkMode
+                ? "bg-dark-700 text-dark-50"
+                : "bg-olive-700 text-white"
             )}
           >
             {initials}

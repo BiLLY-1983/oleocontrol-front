@@ -8,9 +8,9 @@ const Home = () => {
     const isDarkMode = theme === "dark";
 
     return (
-        <main
+        <div
             className={clsx(
-                "min-h-screen h-full p-6 space-y-6",
+                "p-6 space-y-6",
                 isDarkMode ? "bg-dark-800 text-dark-50" : "bg-white text-olive-800"
             )}
         >
@@ -40,7 +40,7 @@ const Home = () => {
             </div>
 
             <ChartSection />
-        </main>
+        </div>
     );
 };
 

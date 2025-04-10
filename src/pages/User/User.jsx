@@ -1,30 +1,52 @@
-import React, { useEffect, useState } from 'react';
-import { getUsers, deleteUser } from '@services/userRequests';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { MoreVertical } from 'lucide-react';
-import { Card } from '@/components/ui/card';
+import React, { useEffect, useState } from "react";
+import { getUsers } from "@services/userRequests";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Trash2, SquarePen } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useTheme } from "@context/ThemeContext";
+import clsx from "clsx";
 
 const Usuarios = () => {
+  const { theme } = useTheme();
+  const isDarkMode = theme === "dark";
+
   const [usuarios, setUsuarios] = useState([]);
-  const [filtro, setFiltro] = useState('');
+  const [filtro, setFiltro] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1); // Página actual
-  const [usersPerPage] = useState(10); // Número de usuarios por página
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage, setUsersPerPage] = useState(10);
 
   const fetchUsuarios = async () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await getUsers('/users');
+      const response = await getUsers("/users");
       if (response.status === "success" && Array.isArray(response.data)) {
         setUsuarios(response.data);
       } else {
-        setError('No se pudieron obtener los usuarios.');
+        setError("No se pudieron obtener los usuarios.");
       }
     } catch (err) {
-      setError('Hubo un error al cargar los usuarios.');
+      setError("Hubo un error al cargar los usuarios.");
     } finally {
       setLoading(false);
     }
@@ -34,117 +56,255 @@ const Usuarios = () => {
     fetchUsuarios();
   }, []);
 
-  const handleDelete = async (id) => {
-    if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
-      await deleteUser(id);
-      fetchUsuarios();
-    }
+  const handleEdit = (id) => {
+    console.log("Edición");
   };
 
-  const usuariosFiltrados = usuarios.filter((usuario) =>
-    usuario.first_name.toLowerCase().includes(filtro.toLowerCase()) ||
-    usuario.email.toLowerCase().includes(filtro.toLowerCase())
+  const handleDelete = (id) => {
+    console.log("Borrado");
+  };
+
+  // Paginación
+  const getVisiblePageNumbers = () => {
+    const totalPages = pageNumbers.length;
+    const maxVisible = 5;
+    const pages = [];
+
+    if (totalPages <= maxVisible) {
+      return pageNumbers;
+    }
+
+    if (currentPage <= 3) {
+      return [...pageNumbers.slice(0, 3), "...", totalPages];
+    }
+
+    if (currentPage >= totalPages - 2) {
+      return [1, "...", ...pageNumbers.slice(totalPages - 3)];
+    }
+
+    return [
+      1,
+      "...",
+      currentPage - 1,
+      currentPage,
+      currentPage + 1,
+      "...",
+      totalPages,
+    ];
+  };
+
+  const usuariosFiltrados = usuarios.filter(
+    (usuario) =>
+      usuario.first_name.toLowerCase().includes(filtro.toLowerCase()) ||
+      usuario.email.toLowerCase().includes(filtro.toLowerCase())
   );
 
-  // Lógica de paginación
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = usuariosFiltrados.slice(indexOfFirstUser, indexOfLastUser);
+  const currentUsers = usuariosFiltrados.slice(
+    indexOfFirstUser,
+    indexOfLastUser
+  );
 
-  // Cambiar la página
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // Calcular el total de páginas
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(usuariosFiltrados.length / usersPerPage); i++) {
+  for (
+    let i = 1;
+    i <= Math.ceil(usuariosFiltrados.length / usersPerPage);
+    i++
+  ) {
     pageNumbers.push(i);
   }
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-semibold">Gestión de Usuarios</h2>
-        <Button className="bg-green-700 hover:bg-green-800 text-white">
+    <div
+      className={clsx(
+        "p-6 space-y-6",
+        isDarkMode ? "bg-dark-800 text-dark-50" : "bg-white text-olive-800"
+      )}
+    >
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold">Gestión de Usuarios</h1>
+        <Button
+          className={clsx(
+            "cursor-pointer bg-olive-500  text-white",
+            isDarkMode
+              ? "bg-dark-600 hover:bg-dark-500"
+              : "bg-olive-500 hover:bg-olive-600"
+          )}
+          onClick={() => console.log("Nuevo Usuario")}
+        >
           + Nuevo Usuario
         </Button>
       </div>
-      <Input
-        placeholder="Buscar usuarios..."
-        value={filtro}
-        onChange={(e) => setFiltro(e.target.value)}
-        className="mb-4 w-full"
-      />
-      <Card className="overflow-x-auto">
-        <div className="table-container max-h-96 overflow-y-auto">
-          <table className="min-w-full text-sm">
-            <thead>
-              <tr className="text-left border-b">
-                <th className="p-3">Nombre</th>
-                <th className="p-3">Email</th>
-                <th className="p-3">Roles</th>
-                <th className="p-3">Estado</th>
-                <th className="p-3 text-center">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentUsers.map((usuario) => (
-                <tr key={usuario.id} className="border-b hover:bg-gray-50">
-                  <td className="p-3 font-medium">{usuario.first_name} {usuario.last_name}</td>
-                  <td className="p-3">{usuario.email}</td>
-                  <td className="p-3">{usuario.roles.map(role => role.name).join(', ')}</td>
-                  <td className="p-3">
-                    <span
-                      className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                        usuario.status === 'Activo'
-                          ? 'bg-green-100 text-green-700'
-                          : 'bg-red-100 text-red-700'
-                      }`}
-                    >
-                      {usuario.status}
-                    </span>
-                  </td>
-                  <td className="p-3 text-center">
-                    <div className="inline-flex space-x-2 items-center">
-                      <button
-                        className="text-sm text-blue-600 hover:underline"
-                        onClick={() => alert('Editar usuario ' + usuario.id)}
-                      >
-                        Editar
-                      </button>
-                      <button
-                        className="text-sm text-red-600 hover:underline"
-                        onClick={() => handleDelete(usuario.id)}
-                      >
-                        Eliminar
-                      </button>
-                      <MoreVertical size={16} className="text-gray-500" />
-                    </div>
-                  </td>
-                </tr>
+
+      {/* Filtro y Selector */}
+      <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+        <Input
+          placeholder="Buscar usuarios..."
+          value={filtro}
+          onChange={(e) => setFiltro(e.target.value)}
+          className="w-full md:w-1/2"
+        />
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-muted-foreground">Mostrar:</span>
+          <Select
+            value={String(usersPerPage)}
+            onValueChange={(value) => {
+              setUsersPerPage(Number(value));
+              setCurrentPage(1);
+            }}
+          >
+            <SelectTrigger className="w-[80px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {[5, 10, 20, 50, 100].map((num) => (
+                <SelectItem key={num} value={String(num)}>
+                  {num}
+                </SelectItem>
               ))}
-            </tbody>
-          </table>
+            </SelectContent>
+          </Select>
         </div>
-      </Card>
-      {/* Paginación */}
-      <div className="flex justify-center mt-4">
-        <ul className="flex space-x-2">
-          {pageNumbers.map((number) => (
-            <li key={number}>
-              <button
-                onClick={() => paginate(number)}
-                className={`px-3 py-1 border rounded-md text-sm ${
-                  number === currentPage
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white text-blue-600'
-                }`}
-              >
-                {number}
-              </button>
-            </li>
-          ))}
-        </ul>
       </div>
+
+      {/* Tabla o Skeleton */}
+      <Card
+        className={clsx(
+          "rounded-2xl shadow p-4 w-full border overflow-x-auto",
+          isDarkMode
+            ? "bg-dark-900 border-dark-700 text-dark-50"
+            : "bg-olive-50 border-olive-200 text-olive-800"
+        )}
+      >
+        {loading ? (
+          <div className="space-y-4">
+            {Array.from({ length: usersPerPage }).map((_, i) => (
+              <div
+                key={i}
+                className="flex justify-between items-center space-x-4"
+              >
+                <Skeleton className="h-4 w-1/4" />
+                <Skeleton className="h-4 w-1/4" />
+                <Skeleton className="h-4 w-1/6" />
+                <Skeleton className="h-4 w-1/6" />
+                <Skeleton className="h-4 w-16" />
+              </div>
+            ))}
+          </div>
+        ) : error ? (
+          <div className="text-red-600">{error}</div>
+        ) : (
+          <div className="overflow-y-auto">
+            <table className="min-w-full text-sm">
+              <thead>
+                <tr className="text-left border-b">
+                  <th className="p-3 text-lg w-1/4">Nombre</th>
+                  <th className="p-3 text-lg w-1/4">Email</th>
+                  <th className="p-3 text-lg w-1/5">Roles</th>
+                  <th className="p-3 text-lg w-1/5">Estado</th>
+                  <th className="p-3 text-center text-lg w-1/5">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentUsers.map((usuario) => (
+                  <tr
+                    key={usuario.id}
+                    className={clsx(
+                      "border-b transition-colors",
+                      isDarkMode ? "hover:bg-dark-700" : "hover:bg-olive-100"
+                    )}
+                  >
+                    <td className="p-3 font-medium">
+                      {usuario.first_name} {usuario.last_name}
+                    </td>
+                    <td className="p-3">{usuario.email}</td>
+                    <td className="p-3">
+                      {usuario.roles.map((role) => role.name).join(", ")}
+                    </td>
+                    <td className="p-3">
+                      <span
+                        className={clsx(
+                          "px-2 py-1 rounded-full text-xs font-semibold",
+                          usuario.status === 1
+                            ? "bg-blue-700 text-white"
+                            : "bg-red-700 text-white"
+                        )}
+                      >
+                        {usuario.status === 1 ? " Activo " : "Inactivo"}
+                      </span>
+                    </td>
+
+                    <td className="p-3 text-center">
+                      <div className="inline-flex space-x-2 items-center">
+                        <SquarePen
+                          size={18}
+                          className="cursor-pointer text-blue-600"
+                          onClick={() => handleEdit(usuario.id)}
+                        />
+                        <Trash2
+                          size={18}
+                          className="cursor-pointer text-red-600"
+                          onClick={() => handleDelete(usuario.id)}
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </Card>
+
+      {/* Paginación */}
+      {pageNumbers.length > 1 && (
+        <Pagination>
+          <PaginationContent className="overflow-x-auto">
+            <PaginationItem>
+              <PaginationPrevious
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (currentPage > 1) setCurrentPage(currentPage - 1);
+                }}
+              />
+            </PaginationItem>
+
+            {getVisiblePageNumbers().map((page, index) => (
+              <PaginationItem key={index}>
+                {page === "..." ? (
+                  <PaginationEllipsis />
+                ) : (
+                  <PaginationLink
+                    href="#"
+                    isActive={currentPage === page}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      paginate(Number(page));
+                    }}
+                  >
+                    {page}
+                  </PaginationLink>
+                )}
+              </PaginationItem>
+            ))}
+
+            <PaginationItem>
+              <PaginationNext
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (currentPage < pageNumbers.length)
+                    setCurrentPage(currentPage + 1);
+                }}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      )}
     </div>
   );
 };
