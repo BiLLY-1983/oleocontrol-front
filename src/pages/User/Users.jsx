@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { getUsers } from "@services/userRequests";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +11,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import { useTranslation } from "react-i18next";
 import {
   Pagination,
   PaginationContent,
@@ -25,20 +25,24 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useTheme } from "@context/ThemeContext";
 import clsx from "clsx";
 import NewUserModal from "@pages/User/NewUserModal";
+import EditUserModal from "@pages/User/EditUserModal";
+import DeleteUserModal from "@pages/User/DeleteUserModal";
 
 const Users = () => {
+  const { t } = useTranslation();
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
 
   const [usuarios, setUsuarios] = useState([]);
+  const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(null);
   const [filtro, setFiltro] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage, setUsersPerPage] = useState(10);
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const navigate = useNavigate();
+  const [modalNewUserOpen, setModalNewUserOpen] = useState(false);
+  const [modalEditUserOpen, setModalEditUserOpen] = useState(false);
+  const [modalDeleteUserOpen, setModalDeleteUserOpen] = useState(false);
 
   const fetchUsuarios = async () => {
     setLoading(true);
@@ -61,14 +65,6 @@ const Users = () => {
     fetchUsuarios();
   }, []);
 
-  const handleEdit = (id) => {
-    console.log("Edición");
-  };
-
-  const handleDelete = (id) => {
-    console.log("Borrado");
-  };
-
   // Función para actualizar la lista de usuarios
   const updateUsuarios = async () => {
     await fetchUsuarios(); // Vuelve a cargar la lista de usuarios
@@ -78,7 +74,7 @@ const Users = () => {
   const getVisiblePageNumbers = () => {
     const totalPages = pageNumbers.length;
     const maxVisible = 5;
-    const pages = [];
+    //const pages = [];
 
     if (totalPages <= maxVisible) {
       return pageNumbers;
@@ -143,13 +139,17 @@ const Users = () => {
               ? "bg-dark-600 hover:bg-dark-500"
               : "bg-olive-500 hover:bg-olive-600"
           )}
-          onClick={() => setModalOpen(true) }
+          onClick={() => setModalNewUserOpen(true) }
         >
-          + Nuevo Usuario
+          + {t("users.newUser")}
         </Button>
       </div>
 
-      <NewUserModal open={modalOpen} setOpen={setModalOpen} isDarkMode={isDarkMode} updateUsuarios={updateUsuarios} />
+      <NewUserModal open={modalNewUserOpen} setOpen={setModalNewUserOpen} isDarkMode={isDarkMode} updateUsuarios={updateUsuarios} />
+
+      <EditUserModal open={modalEditUserOpen} setOpen={setModalEditUserOpen} isDarkMode={isDarkMode} updateUsuarios={updateUsuarios} usuarioSeleccionado={usuarioSeleccionado} />
+
+      <DeleteUserModal open={modalDeleteUserOpen} setOpen={setModalDeleteUserOpen} isDarkMode={isDarkMode} updateUsuarios={updateUsuarios} usuarioSeleccionado={usuarioSeleccionado} />
 
       {/* Filtro y Selector */}
       <div className="flex flex-col md:flex-row justify-between items-center gap-4">
@@ -217,6 +217,7 @@ const Users = () => {
                 <tr className="text-left border-b-2">
                   <th className="p-3 text-lg w-1/4">Nombre</th>
                   <th className="p-3 text-lg w-1/4">Email</th>
+                  <th className="p-3 text-lg w-1/4">Teléfono</th>
                   <th className="p-3 text-lg w-1/5">Roles</th>
                   <th className="p-3 text-lg w-1/5">Estado</th>
                   <th className="p-3 text-center text-lg w-1/5">Acciones</th>
@@ -235,6 +236,7 @@ const Users = () => {
                       {usuario.first_name} {usuario.last_name}
                     </td>
                     <td className="p-3">{usuario.email}</td>
+                    <td className="p-3">{usuario.phone}</td>
                     <td className="p-3">
                       {usuario.roles.map((role) => role.name).join(", ")}
                     </td>
@@ -255,13 +257,19 @@ const Users = () => {
                       <div className="inline-flex space-x-2 items-center">
                         <SquarePen
                           size={18}
-                          className="cursor-pointer text-blue-600"
-                          onClick={() => handleEdit(usuario.id)}
+                          className="cursor-pointer text-blue-700 hover:text-blue-400"
+                          onClick={() => {
+                            setUsuarioSeleccionado(usuario);
+                            setModalEditUserOpen(true);
+                          }}
                         />
                         <Trash2
                           size={18}
-                          className="cursor-pointer text-red-600"
-                          onClick={() => handleDelete(usuario.id)}
+                          className="cursor-pointer text-red-700 hover:text-red-400"
+                          onClick={() => {
+                            setUsuarioSeleccionado(usuario);
+                            setModalDeleteUserOpen(true);
+                          }}
                         />
                       </div>
                     </td>

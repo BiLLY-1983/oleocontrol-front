@@ -23,7 +23,7 @@ export default function Topbar() {
   const { theme, setTheme } = useTheme();
 
   if (!userData?.token) {
-    return <div>No estás autenticado</div>;
+    return <div>{t("auth.not_authenticated")}</div>; // Traducción para "No estás autenticado"
   }
 
   const { user } = userData;
@@ -36,8 +36,6 @@ export default function Topbar() {
   const menuRef = useRef(null);
   const appearanceRef = useRef(null);
   const languageRef = useRef(null);
-
-  const logout = () => navigate("/");
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -106,7 +104,7 @@ export default function Topbar() {
                     : "text-olive-800 border-olive-800"
                 )}
               >
-                {t("settings")}
+                {t("settings.settings")} {/* Traducción para "Configuración" */}
               </li>
 
               {/* Submenú: Apariencia */}
@@ -121,7 +119,7 @@ export default function Topbar() {
               >
                 <SunMoon size={20} />
                 <span className="flex items-center justify-between w-full">
-                  {t("appearance")} <ChevronRight size={16} />
+                  {t("settings.appearance")} <ChevronRight size={16} />
                 </span>
 
                 {/* Submenú de Apariencia */}
@@ -148,7 +146,7 @@ export default function Topbar() {
                       onClick={() => setTheme("light")}
                     >
                       <Sun size={18} className="text-yellow-500" />
-                      Modo Claro
+                      {t("settings.light_mode")} {/* Traducción para "Modo Claro" */}
                     </li>
                     <li
                       className={clsx(
@@ -160,7 +158,7 @@ export default function Topbar() {
                       onClick={() => setTheme("dark")}
                     >
                       <Moon size={18} className="text-blue-800" />
-                      Modo Oscuro
+                      {t("settings.dark_mode")} {/* Traducción para "Modo Oscuro" */}
                     </li>
                   </ul>
                 </div>
@@ -178,7 +176,7 @@ export default function Topbar() {
               >
                 <Globe size={20} />
                 <span className="flex justify-between w-full">
-                  {t("language")} <ChevronRight size={16} />
+                  {t("settings.language")} <ChevronRight size={16} />
                 </span>
 
                 {/* Submenú de Idioma */}
@@ -206,7 +204,7 @@ export default function Topbar() {
                       )}
                       onClick={() => changeLanguage("es")}
                     >
-                      🇪🇸 {t("spanish")}
+                      🇪🇸 {t("settings.spanish")} {/* Traducción para "Español" */}
                     </li>
                     <li
                       className={clsx(
@@ -215,7 +213,7 @@ export default function Topbar() {
                       )}
                       onClick={() => changeLanguage("en")}
                     >
-                      🇬🇧 {t("english")}
+                      🇬🇧 {t("settings.english")} {/* Traducción para "Inglés" */}
                     </li>
                   </ul>
                 </div>
@@ -234,7 +232,7 @@ export default function Topbar() {
                 )}
               >
                 <User size={20} />
-                <span>{t("profile")}</span>
+                <span>{t("navigation.profile")} {/* Traducción para "Perfil" */}</span>
               </li>
 
               <li

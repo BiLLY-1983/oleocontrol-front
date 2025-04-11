@@ -19,22 +19,22 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "@context/ThemeContext";
 
 const menuItems = [
-  { name: "Inicio", icon: Home, to: "home" },
-  { name: "Usuarios", icon: Users, to: "users" },
-  { name: "Roles", icon: Shield, to: "roles" },
-  { name: "Empleados", icon: Briefcase, to: "employees" },
-  { name: "Departamentos", icon: Building, to: "departments" },
-  { name: "Socios", icon: UserCircle, to: "members" },
-  { name: "Entradas", icon: FileText, to: "entries" },
-  { name: "Análisis", icon: FlaskConical, to: "analyses" },
-  { name: "Liquidaciones", icon: Wallet, to: "settlements" },
-  { name: "Aceites", icon: Droplets, to: "oils" },
+  { name: "navigation.home", icon: Home, to: "home" },
+  { name: "navigation.users", icon: Users, to: "users" },
+  { name: "navigation.roles", icon: Shield, to: "roles" },
+  { name: "navigation.employees", icon: Briefcase, to: "employees" },
+  { name: "navigation.departments", icon: Building, to: "departments" },
+  { name: "navigation.members", icon: UserCircle, to: "members" },
+  { name: "navigation.entries", icon: FileText, to: "entries" },
+  { name: "navigation.analyses", icon: FlaskConical, to: "analyses" },
+  { name: "navigation.settlements", icon: Wallet, to: "settlements" },
+  { name: "navigation.oils", icon: Droplets, to: "oils" },
 ];
 
 export default function Sidebar() {
   const { t } = useTranslation();
-  const { theme } = useTheme(); 
-  const [collapsed, setCollapsed] = useState(false); 
+  const { theme } = useTheme();
+  const [collapsed, setCollapsed] = useState(false);
 
   const isDarkMode = theme === "dark";
 

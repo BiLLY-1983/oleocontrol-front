@@ -15,6 +15,7 @@ import { Button } from "@components/ui/button";
 import clsx from "clsx";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useTranslation } from "react-i18next";
 
 import { success, error } from "@pnotify/core";
 import "@pnotify/core/dist/PNotify.css";
@@ -43,6 +44,7 @@ const userSchema = z
     email: z
       .string()
       .email({ message: "El email no es válido" })
+      .min(1, { message: "El email es obligatorio" })
       .max(255, { message: "Máximo 255 caracteres" }),
     password: z
       .string()
@@ -50,7 +52,8 @@ const userSchema = z
     password_confirmation: z.string().min(8, {
       message: "La contraseña de confirmación debe tener al menos 8 caracteres",
     }),
-    phone: z.string()
+    phone: z
+      .string()
       .min(1, { message: "El teléfono es obligatorio" })
       .max(20, { message: "Máximo 20 caracteres" }),
   })
@@ -64,6 +67,7 @@ const userSchema = z
   });
 
 const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
+  const { t } = useTranslation(); // Hook para traducciones
   const {
     register,
     handleSubmit,
@@ -82,8 +86,8 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
 
     if (result.status === "success") {
       success({
-        title: "Usuario creado con éxito",
-        text: "El usuario ha sido creado correctamente.",
+        title: t("users.successTitle"), // Traducción para "Usuario creado con éxito"
+        text: t("users.successText"), // Traducción para "El usuario ha sido creado correctamente."
         delay: 2000,
       });
       reset(); // Limpiar formulario
@@ -95,7 +99,7 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
       }
     } else {
       error({
-        title: "Error al crear usuario",
+        title: t("users.errorTitle"), // Traducción para "Error al crear usuario"
         text: result.message,
         delay: 2000,
       });
@@ -112,16 +116,16 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
         )}
       >
         <DialogHeader>
-          <DialogTitle>Crear nuevo usuario</DialogTitle>
+          <DialogTitle>{t("users.newUser")}</DialogTitle> {/* Traducción para "Crear nuevo usuario" */}
           <DialogDescription>
-            Todos los campos son obligatorios.
+            {t("users.allFieldsRequired")} {/* Traducción para "Todos los campos son obligatorios." */}
           </DialogDescription>
         </DialogHeader>
 
         {/* Formulario de creación de usuario */}
         <form onSubmit={handleSubmit(handleCreate)} className="space-y-4">
           <div name="username">
-            <Label className="mb-1">Usuario:</Label>
+            <Label className="mb-1">{t("userProfile.username")}</Label> {/* Traducción para "Usuario" */}
             <Input
               type="text"
               {...register("username")}
@@ -133,7 +137,7 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
           </div>
 
           <div name="first_name">
-            <Label className="mb-1">Nombre:</Label>
+            <Label className="mb-1">{t("userProfile.firstName")}</Label> {/* Traducción para "Nombre" */}
             <Input
               type="text"
               {...register("first_name")}
@@ -147,7 +151,7 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
           </div>
 
           <div name="last_name">
-            <Label className="mb-1">Apellidos:</Label>
+            <Label className="mb-1">{t("userProfile.lastName")}</Label> {/* Traducción para "Apellidos" */}
             <Input
               type="text"
               {...register("last_name")}
@@ -159,7 +163,7 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
           </div>
 
           <div name="dni">
-            <Label className="mb-1">DNI:</Label>
+            <Label className="mb-1">{t("userProfile.dni")}</Label> {/* Traducción para "DNI" */}
             <Input
               type="text"
               {...register("dni")}
@@ -171,7 +175,7 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
           </div>
 
           <div name="email">
-            <Label className="mb-1">Email:</Label>
+            <Label className="mb-1">{t("userProfile.email")}</Label> {/* Traducción para "Email" */}
             <Input
               type="email"
               {...register("email")}
@@ -183,7 +187,7 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
           </div>
 
           <div name="password">
-            <Label className="mb-1">Contraseña:</Label>
+            <Label className="mb-1">{t("userProfile.password")}</Label> {/* Traducción para "Contraseña" */}
             <Input
               type="password"
               {...register("password")}
@@ -195,7 +199,7 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
           </div>
 
           <div name="password_confirmation">
-            <Label className="mb-1">Confirmar Contraseña:</Label>
+            <Label className="mb-1">{t("userProfile.passwordConfirmation")}</Label> {/* Traducción para "Confirmar Contraseña" */}
             <Input
               type="password"
               {...register("password_confirmation")}
@@ -209,7 +213,7 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
           </div>
 
           <div name="phone">
-            <Label className="mb-1">Teléfono:</Label>
+            <Label className="mb-1">{t("userProfile.phone")}</Label> {/* Traducción para "Teléfono" */}
             <Input
               type="text"
               {...register("phone")}
@@ -226,7 +230,7 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
                 variant="ghost"
                 className="py-2 font-semibold rounded-md focus:outline-none focus:ring-2 cursor-pointer"
               >
-                Cancelar
+                {t("common.cancel")} {/* Traducción para "Cancelar" */}
               </Button>
             </DialogClose>
             <Button
@@ -239,7 +243,9 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
                   : "bg-olive-500 text-white hover:bg-olive-600 focus:ring-olive-400"
               )}
             >
-              {isSubmitting ? "Creando..." : "Crear Usuario"}
+              {isSubmitting
+                ? t("users.creating") 
+                : t("users.createUser")} 
             </Button>
           </DialogFooter>
         </form>

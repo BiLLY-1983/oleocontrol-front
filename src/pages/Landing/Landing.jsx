@@ -2,11 +2,13 @@ import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "@context/UserContext";
 import { useTheme } from "@context/ThemeContext";
+import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 
 const LandingPage = () => {
   const { userData } = useContext(UserContext);
   const { theme } = useTheme();
+  const { t } = useTranslation(); // Hook para traducciones
   const isDarkMode = theme === "dark";
   const navigate = useNavigate();
 
@@ -45,7 +47,7 @@ const LandingPage = () => {
           <img src="/logo.png" alt="Logo" className="w-48" />
         </div>
         <h1 className="text-3xl font-semibold mb-2">
-          Bienvenido a la plataforma
+          {t("landing.welcome")} {/* Traducción para "Bienvenido a la plataforma" */}
         </h1>
         <p
           className={clsx(
@@ -53,7 +55,7 @@ const LandingPage = () => {
             isDarkMode ? "text-gray-400" : "text-gray-600"
           )}
         >
-          Selecciona cómo deseas iniciar sesión:
+          {t("landing.select_login")} {/* Traducción para "Selecciona cómo deseas iniciar sesión:" */}
         </p>
         <div className="flex flex-col gap-4">
           <button
@@ -65,7 +67,7 @@ const LandingPage = () => {
                 : "bg-olive-600 hover:bg-olive-700 text-white"
             )}
           >
-            Administrador
+            {t("landing.admin")} {/* Traducción para "Administrador" */}
           </button>
           <button
             onClick={() => navigate("/login/empleado")}
@@ -76,7 +78,7 @@ const LandingPage = () => {
                 : "bg-olive-600 hover:bg-olive-700 text-white"
             )}
           >
-            Empleado
+            {t("landing.employee")} {/* Traducción para "Empleado" */}
           </button>
           <button
             onClick={() => navigate("/login/socio")}
@@ -87,7 +89,7 @@ const LandingPage = () => {
                 : "bg-olive-600 hover:bg-olive-700 text-white"
             )}
           >
-            Socio
+            {t("landing.member")} {/* Traducción para "Socio" */}
           </button>
         </div>
       </div>

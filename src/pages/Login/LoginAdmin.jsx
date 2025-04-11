@@ -61,16 +61,16 @@ const LoginAdmin = () => {
 
         if (data.user.roles.some((role) => role.name === "Administrador")) {
           success({
-            title: t("Login_title_ok") + username,
-            text: t("Login_text_ok"),
+            title: t("auth.login_title_ok") + username,
+            text: t("auth.login_text_ok"),
             delay: 2000,
           });
 
           navigate("/dashboard/admin/home");
         } else {
           error({
-            title: t("Login_text_fail"),
-            text: t("Login_text_fail_no_admin"),
+            title: t("auth.login_text_fail"),
+            text: t("auth.login_text_fail_no_admin"),
             delay: 2000,
           });
 

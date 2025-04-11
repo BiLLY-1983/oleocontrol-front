@@ -5,8 +5,8 @@ import { useTheme } from "@context/ThemeContext";
 import clsx from "clsx";
 
 const Error404 = () => {
-  const { t } = useTranslation();
-  const { theme } = useTheme();
+  const { t } = useTranslation(); // Hook para traducciones
+  const { theme } = useTheme(); // Hook para el tema
   const isDarkMode = theme === "dark";
   const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ const Error404 = () => {
     <div
       className={clsx(
         "h-screen flex flex-col justify-center items-center text-center",
-        isDarkMode ? "bg-dark-800 text-dark-50" : "bg-whie text-olive-800"
+        isDarkMode ? "bg-dark-800 text-dark-50" : "bg-white text-olive-800"
       )}
     >
       <h1
@@ -31,7 +31,7 @@ const Error404 = () => {
           isDarkMode ? "text-dark-300" : "text-olive-600"
         )}
       >
-        {t("error.notFound") || "Lo sentimos, la página que buscas no existe."}
+        {t("error.notFound")} {/* Traducción para "Página no encontrada" */}
       </p>
       <button
         onClick={() => navigate(-1)}
@@ -42,7 +42,7 @@ const Error404 = () => {
             : "bg-olive-500 text-white hover:bg-olive-600 focus:ring-olive-400"
         )}
       >
-        {t("common.goBack") || "Volver atrás"}
+        {t("common.goBack")} {/* Traducción para "Volver atrás" */}
       </button>
     </div>
   );

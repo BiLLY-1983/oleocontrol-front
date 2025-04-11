@@ -2,9 +2,11 @@ import StatCard from "@components/StatCard";
 import ChartSection from "@components/ChartSection";
 import clsx from "clsx";
 import { useTheme } from "@context/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
     const { theme } = useTheme(); // Usar el contexto del tema
+    const { t } = useTranslation(); // Hook para traducciones
     const isDarkMode = theme === "dark";
 
     return (
@@ -14,28 +16,28 @@ const Home = () => {
                 isDarkMode ? "bg-dark-800 text-dark-50" : "bg-white text-olive-800"
             )}
         >
-            <h1 className="text-2xl font-bold">Resumen</h1>
+            <h1 className="text-2xl font-bold">{t("navigation.home")}</h1> {/* Traducción del título */}
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
                 <StatCard
-                    title="Socios Activos"
+                    title="home.active_members" // Clave de traducción para "Socios Activos"
                     value="245"
-                    description="+12% respecto al año anterior"
+                    subtext="notifications.statusActive" // Clave de traducción para "+12% respecto al año anterior"
                 />
                 <StatCard
-                    title="Entradas de Aceituna"
+                    title="navigation.olive_entries" // Clave de traducción para "Entradas de Aceituna"
                     value="1,245 Tn"
-                    description="+5% respecto al año anterior"
+                    subtext="home.olive_entries_growth" // Clave de traducción para "+5% respecto al año anterior"
                 />
                 <StatCard
-                    title="Producción de Aceite"
+                    title="home.oil_production" // Clave de traducción para "Producción de Aceite"
                     value="245,000 L"
-                    description="Rendimiento medio: 19.7%"
+                    subtext="home.oil_yield" // Clave de traducción para "Rendimiento medio: 19.7%"
                 />
                 <StatCard
-                    title="Liquidaciones Pendientes"
+                    title="home.pending_settlements" // Clave de traducción para "Liquidaciones Pendientes"
                     value="24"
-                    description="Valor total: 125,400€"
+                    subtext="home.total_value" // Clave de traducción para "Valor total: 125,400€"
                 />
             </div>
 

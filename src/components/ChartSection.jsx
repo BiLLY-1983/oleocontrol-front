@@ -5,18 +5,24 @@ import clsx from "clsx";
 import { useTheme } from "@context/ThemeContext";
 
 const data = [
-  { name: "Ene", value: 410 },
-  { name: "Feb", value: 310 },
-  { name: "Mar", value: 200 },
-  { name: "Abr", value: 280 },
-  { name: "May", value: 180 },
-  { name: "Jun", value: 240 },
+  { name: "jan", value: 410 },
+  { name: "feb", value: 310 },
+  { name: "mar", value: 200 },
+  { name: "apr", value: 280 },
+  { name: "may", value: 180 },
+  { name: "jun", value: 240 },
+  { name: "jul", value: 40 },
+  { name: "aug", value: 520 },
+  { name: "sep", value: 100 },
+  { name: "oct", value: 360 },
+  { name: "nov", value: 480 },
+  { name: "dec", value: 500 },
 ];
 
 export default function ChartSection() {
   const { t } = useTranslation();
   const { theme } = useTheme(); // Usar el contexto del tema
-  const [tab, setTab] = useState("Entradas");
+  const [tab, setTab] = useState("entries");
 
   const isDarkMode = theme === "dark";
 
@@ -31,18 +37,18 @@ export default function ChartSection() {
     >
       <div className="flex justify-between items-center mb-4">
         <div>
-          <h2 className="text-lg font-semibold">{t("Entradas de Aceituna")}</h2>
+          <h2 className="text-lg font-semibold">{t("navigation.olive_entries")}</h2>
           <p
             className={clsx(
               "text-sm",
               isDarkMode ? "text-dark-200" : "text-olive-600"
             )}
           >
-            {t("Evolución mensual de entradas de aceituna en la campaña actual")}
+            {t("navigation.monthly_evolution")}
           </p>
         </div>
         <div className="flex gap-2">
-          {["Entradas", "Aceites"].map((name) => (
+          {["entries", "oils"].map((name) => (
             <button
               key={name}
               className={clsx(
@@ -57,7 +63,7 @@ export default function ChartSection() {
               )}
               onClick={() => setTab(name)}
             >
-              {t(name)}
+              {t(`navigation.${name}`)}
             </button>
           ))}
         </div>
@@ -71,7 +77,7 @@ export default function ChartSection() {
           <XAxis
             dataKey="name"
             stroke={isDarkMode ? "#c9d1d9" : "#1f2615"}
-            tickFormatter={(tick) => t(tick)}
+            tickFormatter={(tick) => t(`months.${tick}`)}
           />
           <YAxis stroke={isDarkMode ? "#c9d1d9" : "#1f2615"} />
           <Tooltip

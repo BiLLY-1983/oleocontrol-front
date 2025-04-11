@@ -1,8 +1,10 @@
 import clsx from "clsx";
 import { useTheme } from "@context/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 export default function StatCard({ title, value, subtext }) {
-  const { theme } = useTheme(); 
+  const { theme } = useTheme();
+  const { t } = useTranslation(); // Hook para traducciones
   const isDarkMode = theme === "dark";
 
   return (
@@ -20,7 +22,7 @@ export default function StatCard({ title, value, subtext }) {
           isDarkMode ? "text-dark-200" : "text-olive-600"
         )}
       >
-        {title}
+        {t(title)} {/* Traducción del título */}
       </div>
       <div className="text-2xl font-bold">{value}</div>
       {subtext && (
@@ -30,7 +32,7 @@ export default function StatCard({ title, value, subtext }) {
             isDarkMode ? "text-dark-400" : "text-olive-500"
           )}
         >
-          {subtext}
+          {t(subtext)} {/* Traducción del subtexto */}
         </div>
       )}
     </div>

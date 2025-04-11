@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext } from 'react';
+import { useContext } from "react";
 import { UserContext } from "@context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -24,26 +24,23 @@ const Logout = () => {
         const message = await logoutRequest(userData.token); // Usamos la función logoutRequest
 
         setUserData(null); // Limpiar el estado del usuario
-        localStorage.removeItem('authToken'); // Eliminar el token del almacenamiento local
-        localStorage.removeItem('userData');
-
-        localStorage.removeItem('loginType'); // Eliminar el tipo de login
+        localStorage.removeItem("authToken"); // Eliminar el token del almacenamiento local
+        localStorage.removeItem("userData");
+        localStorage.removeItem("loginType"); // Eliminar el tipo de login
 
         success({
-          title: t("Logout_title"),
-          text: t("Logout_text_ok"),
+          title: t("auth.logout_title"), // Usar traducción para el título
+          text: t("auth.logout_text_ok"), // Usar traducción para el texto
           delay: 2000,
         });
 
         navigate("/");
       } catch (err) {
-
         error({
-          title: t("Logout_title"),
-          text: t("Logout_text_fail"),
+          title: t("auth.logout_title"), // Usar traducción para el título
+          text: t("auth.logout_text_fail"), // Usar traducción para el texto
           delay: 2000,
         });
-
       }
     }
   };
@@ -55,7 +52,7 @@ const Logout = () => {
         onClick={handleLogout}
         className="w-full text-left cursor-pointer"
       >
-        {t("logout")}
+        {t("navigation.logout")} {/* Usar traducción para el texto del botón */}
       </button>
     </>
   );
