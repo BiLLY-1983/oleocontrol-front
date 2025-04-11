@@ -86,7 +86,10 @@
   "common": {
     "goBack": "Go Back",
     "save_changes": "Save Changes",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "all": "Todos",
+    "edit": "Edit",
+    "delete": "Delete"
   },
   "error": {
     "notFound": "Sorry, the page you are looking for does not exist."
@@ -128,5 +131,19 @@
     "passwordsDoNotMatch": "Passwords do not match.",
     "phoneRequired": "The phone number is required.",
     "maxCharacters": "Maximum {{max}} characters."
+  },
+  "roles": {
+    "management": "Role Management",
+    "Administrador": "Administrator",
+    "Empleado": "Employee",
+    "Socio": "Member",
+    "Invitado": "Guest",
+    "usersWithRole": "Users with the role: {{role}}",
+    "newRole": "New role"
+  },
+  "departments": {
+    "management": "Department Management",
+    "newDepartment": "New Department",
+    "employeesWithDepartment": "Employees in the department: {{department}}"
   }
 }

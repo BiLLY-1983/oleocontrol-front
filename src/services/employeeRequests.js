@@ -1,4 +1,4 @@
-import api from '../../config/api.js'
+import api from '@config/api.js';
 
 export const getEmployees = async (url) => {
     try {

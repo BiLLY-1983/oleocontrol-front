@@ -2,9 +2,9 @@ import Home from '@pages/Home/Home';
 import Users from '@pages/User/Users';
 import Entry from '@pages/Entry/Entry';
 import Analysis from '@pages/Analysis/Analysis';
-import Role from '@pages/Role/Role';
+import Roles from '@pages/Role/Roles';
 import Employee from '@pages/Employee/Employee';
-import Department from '@pages/Department/Department';
+import Departments from '@pages/Department/Departments';
 import Member from '@pages/Member/Member';
 import Settlement from '@pages/Settlement/Settlement';
 import Oil from '@pages/Oil/Oil';
@@ -16,9 +16,9 @@ const dashboardRoutes = [
     { path: "users", element: <Users /> },
     { path: "entries", element: <Entry /> },
     { path: "analyses", element: <Analysis /> },
-    { path: "roles", element: <Role /> },
+    { path: "roles", element: <Roles /> },
     { path: "employees", element: <Employee /> },
-    { path: "departments", element: <Department /> },
+    { path: "departments", element: <Departments /> },
     { path: "members", element: <Member /> },
     { path: "settlements", element: <Settlement /> },
     { path: "oils", element: <Oil /> },

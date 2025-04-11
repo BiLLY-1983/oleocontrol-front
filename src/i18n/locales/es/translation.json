@@ -86,7 +86,10 @@
   "common": {
     "goBack": "Volver atrás",
     "save_changes": "Guardar Cambios",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "all": "All",
+    "edit": "Editar",
+    "delete": "Eliminar"
   },
   "error": {
     "notFound": "Lo sentimos, la página que buscas no existe."
@@ -128,5 +131,19 @@
     "passwordsDoNotMatch": "Las contraseñas no coinciden.",
     "phoneRequired": "El teléfono es obligatorio.",
     "maxCharacters": "Máximo {{max}} caracteres."
+  },
+  "roles": {
+    "management": "Gestión de Roles",
+    "Administrador": "Administrador",
+    "Empleado": "Empleado",
+    "Socio": "Socio",
+    "Invitado": "Invitado",
+    "usersWithRole": "Usuarios con el rol: {{role}}",
+    "newRole": "Nuevo rol"
+  },
+  "departments": {
+    "management": "Gestión de Departamentos",
+    "newDepartment": "Nuevo Departamento",
+    "employeesWithDepartment": "Empleados en el departamento: {{department}}"
   }
 }

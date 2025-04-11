@@ -102,7 +102,10 @@ const Users = () => {
   const usuariosFiltrados = usuarios.filter(
     (usuario) =>
       usuario.first_name.toLowerCase().includes(filtro.toLowerCase()) ||
-      usuario.email.toLowerCase().includes(filtro.toLowerCase())
+      usuario.email.toLowerCase().includes(filtro.toLowerCase()) ||
+      usuario.phone.includes(filtro.toLowerCase()) ||
+      usuario.roles.map((rol) => rol.name.toLowerCase()).some((nombreRol) => nombreRol.includes(filtro.toLowerCase())) ||
+      usuario.status
   );
 
   const indexOfLastUser = currentPage * usersPerPage;
@@ -134,22 +137,39 @@ const Users = () => {
         <h1 className="text-2xl font-bold">Gestión de Usuarios</h1>
         <Button
           className={clsx(
-            "cursor-pointer bg-olive-500  text-white",
+            "cursor-pointer text-white",
             isDarkMode
               ? "bg-dark-600 hover:bg-dark-500"
               : "bg-olive-500 hover:bg-olive-600"
           )}
-          onClick={() => setModalNewUserOpen(true) }
+          onClick={() => setModalNewUserOpen(true)}
         >
           + {t("users.newUser")}
         </Button>
       </div>
 
-      <NewUserModal open={modalNewUserOpen} setOpen={setModalNewUserOpen} isDarkMode={isDarkMode} updateUsuarios={updateUsuarios} />
+      <NewUserModal
+        open={modalNewUserOpen}
+        setOpen={setModalNewUserOpen}
+        isDarkMode={isDarkMode}
+        updateUsuarios={updateUsuarios}
+      />
 
-      <EditUserModal open={modalEditUserOpen} setOpen={setModalEditUserOpen} isDarkMode={isDarkMode} updateUsuarios={updateUsuarios} usuarioSeleccionado={usuarioSeleccionado} />
+      <EditUserModal
+        open={modalEditUserOpen}
+        setOpen={setModalEditUserOpen}
+        isDarkMode={isDarkMode}
+        updateUsuarios={updateUsuarios}
+        usuarioSeleccionado={usuarioSeleccionado}
+      />
 
-      <DeleteUserModal open={modalDeleteUserOpen} setOpen={setModalDeleteUserOpen} isDarkMode={isDarkMode} updateUsuarios={updateUsuarios} usuarioSeleccionado={usuarioSeleccionado} />
+      <DeleteUserModal
+        open={modalDeleteUserOpen}
+        setOpen={setModalDeleteUserOpen}
+        isDarkMode={isDarkMode}
+        updateUsuarios={updateUsuarios}
+        usuarioSeleccionado={usuarioSeleccionado}
+      />
 
       {/* Filtro y Selector */}
       <div className="flex flex-col md:flex-row justify-between items-center gap-4">
@@ -157,9 +177,7 @@ const Users = () => {
           placeholder="Buscar usuarios..."
           value={filtro}
           onChange={(e) => setFiltro(e.target.value)}
-          className={clsx(
-            "w-full md:w-1/2",
-          )}
+          className={clsx("w-full md:w-1/2")}
         />
         <div className="flex items-center gap-2">
           <span className="text-sm text-muted-foreground">Mostrar:</span>
