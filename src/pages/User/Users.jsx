@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getUsers } from "@services/userRequests";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,8 +24,9 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTheme } from "@context/ThemeContext";
 import clsx from "clsx";
+import NewUserModal from "@pages/User/NewUserModal";
 
-const Usuarios = () => {
+const Users = () => {
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
 
@@ -34,6 +36,9 @@ const Usuarios = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage, setUsersPerPage] = useState(10);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const fetchUsuarios = async () => {
     setLoading(true);
@@ -62,6 +67,11 @@ const Usuarios = () => {
 
   const handleDelete = (id) => {
     console.log("Borrado");
+  };
+
+  // Función para actualizar la lista de usuarios
+  const updateUsuarios = async () => {
+    await fetchUsuarios(); // Vuelve a cargar la lista de usuarios
   };
 
   // Paginación
@@ -133,11 +143,13 @@ const Usuarios = () => {
               ? "bg-dark-600 hover:bg-dark-500"
               : "bg-olive-500 hover:bg-olive-600"
           )}
-          onClick={() => console.log("Nuevo Usuario")}
+          onClick={() => setModalOpen(true) }
         >
           + Nuevo Usuario
         </Button>
       </div>
+
+      <NewUserModal open={modalOpen} setOpen={setModalOpen} isDarkMode={isDarkMode} updateUsuarios={updateUsuarios} />
 
       {/* Filtro y Selector */}
       <div className="flex flex-col md:flex-row justify-between items-center gap-4">
@@ -145,7 +157,9 @@ const Usuarios = () => {
           placeholder="Buscar usuarios..."
           value={filtro}
           onChange={(e) => setFiltro(e.target.value)}
-          className="w-full md:w-1/2"
+          className={clsx(
+            "w-full md:w-1/2",
+          )}
         />
         <div className="flex items-center gap-2">
           <span className="text-sm text-muted-foreground">Mostrar:</span>
@@ -200,7 +214,7 @@ const Usuarios = () => {
           <div className="overflow-y-auto">
             <table className="min-w-full text-sm">
               <thead>
-                <tr className="text-left border-b">
+                <tr className="text-left border-b-2">
                   <th className="p-3 text-lg w-1/4">Nombre</th>
                   <th className="p-3 text-lg w-1/4">Email</th>
                   <th className="p-3 text-lg w-1/5">Roles</th>
@@ -309,4 +323,4 @@ const Usuarios = () => {
   );
 };
 
-export default Usuarios;
+export default Users;

@@ -54,5 +54,6 @@
     "welcome": "Welcome to your profile!",
     "statusActive": "Active",
     "statusInactive": "Inactive"
-  }
+  },
+  "common.goBack": "Go Back"
 }

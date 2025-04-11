@@ -1,5 +1,5 @@
 import Home from '@pages/Home/Home';
-import User from '@pages/User/User';
+import Users from '@pages/User/Users';
 import Entry from '@pages/Entry/Entry';
 import Analysis from '@pages/Analysis/Analysis';
 import Role from '@pages/Role/Role';
@@ -13,7 +13,7 @@ import Error404 from '@pages/Error/Error404';
 
 const dashboardRoutes = [
     { path: "home", element: <Home /> },
-    { path: "users", element: <User /> },
+    { path: "users", element: <Users /> },
     { path: "entries", element: <Entry /> },
     { path: "analyses", element: <Analysis /> },
     { path: "roles", element: <Role /> },
