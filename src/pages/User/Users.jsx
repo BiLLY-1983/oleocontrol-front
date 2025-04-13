@@ -48,7 +48,7 @@ const Users = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await getUsers("/users");
+      const response = await getUsers();
       if (response.status === "success" && Array.isArray(response.data)) {
         setUsuarios(response.data);
       } else {

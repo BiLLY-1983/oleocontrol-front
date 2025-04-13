@@ -1,8 +1,8 @@
-import api from '../../config/api.js'
+import api from '@config/api.js';
 
-export const getEntries = async (url) => {
+export const getEntries = async () => {
     try {
-        const response = await api.get(url);
+        const response = await api.get('/entries');
         return response.data;  // Devuelve los datos de todas las entradas
     } catch (error) {
         return handleError(error); // Maneja el error si ocurre

@@ -1,8 +1,8 @@
 import api from '@config/api.js';
 
-export const getRoles = async (url) => {
+export const getRoles = async () => {
     try {
-        const response = await api.get(url);
+        const response = await api.get('/roles');
         return response.data;  // Devuelve los datos de todos los usuarios
     } catch (error) {
         return handleError(error); // Maneja el error si ocurre

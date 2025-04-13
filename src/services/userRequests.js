@@ -1,9 +1,9 @@
 import api from '@config/api.js';
 
 // Obtener todos los usuarios (solo accesible por admin)
-export const getUsers = async (url) => {
+export const getUsers = async () => {
     try {
-        const response = await api.get(url);
+        const response = await api.get('/users');
         return response.data;  // Devuelve los datos de todos los usuarios
     } catch (error) {
         return handleError(error); // Maneja el error si ocurre

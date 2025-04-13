@@ -36,8 +36,8 @@ const Roles = () => {
     setLoadingRoles(true);
     try {
       const [rolesResult, usersResult] = await Promise.all([
-        getRoles("/roles"),
-        getUsers("/users"),
+        getRoles(),
+        getUsers(),
       ]);
 
       if (
@@ -108,20 +108,20 @@ const Roles = () => {
       {
         data: roles.map((role) => role.userCount),
         backgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#4BC0C0",
-          "#9966FF",
-          "#FF9F40",
+          "#5A9BD5",
+          "#70AD47",
+          "#A076C4",
+          "#4DCBC4",
+          "#ED7D31",
+          "#8395A7",
         ],
         hoverBackgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#4BC0C0",
-          "#9966FF",
-          "#FF9F40",
+          "#4A8BC5",
+          "#609D37",
+          "#9066B4",
+          "#3DBABA",
+          "#DD6D21",
+          "#738597",
         ],
       },
     ],
@@ -136,18 +136,6 @@ const Roles = () => {
     >
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">{t("roles.management")}</h1>
-        {/* Botón de Nuevo Rol */}
-        <button
-          className={clsx(
-            "py-2 px-4 rounded-md shadow cursor-pointer text-white text-sm",
-            isDarkMode
-              ? "bg-dark-600 hover:bg-dark-500"
-              : "bg-olive-500 hover:bg-olive-600"
-          )}
-          onClick={() => console.log("Nuevo Rol")}
-        >
-          + {t("roles.newRole")} {/* Traducción para "Nuevo Rol" */}
-        </button>
       </div>
 
       {/* Mostrar Skeleton mientras se cargan los roles */}
@@ -176,26 +164,7 @@ const Roles = () => {
               >
                 <h2 className="text-xl font-semibold">{role.label}</h2>
                 <p className="text-3xl font-bold">{role.userCount}</p>
-
-                {/* Botones de Editar y Eliminar */}
-                <div className="mt-4 flex justify-end gap-2">
-                  <SquarePen
-                    size={18}
-                    className="cursor-pointer text-blue-700 hover:text-blue-400"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      console.log(`Editar rol: ${role.id}`);
-                    }}
-                  />
-                  <Trash2
-                    size={18}
-                    className="cursor-pointer text-red-700 hover:text-red-400"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      console.log(`Eliminar rol: ${role.id}`);
-                    }}
-                  />
-                </div>
+           
               </Card>
             ))}
           </div>

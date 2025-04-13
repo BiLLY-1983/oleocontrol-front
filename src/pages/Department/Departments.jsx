@@ -36,8 +36,8 @@ const Departments = () => {
     setLoadingDepartments(true);
     try {
       const [departmentsResult, employeesResult] = await Promise.all([
-        getDepartments("/departments"),
-        getEmployees("/employees")
+        getDepartments(),
+        getEmployees(),
       ]);
 
       if (
@@ -109,20 +109,20 @@ const Departments = () => {
       {
         data: departments.map((department) => department.employeeCount),
         backgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#4BC0C0",
-          "#9966FF",
-          "#FF9F40",
+          "#5A9BD5", // Azul Desaturado
+          "#70AD47", // Verde Desaturado
+          "#A076C4", // Púrpura Desaturado
+          "#4DCBC4", // Teal Desaturado
+          "#ED7D31", // Naranja Desaturado (como contraste)
+          "#8395A7", // Gris Azulado
         ],
         hoverBackgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#4BC0C0",
-          "#9966FF",
-          "#FF9F40",
+          "#4A8BC5", // Azul un poco más intenso
+          "#609D37", // Verde un poco más intenso
+          "#9066B4", // Púrpura un poco más intenso
+          "#3DBABA", // Teal un poco más intenso
+          "#DD6D21", // Naranja un poco más intenso
+          "#738597", // Gris Azulado un poco más intenso
         ],
       },
     ],
@@ -137,18 +137,6 @@ const Departments = () => {
     >
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">{t("departments.management")}</h1>
-        {/* Botón de Nuevo Departamento */}
-        <button
-          className={clsx(
-            "py-2 px-4 rounded-md shadow cursor-pointer text-white text-sm",
-            isDarkMode
-              ? "bg-dark-600 hover:bg-dark-500"
-              : "bg-olive-500 hover:bg-olive-600"
-          )}
-          onClick={() => console.log("Nuevo Rol")}
-        >
-          + {t("departments.newDepartment")}
-        </button>
       </div>
 
       {/* Mostrar Skeleton mientras se cargan los departamentos */}
@@ -178,25 +166,6 @@ const Departments = () => {
                 <h2 className="text-xl font-semibold">{department.name}</h2>
                 <p className="text-3xl font-bold">{department.employeeCount}</p>
 
-                {/* Botones de Editar y Eliminar */}
-                <div className="mt-4 flex justify-end gap-2">
-                  <SquarePen
-                    size={18}
-                    className="cursor-pointer text-blue-700 hover:text-blue-400"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      console.log(`Editar departamento: ${department.id}`);
-                    }}
-                  />
-                  <Trash2
-                    size={18}
-                    className="cursor-pointer text-red-700 hover:text-red-400"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      console.log(`Eliminar departamento: ${department.id}`);
-                    }}
-                  />
-                </div>
               </Card>
             ))}
           </div>
@@ -232,7 +201,7 @@ const Departments = () => {
           <DialogHeader>
             <DialogTitle>
               {t("departments.employeesWithDepartment", {
-                department: selectedDepartment?.label,
+                department: selectedDepartment?.name,
               })}
             </DialogTitle>
           </DialogHeader>
@@ -255,13 +224,9 @@ const Departments = () => {
               <table className="min-w-full text-sm">
                 <thead>
                   <tr>
-                    <th className="p-3 text-left">
-                      {t("userProfile.firstName")}
-                    </th>
-                    <th className="p-3 text-left">
-                      {t("userProfile.lastName")}
-                    </th>
+                    <th className="p-3 text-left">{t("userProfile.firstName")}</th>
                     <th className="p-3 text-left">{t("userProfile.email")}</th>
+                    <th className="p-3 text-left">{t("userProfile.phone")}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -276,9 +241,9 @@ const Departments = () => {
                             : "hover:bg-olive-100"
                         )}
                       >
-                        <td className="p-3">{employee.first_name}</td>
-                        <td className="p-3">{employee.last_name}</td>
-                        <td className="p-3">{employee.email}</td>
+                        <td className="p-3">{employee.user.first_name} {employee.user.last_name}</td>
+                        <td className="p-3">{employee.user.email}</td>
+                        <td className="p-3">{employee.user.phone}</td>
                       </tr>
                     ))
                   ) : (
