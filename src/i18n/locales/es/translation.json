@@ -89,7 +89,8 @@
     "cancel": "Cancelar",
     "all": "All",
     "edit": "Editar",
-    "delete": "Eliminar"
+    "delete": "Eliminar",
+    "select": "Seleccionar"
   },
   "error": {
     "notFound": "Lo sentimos, la página que buscas no existe."
@@ -117,7 +118,10 @@
     "successDeleteText": "El usuario ha sido eliminado correctamente.",
     "errorDeleteTitle": "Error al eliminar usuario",
     "errorDeleteText": "Hubo un problema al eliminar el usuario.",
-    "delete": "Eliminar"
+    "delete": "Eliminar",
+    "userType": "Tipo de Usuario",
+    "member": "Socio",
+    "employee": "Empleado"
   },
   "validation": {
     "usernameRequired": "El nombre de usuario es obligatorio.",

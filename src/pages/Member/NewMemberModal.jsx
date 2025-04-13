@@ -85,7 +85,7 @@ const userSchema = z
     }
   });
 
-const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
+const NewMemberModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
   const { t } = useTranslation(); // Hook para traducciones
   const [userType, setUserType] = useState("");
   const [departments, setDepartments] = useState([]);
@@ -347,4 +347,4 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
   );
 };
 
-export default NewUserModal;
+export default NewMemberModal;

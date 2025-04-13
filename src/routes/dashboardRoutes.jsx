@@ -5,7 +5,7 @@ import Analysis from '@pages/Analysis/Analysis';
 import Roles from '@pages/Role/Roles';
 import Employee from '@pages/Employee/Employee';
 import Departments from '@pages/Department/Departments';
-import Member from '@pages/Member/Member';
+import Members from '@pages/Member/Members';
 import Settlement from '@pages/Settlement/Settlement';
 import Oil from '@pages/Oil/Oil';
 import Profile from '@pages/Profile/Profile';
@@ -19,7 +19,7 @@ const dashboardRoutes = [
     { path: "roles", element: <Roles /> },
     { path: "employees", element: <Employee /> },
     { path: "departments", element: <Departments /> },
-    { path: "members", element: <Member /> },
+    { path: "members", element: <Members /> },
     { path: "settlements", element: <Settlement /> },
     { path: "oils", element: <Oil /> },
     { path: "profile", element: <Profile /> },

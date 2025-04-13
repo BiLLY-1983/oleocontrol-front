@@ -26,6 +26,7 @@ export const createUser = async (userData) => {
         const response = await api.post('/users', userData);
         return response.data;  // Devuelve los datos del usuario creado
     } catch (error) {
+        console.error("Error en createUser:", error.response?.data || error.message);
         return handleError(error); // Maneja el error si ocurre
     }
 };

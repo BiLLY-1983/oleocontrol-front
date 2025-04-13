@@ -155,7 +155,7 @@ const Roles = () => {
               <Card
                 key={role.id}
                 className={clsx(
-                  "p-4 rounded-lg shadow cursor-pointer transition-transform transform hover:scale-105",
+                  "p-4 rounded-lg shadow cursor-pointer transition-transform transform hover:scale-105 hover:bg-olive-200",
                   isDarkMode
                     ? "bg-dark-700 text-dark-50"
                     : "bg-olive-100 text-olive-800"

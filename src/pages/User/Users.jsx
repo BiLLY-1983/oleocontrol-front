@@ -70,6 +70,15 @@ const Users = () => {
     await fetchUsuarios(); // Vuelve a cargar la lista de usuarios
   };
 
+  const usuariosFiltrados = usuarios.filter(
+    (usuario) =>
+      usuario.first_name.toLowerCase().includes(filtro.toLowerCase()) ||
+      usuario.email.toLowerCase().includes(filtro.toLowerCase()) ||
+      usuario.phone.includes(filtro.toLowerCase()) ||
+      usuario.roles.map((rol) => rol.name.toLowerCase()).some((nombreRol) => nombreRol.includes(filtro.toLowerCase())) ||
+      usuario.status
+  );
+
   // Paginación
   const getVisiblePageNumbers = () => {
     const totalPages = pageNumbers.length;
@@ -98,15 +107,6 @@ const Users = () => {
       totalPages,
     ];
   };
-
-  const usuariosFiltrados = usuarios.filter(
-    (usuario) =>
-      usuario.first_name.toLowerCase().includes(filtro.toLowerCase()) ||
-      usuario.email.toLowerCase().includes(filtro.toLowerCase()) ||
-      usuario.phone.includes(filtro.toLowerCase()) ||
-      usuario.roles.map((rol) => rol.name.toLowerCase()).some((nombreRol) => nombreRol.includes(filtro.toLowerCase())) ||
-      usuario.status
-  );
 
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;

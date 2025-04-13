@@ -89,7 +89,8 @@
     "cancel": "Cancel",
     "all": "Todos",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "select": "Select"
   },
   "error": {
     "notFound": "Sorry, the page you are looking for does not exist."
@@ -117,7 +118,10 @@
     "successDeleteText": "The user has been deleted successfully.",
     "errorDeleteTitle": "Error deleting user",
     "errorDeleteText": "There was a problem deleting the user.",
-    "delete": "Delete"
+    "delete": "Delete",
+    "userType": "User Type",
+    "member": "Member",
+    "employee": "Employee"
   },
   "validation": {
     "usernameRequired": "The username is required.",
