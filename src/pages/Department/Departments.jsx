@@ -12,7 +12,6 @@ import clsx from "clsx";
 import { useTheme } from "@context/ThemeContext";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { SquarePen, Trash2 } from "lucide-react";
 import { getDepartments } from "@services/departmentRequests";
 import { getEmployees } from "@services/employeeRequests.js";
 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Trash2, SquarePen } from "lucide-react";
 import {
   Dialog,
   DialogContent,

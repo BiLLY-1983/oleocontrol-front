@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import { createUser } from "@services/userRequests";
-import { createMember } from "@services/memberRequests";
 import { getDepartments } from "@services/departmentRequests";
 import {
   Dialog,

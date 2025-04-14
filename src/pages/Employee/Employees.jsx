@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getMembers } from "@services/memberRequests";
+import { getEmployees } from "@services/EmployeeRequests";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Trash2, SquarePen } from "lucide-react";
@@ -24,39 +24,49 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTheme } from "@context/ThemeContext";
 import clsx from "clsx";
-import NewMemberModal from "@pages/Member/NewMemberModal";
-import EditMemberModal from "@pages/Member/EditMemberModal";
-import DeleteMemberModal from "@pages/Member/DeleteMemberModal";
+import NewEmployeeModal from "@pages/Employee/NewEmployeeModal";
+import EditEmployeeModal from "@pages/Employee/EditEmployeeModal";
+import DeleteEmployeeModal from "@pages/Employee/DeleteEmployeeModal";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+/* import {
+  Chart as ChartJS,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Bar } from "react-chartjs-2"; */
 
 // Registrar elementos necesarios para Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
+/* ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend); */
 
-const Members = () => {
+const Employees = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
 
-  const [members, setMembers] = useState([]);
-  const [selectedMember, setSelectedMember] = useState(null);
+  const [employees, setEmployees] = useState([]);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [filter, setFilter] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [membersPerPage, setMembersPerPage] = useState(10);
-  const [modalNewMemberOpen, setModalNewMemberOpen] = useState(false);
-  const [modalEditMemberOpen, setModalEditMemberOpen] = useState(false);
-  const [modalDeleteMemberOpen, setModalDeleteMemberOpen] = useState(false);
+  const [employeesPerPage, setEmployeesPerPage] = useState(10);
+  const [modalNewEmployeeOpen, setModalNewEmployeeOpen] = useState(false);
+  const [modalEditEmployeeOpen, setModalEditEmployeeOpen] = useState(false);
+  const [modalDeleteEmployeeOpen, setModalDeleteEmployeeOpen] = useState(false);
 
   // Función para obtener los socios
-  const fetchMembers = async () => {
+  const fetchEmployees = async () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await getMembers();
+      const response = await getEmployees();
       if (response.status === "success" && Array.isArray(response.data)) {
-        setMembers(response.data);
+        setEmployees(response.data);
       } else {
         setError("No se pudieron obtener los socios.");
       }
@@ -68,26 +78,24 @@ const Members = () => {
   };
 
   useEffect(() => {
-    fetchMembers();
+    fetchEmployees();
   }, []);
 
-  const activeCount = members.filter((member) => member.user.status === 1).length;
-  const inactiveCount = members.filter((member) => member.user.status !== 1).length;
-
   // Función para actualizar la lista de socios
-  const updateMembers = async () => {
-    await fetchMembers(); // Vuelve a cargar la lista
+  const updateEmployees = async () => {
+    await fetchEmployees(); // Vuelve a cargar la lista
   };
 
   // Filtrar socios
-  const filteredMembers = members.filter(
-    (member) =>
-      member.user.first_name.toLowerCase().includes(filter.toLowerCase()) ||
-      member.user.last_name.toLowerCase().includes(filter.toLowerCase()) ||
-      member.user.email.toLowerCase().includes(filter.toLowerCase()) ||
-      member.user.phone.toLowerCase().includes(filter.toLowerCase()) ||
-      member.user.dni.toLowerCase().includes(filter.toLowerCase()) ||
-      (member.user.status === 1 ? "activo" : "inactivo").includes(filter.toLowerCase())
+  const filteredEmployees = employees.filter(
+    (employee) =>
+      employee.user.first_name.toLowerCase().includes(filter.toLowerCase()) ||
+      employee.user.last_name.toLowerCase().includes(filter.toLowerCase()) ||
+      employee.user.email.toLowerCase().includes(filter.toLowerCase()) ||
+      employee.user.phone.toLowerCase().includes(filter.toLowerCase()) ||
+      employee.user.dni.toLowerCase().includes(filter.toLowerCase()) ||
+      employee.department.name.toLowerCase().includes(filter.toLowerCase()) ||
+      (employee.user.status === 1 ? "activo" : "inactivo").includes(filter.toLowerCase())
   );
 
   // Paginación
@@ -119,11 +127,11 @@ const Members = () => {
     ];
   };
 
-  const indexOfLastMember = currentPage * membersPerPage;
-  const indexOfFirstMember = indexOfLastMember - membersPerPage;
-  const currentMembers = filteredMembers.slice(
-    indexOfFirstMember,
-    indexOfLastMember
+  const indexOfLastEmployee = currentPage * employeesPerPage;
+  const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
+  const currentEmployees = filteredEmployees.slice(
+    indexOfFirstEmployee,
+    indexOfLastEmployee
   );
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -131,22 +139,64 @@ const Members = () => {
   const pageNumbers = [];
   for (
     let i = 1;
-    i <= Math.ceil(filteredMembers.length / membersPerPage);
+    i <= Math.ceil(filteredEmployees.length / employeesPerPage);
     i++
   ) {
     pageNumbers.push(i);
   }
 
   // Preparar datos para el gráfico circular
+  const departmentCounts = employees.reduce((acc, emp) => {
+    const deptName = emp.department.name;
+    acc[deptName] = (acc[deptName] || 0) + 1;
+    return acc;
+  }, {});
+  
   const chartData = {
-    labels: ["Activos", "Inactivos"],
+    labels: Object.keys(departmentCounts),
     datasets: [
       {
-        data: [activeCount, inactiveCount],
-        backgroundColor: ["#4CAF50", "#F44336"], // verde y rojo
-        hoverBackgroundColor: ["#45A049", "#E53935"],
+        data: Object.values(departmentCounts),
+        backgroundColor: [
+          "#5A9BD5", 
+          "#70AD47",
+          "#A076C4", 
+          "#4DCBC4",
+          "#ED7D31", 
+          "#8395A7", 
+        ],
+        hoverBackgroundColor: [
+          "#4A8BC5",
+          "#609D37", 
+          "#9066B4", 
+          "#3DBABA", 
+          "#DD6D21", 
+          "#738597", 
+        ],
       },
     ],
+  };
+
+  const barChartData = {
+    labels: Object.keys(departmentCounts),
+    datasets: [
+      {
+        label: "Número de empleados",
+        data: Object.values(departmentCounts),
+        backgroundColor: isDarkMode ? "#A076C4" : "#556339",
+      },
+    ],
+  };
+  
+  const barChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: { position: "top" },
+      title: {
+        display: true,
+        text: "Empleados por Departamento",
+      },
+    },
   };
 
   return (
@@ -157,7 +207,7 @@ const Members = () => {
       )}
     >
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Gestión de Socios</h1>
+        <h1 className="text-2xl font-bold">Gestión de Empleados</h1>
         <Button
           className={clsx(
             "cursor-pointer text-white",
@@ -165,33 +215,33 @@ const Members = () => {
               ? "bg-dark-600 hover:bg-dark-500"
               : "bg-olive-500 hover:bg-olive-600"
           )}
-          onClick={() => setModalNewMemberOpen(true)}
+          onClick={() => setModalNewEmployeeOpen(true)}
         >
-          + {t("members.newMember")}
+          + {t("employees.newEmployee")}
         </Button>
       </div>
 
-      <NewMemberModal
-        open={modalNewMemberOpen}
-        setOpen={setModalNewMemberOpen}
-        updateMembers={updateMembers}
+      <NewEmployeeModal
+        open={modalNewEmployeeOpen}
+        setOpen={setModalNewEmployeeOpen}
+        updateEmployees={updateEmployees}
       />
-      <EditMemberModal
-        open={modalEditMemberOpen}
-        setOpen={setModalEditMemberOpen}
-        updateMembers={updateMembers}
-        selectedMember={selectedMember}
+      <EditEmployeeModal
+        open={modalEditEmployeeOpen}
+        setOpen={setModalEditEmployeeOpen}
+        updateEmployees={updateEmployees}
+        selectedEmployee={selectedEmployee}
       />
-      <DeleteMemberModal
-        open={modalDeleteMemberOpen}
-        setOpen={setModalDeleteMemberOpen}
-        updateMembers={updateMembers}
-        selectedMember={selectedMember}
+      <DeleteEmployeeModal
+        open={modalDeleteEmployeeOpen}
+        setOpen={setModalDeleteEmployeeOpen}
+        updateEmployees={updateEmployees}
+        selectedEmployee={selectedEmployee}
       />
 
       <div className="flex flex-col md:flex-row justify-between items-center gap-4">
         <Input
-          placeholder="Buscar socios..."
+          placeholder="Buscar empleados..."
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           className="w-full md:w-1/2"
@@ -199,9 +249,9 @@ const Members = () => {
         <div className="flex items-center gap-2">
           <span className="text-sm text-muted-foreground">Mostrar:</span>
           <Select
-            value={String(membersPerPage)}
+            value={String(employeesPerPage)}
             onValueChange={(value) => {
-              setMembersPerPage(Number(value));
+              setEmployeesPerPage(Number(value));
               setCurrentPage(1);
             }}
           >
@@ -229,7 +279,7 @@ const Members = () => {
       >
         {loading ? (
           <div className="space-y-4">
-            {Array.from({ length: membersPerPage }).map((_, i) => (
+            {Array.from({ length: employeesPerPage }).map((_, i) => (
               <div
                 key={i}
                 className="flex justify-between items-center space-x-4"
@@ -255,35 +305,35 @@ const Members = () => {
                     <th className="p-3 text-lg w-1/4">{t("userProfile.email")}</th>
                     <th className="p-3 text-lg w-1/4 ">{t("userProfile.phone")}</th>
                     <th className="p-3 text-lg w-1/8 ">{t("userProfile.dni")}</th>
-                    <th className="p-3 text-lg w-1/6 ">{t("members.memberNumber")}</th>
+                    <th className="p-3 text-lg w-1/6 ">{t("departments.department")}</th>
                     <th className="p-3 text-lg w-1/8">{t("common.status")}</th>
                     <th className="p-3 text-center text-lg w-1/6">{t("common.actions")}</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {currentMembers.map((member) => (
+                  {currentEmployees.map((employee) => (
                     <tr
-                      key={member.id}
+                      key={employee.id}
                       className={clsx(
                         "border-b transition-colors",
                         isDarkMode ? "hover:bg-dark-700" : "hover:bg-olive-100"
                       )}
                     >
-                      <td className="p-3">{member.user.first_name} {member.user.last_name}</td>
-                      <td className="p-3">{member.user.email}</td>
-                      <td className="p-3">{member.user.phone}</td>
-                      <td className="p-3">{member.user.dni}</td>
-                      <td className="p-3">{member.member_number}</td>
+                      <td className="p-3">{employee.user.first_name} {employee.user.last_name}</td>
+                      <td className="p-3">{employee.user.email}</td>
+                      <td className="p-3">{employee.user.phone}</td>
+                      <td className="p-3">{employee.user.dni}</td>
+                      <td className="p-3">{employee.department.name}</td>
                       <td className="p-3">
                         <span
                           className={clsx(
                             "px-2 py-1 rounded-full text-xs font-semibold",
-                            member.user.status === 1
+                            employee.user.status === 1
                               ? "bg-green-600 text-white"
                               : "bg-red-600 text-white"
                           )}
                         >
-                          {member.user.status === 1 ? "Activo" : "Inactivo"}
+                          {employee.user.status === 1 ? "Activo" : "Inactivo"}
                         </span>
                       </td>
                       <td className="p-3 text-center">
@@ -292,16 +342,16 @@ const Members = () => {
                             size={18}
                             className="cursor-pointer text-blue-700 hover:text-blue-400"
                             onClick={() => {
-                              setSelectedMember(member);
-                              setModalEditMemberOpen(true);
+                              setSelectedEmployee(employee);
+                              setModalEditEmployeeOpen(true);
                             }}
                           />
                           <Trash2
                             size={18}
                             className="cursor-pointer text-red-700 hover:text-red-400"
                             onClick={() => {
-                              setSelectedMember(member);
-                              setModalDeleteMemberOpen(true);
+                              setSelectedEmployee(employee);
+                              setModalDeleteEmployeeOpen(true);
                             }}
                           />
                         </div>
@@ -380,8 +430,13 @@ const Members = () => {
         </div>
       </div>
 
+      {/* Gráfico de barras */}
+      {/* <div className="relative w-full h-[240px] md:h-[360px] lg:h-[400px] flex justify-center align-center">
+        <Bar data={barChartData} options={barChartOptions} />
+      </div> */}
+
     </div>
   );
 };
 
-export default Members;
+export default Employees;

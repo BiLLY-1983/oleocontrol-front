@@ -150,9 +150,20 @@
   "departments": {
     "management": "Gestión de Departamentos",
     "newDepartment": "Nuevo Departamento",
-    "employeesWithDepartment": "Empleados en el departamento: {{department}}"
+    "employeesWithDepartment": "Empleados en el departamento: {{department}}",
+    "department": "Departamento"
   },
   "members": {
-    "newMember": "Nuevo Socio"
+    "newMember": "Nuevo Socio",
+    "memberNumber": "Nº de socio",
+    "editMemberTitle": "Editar socio {{username}} ({{firstName}} {{lastName}})",
+    "deleteMemberTitle": "Eliminar socio {{username}} ({{firstName}} {{lastName}})",
+    "createMember": "Crear Socio"
+  },
+  "employees": {
+    "newEmployee": "Nuevo Empleado",
+    "editEmployeeTitle": "Editar empleado {{username}} ({{firstName}} {{lastName}})",
+    "deleteEmployeeTitle": "Eliminar empleado {{username}} ({{firstName}} {{lastName}})",
+    "createEmployee": "Crear Empleado"
   }
 }

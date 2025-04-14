@@ -3,7 +3,7 @@ import Users from '@pages/User/Users';
 import Entry from '@pages/Entry/Entry';
 import Analysis from '@pages/Analysis/Analysis';
 import Roles from '@pages/Role/Roles';
-import Employee from '@pages/Employee/Employee';
+import Employees from '@pages/Employee/Employees';
 import Departments from '@pages/Department/Departments';
 import Members from '@pages/Member/Members';
 import Settlement from '@pages/Settlement/Settlement';
@@ -17,7 +17,7 @@ const dashboardRoutes = [
     { path: "entries", element: <Entry /> },
     { path: "analyses", element: <Analysis /> },
     { path: "roles", element: <Roles /> },
-    { path: "employees", element: <Employee /> },
+    { path: "employees", element: <Employees /> },
     { path: "departments", element: <Departments /> },
     { path: "members", element: <Members /> },
     { path: "settlements", element: <Settlement /> },

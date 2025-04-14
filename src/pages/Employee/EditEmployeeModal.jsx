@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
-import { updateMember } from "@services/memberRequests";
+import { useEffect, useState } from "react";
+import { updateEmployee } from "@services/employeeRequests";
+import { getDepartments } from "@services/departmentRequests";
 import {
   Dialog,
   DialogContent,
@@ -35,17 +36,19 @@ const userSchema = z
       .email({ message: "El email no es válido" })
       .max(255, { message: "Máximo 255 caracteres" }),
     phone: z.string().max(20, { message: "Máximo 20 caracteres" }),
-    member_number: z.number(),
+    department_id: z.number(),
   });
 
-const EditMemberModal = ({
+const EditEmployeeModal = ({
   open,
   setOpen,
   isDarkMode,
-  updateMembers,
-  selectedMember,
+  updateEmployees,
+  selectedEmployee,
 }) => {
   const { t } = useTranslation(); // Hook para traducciones
+
+  const [departments, setDepartments] = useState([]);
 
   const {
     register,
@@ -53,20 +56,31 @@ const EditMemberModal = ({
     formState: { errors, isSubmitting },
     reset,
   } = useForm({
-    defaultValues: selectedMember,
+    defaultValues: selectedEmployee,
     mode: "all",
   });
 
+  // Obtener departamentos al cargar el modal
+    useEffect(() => {
+      const fetchDepartments = async () => {
+        const result = await getDepartments();
+        if (result.status === "success") {
+          setDepartments(result.data);
+        }
+      };
+      fetchDepartments();
+    }, []);
+
   // Actualizar los valores del formulario cuando usuarioSeleccionado cambie
   useEffect(() => {
-    if (selectedMember) {
-      reset(selectedMember); // Actualiza los valores del formulario
+    if (selectedEmployee) {
+      reset(selectedEmployee); // Actualiza los valores del formulario
     }
-  }, [selectedMember, reset]);
+  }, [selectedEmployee, reset]);
 
   // Función para manejar el envío del formulario
   const handleEdit = async (data) => {
-    const result = await updateMember(selectedMember.id, data);
+    const result = await updateEmployee(selectedEmployee.id, data);
 
     console.log(data);
 
@@ -80,8 +94,8 @@ const EditMemberModal = ({
       setOpen(false); // Cerrar modal
 
       // Llama a la función de actualización para la lista
-      if (updateMembers) {
-        updateMembers();
+      if (updateEmployees) {
+        updateEmployees();
       }
     } else {
       error({
@@ -103,23 +117,23 @@ const EditMemberModal = ({
       >
         <DialogHeader>
           <DialogTitle>
-            {selectedMember
-              ? t("members.editMemberTitle", {
-                  username: selectedMember.user.username,
-                  firstName: selectedMember.user.first_name,
-                  lastName: selectedMember.user.last_name,
+            {selectedEmployee
+              ? t("employees.editEmployeeTitle", {
+                  username: selectedEmployee.user.username,
+                  firstName: selectedEmployee.user.first_name,
+                  lastName: selectedEmployee.user.last_name,
                 }) // Traducción para "Editar usuario"
               : t("users.loadingUser")} {/* Traducción para "Cargando usuario..." */}
           </DialogTitle>
           <DialogDescription>
-            {selectedMember
+            {selectedEmployee
               ? t("users.editUserDescription")
               : t("users.loadingUserDescription")} 
           </DialogDescription>
         </DialogHeader>
 
         {/* Formulario de edición de usuario */}
-        {!selectedMember ? (
+        {!selectedEmployee ? (
           <div className="space-y-4">
             <Skeleton className="h-4 w-3/4" />
             <Skeleton className="h-4 w-1/2" />
@@ -207,15 +221,23 @@ const EditMemberModal = ({
               )}
             </div>
 
-            <div name="member_number">
-              <Label className="mb-1">{t("members.member_number")}</Label> {/* Traducción para "Número de socio" */}
-              <Input
-                type="text"
-                {...register("member_number")}
+            <div name="department_id">
+              <Label className="mb-1">{t("departments.management")}</Label>
+              <select
+                {...register("department_id")}
                 className="w-full px-3 py-2 border rounded-md"
-              />
-              {errors.phone && (
-                <p className="text-red-500 text-sm">{errors.member_number.message}</p>
+              >
+                <option value="">{t("common.select")}</option>
+                {departments.map((department) => (
+                  <option key={department.id} value={department.id}>
+                    {department.name}
+                  </option>
+                ))}
+              </select>
+              {errors.department_id && (
+                <p className="text-red-500 text-sm">
+                  {errors.department_id.message}
+                </p>
               )}
             </div>
 
@@ -267,4 +289,4 @@ const EditMemberModal = ({
   );
 };
 
-export default EditMemberModal;
+export default EditEmployeeModal;

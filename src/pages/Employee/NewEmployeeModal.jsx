@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
-import { createMember } from "@services/memberRequests";
+import { createEmployee } from "@services/employeeRequests";
+import { getDepartments } from "@services/departmentRequests";
 import {
   Dialog,
   DialogContent,
@@ -57,6 +58,12 @@ const userSchema = z
       .string()
       .min(1, { message: "El teléfono es obligatorio" })
       .max(20, { message: "Máximo 20 caracteres" }),
+    department_id: z
+      .string()
+      .min(1 , { message: "El departamento es obligatorio" })
+      .refine((val) => val || true, {
+        message: "El departamento es obligatorio",
+      }),
   })
   .superRefine((data, ctx) => {
     if (data.password !== data.password_confirmation) {
@@ -67,8 +74,9 @@ const userSchema = z
     }
   });
 
-const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
+const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
   const { t } = useTranslation(); // Hook para traducciones
+  const [departments, setDepartments] = useState([]);
   const {
     register,
     handleSubmit,
@@ -79,16 +87,27 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
     mode: "all",
   });
 
+  // Obtener departamentos al cargar el modal
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      const result = await getDepartments();
+      if (result.status === "success") {
+        setDepartments(result.data);
+      }
+    };
+    fetchDepartments();
+  }, []);
+
   // Función para manejar el envío del formulario
   const handleCreate = async (data) => {
     try {
       data.status = true;
 
       // Enviar todos los datos necesarios al backend
-      const memberResult = await createMember(data);
+      const employeeResult = await createEmployee(data);
 
-      if (memberResult.status !== "success") {
-        throw new Error(memberResult.message || t("users.errorTitle"));
+      if (employeeResult.status !== "success") {
+        throw new Error(employeeResult.message || t("users.errorTitle"));
       }
 
       // Mostrar mensaje de éxito
@@ -101,8 +120,8 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
       reset();        // Limpiar el formulario
       setOpen(false); // Cerrar el modal
 
-      if (updateMembers) {
-        updateMembers(); // Actualizar lista
+      if (updateEmployees) {
+        updateEmployees(); // Actualizar lista
       }
 
     } catch (err) {
@@ -244,9 +263,29 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
             {errors.phone && (
               <p className="text-red-500 text-sm">{errors.phone.message}</p>
             )}
-          </div>     
+          </div>
 
-  
+          <div name="department_id">
+            <Label className="mb-1">{t("departments.department")}</Label>
+            <select
+              {...register("department_id")}
+              className="w-full px-3 py-2 border rounded-md"
+            >
+              <option value="">{t("common.select")}</option>
+              {departments.map((department) => (
+                <option key={department.id} value={department.id}>
+                  {department.name}
+                </option>
+              ))}
+            </select>
+            {errors.department_id && (
+              <p className="text-red-500 text-sm">
+                {errors.department_id.message}
+              </p>
+            )}
+          </div>
+
+
           <DialogFooter>
             <DialogClose asChild>
               <Button
@@ -266,7 +305,7 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
                   : "bg-olive-500 text-white hover:bg-olive-600 focus:ring-olive-400"
               )}
             >
-              {isSubmitting ? t("users.creating") : t("members.createMember")}
+              {isSubmitting ? t("users.creating") : t("employees.createEmployee")}
             </Button>
           </DialogFooter>
         </form>
@@ -275,4 +314,4 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
   );
 };
 
-export default NewMemberModal;
+export default NewEmployeeModal;

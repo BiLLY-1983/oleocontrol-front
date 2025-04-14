@@ -1,4 +1,4 @@
-import { deleteMember } from "@services/memberRequests";
+import { deleteEmployee } from "@services/employeeRequests";
 import {
   Dialog,
   DialogContent,
@@ -17,18 +17,18 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
-const DeleteMemberModal = ({
+const DeleteEmployeeModal = ({
   open,
   setOpen,
   isDarkMode,
-  updateMembers,
-  selectedMember,
+  updateEmployees,
+  selectedEmployee,
 }) => {
   const { t } = useTranslation(); // Hook para traducciones
 
   const handleDelete = async () => {
     try {
-      const result = await deleteMember(selectedMember.user.id);
+      const result = await deleteEmployee(selectedEmployee.user.id);
 
       if (result.status === "success") {
         success({
@@ -39,8 +39,8 @@ const DeleteMemberModal = ({
         setOpen(false); // Cierra el modal
 
         // Llama a la función de actualización para la lista
-        if (updateMembers) {
-          updateMembers();
+        if (updateEmployees) {
+          updateEmployees();
         }
       } else {
         error({
@@ -69,16 +69,16 @@ const DeleteMemberModal = ({
       >
         <DialogHeader>
           <DialogTitle>
-            {selectedMember
-              ? t("members.deleteMemberTitle", {
-                  username: selectedMember.user.username,
-                  firstName: selectedMember.user.first_name,
-                  lastName: selectedMember.user.last_name,
-                }) // Traducción para "Eliminar socio {{username}} ({{firstName}} {{lastName}})"
+            {selectedEmployee
+              ? t("employees.deleteEmployeeTitle", {
+                  username: selectedEmployee.user.username,
+                  firstName: selectedEmployee.user.first_name,
+                  lastName: selectedEmployee.user.last_name,
+                }) // Traducción para "Eliminar empleado {{username}} ({{firstName}} {{lastName}})"
               : t("users.loadingUser")} {/* Traducción para "Cargando usuario..." */}
           </DialogTitle>
           <DialogDescription>
-            {selectedMember
+            {selectedEmployee
               ? t("users.deleteUserDescription") 
               : t("users.loadingUserDescription")}
           </DialogDescription>
@@ -107,4 +107,4 @@ const DeleteMemberModal = ({
   );
 };
 
-export default DeleteMemberModal;
+export default DeleteEmployeeModal;

@@ -150,9 +150,20 @@
   "departments": {
     "management": "Department Management",
     "newDepartment": "New Department",
-    "employeesWithDepartment": "Employees in the department: {{department}}"
+    "employeesWithDepartment": "Employees in the department: {{department}}",
+    "department": "Department"
   },
   "members": {
-    "newMember": "New Member"
+    "newMember": "New Member",
+    "memberNumber": "Member number",
+    "editMemberTitle": "Edit member {{username}} ({{firstName}} {{lastName}})",
+    "deleteMemberTitle": "Delete member {{username}} ({{firstName}} {{lastName}})",
+    "createMember": "Create Member"
+  },
+  "employees": {
+    "newEmployee": "New Employee",
+    "editEmployeeTitle": "Edit employee {{username}} ({{firstName}} {{lastName}})",
+    "deleteEmployeeTitle": "Delete employee {{username}} ({{firstName}} {{lastName}})",
+    "createEmployee": "Crear Employee"
   }
 }

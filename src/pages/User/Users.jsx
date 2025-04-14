@@ -73,10 +73,11 @@ const Users = () => {
   const usuariosFiltrados = usuarios.filter(
     (usuario) =>
       usuario.first_name.toLowerCase().includes(filtro.toLowerCase()) ||
+      usuario.last_name.toLowerCase().includes(filtro.toLowerCase()) ||
       usuario.email.toLowerCase().includes(filtro.toLowerCase()) ||
       usuario.phone.includes(filtro.toLowerCase()) ||
       usuario.roles.map((rol) => rol.name.toLowerCase()).some((nombreRol) => nombreRol.includes(filtro.toLowerCase())) ||
-      usuario.status
+      (usuario.status === 1 ? "activo" : "inactivo").includes(filtro.toLowerCase())
   );
 
   // Paginación
@@ -236,9 +237,10 @@ const Users = () => {
                   <th className="p-3 text-lg w-1/4">{t("userProfile.firstName")}</th>
                   <th className="p-3 text-lg w-1/4">{t("userProfile.email")}</th>
                   <th className="p-3 text-lg w-1/4">{t("userProfile.phone")}</th>
-                  <th className="p-3 text-lg w-1/5">Roles</th>
-                  <th className="p-3 text-lg w-1/5">{t("common.status")}</th>
-                  <th className="p-3 text-center text-lg w-1/5">{t("common.actions")}</th>
+                  <th className="p-3 text-lg w-1/4">{t("userProfile.dni")}</th>
+                  <th className="p-3 text-lg w-1/6">Roles</th>
+                  <th className="p-3 text-lg w-1/6">{t("common.status")}</th>
+                  <th className="p-3 text-center text-lg w-1/6">{t("common.actions")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -255,6 +257,7 @@ const Users = () => {
                     </td>
                     <td className="p-3">{usuario.email}</td>
                     <td className="p-3">{usuario.phone}</td>
+                    <td className="p-3">{usuario.dni}</td>
                     <td className="p-3">
                       {usuario.roles.map((role) => role.name).join(", ")}
                     </td>
@@ -263,8 +266,8 @@ const Users = () => {
                         className={clsx(
                           "px-2 py-1 rounded-full text-xs font-semibold",
                           usuario.status === 1
-                            ? "bg-blue-700 text-white"
-                            : "bg-red-700 text-white"
+                            ? "bg-green-600 text-white"
+                            : "bg-red-600 text-white"
                         )}
                       >
                         {usuario.status === 1 ? " Activo " : "Inactivo"}
