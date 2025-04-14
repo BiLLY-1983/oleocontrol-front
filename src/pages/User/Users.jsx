@@ -233,12 +233,12 @@ const Users = () => {
             <table className="min-w-full text-sm">
               <thead>
                 <tr className="text-left border-b-2">
-                  <th className="p-3 text-lg w-1/4">Nombre</th>
-                  <th className="p-3 text-lg w-1/4">Email</th>
-                  <th className="p-3 text-lg w-1/4">Teléfono</th>
+                  <th className="p-3 text-lg w-1/4">{t("userProfile.firstName")}</th>
+                  <th className="p-3 text-lg w-1/4">{t("userProfile.email")}</th>
+                  <th className="p-3 text-lg w-1/4">{t("userProfile.phone")}</th>
                   <th className="p-3 text-lg w-1/5">Roles</th>
-                  <th className="p-3 text-lg w-1/5">Estado</th>
-                  <th className="p-3 text-center text-lg w-1/5">Acciones</th>
+                  <th className="p-3 text-lg w-1/5">{t("common.status")}</th>
+                  <th className="p-3 text-center text-lg w-1/5">{t("common.actions")}</th>
                 </tr>
               </thead>
               <tbody>

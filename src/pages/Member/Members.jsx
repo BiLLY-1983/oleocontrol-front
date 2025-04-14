@@ -146,7 +146,7 @@ const Members = () => {
           )}
           onClick={() => setModalNewMemberOpen(true)}
         >
-          + {t("socios.newSocio")}
+          + {t("members.newMember")}
         </Button>
       </div>
 
@@ -198,7 +198,14 @@ const Members = () => {
         </div>
       </div>
 
-      <Card className="rounded-2xl shadow p-4 w-full border overflow-x-auto">
+      <Card
+        className={clsx(
+          "rounded-2xl shadow p-4 w-full border overflow-x-auto",
+          isDarkMode
+            ? "bg-dark-900 border-dark-700 text-dark-50"
+            : "bg-olive-50 border-olive-200 text-olive-800"
+        )}
+      >
         {loading ? (
           <div className="space-y-4">
             {Array.from({ length: membersPerPage }).map((_, i) => (
@@ -223,11 +230,11 @@ const Members = () => {
               <table className="min-w-full text-sm">
                 <thead>
                   <tr className="text-left border-b-2">
-                    <th className="p-3 text-lg">Nombre</th>
-                    <th className="p-3 text-lg">Email</th>
-                    <th className="p-3 text-lg">Teléfono</th>
-                    <th className="p-3 text-lg">Estado</th>
-                    <th className="p-3 text-center text-lg">Acciones</th>
+                    <th className="p-3 text-lg">{t("userProfile.firstName")}</th>
+                    <th className="p-3 text-lg">{t("userProfile.email")}</th>
+                    <th className="p-3 text-lg">{t("userProfile.phone")}</th>
+                    <th className="p-3 text-lg">{t("common.status")}</th>
+                    <th className="p-3 text-center text-lg">{t("common.status")}</th>
                   </tr>
                 </thead>
                 <tbody>

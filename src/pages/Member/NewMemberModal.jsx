@@ -114,28 +114,28 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
   const handleCreate = async (data) => {
     try {
       data.status = true; // Puedes dejar esto si lo usas en tu backend
-  
+
       // Enviar todos los datos necesarios al backend
       const userResult = await createUser(data);
-  
+
       if (userResult.status !== "success") {
         throw new Error(userResult.message || t("users.errorTitle"));
       }
-  
+
       // Mostrar mensaje de éxito
       success({
         title: t("users.successTitle"),
         text: t("users.successText"),
         delay: 2000,
       });
-  
+
       reset();        // Limpiar el formulario
       setOpen(false); // Cerrar el modal
-  
+
       if (updateUsuarios) {
         updateUsuarios(); // Actualizar lista
       }
-  
+
     } catch (err) {
       // Mostrar mensaje de error
       error({
@@ -145,7 +145,7 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
       });
     }
   };
- 
+
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

@@ -90,7 +90,9 @@
     "all": "All",
     "edit": "Editar",
     "delete": "Eliminar",
-    "select": "Seleccionar"
+    "select": "Seleccionar",
+    "status": "Estado",
+    "actions": "Acciones"
   },
   "error": {
     "notFound": "Lo sentimos, la página que buscas no existe."
@@ -149,5 +151,8 @@
     "management": "Gestión de Departamentos",
     "newDepartment": "Nuevo Departamento",
     "employeesWithDepartment": "Empleados en el departamento: {{department}}"
+  },
+  "members": {
+    "newMember": "Nuevo Socio"
   }
 }

@@ -90,7 +90,9 @@
     "all": "Todos",
     "edit": "Edit",
     "delete": "Delete",
-    "select": "Select"
+    "select": "Select",
+    "status": "Status",
+    "actions": "Actions"
   },
   "error": {
     "notFound": "Sorry, the page you are looking for does not exist."
@@ -149,5 +151,8 @@
     "management": "Department Management",
     "newDepartment": "New Department",
     "employeesWithDepartment": "Employees in the department: {{department}}"
+  },
+  "members": {
+    "newMember": "New Member"
   }
 }
