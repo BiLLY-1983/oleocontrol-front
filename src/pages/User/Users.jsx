@@ -234,11 +234,12 @@ const Users = () => {
             <table className="min-w-full text-sm">
               <thead>
                 <tr className="text-left border-b-2">
+                  <th className="p-3 text-lg w-1/14">ID</th>
                   <th className="p-3 text-lg w-1/4">{t("userProfile.firstName")}</th>
                   <th className="p-3 text-lg w-1/4">{t("userProfile.email")}</th>
-                  <th className="p-3 text-lg w-1/4">{t("userProfile.phone")}</th>
-                  <th className="p-3 text-lg w-1/4">{t("userProfile.dni")}</th>
-                  <th className="p-3 text-lg w-1/6">Roles</th>
+                  <th className="p-3 text-lg w-1/8">{t("userProfile.phone")}</th>
+                  <th className="p-3 text-lg w-1/8">{t("userProfile.dni")}</th>
+                  <th className="p-3 text-lg w-1/4">Roles</th>
                   <th className="p-3 text-lg w-1/6">{t("common.status")}</th>
                   <th className="p-3 text-center text-lg w-1/6">{t("common.actions")}</th>
                 </tr>
@@ -252,6 +253,7 @@ const Users = () => {
                       isDarkMode ? "hover:bg-dark-700" : "hover:bg-olive-100"
                     )}
                   >
+                    <td className="p-3">{usuario.id}</td>
                     <td className="p-3 font-medium">
                       {usuario.first_name} {usuario.last_name}
                     </td>

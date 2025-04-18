@@ -29,19 +29,9 @@ import EditEmployeeModal from "@pages/Employee/EditEmployeeModal";
 import DeleteEmployeeModal from "@pages/Employee/DeleteEmployeeModal";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-/* import {
-  Chart as ChartJS,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import { Bar } from "react-chartjs-2"; */
 
 // Registrar elementos necesarios para Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
-/* ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend); */
 
 const Employees = () => {
   const { t } = useTranslation();
@@ -95,7 +85,9 @@ const Employees = () => {
       employee.user.phone.toLowerCase().includes(filter.toLowerCase()) ||
       employee.user.dni.toLowerCase().includes(filter.toLowerCase()) ||
       employee.department.name.toLowerCase().includes(filter.toLowerCase()) ||
-      (employee.user.status === 1 ? "activo" : "inactivo").includes(filter.toLowerCase())
+      (employee.user.status === 1 ? "activo" : "inactivo").includes(
+        filter.toLowerCase()
+      )
   );
 
   // Paginación
@@ -146,35 +138,69 @@ const Employees = () => {
   }
 
   // Preparar datos para el gráfico circular
+  const [hoveredDepartment, setHoveredDepartment] = useState(null);
+
+  // Preparar datos para el gráfico circular
   const departmentCounts = employees.reduce((acc, emp) => {
     const deptName = emp.department.name;
-    acc[deptName] = (acc[deptName] || 0) + 1;
+    if (!acc[deptName]) {
+      acc[deptName] = { active: 0, inactive: 0 };
+    }
+    if (emp.user.status === 1) {
+      acc[deptName].active += 1;
+    } else {
+      acc[deptName].inactive += 1;
+    }
     return acc;
   }, {});
-  
+
   const chartData = {
     labels: Object.keys(departmentCounts),
     datasets: [
       {
-        data: Object.values(departmentCounts),
+        data: Object.values(departmentCounts).map(
+          (count) => count.active + count.inactive
+        ),
         backgroundColor: [
-          "#5A9BD5", 
+          "#5A9BD5",
           "#70AD47",
-          "#A076C4", 
+          "#A076C4",
           "#4DCBC4",
-          "#ED7D31", 
-          "#8395A7", 
+          "#ED7D31",
+          "#8395A7",
         ],
         hoverBackgroundColor: [
           "#4A8BC5",
-          "#609D37", 
-          "#9066B4", 
-          "#3DBABA", 
-          "#DD6D21", 
-          "#738597", 
+          "#609D37",
+          "#9066B4",
+          "#3DBABA",
+          "#DD6D21",
+          "#738597",
         ],
+        onHover: (event, chartElement) => {
+          if (chartElement.length > 0) {
+            const departmentName = chartData.labels[chartElement[0].index];
+            setHoveredDepartment(departmentName);
+          } else {
+            setHoveredDepartment(null);
+          }
+        },
       },
     ],
+  };
+
+  // Mostrar información al pasar el cursor
+  const renderHoveredInfo = () => {
+    if (!hoveredDepartment) return null;
+
+    const { active, inactive } = departmentCounts[hoveredDepartment];
+    return (
+      <div className="mt-4">
+        <p>{`Departamento: ${hoveredDepartment}`}</p>
+        <p>{`Empleados activos: ${active}`}</p>
+        <p>{`Empleados inactivos: ${inactive}`}</p>
+      </div>
+    );
   };
 
   const barChartData = {
@@ -187,7 +213,7 @@ const Employees = () => {
       },
     ],
   };
-  
+
   const barChartOptions = {
     responsive: true,
     plugins: {
@@ -301,13 +327,25 @@ const Employees = () => {
               <table className="min-w-full text-sm">
                 <thead>
                   <tr className="text-left border-b-2">
-                    <th className="p-3 text-lg w-1/4">{t("userProfile.firstName")}</th>
-                    <th className="p-3 text-lg w-1/4">{t("userProfile.email")}</th>
-                    <th className="p-3 text-lg w-1/4 ">{t("userProfile.phone")}</th>
-                    <th className="p-3 text-lg w-1/8 ">{t("userProfile.dni")}</th>
-                    <th className="p-3 text-lg w-1/6 ">{t("departments.department")}</th>
+                    <th className="p-3 text-lg w-1/4">
+                      {t("userProfile.firstName")}
+                    </th>
+                    <th className="p-3 text-lg w-1/4">
+                      {t("userProfile.email")}
+                    </th>
+                    <th className="p-3 text-lg w-1/4 ">
+                      {t("userProfile.phone")}
+                    </th>
+                    <th className="p-3 text-lg w-1/8 ">
+                      {t("userProfile.dni")}
+                    </th>
+                    <th className="p-3 text-lg w-1/6 ">
+                      {t("departments.department")}
+                    </th>
                     <th className="p-3 text-lg w-1/8">{t("common.status")}</th>
-                    <th className="p-3 text-center text-lg w-1/6">{t("common.actions")}</th>
+                    <th className="p-3 text-center text-lg w-1/6">
+                      {t("common.actions")}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -319,7 +357,9 @@ const Employees = () => {
                         isDarkMode ? "hover:bg-dark-700" : "hover:bg-olive-100"
                       )}
                     >
-                      <td className="p-3">{employee.user.first_name} {employee.user.last_name}</td>
+                      <td className="p-3">
+                        {employee.user.first_name} {employee.user.last_name}
+                      </td>
                       <td className="p-3">{employee.user.email}</td>
                       <td className="p-3">{employee.user.phone}</td>
                       <td className="p-3">{employee.user.dni}</td>
@@ -419,8 +459,19 @@ const Employees = () => {
             data={chartData}
             options={{
               responsive: true,
-              maintainAspectRatio: false,
               plugins: {
+                tooltip: {
+                  callbacks: {
+                    label: function (tooltipItem) {
+                      const departmentName = tooltipItem.label;
+                      const { active, inactive } =
+                        departmentCounts[departmentName];
+                      return `${departmentName}: ${
+                        active + inactive
+                      } empleados (Activos: ${active}, Inactivos: ${inactive})`;
+                    },
+                  },
+                },
                 legend: {
                   position: "bottom",
                 },
@@ -429,11 +480,6 @@ const Employees = () => {
           />
         </div>
       </div>
-
-      {/* Gráfico de barras */}
-      {/* <div className="relative w-full h-[240px] md:h-[360px] lg:h-[400px] flex justify-center align-center">
-        <Bar data={barChartData} options={barChartOptions} />
-      </div> */}
 
     </div>
   );

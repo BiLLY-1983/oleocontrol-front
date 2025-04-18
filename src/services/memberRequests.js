@@ -18,6 +18,15 @@ export const getMember = async (id) => {
     }
 };
 
+export const getMemberByUser = async (userId) => {
+    try {
+        const response = await api.get(`/memberByUser/${userId}`);
+        return response.data;  // Devuelve los datos del socio correspondiente al user_id
+    } catch (error) {
+        return handleError(error); // Maneja el error si ocurre
+    }
+};
+
 export const createMember = async (memberData) => {
     try {
         const response = await api.post('/members', memberData);

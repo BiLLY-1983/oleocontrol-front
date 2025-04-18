@@ -1,6 +1,8 @@
 import clsx from "clsx";
 import { useTheme } from "@context/ThemeContext";
 import { useTranslation } from "react-i18next";
+import { Skeleton } from "@/components/ui/skeleton";
+
 
 export default function StatCard({ title, value, subtext }) {
   const { theme } = useTheme();

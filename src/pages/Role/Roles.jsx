@@ -12,7 +12,7 @@ import clsx from "clsx";
 import { useTheme } from "@context/ThemeContext";
 import { getRoles } from "@services/roleRequests";
 import { getUsers } from "@services/userRequests";
-import { Pie } from "react-chartjs-2"; // Importar el gráfico circular
+import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 // Registrar los elementos necesarios para Chart.js
@@ -171,7 +171,7 @@ const Roles = () => {
           {/* Gráfico circular */}
           <div className="mt-20 flex justify-center h-100">
             <div className="w-full max-w-sm">
-              <Pie
+              <Doughnut
                 data={chartData}
                 options={{
                   responsive: true, // Hacer el gráfico responsivo

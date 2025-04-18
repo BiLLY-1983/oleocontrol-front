@@ -14,7 +14,7 @@ const protectedRoutes = [
     ),
   },
   {
-    path: '/dashboard/empleado',
+    path: '/dashboard/employee',
     element: (
       <ProtectedRoute role="Empleado">
         <DashboardEmployee />
@@ -22,7 +22,7 @@ const protectedRoutes = [
     ),
   },
   {
-    path: '/dashboard/socio',
+    path: '/dashboard/member',
     element: (
       <ProtectedRoute role="Socio">
         <DashboardMember />

@@ -15,28 +15,12 @@ import { Label } from "@components/ui/label";
 import { Input } from "@components/ui/input";
 import { Button } from "@components/ui/button";
 import clsx from "clsx";
-import { z } from "zod";
 import { useTranslation } from "react-i18next";
 
 import { success, error } from "@pnotify/core";
 import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
-
-// Definir el esquema de validación con Zod
-const userSchema = z
-  .object({
-    username: z.string().max(255, { message: "Máximo 255 caracteres" }),
-    first_name: z.string().max(255, { message: "Máximo 255 caracteres" }),
-    last_name: z.string().max(255, { message: "Máximo 255 caracteres" }),
-    dni: z.string().max(20, { message: "Máximo 20 caracteres" }),
-    email: z
-      .string()
-      .email({ message: "El email no es válido" })
-      .max(255, { message: "Máximo 255 caracteres" }),
-    phone: z.string().max(20, { message: "Máximo 20 caracteres" }),
-    member_number: z.number(),
-  });
 
 const EditMemberModal = ({
   open,
@@ -68,8 +52,6 @@ const EditMemberModal = ({
   const handleEdit = async (data) => {
     const result = await updateMember(selectedMember.id, data);
 
-    console.log(data);
-
     if (result.status === "success") {
       success({
         title: t("users.successEditTitle"), // Traducción para "Usuario actualizado con éxito"
@@ -86,7 +68,7 @@ const EditMemberModal = ({
     } else {
       error({
         title: t("users.errorEditTitle"), // Traducción para "Error al actualizar usuario"
-        text: result.message,
+        text: t("users.errorEditText"),
         delay: 2000,
       });
     }
@@ -208,7 +190,7 @@ const EditMemberModal = ({
             </div>
 
             <div name="member_number">
-              <Label className="mb-1">{t("members.member_number")}</Label> {/* Traducción para "Número de socio" */}
+              <Label className="mb-1">{t("members.memberNumber")}</Label> {/* Traducción para "Número de socio" */}
               <Input
                 type="text"
                 {...register("member_number")}
@@ -257,7 +239,7 @@ const EditMemberModal = ({
               >
                 {isSubmitting
                   ? t("users.editing") 
-                  : t("users.editUser")} 
+                  : t("members.editMember")} 
               </Button>
             </DialogFooter>
           </form>

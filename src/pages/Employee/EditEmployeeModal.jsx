@@ -16,28 +16,12 @@ import { Label } from "@components/ui/label";
 import { Input } from "@components/ui/input";
 import { Button } from "@components/ui/button";
 import clsx from "clsx";
-import { z } from "zod";
 import { useTranslation } from "react-i18next";
 
 import { success, error } from "@pnotify/core";
 import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
-
-// Definir el esquema de validación con Zod
-const userSchema = z
-  .object({
-    username: z.string().max(255, { message: "Máximo 255 caracteres" }),
-    first_name: z.string().max(255, { message: "Máximo 255 caracteres" }),
-    last_name: z.string().max(255, { message: "Máximo 255 caracteres" }),
-    dni: z.string().max(20, { message: "Máximo 20 caracteres" }),
-    email: z
-      .string()
-      .email({ message: "El email no es válido" })
-      .max(255, { message: "Máximo 255 caracteres" }),
-    phone: z.string().max(20, { message: "Máximo 20 caracteres" }),
-    department_id: z.number(),
-  });
 
 const EditEmployeeModal = ({
   open,
@@ -100,7 +84,7 @@ const EditEmployeeModal = ({
     } else {
       error({
         title: t("users.errorEditTitle"), // Traducción para "Error al actualizar usuario"
-        text: result.message,
+        text: t("users.errorEditText"),
         delay: 2000,
       });
     }
@@ -150,9 +134,9 @@ const EditEmployeeModal = ({
                 {...register("user.username")}
                 className="w-full px-3 py-2 border rounded-md"
               />
-              {errors.username && (
+              {errors.user?.username && (
                 <p className="text-red-500 text-sm">
-                  {errors.username.message}
+                  {errors.user.username.message}
                 </p>
               )}
             </div>
@@ -164,9 +148,9 @@ const EditEmployeeModal = ({
                 {...register("user.first_name")}
                 className="w-full px-3 py-2 border rounded-md"
               />
-              {errors.first_name && (
+              {errors.user?.first_name && (
                 <p className="text-red-500 text-sm">
-                  {errors.first_name.message}
+                  {errors.user.first_name.message}
                 </p>
               )}
             </div>
@@ -178,9 +162,9 @@ const EditEmployeeModal = ({
                 {...register("user.last_name")}
                 className="w-full px-3 py-2 border rounded-md"
               />
-              {errors.last_name && (
+              {errors.user?.last_name && (
                 <p className="text-red-500 text-sm">
-                  {errors.last_name.message}
+                  {errors.user.last_name.message}
                 </p>
               )}
             </div>
@@ -192,8 +176,8 @@ const EditEmployeeModal = ({
                 {...register("user.dni")}
                 className="w-full px-3 py-2 border rounded-md"
               />
-              {errors.dni && (
-                <p className="text-red-500 text-sm">{errors.dni.message}</p>
+              {errors.user?.dni && (
+                <p className="text-red-500 text-sm">{errors.user.dni.message}</p>
               )}
             </div>
 
@@ -204,8 +188,8 @@ const EditEmployeeModal = ({
                 {...register("user.email")}
                 className="w-full px-3 py-2 border rounded-md"
               />
-              {errors.email && (
-                <p className="text-red-500 text-sm">{errors.email.message}</p>
+              {errors.user?.email && (
+                <p className="text-red-500 text-sm">{errors.user.email.message}</p>
               )}
             </div>
 
@@ -216,15 +200,15 @@ const EditEmployeeModal = ({
                 {...register("user.phone")}
                 className="w-full px-3 py-2 border rounded-md"
               />
-              {errors.phone && (
-                <p className="text-red-500 text-sm">{errors.phone.message}</p>
+              {errors.user?.phone && (
+                <p className="text-red-500 text-sm">{errors.user.phone.message}</p>
               )}
             </div>
 
-            <div name="department_id">
+            <div name="department">
               <Label className="mb-1">{t("departments.management")}</Label>
               <select
-                {...register("department_id")}
+                {...register("department.id")}
                 className="w-full px-3 py-2 border rounded-md"
               >
                 <option value="">{t("common.select")}</option>
@@ -234,9 +218,9 @@ const EditEmployeeModal = ({
                   </option>
                 ))}
               </select>
-              {errors.department_id && (
+              {errors.department?.id && (
                 <p className="text-red-500 text-sm">
-                  {errors.department_id.message}
+                  {errors.department.id.message}
                 </p>
               )}
             </div>
@@ -253,8 +237,8 @@ const EditEmployeeModal = ({
                     : "accent-olive-600 bg-gray-100 border-gray-300 focus:ring-olive-500"
                 )}
               />
-              {errors.phone && (
-                <p className="text-red-500 text-sm">{errors.status.message}</p>
+              {errors.user?.status && (
+                <p className="text-red-500 text-sm">{errors.user.status.message}</p>
               )}
             </div>
 

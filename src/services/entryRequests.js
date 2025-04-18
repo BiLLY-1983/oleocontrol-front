@@ -26,6 +26,15 @@ export const getEntry = async (id, userData) => {
     }
 };
 
+export const getEntriesForMember = async (memberId) => {
+        try {
+            const response = await api.get(`/members/${memberId}/entries`);
+            return response.data;
+        } catch (error) {
+            return handleError(error);
+        }
+};
+
 export const createEntry = async (entryData) => {
     try {
         const response = await api.post('/entries', entryData);

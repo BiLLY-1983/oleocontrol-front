@@ -70,7 +70,7 @@ const LandingPage = () => {
             {t("landing.admin")} {/* Traducción para "Administrador" */}
           </button>
           <button
-            onClick={() => navigate("/login/empleado")}
+            onClick={() => navigate("/login/employee")}
             className={clsx(
               "py-2 px-4 rounded-xl font-medium transition cursor-pointer",
               isDarkMode
@@ -81,7 +81,7 @@ const LandingPage = () => {
             {t("landing.employee")} {/* Traducción para "Empleado" */}
           </button>
           <button
-            onClick={() => navigate("/login/socio")}
+            onClick={() => navigate("/login/member")}
             className={clsx(
               "py-2 px-4 rounded-xl font-medium transition cursor-pointer",
               isDarkMode

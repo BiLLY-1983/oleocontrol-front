@@ -18,9 +18,27 @@ export const getSettlement = async (id) => {
     }
 };
 
+export const getSettlementsByMember = async (memberId) => {
+    try {
+        const response = await api.get(`/members/${memberId}/settlements`);
+        return response.data;
+    } catch (error) {
+        return handleError(error);
+    }
+};
+  
 export const createSettlement = async (settlementData) => {
     try {
         const response = await api.post('/settlements', settlementData);
+        return response.data;  // Devuelve los datos del usuario creado
+    } catch (error) {
+        return handleError(error); // Maneja el error si ocurre
+    }
+};
+
+export const createSettlementAvailable = async (settlementData) => {
+    try {
+        const response = await api.post('/settlementsAvailable', settlementData);
         return response.data;  // Devuelve los datos del usuario creado
     } catch (error) {
         return handleError(error); // Maneja el error si ocurre

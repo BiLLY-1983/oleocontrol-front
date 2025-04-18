@@ -26,6 +26,16 @@ export const getAnalysis = async (id, userData) => {
     }
 };
 
+export const getAnalysesForMember = async (memberId) => {
+    try {
+        const response = await api.get(`/members/${memberId}/analyses`);
+        return response.data;
+    } catch (error) {
+        return handleError(error);
+    }
+};
+  
+
 export const createAnalysis = async (analysisData) => {
     try {
         const response = await api.post('/analyses', analysisData);

@@ -3,8 +3,10 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { UserContext } from '@context/UserContext.jsx';
 import authRoutes from '@routes/authRoutes.jsx';
 import protectedRoutes from '@routes/protectedRoutes.jsx';
-import dashboardRoutes from '@routes/dashboardRoutes.jsx';
+import dashboardRoutesAdmin from '@routes/dashboardRoutesAdmin.jsx';
+import dashboardRoutesMember from '@routes/dashboardRoutesMember.jsx';
 import DashboardAdmin from '@pages/Dashboard/DashboardAdmin.jsx';
+import DashboardMember from '@pages/Dashboard/DashboardMember.jsx';
 import Error404 from '@pages/Error/Error404.jsx';
 
 function ProtectedRoute({ isAuthenticated, children }) {
@@ -44,7 +46,7 @@ export default function AuthRoutes() {
                 />
             ))}
 
-            {/* Rutas del Dashboard */}
+            {/* Rutas del Dashboard Admin */}
             <Route
                 path="/dashboard/admin"
                 element={
@@ -53,7 +55,20 @@ export default function AuthRoutes() {
                     </ProtectedRoute>
                 }
             >
-                {dashboardRoutes.map(({ path, element }, i) => (
+                {dashboardRoutesAdmin.map(({ path, element }, i) => (
+                    <Route key={`dashboard-${i}`} path={path} element={element} />
+                ))}
+            </Route>
+
+            <Route
+                path="/dashboard/member"
+                element={
+                    <ProtectedRoute isAuthenticated={isAuthenticated}>
+                        <DashboardMember />
+                    </ProtectedRoute>
+                }
+            >
+                {dashboardRoutesMember.map(({ path, element }, i) => (
                     <Route key={`dashboard-${i}`} path={path} element={element} />
                 ))}
             </Route>

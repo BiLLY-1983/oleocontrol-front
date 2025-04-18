@@ -118,6 +118,10 @@ const LoginAdmin = () => {
         >
           Iniciar sesión
         </h2>
+        <h5 className={clsx(
+            "text-1xl text-red-500 italic text-center mb-6",
+            isDarkMode ? "text-dark-100" : "text-olive-700"
+          )}>( Portal para Administrador )</h5>
 
         {err && (
           <div className="text-red-500 text-sm text-center mb-4">{err}</div>
