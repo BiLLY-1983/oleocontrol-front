@@ -17,7 +17,12 @@ import { getOils } from "@services/oilRequests";
 import { Skeleton } from "@/components/ui/skeleton";
 import NewEntryModal from "@pages/Entry/NewEntryModal";
 import NewMemberModal from "@pages/Member/NewMemberModal";
-import { Doughnut } from "react-chartjs-2";
+
+import MembersDoughnutChart from "@components/Charts/HomeEmployee/MembersDoughnutChart";
+import EmployeesDoughnutChart from "@components/Charts/HomeEmployee/EmployeesDoughnutChart";
+import AnalysisDoughnutChart from "@components/Charts/HomeEmployee/AnalysisDoughnutChart";
+import SettlementDoughnutChart from "@components/Charts/HomeEmployee/SettlementDoughnutChart";
+
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -272,52 +277,12 @@ const HomeEmployee = () => {
             </div>
 
             <div className="flex flex-col md:flex-row gap-4 w-full justify-center">
-              <div className="w-full md:w-1/3">
-                <div
-                  className={clsx(
-                    "rounded-2xl shadow p-6 mt-6 border",
-                    isDarkMode
-                      ? "bg-dark-900 border-dark-700 text-dark-50"
-                      : "bg-olive-50 border-olive-200 text-olive-800"
-                  )}
-                >
-                  <div className="mb-4">
-                    <h2 className="text-lg font-semibold text-center">
-                      Relación de Socios
-                    </h2>
-                  </div>
-
-                  <div className="relative" style={{ height: 488 }}>
-                    <Doughnut
-                      data={doughnutDataMembers}
-                      options={{
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                          legend: {
-                            position: "bottom",
-                          },
-                          tooltip: {
-                            callbacks: {
-                              label: (tooltipItem) => {
-                                const label = tooltipItem.label;
-                                const value = tooltipItem.raw;
-                                const total =
-                                  activeMembers.length + inactiveMembers.length;
-                                const percent = ((value / total) * 100).toFixed(
-                                  1
-                                );
-
-                                return `${label}: ${value} socios (${percent}%)`;
-                              },
-                            },
-                          },
-                        },
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
+              {/* Gráfico de la relación de socios */}
+              <MembersDoughnutChart
+                doughnutData={doughnutDataMembers}
+                title="Relación de Socios"
+                isDarkMode={isDarkMode}
+              />
             </div>
           </>
         );
@@ -401,92 +366,20 @@ const HomeEmployee = () => {
             <div className="flex flex-col md:flex-row gap-4 w-full justify-center">
               {/* Gráfico 1: Activos/Inactivos */}
               <div className="w-full md:w-1/3">
-                <div
-                  className={clsx(
-                    "rounded-2xl shadow p-6 mt-6 border",
-                    isDarkMode
-                      ? "bg-dark-900 border-dark-700 text-dark-50"
-                      : "bg-olive-50 border-olive-200 text-olive-800"
-                  )}
-                >
-                  <div className="mb-4">
-                    <h2 className="text-lg font-semibold text-center">
-                      Relación de Empleados
-                    </h2>
-                  </div>
-                  <div className="relative" style={{ height: 488 }}>
-                    <Doughnut
-                      data={doughnutDataEmployees}
-                      options={{
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                          legend: { position: "bottom" },
-                          tooltip: {
-                            callbacks: {
-                              label: (tooltipItem) => {
-                                const label = tooltipItem.label;
-                                const value = tooltipItem.raw;
-                                const total =
-                                  activeEmployees.length +
-                                  inactiveEmployees.length;
-                                const percent = ((value / total) * 100).toFixed(
-                                  1
-                                );
-                                return `${label}: ${value} socios (${percent}%)`;
-                              },
-                            },
-                          },
-                        },
-                      }}
-                    />
-                  </div>
-                </div>
+                <EmployeesDoughnutChart
+                  data={doughnutDataEmployees}
+                  title="Relación de Empleados"
+                  isDarkMode={isDarkMode}
+                />
               </div>
 
               {/* Gráfico 2: Por departamento */}
               <div className="w-full md:w-1/3">
-                <div
-                  className={clsx(
-                    "rounded-2xl shadow p-6 mt-6 border",
-                    isDarkMode
-                      ? "bg-dark-900 border-dark-700 text-dark-50"
-                      : "bg-olive-50 border-olive-200 text-olive-800"
-                  )}
-                >
-                  <div className="mb-4">
-                    <h2 className="text-lg font-semibold text-center">
-                      Empleados por Departamento
-                    </h2>
-                  </div>
-                  <div className="relative" style={{ height: 488 }}>
-                    <Doughnut
-                      data={doughnutDataDepartments}
-                      options={{
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                          legend: { position: "bottom" },
-                          tooltip: {
-                            callbacks: {
-                              label: (tooltipItem) => {
-                                const label = tooltipItem.label;
-                                const value = tooltipItem.raw;
-                                const total = Object.values(
-                                  departmentCounts
-                                ).reduce((a, b) => a + b, 0);
-                                const percent = ((value / total) * 100).toFixed(
-                                  1
-                                );
-                                return `${label}: ${value} empleados (${percent}%)`;
-                              },
-                            },
-                          },
-                        },
-                      }}
-                    />
-                  </div>
-                </div>
+                <EmployeesDoughnutChart
+                  data={doughnutDataDepartments}
+                  title="Empleados por Departamento"
+                  isDarkMode={isDarkMode}
+                />
               </div>
             </div>
           </>
@@ -556,7 +449,10 @@ const HomeEmployee = () => {
                 title="Análisis pendientes"
                 value={pendingAnalyses.length}
               />
-              <StatCard title="Rendimiento medio" value={averageYield.toFixed(2) + " %"} />
+              <StatCard
+                title="Rendimiento medio"
+                value={averageYield.toFixed(2) + " %"}
+              />
             </div>
 
             <div className="w-full md:w-1/3 mx-auto">
@@ -571,35 +467,8 @@ const HomeEmployee = () => {
                 <h2 className="text-lg font-semibold text-center mb-4">
                   Tipos de aceite resultantes
                 </h2>
-
-                <div className="relative" style={{ height: 488 }}>
-                  <Doughnut
-                    data={doughnutOilData}
-                    options={{
-                      responsive: true,
-                      maintainAspectRatio: false,
-                      plugins: {
-                        legend: { position: "bottom" },
-                        tooltip: {
-                          callbacks: {
-                            label: (tooltipItem) => {
-                              const label = tooltipItem.label;
-                              const value = tooltipItem.raw;
-                              const total = Object.values(oilCounts).reduce(
-                                (a, b) => a + b,
-                                0
-                              );
-                              const percent = ((value / total) * 100).toFixed(
-                                1
-                              );
-                              return `${label}: ${value} análisis (${percent}%)`;
-                            },
-                          },
-                        },
-                      },
-                    }}
-                  />
-                </div>
+                <AnalysisDoughnutChart oilCounts={oilCounts} />{" "}
+                {/* Aquí pasamos los datos al gráfico */}
               </div>
             </div>
           </>
@@ -702,42 +571,13 @@ const HomeEmployee = () => {
                       Estado de Liquidaciones
                     </h2>
                   </div>
-                  <div className="relative" style={{ height: 488 }}>
-                    <Doughnut
-                      data={doughnutDataSettlements}
-                      options={{
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                          legend: {
-                            position: "bottom",
-                          },
-                          tooltip: {
-                            callbacks: {
-                              label: (tooltipItem) => {
-                                const label = tooltipItem.label;
-                                const count = tooltipItem.raw;
-                                const total =
-                                  settlementStatusCounts.Aceptada +
-                                  settlementStatusCounts.Cancelada +
-                                  settlementStatusCounts.Pendiente;
-                                const percent = ((count / total) * 100).toFixed(
-                                  1
-                                );
 
-                                const euro =
-                                  settlementTotals[
-                                    label.replace("adas", "ada") // transforma "Aceptadas" -> "Aceptada"
-                                  ]?.toFixed(2) ?? "0.00";
-
-                                return `${label}: ${count} (${percent}%) - ${euro} €`;
-                              },
-                            },
-                          },
-                        },
-                      }}
-                    />
-                  </div>
+                  {/* Aquí pasamos los datos al componente del gráfico */}
+                  <SettlementDoughnutChart
+                    doughnutDataSettlements={doughnutDataSettlements}
+                    settlementStatusCounts={settlementStatusCounts}
+                    settlementTotals={settlementTotals}
+                  />
                 </div>
               </div>
             </div>
@@ -761,7 +601,6 @@ const HomeEmployee = () => {
 
       {loadingOils ? (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-4">
-
           <div className="flex justify-center col-span-full">
             <Skeleton className="h-150 w-full md:w-1/3 rounded-2xl" />
           </div>
