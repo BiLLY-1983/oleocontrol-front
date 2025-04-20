@@ -23,7 +23,6 @@ import {
 import { getAnalyses } from "@services/analysisRequests";
 import { SquarePen } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import EditAnalysisModal from "@pages/Analysis/EditAnalysisModal";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { AnalysisPDF } from "@components/pdf/AnalysisPDF";
 import { BiSolidFilePdf } from "react-icons/bi";
@@ -40,7 +39,6 @@ const Analyses = () => {
   const [analysesPerPage, setAnalysesPerPage] = useState(10);
   const [errorAnalyses, setErrorAnalyses] = useState(null);
   const [filtro, setFiltro] = useState("");
-  const [modalEditAnalysisOpen, setModalEditAnalysisOpen] = useState(false);
 
   const fetchAnalyses = async () => {
     setLoadingAnalyses(true);
@@ -140,13 +138,6 @@ const Analyses = () => {
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">{t("analyses.management")}</h1>
       </div>
-
-      <EditAnalysisModal
-        open={modalEditAnalysisOpen}
-        setOpen={setModalEditAnalysisOpen}
-        updateAnalyses={updateAnalyses}
-        selectedAnalysis={selectedAnalysis}
-      />
 
       {/* Cards Kilos / Litros */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
@@ -321,16 +312,6 @@ const Analyses = () => {
 
                     <td className="p-3 text-center">
                       <div className="inline-flex space-x-2 items-center">
-                        {analysis.analysis_date === null && (
-                          <SquarePen
-                            size={18}
-                            className="cursor-pointer text-blue-700 hover:text-blue-400"
-                            onClick={() => {
-                              setSelectedAnalysis(analysis);
-                              setModalEditAnalysisOpen(true);
-                            }}
-                          />
-                        )}
                           <PDFDownloadLink
                           document={<AnalysisPDF analysis={analysis} />}
                           fileName={`informe_analisis-${analysis.member?.name}-${analysis.id}.pdf`}
