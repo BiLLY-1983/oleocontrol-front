@@ -28,7 +28,7 @@
     "my_entries": "Mis Entradas",
     "my_analyses": "Mis Análisis",
     "my_settlements": "Mis Liquidaciones",
-    "oil_prices": "Precios de aceite",
+    "oil_prices": "Precios de aceite actuales",
     "oil_price_comparison": "Comparativa de precios por litro",
     "price": "Precio"
   },
@@ -55,7 +55,9 @@
     "login_text_fail": "Error al iniciar sesión",
     "login_title_fail": "Hubo un error iniciando sesión",
     "login_title_fail_cred": "Credenciales incorrectas",
-    "login_text_fail_no_admin": "No tiene permisos de administrador"
+    "login_text_fail_no_admin": "No tiene permisos de administrador",
+    "login_text_fail_no_worker": "No tiene permisos de empleado",
+    "login_text_fail_no_member": "No tiene permisos de socio"
   },
   "landing": {
     "welcome": "Bienvenido a la plataforma",
@@ -155,7 +157,12 @@
     "passwordConfirmationMinLength": "La contraseña de confirmación debe tener al menos {{min}} caracteres.",
     "passwordsDoNotMatch": "Las contraseñas no coinciden.",
     "phoneRequired": "El teléfono es obligatorio.",
-    "maxCharacters": "Máximo {{max}} caracteres."
+    "maxCharacters": "Máximo {{max}} caracteres.",
+    "nameRequired": "El nombre es obligatorio",
+    "nameMax": "Máximo 255 caracteres",
+    "descriptionMax": "Máximo 500 caracteres",
+    "priceInvalid": "El precio debe ser un número",
+    "priceMin": "El precio no puede ser negativo"
   },
   "roles": {
     "management": "Gestión de Roles",
@@ -269,5 +276,33 @@
     "successDeleteText": "La liquidación ha sido eliminada correctamente.",
     "errorDeleteTitle": "Error al eliminar la liquidación",
     "errorDeleteText": "Ocurrió un error al intentar eliminar la liquidación."
+  },
+  "oils": {
+    "newOil": "Nuevo tipo de aceite",
+    "deleteOil": "Eliminar aceite",
+    "errorDeleteTitle": "Error al eliminar el aceite",
+    "errorDeleteText": "Ocurrió un error al intentar eliminar el tipo de aceite",
+    "deleteOilTitle": "Eliminar aceite {{name}}",
+    "loadingOil": "Cargando aceite",
+    "successDeleteTitle": "Aceite eliminado",
+    "successDeleteText": "El aceite ha sido eliminado correctamente",
+    "deleteOilDescription": "¿Estás seguro de que deseas eliminar este aceite? Esta acción no se puede deshacer.",
+    "editTitle": "Editar aceite {{name}}",
+    "editDescription": "Modifica los datos del aceite seleccionado.",
+    "editSuccessTitle": "Aceite actualizado",
+    "editSuccessText": "El aceite fue actualizado correctamente.",
+    "editErrorTitle": "Error al actualizar",
+    "editing": "Guardando...",
+    "edit": "Guardar cambios",
+    "newTitle": "Nuevo aceite",
+    "newDescription": "Todos los campos requeridos deben ser rellenados",
+    "newSuccessTitle": "Éxito",
+    "newSuccessText": "Aceite creado correctamente",
+    "newErrorTitle": "Error",
+    "loading": "Guardando...",
+    "save": "Guardar",
+    "name": "Nombre",
+    "description": "Descripción",
+    "price": "Precio (€)"
   }
 }

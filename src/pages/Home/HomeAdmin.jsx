@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import ChartEntries from "@components/ChartEntries";
-import ChartOils from "@components/ChartsOils";
-import ChartSettlementsHome from "@components/ChartSettlementsHome";
+import ChartEntries from "@components/Charts/ChartEntries";
+import ChartOils from "@components/Charts/ChartsOils";
+import ChartSettlementsHome from "@components/Charts/ChartSettlementsHome";
 import StatCard from "@components/StatCard";
 import clsx from "clsx";
 import { useTheme } from "@context/ThemeContext";
@@ -12,6 +12,7 @@ import { getAnalyses } from "@services/analysisRequests";
 import { getOils } from "@services/oilRequests";
 import { getSettlements } from "@services/settlementRequests";
 import { Skeleton } from "@/components/ui/skeleton";
+import { formatEuro } from "@/utils/formatEuro";
 
 const HomeAdmin = () => {
   const { theme } = useTheme();
@@ -203,11 +204,12 @@ const HomeAdmin = () => {
           <>
             <StatCard
               title="navigation.olive_entries"
-              value={kgTn.toFixed(2) + " Tn"}
+              value={kgTn.toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Tn"}
+
             />
             <StatCard
               title="home.oil_production"
-              value={totalLitros.toFixed(2) + " L"}
+              value={totalLitros.toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " L"}
               subtext={
                 t("home.oil_yield") + ": " + averageYield.toFixed(2) + " %"
               }
@@ -226,10 +228,7 @@ const HomeAdmin = () => {
           <StatCard
             title="home.pending_settlements"
             value={totalPendingSettlements}
-            subtext={totalPendingAmount.toLocaleString("es-ES", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            }) + " €"}
+            subtext={formatEuro(totalPendingAmount)}
           />
         )}
       </div>

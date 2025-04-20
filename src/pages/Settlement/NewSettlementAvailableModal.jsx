@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
-import { getMemberByUser } from "@services/memberRequests";
 import { getOils } from "@services/oilRequests";
 import {
   Dialog,
@@ -35,24 +34,20 @@ const settlementSchema = z.object({
   oil_id: z.string().min(1, "Debe seleccionar un tipo de aceite"),
 });
 
-const NewSettlementModal = ({
+const NewSettlementAvailableModal = ({
+  memberId,
   open,
   setOpen,
   isDarkMode,
   updateSettlements,
 }) => {
   const { t } = useTranslation();
-  const { userData } = useContext(UserContext);
-  const [memberId, setMemberId] = useState("");
-  const [employees, setEmployees] = useState([]);
   const [oils, setOils] = useState([]);
   const [settlements, setSettlements] = useState([]);
-  const [errorMember, setErrorMember] = useState(true);
+  const [errorSettlement, setErrorerrorSettlement] = useState(true);
   const [errorOils, setErrorOils] = useState(true);
-  const [loadingMember, setLoadingMember] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [loadingOils, setLoadingOils] = useState(true);
-  const [queryMember, setQueryMember] = useState("");
-  const [queryEmployee, setQueryEmployee] = useState("");
 
   const {
     register,
@@ -85,31 +80,24 @@ const NewSettlementModal = ({
     }
   };
 
-  const fetchMemberId = async () => {
-    setLoadingMember(true);
+  const fetchSettlements = async () => {
+    setLoading(true);
     try {
-      const response = await getMemberByUser(userData.user?.id);
+      const response = await getSettlementsByMember(memberId);
       if (response.status === "success") {
-        const id = response.data.id;
-        setMemberId(id);
-
-        // Después de obtener el ID del socio, cargar las liquidaciones
-        const settlementsRes = await getSettlementsByMember(id);
-        if (settlementsRes.status === "success") {
-          setSettlements(settlementsRes.data);
-        }
-      }
+        setSettlements(response.data);
+      } 
     } catch (error) {
-      console.error("Error fetching member:", error);
-      setErrorMember("Error al cargar el socio.");
+      console.error("Error fetching settlements:", error);
+      setErrorerrorSettlement("Error al cargar liquidaciones.");
     } finally {
-      setLoadingMember(false);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchOils();
-    fetchMemberId();
+    fetchSettlements();
   }, []);
 
   const handleCreate = async (data) => {
@@ -230,4 +218,4 @@ const NewSettlementModal = ({
   );
 };
 
-export default NewSettlementModal;
+export default NewSettlementAvailableModal;

@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from "react";
-import ChartOils from "@components/ChartsOils";
-import StatCard from "@components/StatCard";
+import ChartOils from "@components/Charts/ChartsOils";
 import clsx from "clsx";
+import { Trash2, SquarePen } from "lucide-react";
 import { useTheme } from "@context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import { getAnalyses } from "@services/analysisRequests";
 import { getOils } from "@services/oilRequests";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import NewOilModal from "@pages/Oil/NewOilModal";
+import EditOilModal from "@pages/Oil/EditOilModal";
+import DeleteOilModal from "@pages/Oil/DeleteOilModal";
+import { Card } from "@components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@components/ui/dialog";
 
 const Oils = () => {
   const { theme } = useTheme();
@@ -18,11 +29,16 @@ const Oils = () => {
   const [oilQuantities, setOilQuantities] = useState([]);
   const [totalOil, setTotalOil] = useState(0);
   const [oilData, setOilData] = useState(null);
+  const [selectedOil, setSelectedOil] = useState(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const [loadingAnalyses, setLoadingAnalyses] = useState(true);
   const [loadingOils, setLoadingOils] = useState(true);
   const [errorAnalyses, setErrorAnalyses] = useState(null);
   const [errorOils, setErrorOils] = useState(null);
+  const [modalNewOilOpen, setModalNewOilOpen] = useState(false);
+  const [modalEditOilOpen, setModalEditOilOpen] = useState(false);
+  const [modalDeleteOilOpen, setModalDeleteOilOpen] = useState(false);
 
   const fetchAnalyses = async () => {
     setLoadingAnalyses(true);
@@ -69,9 +85,11 @@ const Oils = () => {
     }
 
     const oilTotals = oils.map((oil) => ({
+      id: oil.id,
       name: oil.name,
       quantity: 0,
       price: oil.price,
+      description: oil.description,
     }));
 
     analyses.forEach((analysis) => {
@@ -121,6 +139,15 @@ const Oils = () => {
     setOilData(chartData);
   }, [analyses, oils, t]);
 
+  const updateOils = async () => {
+    await fetchOils();
+  };
+
+  const handleCardClick = (oil) => {
+    setSelectedOil(oil);
+    setIsDialogOpen(true);
+  };
+
   return (
     <div
       className={clsx(
@@ -128,7 +155,44 @@ const Oils = () => {
         isDarkMode ? "bg-dark-800 text-dark-50" : "bg-white text-olive-800"
       )}
     >
-      <h1 className="text-2xl font-bold">{t("navigation.oils")}</h1>
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold">{t("navigation.oils")}</h1>
+
+        <Button
+          className={clsx(
+            "cursor-pointer text-white",
+            isDarkMode
+              ? "bg-dark-600 hover:bg-dark-500"
+              : "bg-olive-500 hover:bg-olive-600"
+          )}
+          onClick={() => setModalNewOilOpen(true)}
+        >
+          + {t("oils.newOil")}
+        </Button>
+      </div>
+
+      <NewOilModal
+        open={modalNewOilOpen}
+        setOpen={setModalNewOilOpen}
+        isDarkMode={isDarkMode}
+        updateOils={updateOils}
+      />
+
+      <EditOilModal
+        open={modalEditOilOpen}
+        setOpen={setModalEditOilOpen}
+        isDarkMode={isDarkMode}
+        updateOils={updateOils}
+        selectedOil={selectedOil}
+      />
+
+      <DeleteOilModal
+        open={modalDeleteOilOpen}
+        setOpen={setModalDeleteOilOpen}
+        isDarkMode={isDarkMode}
+        updateOils={updateOils}
+        selectedOil={selectedOil}
+      />
 
       {/* Cards de resumen por tipo de aceite */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
@@ -142,19 +206,64 @@ const Oils = () => {
         ) : (
           <>
             {/* Card de total general */}
-            <StatCard
-              title={t("analysis.oilQuantity")}
-              value={`${(totalOil / 1000).toFixed(2)} Tn`}
-            />
-
+            {/*             <Card
+              className={clsx(
+                "p-6 rounded-lg shadow",
+                isDarkMode ? "bg-dark-700" : "bg-olive-100"
+              )}
+            >
+              <h2 className="text-xl font-semibold">
+                {t("analysis.oilQuantity")}
+              </h2>
+              <p className="text-3xl font-bold">{`${(totalOil / 1000).toFixed(
+                2
+              )} Tn`}</p>
+            </Card> */}
             {/* Cards por tipo */}
             {oilQuantities.map((oil) => (
-              <StatCard
-                key={oil.name}
-                title={oil.name}
-                value={`${(oil.quantity / 1000).toFixed(2)} Tn`}
-                subtext={oil.price ? `${oil.price} €/L` : ""}
-              />
+              <Card
+                key={oil.id}
+                onClick={() => handleCardClick(oil)}
+                className={clsx(
+                  "p-4 rounded-lg shadow transition-transform transform relative cursor-pointer",
+                  isDarkMode
+                    ? "bg-dark-700 text-dark-50"
+                    : "bg-olive-100 text-olive-800"
+                )}
+              >
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h2 className="text-xl font-semibold">{oil.name}</h2>
+                    <p className="text-3xl font-bold">
+                      {(oil.quantity / 1000).toFixed(2)} Tn
+                    </p>
+                    {oil.price && (
+                      <p className="text-sm mt-5">{oil.price} €/L</p>
+                    )}
+                  </div>
+
+                  <div className="flex space-x-2 absolute bottom-2 right-2">
+                    <SquarePen
+                      size={18}
+                      className="cursor-pointer text-blue-700 hover:text-blue-400 hover:scale-120 transition-all duration-300"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedOil(oils.find((o) => o.id === oil.id));
+                        setModalEditOilOpen(true);
+                      }}
+                    />
+                    <Trash2
+                      size={18}
+                      className="cursor-pointer text-red-700 hover:text-red-400 hover:scale-120 transition-all duration-300"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedOil(oils.find((o) => o.id === oil.id));
+                        setModalDeleteOilOpen(true);
+                      }}
+                    />
+                  </div>
+                </div>
+              </Card>
             ))}
           </>
         )}
@@ -164,6 +273,27 @@ const Oils = () => {
       {oilData && (
         <ChartOils oils={oils} analyses={analyses} chartData={oilData} />
       )}
+
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent
+          className={clsx(
+            "max-h-[50vh] overflow-y-auto",
+            isDarkMode
+              ? "bg-dark-700 text-dark-50"
+              : "bg-olive-50 text-olive-800"
+          )}
+        >
+          <DialogHeader>
+            <DialogTitle>{selectedOil?.name}</DialogTitle>
+          </DialogHeader>
+          <p className="mt-2 text-sm">{selectedOil?.description}</p>
+          {selectedOil?.price && (
+            <p className="mt-4 text-sm">
+              <strong>Precio:</strong> {selectedOil.price} €/L
+            </p>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

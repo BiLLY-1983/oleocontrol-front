@@ -66,8 +66,6 @@ const EditEmployeeModal = ({
   const handleEdit = async (data) => {
     const result = await updateEmployee(selectedEmployee.id, data);
 
-    console.log(data);
-
     if (result.status === "success") {
       success({
         title: t("users.successEditTitle"), // Traducción para "Usuario actualizado con éxito"

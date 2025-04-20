@@ -105,7 +105,7 @@ export default function ChartOils({ oils, analyses }) {
                         (oil) => oil.name === tooltipItem.label
                       );
                       const quantity = tooltipItem.raw;
-                      return `${tooltipItem.label}: ${quantity.toLocaleString()} L | Precio: ${oil ? oil.price : 0} €`;
+                      return `${tooltipItem.label}: ${quantity.toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} L | Precio: ${oil ? oil.price : 0} €`;
                     },
                   },
                 },
@@ -121,7 +121,7 @@ export default function ChartOils({ oils, analyses }) {
 
       <div className="mt-4">
         <div className="text-lg font-medium">
-          {t("home.total_oil")}: {totalOil} L
+          {t("home.total_oil")}: {totalOil.toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} L
         </div>
       </div>
     </div>

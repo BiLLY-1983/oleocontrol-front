@@ -1,7 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import { UserContext } from "@context/UserContext";
+import React, { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectTrigger,
@@ -22,63 +20,55 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { getSettlementsByMember } from "@services/settlementRequests";
-import { Trash2 } from "lucide-react";
+import { getAnalyses } from "@services/analysisRequests";
+import { SquarePen } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import NewSettlementAvailableModal from "@pages/Settlement/NewSettlementAvailableModal";
-import DeleteSettlementMemberModal from "@pages/Settlement/DeleteSettlementMemberModal";
-import ChartSettlements from "@components/Charts/ChartSettlements";
+import EditAnalysisModal from "@pages/Analysis/EditAnalysisModal";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { SettlementPDF } from "@components/pdf/SettlementPDF";
+import { AnalysisPDF } from "@components/pdf/AnalysisPDF";
 import { BiSolidFilePdf } from "react-icons/bi";
 
-const SettlementsMember = () => {
+const Analyses = () => {
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
   const { t } = useTranslation();
 
-  const { userData } = useContext(UserContext);
-  const memberId = userData?.user?.member?.id;
-
-  const [settlements, setSettlements] = useState([]);
-  const [selectedSettlement, setSelectedSettlement] = useState(null);
-  const [loadingSettlement, setLoadingSettlement] = useState(true);
+  const [analyses, setAnalyses] = useState([]);
+  const [selectedAnalysis, setSelectedAnalysis] = useState(null);
+  const [loadingAnalyses, setLoadingAnalyses] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [settlementsPerPage, setSettlementsPerPage] = useState(10);
-  const [errorSettlement, setErrorSettlement] = useState(null);
-  const [filter, setFilter] = useState("");
-  const [modalNewSettlementOpen, setModalNewSettlementOpen] = useState(false);
-  const [modalDeleteSettlementOpen, setModalDeleteSettlementOpen] = useState(false);
+  const [analysesPerPage, setAnalysesPerPage] = useState(10);
+  const [errorAnalyses, setErrorAnalyses] = useState(null);
+  const [filtro, setFiltro] = useState("");
+  const [modalEditAnalysisOpen, setModalEditAnalysisOpen] = useState(false);
 
-  const fetchSettlements = async () => {
-    setLoadingSettlement(true);
+  const fetchAnalyses = async () => {
+    setLoadingAnalyses(true);
     try {
-      const response = await getSettlementsByMember(memberId);
+      const response = await getAnalyses();
       if (response.status === "success") {
-        setSettlements(response.data);
+        setAnalyses(response.data);
       }
     } catch (error) {
-      console.error("Error fetching settlements:", error);
-      setErrorSettlement("Error al cargar las liquidaciones.");
+      console.error("Error fetching analyses:", error);
+      setErrorAnalyses("Error al cargar los análisis.");
     } finally {
-      setLoadingSettlement(false);
+      setLoadingAnalyses(false);
     }
   };
 
   useEffect(() => {
-    fetchSettlements();
+    fetchAnalyses();
   }, []);
 
-  const updateSettlements = async () => {
-    await fetchSettlements();
+  const updateAnalyses = async () => {
+    await fetchAnalyses();
   };
 
-  const settlementsFiltered = settlements.filter(
-    (settlement) =>
-      settlement.settlement_status
-        .toLowerCase()
-        .includes(filter.toLowerCase()) ||
-      settlement.oil?.name.toLowerCase().includes(filter.toLowerCase())
+  const analysesFiltered = analyses.filter(
+    (analysis) =>
+      analysis.member?.name.toLowerCase().includes(filtro.toLowerCase()) ||
+      analysis.oil?.name.toLowerCase().includes(filtro.toLowerCase())
   );
 
   // Paginación
@@ -110,11 +100,11 @@ const SettlementsMember = () => {
     ];
   };
 
-  const indexOfLastSettlement = currentPage * settlementsPerPage;
-  const indexOfFirstSettlement = indexOfLastSettlement - settlementsPerPage;
-  const currentSettlements = settlementsFiltered.slice(
-    indexOfFirstSettlement,
-    indexOfLastSettlement
+  const indexOfLastAnalysis = currentPage * analysesPerPage;
+  const indexOfFirstAnalysis = indexOfLastAnalysis - analysesPerPage;
+  const currentAnalyses = analysesFiltered.slice(
+    indexOfFirstAnalysis,
+    indexOfLastAnalysis
   );
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -122,24 +112,23 @@ const SettlementsMember = () => {
   const pageNumbers = [];
   for (
     let i = 1;
-    i <= Math.ceil(settlementsFiltered.length / settlementsPerPage);
+    i <= Math.ceil(analysesFiltered.length / analysesPerPage);
     i++
   ) {
     pageNumbers.push(i);
   }
 
-  // Contadores globales de liquidaciones por estado
-  const pendingSettlements = settlements.filter(
-    (s) => s.settlement_status === "Pendiente"
-  ).length;
+  const pendingAnalyses = analyses.filter((a) => !a.analysis_date);
 
-  const acceptedSettlements = settlements.filter(
-    (s) => s.settlement_status === "Aceptada"
-  ).length;
+  const analysesWithYield = analyses.filter(
+    (a) => a.yield !== null && a.yield !== undefined
+  );
 
-  const cancelledSettlements = settlements.filter(
-    (s) => s.settlement_status === "Cancelada"
-  ).length;
+  const averageYield =
+    analysesWithYield.length > 0
+      ? analysesWithYield.reduce((sum, a) => sum + Number(a.yield), 0) /
+        analysesWithYield.length
+      : 0;
 
   return (
     <div
@@ -149,42 +138,24 @@ const SettlementsMember = () => {
       )}
     >
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">{t("settlements.management")}</h1>
-        <Button
-          className={clsx(
-            "cursor-pointer text-white",
-            isDarkMode
-              ? "bg-dark-600 hover:bg-dark-500"
-              : "bg-olive-500 hover:bg-olive-600"
-          )}
-          onClick={() => setModalNewSettlementOpen(true)}
-        >
-          + {t("settlements.newSettlement")}
-        </Button>
+        <h1 className="text-2xl font-bold">{t("analyses.management")}</h1>
       </div>
 
-      <NewSettlementAvailableModal
-        memberId={memberId}
-        open={modalNewSettlementOpen}
-        setOpen={setModalNewSettlementOpen}
-        updateSettlements={updateSettlements}
-      />
-      <DeleteSettlementMemberModal
-        memberId={memberId}
-        open={modalDeleteSettlementOpen}
-        setOpen={setModalDeleteSettlementOpen}
-        updateSettlements={updateSettlements}
-        selectedSettlement={selectedSettlement}
+      <EditAnalysisModal
+        open={modalEditAnalysisOpen}
+        setOpen={setModalEditAnalysisOpen}
+        updateAnalyses={updateAnalyses}
+        selectedAnalysis={selectedAnalysis}
       />
 
-      {/* Cards */}
+      {/* Cards Kilos / Litros */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-        {loadingSettlement ? (
+        {loadingAnalyses ? (
           <div className="space-y-4">
             <Skeleton className="h-16 w-1*2" />
           </div>
-        ) : errorSettlement ? (
-          <div className="text-red-600">{errorSettlement}</div>
+        ) : errorAnalyses ? (
+          <div className="text-red-600">{errorAnalyses}</div>
         ) : (
           <>
             <Card
@@ -197,9 +168,11 @@ const SettlementsMember = () => {
             >
               <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
                 <div className="text-lg font-semibold">
-                  {t("settlements.pending")}:
+                  {t("analysis.pending")}:
                 </div>
-                <div className="text-3xl font-bold">{pendingSettlements}</div>
+                <div className="text-3xl font-bold">
+                  {pendingAnalyses.length}
+                </div>
               </div>
             </Card>
             <Card
@@ -212,24 +185,11 @@ const SettlementsMember = () => {
             >
               <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
                 <div className="text-lg font-semibold">
-                  {t("settlements.accept")}:
+                  {t("home.oil_yield")}:
                 </div>
-                <div className="text-3xl font-bold">{acceptedSettlements}</div>
-              </div>
-            </Card>
-            <Card
-              className={clsx(
-                "rounded-2xl shadow p-4 w-full border",
-                isDarkMode
-                  ? "bg-dark-900 border-dark-700 text-dark-50"
-                  : "bg-olive-100 border-olive-300 text-olive-800"
-              )}
-            >
-              <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
-                <div className="text-lg font-semibold">
-                  {t("settlements.cancelled")}:
+                <div className="text-3xl font-bold">
+                  {averageYield.toFixed(2)}%
                 </div>
-                <div className="text-3xl font-bold">{cancelledSettlements}</div>
               </div>
             </Card>
           </>
@@ -239,17 +199,17 @@ const SettlementsMember = () => {
       {/* Filtro y Selector */}
       <div className="flex flex-col md:flex-row justify-between items-center gap-4">
         <Input
-          placeholder="Buscar liquidaciones..."
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          className="w-full md:w-1/2"
+          placeholder="Buscar análisis..."
+          value={filtro}
+          onChange={(e) => setFiltro(e.target.value)}
+          className={clsx("w-full md:w-1/2")}
         />
         <div className="flex items-center gap-2">
           <span className="text-sm text-muted-foreground">Mostrar:</span>
           <Select
-            value={String(settlementsPerPage)}
+            value={String(analysesPerPage)}
             onValueChange={(value) => {
-              setSettlementsPerPage(Number(value));
+              setAnalysesPerPage(Number(value));
               setCurrentPage(1);
             }}
           >
@@ -276,9 +236,9 @@ const SettlementsMember = () => {
             : "bg-olive-50 border-olive-200 text-olive-800"
         )}
       >
-        {loadingSettlement ? (
+        {loadingAnalyses ? (
           <div className="space-y-4">
-            {Array.from({ length: settlementsPerPage }).map((_, idx) => (
+            {Array.from({ length: analysesPerPage }).map((_, idx) => (
               <Skeleton key={idx} className="h-10 w-full rounded-md" />
             ))}
           </div>
@@ -288,86 +248,92 @@ const SettlementsMember = () => {
               <thead>
                 <tr className="text-left border-b-2">
                   <th className="p-3 text-left w-1/14">ID</th>
+                  <th className="p-3 text-left w-1/8">{t("analysis.date")}</th>
                   <th className="p-3 text-left w-1/8">
-                    {t("settlements.member")}
+                    {t("analysis.member")}
                   </th>
-                  <th className="p-3 text-left w-1/8">
-                    {t("settlements.date")}
+                  <th className="p-3 text-left w-1/10">
+                    {t("analysis.oliveQuantity")}
                   </th>
-                  <th className="p-3 text-left w-1/8">
-                    {t("settlements.oil_type")}
+                  <th className="p-3 text-left w-1/10">
+                    {t("analysis.acidity")}
                   </th>
-                  <th className="p-3 text-left w-1/8">
-                    {t("settlements.amount")}
+                  <th className="p-3 text-left w-1/10">
+                    {t("analysis.humidity")}
                   </th>
-                  <th className="p-3 text-left w-1/8">
-                    {t("settlements.price")}
+                  <th className="p-3 text-left w-1/8">{t("analysis.yield")}</th>
+                  <th className="p-3 text-left w-1/6">
+                    {t("analysis.oilType")}
                   </th>
-                  <th className="p-3 text-left w-1/8">
-                    {t("settlements.status")}
+                  <th className="p-3 text-left w-1/6">
+                    {t("analysis.oilQuantity")}
                   </th>
-                  <th className="p-3 text-left w-1/8">
-                    {t("settlements.date_res")}
-                  </th>
-                  <th className="p-3 text-left w-1/8">
-                    {t("settlements.employee")}
-                  </th>
-                  <th className="p-3 text-center w-1/14">
-                    {t("settlements.actions")}
+                  <th className="p-3 text-center w-1/8">
+                    {t("common.actions")}
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {currentSettlements.map((settlement) => (
+                {currentAnalyses.map((analysis) => (
                   <tr
-                    key={settlement.id}
+                    key={analysis.id}
                     className={clsx(
                       "border-b transition-colors",
                       isDarkMode ? "hover:bg-dark-700" : "hover:bg-olive-100"
                     )}
                   >
-                    <td className="p-3">{settlement.id}</td>
-                    <td className="p-3">{settlement.member?.name}</td>
-                    <td className="p-3">{settlement.settlement_date}</td>
-                    <td className="p-3">{settlement.oil?.name}</td>
-                    <td className="p-3">{settlement.amount}</td>
-                    <td className="p-3">{settlement.price}</td>
-                    <td
-                      className={`p-3 ${
-                        settlement.settlement_status === "Aceptada"
-                          ? "text-green-500"
-                          : settlement.settlement_status === "Cancelada"
-                          ? "text-red-500"
-                          : "text-yellow-500"
-                      }`}
-                    >
-                      {settlement.settlement_status}
-                    </td>
-                    <td className="p-3">
-                      {settlement.settlement_date_res
-                        ? settlement.settlement_date_res
+                    <td className="p-3">{analysis.id}</td>
+                    <td className="p-3 font-medium">
+                      {analysis.analysis_date
+                        ? `${analysis.analysis_date}`
                         : "-"}
                     </td>
+                    <td className="p-3">{analysis.member?.name}</td>
                     <td className="p-3">
-                      {settlement.employee?.name
-                        ? settlement.employee?.name
+                      {analysis.entry?.olive_quantity} Kg (ID Ent:{" "}
+                      <span className="font-bold">
+                        {analysis.entry?.entry_id}
+                      </span>
+                      )
+                    </td>
+                    <td className="p-3">
+                      {analysis.acidity ? `${analysis.acidity}%` : "-"}
+                    </td>
+                    <td className="p-3">
+                      {analysis.humidity ? `${analysis.humidity}%` : "-"}
+                    </td>
+                    <td className="p-3">
+                      {analysis.yield ? `${analysis.yield}%` : "-"}
+                    </td>
+                    <td className="p-3">
+                      {analysis.oil?.name ? `${analysis.oil?.name}` : "-"}
+                    </td>
+                    <td className="p-3">
+                      {analysis.oil?.name &&
+                      analysis.entry?.olive_quantity &&
+                      analysis.yield
+                        ? `${(
+                            (analysis.entry.olive_quantity * analysis.yield) /
+                            100
+                          ).toFixed(2)} Kg`
                         : "-"}
                     </td>
+
                     <td className="p-3 text-center">
                       <div className="inline-flex space-x-2 items-center">
-                        {settlement.settlement_status === "Pendiente" && (
-                          <Trash2
+                        {analysis.analysis_date === null && (
+                          <SquarePen
                             size={18}
-                            className="cursor-pointer text-red-700 hover:text-red-400"
+                            className="cursor-pointer text-blue-700 hover:text-blue-400"
                             onClick={() => {
-                              setSelectedSettlement(settlement);
-                              setModalDeleteSettlementOpen(true);
+                              setSelectedAnalysis(analysis);
+                              setModalEditAnalysisOpen(true);
                             }}
                           />
                         )}
-                        <PDFDownloadLink
-                          document={<SettlementPDF settlement={settlement} />}
-                          fileName={`informe_liquidacion-${settlement.member?.name}-${settlement.id}.pdf`}
+                          <PDFDownloadLink
+                          document={<AnalysisPDF analysis={analysis} />}
+                          fileName={`informe_analisis-${analysis.member?.name}-${analysis.id}.pdf`}
                         >
                           {({ loadingAnalyses }) =>
                             loadingAnalyses ? (
@@ -433,10 +399,8 @@ const SettlementsMember = () => {
           </PaginationContent>
         </Pagination>
       )}
-
-      <ChartSettlements settlements={settlements} />
     </div>
   );
 };
 
-export default SettlementsMember;
+export default Analyses;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ChartEntries from "@components/ChartEntries";
+import ChartEntries from "@components/Charts/ChartEntries";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,6 +30,7 @@ import EditEntryModal from "@pages/Entry/EditEntryModal";
 import DeleteEntryModal from "@pages/Entry/DeleteEntryModal";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { EntryPDF } from "@components/pdf/EntryPDF";
+import { EntryWithOilPDF } from "@components/pdf/EntryWithOilPDF";
 import { BiSolidFilePdf } from "react-icons/bi";
 
 const Entries = () => {
@@ -192,7 +193,7 @@ const Entries = () => {
               )}
             >
               <h2 className="text-xl font-semibold">{t("entries.totalTn")}</h2>
-              <p className="text-3xl font-bold">{kgTn.toFixed(2)} Tn</p>
+              <p className="text-3xl font-bold">{kgTn.toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Tn</p>
             </Card>
 
             <Card
@@ -202,7 +203,7 @@ const Entries = () => {
               )}
             >
               <h2 className="text-xl font-semibold">{t("entries.totalLt")}</h2>
-              <p className="text-3xl font-bold">{totalLitros.toFixed(2)} L</p>
+              <p className="text-3xl font-bold">{totalLitros.toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} L</p>
             </Card>
           </>
         )}
@@ -325,18 +326,34 @@ const Entries = () => {
                             }}
                           />
                         )}
-                        <PDFDownloadLink
-                          document={<EntryPDF entry={entry} />}
-                          fileName={`informe_entrada-${entry.member?.name}-${entry.id}.pdf`}
-                        >
-                          {({ loading }) =>
-                            loading ? (
-                              <BiSolidFilePdf size={20} />
-                            ) : (
-                              <BiSolidFilePdf size={20} />
-                            )
-                          }
-                        </PDFDownloadLink>
+                        {entry.oil_quantity === null && (
+                          <PDFDownloadLink
+                            document={<EntryPDF entry={entry} />}
+                            fileName={`informe_entrada-${entry.member?.name}-${entry.id}.pdf`}
+                          >
+                            {({ loading }) =>
+                              loading ? (
+                                <BiSolidFilePdf size={20} />
+                              ) : (
+                                <BiSolidFilePdf size={20} />
+                              )
+                            }
+                          </PDFDownloadLink>
+                        )}
+                        {entry.oil_quantity !== null && (
+                          <PDFDownloadLink
+                            document={<EntryWithOilPDF entry={entry} />}
+                            fileName={`informe_entrada-${entry.member?.name}-${entry.id}.pdf`}
+                          >
+                            {({ loading }) =>
+                              loading ? (
+                                <BiSolidFilePdf size={20} />
+                              ) : (
+                                <BiSolidFilePdf size={20} />
+                              )
+                            }
+                          </PDFDownloadLink>
+                        )}
                       </div>
                     </td>
                   </tr>

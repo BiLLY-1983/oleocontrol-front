@@ -11,6 +11,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@context/ThemeContext";
 import clsx from "clsx";
+import { formatEuro } from "@/utils/formatEuro";
 
 export default function ChartSettlements({ settlements }) {
   const { t } = useTranslation();
@@ -101,17 +102,17 @@ export default function ChartSettlements({ settlements }) {
           <XAxis dataKey="label" stroke={isDarkMode ? "#c9d1d9" : "#1f2615"} />
           <YAxis
             stroke={isDarkMode ? "#c9d1d9" : "#1f2615"}
-            tickFormatter={(value) => `${value.toFixed(0)}€`}
+            tickFormatter={(value) => `${value}€`}
           />
           <Tooltip
             formatter={(value, name) => {
               if (name === "Aceptadas") {
-                return [`${value.toFixed(0)} €`, t("settlements.accept")];
+                return [`${formatEuro(value)}`, t("settlements.accept")];
               }
               if (name === "Canceladas") {
-                return [`${value.toFixed(0)} €`, t("settlements.cancelled")];
+                return [`${formatEuro(value)}`, t("settlements.cancelled")];
               }
-              return [`${value.toFixed(0)} €`, t("settlements.amount")];
+              return [`${formatEuro(value)} €`, t("settlements.amount")];
             }}
             contentStyle={{
               backgroundColor: isDarkMode ? "#000" : "#ffffff",

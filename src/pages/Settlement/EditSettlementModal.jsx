@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { useEffect, useContext, useState } from "react";
 import { updateSettlement } from "@services/settlementRequests";
 import { UserContext } from "@context/UserContext";
-import { getEmployeeByUser } from "@services/employeeRequests";
 import {
   Dialog,
   DialogContent,
@@ -42,24 +41,7 @@ const EditSettlementModal = ({
   const { t } = useTranslation(); // Hook para traducciones
 
   const { userData } = useContext(UserContext);
-  const [employeeId, setEmployeeId] = useState("");
-  const [loadingEmployee, setLoadingEmployee] = useState(true);
-  const [errorEmployee, setErrorEmployee] = useState(true);
-
-  const fetchEmployeeId = async () => {
-    setLoadingEmployee(true);
-    try {
-      const response = await getEmployeeByUser(userData.user?.id);
-      if (response.status === "success") {
-        setEmployeeId(response.data.id);
-      }
-    } catch (error) {
-      console.error("Error fetching employees:", error);
-      setErrorEmployee("Error al cargar el empleado.");
-    } finally {
-      setLoadingEmployee(false);
-    }
-  };
+  const employeeId = userData?.user?.employee?.id;
 
   const {
     register,
@@ -75,11 +57,7 @@ const EditSettlementModal = ({
       settlement_date_res: new Date().toISOString().split("T")[0],
     },
   });
-
-  useEffect(() => {
-    fetchEmployeeId();
-  }, []);
-
+  
   useEffect(() => {
     if (selectedSettlement) {
       reset(selectedSettlement);

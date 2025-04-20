@@ -1,16 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from "@context/UserContext";
 import { NavLink } from "react-router-dom";
 import clsx from "clsx";
 import {
   Home,
-  Users,
-  Shield,
   Briefcase,
   Building,
   UserCircle,
   FileText,
   FlaskConical,
-  Wallet,
   Droplets,
   ChevronLeft,
   ChevronRight,
@@ -19,31 +17,58 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "@context/ThemeContext";
 
 const menuItems = [
-  { name: "navigation.home", icon: Home, to: "home" },
-  { name: "navigation.users", icon: Users, to: "users" },
-  { name: "navigation.roles", icon: Shield, to: "roles" },
-  { name: "navigation.employees", icon: Briefcase, to: "employees" },
-  { name: "navigation.departments", icon: Building, to: "departments" },
-  { name: "navigation.members", icon: UserCircle, to: "members" },
-  { name: "navigation.entries", icon: FileText, to: "entries" },
-  { name: "navigation.analyses", icon: FlaskConical, to: "analyses" },
-  { name: "navigation.settlements", icon: Wallet, to: "settlements" },
   { name: "navigation.oils", icon: Droplets, to: "oils" },
 ];
 
-export default function Sidebar() {
+// Diccionario de menús por departamento
+const departmentMenus = {
+  Contabilidad: [
+    { name: "navigation.home", icon: Home, to: "home" },
+    { name: "navigation.settlements", icon: FlaskConical, to: "settlements" },
+    { name: "navigation.oils", icon: Droplets, to: "oils" },
+  ],
+  Laboratorio: [
+    { name: "navigation.home", icon: Home, to: "home" },
+    { name: "navigation.analyses", icon: FlaskConical, to: "analyses" },
+    { name: "navigation.oils", icon: Droplets, to: "oils" },
+  ],
+  "Control de entradas": [
+    { name: "navigation.home", icon: Home, to: "home" },
+    { name: "navigation.entries", icon: FileText, to: "entries" },
+    { name: "navigation.oils", icon: Droplets, to: "oils" },
+  ],
+  RRHH: [
+    { name: "navigation.home", icon: Home, to: "home" },
+    { name: "navigation.employees", icon: Briefcase, to: "employees" },
+    { name: "navigation.departments", icon: Building, to: "departments" },
+    { name: "navigation.oils", icon: Droplets, to: "oils" },
+  ],
+  Administración: [
+    { name: "navigation.home", icon: Home, to: "home" },
+    { name: "navigation.members", icon: UserCircle, to: "members" },
+    { name: "navigation.oils", icon: Droplets, to: "oils" },
+  ],
+};
+
+export default function SidebarEmployee() {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const [collapsed, setCollapsed] = useState(false);
-
   const isDarkMode = theme === "dark";
+
+  const { userData } = useContext(UserContext);
+  const departmentName = userData.user.employee?.department?.name;
+
+  const filteredMenuItems = departmentMenus[departmentName] || menuItems;
 
   return (
     <aside
       className={clsx(
         "flex flex-col min-h-screen h-screen overflow-hidden transition-all duration-300 border-r",
         collapsed ? "w-20" : "w-64",
-        isDarkMode ? "bg-dark-900 border-dark-700" : "bg-olive-100 border-olive-300"
+        isDarkMode
+          ? "bg-dark-900 border-dark-700"
+          : "bg-olive-100 border-olive-300"
       )}
     >
       {/* Logo + Botón de colapsar */}
@@ -56,7 +81,10 @@ export default function Sidebar() {
         <img
           src="/logo.png"
           alt="Logo"
-          className={clsx("transition-all duration-300", collapsed ? "w-14" : "w-32")}
+          className={clsx(
+            "transition-all duration-300",
+            collapsed ? "w-14" : "w-32"
+          )}
         />
         <button
           onClick={() => setCollapsed(!collapsed)}
@@ -65,13 +93,17 @@ export default function Sidebar() {
             isDarkMode ? "text-dark-200" : "text-olive-600"
           )}
         >
-          {collapsed ? <ChevronRight size={20} className="cursor-pointer" /> : <ChevronLeft size={32} className="cursor-pointer" />}
+          {collapsed ? (
+            <ChevronRight size={20} className="cursor-pointer" />
+          ) : (
+            <ChevronLeft size={32} className="cursor-pointer" />
+          )}
         </button>
       </div>
 
       {/* Menú */}
       <nav className="flex-1 px-2 space-y-1 overflow-auto">
-        {menuItems.map((item, index) => (
+        {filteredMenuItems.map((item, index) => (
           <NavLink
             key={index}
             to={item.to}

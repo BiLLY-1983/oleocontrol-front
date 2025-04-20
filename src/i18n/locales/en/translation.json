@@ -55,7 +55,9 @@
     "login_text_fail": "Login error",
     "login_title_fail": "There was an error logging in",
     "login_title_fail_cred": "Incorrect credentials",
-    "login_text_fail_no_admin": "You do not have administrator permissions"
+    "login_text_fail_no_admin": "You do not have administrator permissions",
+    "login_text_fail_no_worker": "You do not have employee permissions",
+    "login_text_fail_no_member": "You do not have member permissions"
   },
   "landing": {
     "welcome": "Welcome to the platform",
@@ -155,7 +157,12 @@
     "passwordConfirmationMinLength": "The confirmation password must be at least {{min}} characters long.",
     "passwordsDoNotMatch": "Passwords do not match.",
     "phoneRequired": "The phone number is required.",
-    "maxCharacters": "Maximum {{max}} characters."
+    "maxCharacters": "Maximum {{max}} characters.",
+    "nameRequired": "Name is required",
+    "nameMax": "Maximum 255 characters",
+    "descriptionMax": "Maximum 500 characters",
+    "priceInvalid": "Price must be a number",
+    "priceMin": "Price cannot be negative"
   },
   "roles": {
     "management": "Role Management",
@@ -269,5 +276,33 @@
     "successDeleteText": "The settlement has been successfully deleted.",
     "errorDeleteTitle": "Error deleting settlement",
     "errorDeleteText": "There was an error while trying to delete the settlement."
+  },
+  "oils": {
+    "newOil": "New olive oil",
+    "deleteOil": "DElete olive oil",
+    "errorDeleteTitle": "Error deleting olive oil",
+    "errorDeleteText": "There was an error while trying to delete the type of olive oil.",
+    "deleteOilTitle": "Delete olive oil {{name}}",
+    "loadingOil": "Loading olive oil",
+    "successDeleteTitle": "Olive oil deleted",
+    "successDeleteText": "The olive oil has been successfully deleted.",
+    "deleteUserDescription": "Are you sure you want to delete this olive oil? This action cannot be undone.",
+    "editTitle": "Edit oil {{name}}",
+    "editDescription": "Modify the data of the selected oil.",
+    "editSuccessTitle": "Oil updated",
+    "editSuccessText": "The oil was successfully updated.",
+    "editErrorTitle": "Error updating",
+    "editing": "Saving...",
+    "edit": "Save changes",
+    "newTitle": "New oil",
+    "newDescription": "All required fields must be completed",
+    "newSuccessTitle": "Success",
+    "newSuccessText": "Oil created successfully",
+    "newErrorTitle": "Error",
+    "loading": "Saving...",
+    "save": "Save",
+    "name": "Name",
+    "description": "Description",
+    "price": "Price (€)"
   }
 }

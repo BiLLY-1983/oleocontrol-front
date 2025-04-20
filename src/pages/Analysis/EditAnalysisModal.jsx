@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { UserContext } from "@context/UserContext";
 import { useEffect, useContext, useState } from "react";
 import { updateAnalysis } from "@services/analysisRequests";
-import { getEmployeeByUser } from "@services/employeeRequests";
 import {
   Dialog,
   DialogContent,
@@ -49,24 +48,7 @@ const EditAnalysisModal = ({
   selectedAnalysis,
 }) => {
   const { userData } = useContext(UserContext);
-  const [employeeId, setEmployeeId] = useState("");
-  const [loadingEmployee, setLoadingEmployee] = useState(true);
-  const [errorEmployee, setErrorEmployee] = useState(true);
-
-  const fetchEmployeeId = async () => {
-    setLoadingEmployee(true);
-    try {
-      const response = await getEmployeeByUser(userData.user?.id);
-      if (response.status === "success") {
-        setEmployeeId(response.data.id);
-      }
-    } catch (error) {
-      console.error("Error fetching employees:", error);
-      setErrorEmployee("Error al cargar el empleado.");
-    } finally {
-      setLoadingEmployee(false);
-    }
-  };
+  const employeeId = userData?.user?.employee?.id;
 
   const { t } = useTranslation();
 
@@ -87,10 +69,6 @@ const EditAnalysisModal = ({
     },
     mode: "all",
   });
-
-  useEffect(() => {
-    fetchEmployeeId();
-  }, []);
 
   useEffect(() => {
     if (selectedAnalysis) {
@@ -120,7 +98,7 @@ const EditAnalysisModal = ({
     if (result.status === "success") {
       success({
         title: t("analyses.successEditTitle"),
-        text: t("analysis.successEditText"),
+        text: t("analyses.successEditText"),
         delay: 2000,
       });
       reset();

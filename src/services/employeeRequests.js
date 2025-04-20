@@ -18,15 +18,6 @@ export const getEmployee = async (id) => {
     }
 };
 
-export const getEmployeeByUser = async (userId) => {
-    try {
-        const response = await api.get(`/employeeByUser/${userId}`);
-        return response.data;  // Devuelve los datos del empleado correspondiente al user_id
-    } catch (error) {
-        return handleError(error); // Maneja el error si ocurre
-    }
-};
-
 export const createEmployee = async (employeeData) => {
     try {
         const response = await api.post('/employees', employeeData);

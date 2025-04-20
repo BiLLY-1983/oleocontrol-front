@@ -27,6 +27,11 @@ import clsx from "clsx";
 import NewUserModal from "@pages/User/NewUserModal";
 import EditUserModal from "@pages/User/EditUserModal";
 import DeleteUserModal from "@pages/User/DeleteUserModal";
+import { Doughnut } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+// Registrar elementos necesarios para Chart.js
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Users = () => {
   const { t } = useTranslation();
@@ -65,6 +70,9 @@ const Users = () => {
     fetchUsuarios();
   }, []);
 
+  const activeCount = usuarios.filter((user) => user.status === 1).length;
+  const inactiveCount = usuarios.filter((user) => user.status !== 1).length;
+
   // Función para actualizar la lista de usuarios
   const updateUsuarios = async () => {
     await fetchUsuarios(); // Vuelve a cargar la lista de usuarios
@@ -76,8 +84,12 @@ const Users = () => {
       usuario.last_name.toLowerCase().includes(filtro.toLowerCase()) ||
       usuario.email.toLowerCase().includes(filtro.toLowerCase()) ||
       usuario.phone.includes(filtro.toLowerCase()) ||
-      usuario.roles.map((rol) => rol.name.toLowerCase()).some((nombreRol) => nombreRol.includes(filtro.toLowerCase())) ||
-      (usuario.status === 1 ? "activo" : "inactivo").includes(filtro.toLowerCase())
+      usuario.roles
+        .map((rol) => rol.name.toLowerCase())
+        .some((nombreRol) => nombreRol.includes(filtro.toLowerCase())) ||
+      (usuario.status === 1 ? "activo" : "inactivo").includes(
+        filtro.toLowerCase()
+      )
   );
 
   // Paginación
@@ -126,6 +138,18 @@ const Users = () => {
   ) {
     pageNumbers.push(i);
   }
+
+  // Preparar datos para el gráfico circular
+  const chartData = {
+    labels: ["Activos", "Inactivos"],
+    datasets: [
+      {
+        data: [activeCount, inactiveCount],
+        backgroundColor: ["#4CAF50", "#F44336"], // verde y rojo
+        hoverBackgroundColor: ["#45A049", "#E53935"],
+      },
+    ],
+  };
 
   return (
     <div
@@ -235,13 +259,21 @@ const Users = () => {
               <thead>
                 <tr className="text-left border-b-2">
                   <th className="p-3 text-lg w-1/14">ID</th>
-                  <th className="p-3 text-lg w-1/4">{t("userProfile.firstName")}</th>
-                  <th className="p-3 text-lg w-1/4">{t("userProfile.email")}</th>
-                  <th className="p-3 text-lg w-1/8">{t("userProfile.phone")}</th>
+                  <th className="p-3 text-lg w-1/4">
+                    {t("userProfile.firstName")}
+                  </th>
+                  <th className="p-3 text-lg w-1/4">
+                    {t("userProfile.email")}
+                  </th>
+                  <th className="p-3 text-lg w-1/8">
+                    {t("userProfile.phone")}
+                  </th>
                   <th className="p-3 text-lg w-1/8">{t("userProfile.dni")}</th>
                   <th className="p-3 text-lg w-1/4">Roles</th>
                   <th className="p-3 text-lg w-1/6">{t("common.status")}</th>
-                  <th className="p-3 text-center text-lg w-1/6">{t("common.actions")}</th>
+                  <th className="p-3 text-center text-lg w-1/6">
+                    {t("common.actions")}
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -350,6 +382,24 @@ const Users = () => {
           </PaginationContent>
         </Pagination>
       )}
+
+      {/* Gráfico circular */}
+      <div className="mt-20 flex justify-center h-100">
+        <div className="w-full max-w-sm">
+          <Doughnut
+            data={chartData}
+            options={{
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  position: "bottom",
+                },
+              },
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 };

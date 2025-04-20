@@ -63,6 +63,15 @@ export const deleteSettlement = async (id) => {
     }
 };
 
+export const deleteOwnSettlement = async (memberId, settlementId) => {
+    try {
+        const response = await api.delete(`/members/${memberId}/settlements/${settlementId}`);
+        return response.data;  // Devuelve la respuesta con el estado de la eliminación
+    } catch (error) {
+        return handleError(error); // Maneja el error si ocurre
+    }
+};
+
 // Manejar errores
 const handleError = (error) => {
     if (error.response) {

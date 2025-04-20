@@ -1,4 +1,4 @@
-import Sidebar from "@components/Sidebar/SidebarAdmin";
+import SidebarAdmin from "@components/Sidebar/SidebarAdmin";
 import Topbar from "@components/Topbar";
 import { Outlet } from "react-router-dom";
 import clsx from "clsx";
@@ -15,7 +15,7 @@ const DashboardAdmin = () => {
         isDarkMode ? "bg-dark-900" : "bg-olive-50"
       )}
     >
-      <Sidebar />
+      <SidebarAdmin />
       <div
         className={clsx(
           "flex-1 flex flex-col min-h-screen h-screen overflow-hidden",

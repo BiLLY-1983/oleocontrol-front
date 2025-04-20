@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "@context/UserContext";
-import ChartEntries from "@components/ChartEntries";
-import ChartOilsByType from "@components/ChartOilsByType";
-import ChartSettlementsHome from "@components/ChartSettlementsHome";
-import ChartOilPricesBar from "@components/ChartOilPricesBar";
+import ChartEntries from "@components/Charts/ChartEntries";
+import ChartOilsByType from "@components/Charts/ChartOilsByType";
+import ChartSettlementsHome from "@components/Charts/ChartSettlementsHome";
+import ChartOilPricesBar from "@components/Charts/ChartOilPricesBar";
 import StatCard from "@components/StatCard";
 import clsx from "clsx";
 import { useTheme } from "@context/ThemeContext";
@@ -142,7 +142,7 @@ const HomeMember = () => {
   return (
     <div className="p-4 md:p-6 space-y-6">
       <h1 className="text-3xl font-bold text-olive-800 dark:text-white">
-        {t("home.title")}
+        {t("navigation.home")}
       </h1>
 
       {loading ? (
@@ -185,13 +185,13 @@ const HomeMember = () => {
           <ChartEntries entries={entries} />
 
           <div className="flex flex-col md:flex-row gap-4 w-full">
-            <div className="w-full md:w-1/2">
+            <div className="w-full md:w-1/3">
               <ChartOilsByType oils={oils} oilByType={oilByType} />
             </div>
-            <div className="w-full md:w-1/2">
+            <div className="w-full md:w-1/3">
               <ChartSettlementsHome settlements={settlements} />
             </div>
-            <div className="w-full md:w-1/2">
+            <div className="w-full md:w-1/3">
               <ChartOilPricesBar oils={oils} />
             </div>
           </div>

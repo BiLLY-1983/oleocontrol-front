@@ -23,13 +23,12 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { getSettlements } from "@services/settlementRequests";
-import { getEmployeeByUser } from "@services/employeeRequests";
 import { SquarePen, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import NewSettlementModal from "@pages/Settlement/NewSettlementModal";
 import EditSettlementModal from "@pages/Settlement/EditSettlementModal";
 import DeleteSettlementModal from "@pages/Settlement/DeleteSettlementModal";
-import ChartSettlements from "@components/ChartSettlements";
+import ChartSettlements from "@components/Charts/ChartSettlements";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { SettlementPDF } from "@components/pdf/SettlementPDF";
 import { BiSolidFilePdf } from "react-icons/bi";
@@ -40,36 +39,20 @@ const Settlements = () => {
   const { t } = useTranslation();
 
   const { userData } = useContext(UserContext);
+  const employeeId = userData?.user?.employee?.id;
+  const roles = userData.user.roles.map((rol) => rol.name);
 
   const [settlements, setSettlements] = useState([]);
-  const [employeeId, setEmployeeId] = useState("");
   const [selectedSettlement, setSelectedSettlement] = useState(null);
   const [loadingSettlement, setLoadingSettlement] = useState(true);
-  const [loadingEmployee, setLoadingEmployee] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [settlementsPerPage, setSettlementsPerPage] = useState(10);
   const [errorSettlement, setErrorSettlement] = useState(null);
-  const [errorEmployee, setErrorEmployee] = useState(null);
   const [filter, setFilter] = useState("");
   const [modalNewSettlementOpen, setModalNewSettlementOpen] = useState(false);
   const [modalEditSettlementOpen, setModalEditSettlementOpen] = useState(false);
   const [modalDeleteSettlementOpen, setModalDeleteSettlementOpen] =
     useState(false);
-
-  const fetchEmployeeId = async () => {
-    setLoadingEmployee(true);
-    try {
-      const response = await getEmployeeByUser(userData.user?.id);
-      if (response.status === "success") {
-        setEmployeeId(response.data.id);
-      }
-    } catch (error) {
-      console.error("Error fetching employees:", error);
-      setErrorEmployee("Error al cargar el empleado.");
-    } finally {
-      setLoadingEmployee(false);
-    }
-  };
 
   const fetchSettlements = async () => {
     setLoadingSettlement(true);
@@ -87,7 +70,6 @@ const Settlements = () => {
   };
 
   useEffect(() => {
-    fetchEmployeeId();
     fetchSettlements();
   }, []);
 
@@ -174,17 +156,19 @@ const Settlements = () => {
     >
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">{t("settlements.management")}</h1>
-        <Button
-          className={clsx(
-            "cursor-pointer text-white",
-            isDarkMode
-              ? "bg-dark-600 hover:bg-dark-500"
-              : "bg-olive-500 hover:bg-olive-600"
-          )}
-          onClick={() => setModalNewSettlementOpen(true)}
-        >
-          + {t("settlements.newSettlement")}
-        </Button>
+        {roles.includes("Administrador") && (
+          <Button
+            className={clsx(
+              "cursor-pointer text-white",
+              isDarkMode
+                ? "bg-dark-600 hover:bg-dark-500"
+                : "bg-olive-500 hover:bg-olive-600"
+            )}
+            onClick={() => setModalNewSettlementOpen(true)}
+          >
+            + {t("settlements.newSettlement")}
+          </Button>
+        )}
       </div>
 
       <NewSettlementModal

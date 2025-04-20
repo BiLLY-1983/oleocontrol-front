@@ -70,7 +70,7 @@ const LoginMember = () => {
         } else {
           error({
             title: t("auth.login_text_fail"),
-            text: t("auth.login_text_fail_no_admin"),
+            text: t("auth.login_text_fail_no_member"),
             delay: 2000,
           });
 
@@ -232,7 +232,9 @@ const LoginMember = () => {
               onClick={() => navigate("/")}
               className={clsx(
                 "text-sm underline cursor-pointer",
-                isDarkMode ? "text-dark-300 hover:text-dark-100" : "text-olive-500 hover:text-olive-700"
+                isDarkMode
+                  ? "text-dark-300 hover:text-dark-100"
+                  : "text-olive-500 hover:text-olive-700"
               )}
             >
               Volver al inicio
@@ -244,7 +246,9 @@ const LoginMember = () => {
               href="/forgot-password"
               className={clsx(
                 "text-sm",
-                isDarkMode ? "text-dark-300 hover:text-dark-100" : "text-olive-500 hover:text-olive-700"
+                isDarkMode
+                  ? "text-dark-300 hover:text-dark-100"
+                  : "text-olive-500 hover:text-olive-700"
               )}
             >
               ¿Olvidaste tu contraseña?

@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { loginRequest } from "@services/authRequests.js";
-import { UserContext } from '@context/UserContext';
+import { UserContext } from "@context/UserContext";
+import { useTheme } from "@context/ThemeContext";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import useUserAuth from '@hooks/useUserAuth';
 import { useTranslation } from "react-i18next";
+import clsx from "clsx";
 
 import { success, error } from "@pnotify/core";
 import "@pnotify/core/dist/PNotify.css";
@@ -13,6 +14,8 @@ import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
 const LoginEmployee = () => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
+  const isDarkMode = theme === "dark";
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -23,8 +26,6 @@ const LoginEmployee = () => {
   const [rememberMe, setRememberMe] = useState(false);
 
   const navigate = useNavigate();
-
-  const { hasRole } = useUserAuth();
 
   useEffect(() => {
     const savedUsername = localStorage.getItem("rememberedUsername");
@@ -51,35 +52,31 @@ const LoginEmployee = () => {
       const data = await loginRequest(username, password);
 
       if (data.access_token) {
-        // Si se obtiene un access_token, significa que el login fue exitoso
         setUserData({
           token: data.access_token,
           user: data.user,
         });
 
-        localStorage.setItem('authToken', data.access_token);
-        localStorage.setItem('userData', JSON.stringify(data.user));
+        localStorage.setItem("authToken", data.access_token);
+        localStorage.setItem("userData", JSON.stringify(data.user));
+        localStorage.setItem("loginType", "employee");
 
-        // Almacenar el tipo de Login
-        localStorage.setItem('loginType', 'admin');
-
-        if (hasRole("Administrador")) {
+        if (data.user.roles.some((role) => role.name === "Empleado")) {
           success({
-            title: t("Login_title_ok") + username,
-            text: t("Login_text_ok"),
+            title: t("auth.login_title_ok") + username,
+            text: t("auth.login_text_ok"),
             delay: 2000,
           });
 
-          navigate('/dashboard/admin/home');
+          navigate("/dashboard/employee/home");
         } else {
-          
           error({
-            title: t("Login_title_fail"),
-            text: t("Login_text_fail"),
+            title: t("auth.login_text_fail"),
+            text: t("auth.login_text_fail_no_employee"),
             delay: 2000,
           });
 
-          navigate('/');
+          navigate("/");
         }
       }
 
@@ -93,11 +90,6 @@ const LoginEmployee = () => {
         localStorage.setItem("rememberMe", "false");
       }
     } catch (err) {
-      error({
-        title: t("Login_text_fail"),
-        text: t("Login_title_fail_cred"),
-        delay: 2000,
-      });
       setErr(err.message);
     }
   };
@@ -106,15 +98,14 @@ const LoginEmployee = () => {
     <div className="h-screen flex justify-center items-center bg-olive-50">
       <div className="w-full max-w-sm bg-white p-8 rounded-lg shadow-lg border border-olive-200">
         <div className="flex justify-center mb-6">
-          <img
-            src="/logo.png"
-            alt="Login Icon"
-            className="w-48"
-          />
+          <img src="/logo.png" alt="Login Icon" className="w-48" />
         </div>
         <h2 className="text-2xl font-semibold text-olive-700 text-center mb-6">
           Iniciar sesión
         </h2>
+        <h5 className={clsx("text-1xl text-red-500 italic text-center mb-6")}>
+          ( Portal para Empleados )
+        </h5>
 
         {err && (
           <div className="text-red-500 text-sm text-center mb-4">{err}</div>
@@ -180,6 +171,21 @@ const LoginEmployee = () => {
           >
             Iniciar sesión
           </button>
+
+          <div className="mt-3 text-center">
+            <button
+              type="button"
+              onClick={() => navigate("/")}
+              className={clsx(
+                "text-sm underline cursor-pointer",
+                isDarkMode
+                  ? "text-dark-300 hover:text-dark-100"
+                  : "text-olive-500 hover:text-olive-700"
+              )}
+            >
+              Volver al inicio
+            </button>
+          </div>
 
           {/* Enlace para contraseña olvidada */}
           <div className="mt-4 text-center">

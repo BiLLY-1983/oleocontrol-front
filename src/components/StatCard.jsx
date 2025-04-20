@@ -15,7 +15,7 @@ export default function StatCard({ title, value, subtext }) {
         "rounded-2xl shadow p-4 w-full border",
         isDarkMode
           ? "bg-dark-900 border-dark-700 text-dark-50"
-          : "bg-olive-50 border-olive-200 text-olive-800"
+          : "bg-olive-100 border-olive-200 text-olive-800"
       )}
     >
       <div

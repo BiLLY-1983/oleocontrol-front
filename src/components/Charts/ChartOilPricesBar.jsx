@@ -42,7 +42,7 @@ export default function ChartOilPricesBar({ oils }) {
         </p>
       </div>
 
-      <ResponsiveContainer width="100%" height={500}>
+      <ResponsiveContainer width="100%" height={488}>
         <BarChart data={formattedData}>
           <CartesianGrid
             strokeDasharray="3 3"
