@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import clsx from "clsx";
 import {
@@ -35,15 +35,33 @@ export default function SidebarAdmin() {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const [collapsed, setCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const isDarkMode = theme === "dark";
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      if (mobile) setCollapsed(true);
+    };
+
+    // Detectar al montar
+    handleResize();
+
+    // Detectar cambios de tamaño
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <aside
       className={clsx(
         "flex flex-col min-h-screen h-screen overflow-hidden transition-all duration-300 border-r",
         collapsed ? "w-20" : "w-64",
-        isDarkMode ? "bg-dark-900 border-dark-700" : "bg-olive-100 border-olive-300"
+        isDarkMode
+          ? "bg-dark-900 border-dark-700"
+          : "bg-olive-100 border-olive-300"
       )}
     >
       {/* Logo + Botón de colapsar */}
@@ -56,17 +74,26 @@ export default function SidebarAdmin() {
         <img
           src="/logo.png"
           alt="Logo"
-          className={clsx("transition-all duration-300", collapsed ? "w-14" : "w-32")}
-        />
-        <button
-          onClick={() => setCollapsed(!collapsed)}
           className={clsx(
-            "hover:opacity-80 transition absolute right-0",
-            isDarkMode ? "text-dark-200" : "text-olive-600"
+            "transition-all duration-300",
+            collapsed ? "w-14" : "w-32"
           )}
-        >
-          {collapsed ? <ChevronRight size={20} className="cursor-pointer" /> : <ChevronLeft size={32} className="cursor-pointer" />}
-        </button>
+        />
+        {!isMobile && (
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className={clsx(
+              "hover:opacity-80 transition absolute right-0",
+              isDarkMode ? "text-dark-200" : "text-olive-600"
+            )}
+          >
+            {collapsed ? (
+              <ChevronRight size={20} className="cursor-pointer" />
+            ) : (
+              <ChevronLeft size={32} className="cursor-pointer" />
+            )}
+          </button>
+        )}
       </div>
 
       {/* Menú */}

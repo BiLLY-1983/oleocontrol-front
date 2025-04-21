@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { UserContext } from "@context/UserContext";
 import { NavLink } from "react-router-dom";
 import clsx from "clsx";
@@ -16,9 +16,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@context/ThemeContext";
 
-const menuItems = [
-  { name: "navigation.oils", icon: Droplets, to: "oils" },
-];
+const menuItems = [{ name: "navigation.oils", icon: Droplets, to: "oils" }];
 
 // Diccionario de menús por departamento
 const departmentMenus = {
@@ -54,12 +52,29 @@ export default function SidebarEmployee() {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const [collapsed, setCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
   const isDarkMode = theme === "dark";
 
   const { userData } = useContext(UserContext);
   const departmentName = userData.user.employee?.department?.name;
 
   const filteredMenuItems = departmentMenus[departmentName] || menuItems;
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      if (mobile) setCollapsed(true);
+    };
+
+    // Detectar al montar
+    handleResize();
+
+    // Detectar cambios de tamaño
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <aside
@@ -86,19 +101,21 @@ export default function SidebarEmployee() {
             collapsed ? "w-14" : "w-32"
           )}
         />
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className={clsx(
-            "hover:opacity-80 transition absolute right-0",
-            isDarkMode ? "text-dark-200" : "text-olive-600"
-          )}
-        >
-          {collapsed ? (
-            <ChevronRight size={20} className="cursor-pointer" />
-          ) : (
-            <ChevronLeft size={32} className="cursor-pointer" />
-          )}
-        </button>
+        {!isMobile && (
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className={clsx(
+              "hover:opacity-80 transition absolute right-0",
+              isDarkMode ? "text-dark-200" : "text-olive-600"
+            )}
+          >
+            {collapsed ? (
+              <ChevronRight size={20} className="cursor-pointer" />
+            ) : (
+              <ChevronLeft size={32} className="cursor-pointer" />
+            )}
+          </button>
+        )}
       </div>
 
       {/* Menú */}
