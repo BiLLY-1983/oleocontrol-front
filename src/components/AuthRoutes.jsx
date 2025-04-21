@@ -148,7 +148,7 @@ export default function AuthRoutes() {
       </Route>
 
       {/* Ruta de error acceso denegado */}
-      <Route path="/error404" element={<AccessDenied />} />
+      <Route path="/error404" element={<Error404 />} />
     </Routes>
   );
 }
