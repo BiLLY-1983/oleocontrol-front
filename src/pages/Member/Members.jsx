@@ -71,8 +71,12 @@ const Members = () => {
     fetchMembers();
   }, []);
 
-  const activeCount = members.filter((member) => member.user.status === 1).length;
-  const inactiveCount = members.filter((member) => member.user.status !== 1).length;
+  const activeCount = members.filter(
+    (member) => member.user.status === 1
+  ).length;
+  const inactiveCount = members.filter(
+    (member) => member.user.status !== 1
+  ).length;
 
   // Función para actualizar la lista de socios
   const updateMembers = async () => {
@@ -87,7 +91,9 @@ const Members = () => {
       member.user.email.toLowerCase().includes(filter.toLowerCase()) ||
       member.user.phone.toLowerCase().includes(filter.toLowerCase()) ||
       member.user.dni.toLowerCase().includes(filter.toLowerCase()) ||
-      (member.user.status === 1 ? "activo" : "inactivo").includes(filter.toLowerCase())
+      (member.user.status === 1 ? "activo" : "inactivo").includes(
+        filter.toLowerCase()
+      )
   );
 
   // Paginación
@@ -251,13 +257,25 @@ const Members = () => {
               <table className="min-w-full text-sm">
                 <thead>
                   <tr className="text-left border-b-2">
-                    <th className="p-3 text-lg w-1/4">{t("userProfile.firstName")}</th>
-                    <th className="p-3 text-lg w-1/4">{t("userProfile.email")}</th>
-                    <th className="p-3 text-lg w-1/4 ">{t("userProfile.phone")}</th>
-                    <th className="p-3 text-lg w-1/8 ">{t("userProfile.dni")}</th>
-                    <th className="p-3 text-lg w-1/6 ">{t("members.memberNumber")}</th>
+                    <th className="p-3 text-lg w-1/4">
+                      {t("userProfile.firstName")}
+                    </th>
+                    <th className="p-3 text-lg w-1/4">
+                      {t("userProfile.email")}
+                    </th>
+                    <th className="p-3 text-lg w-1/4 ">
+                      {t("userProfile.phone")}
+                    </th>
+                    <th className="p-3 text-lg w-1/8 ">
+                      {t("userProfile.dni")}
+                    </th>
+                    <th className="p-3 text-lg w-1/6 ">
+                      {t("members.memberNumber")}
+                    </th>
                     <th className="p-3 text-lg w-1/8">{t("common.status")}</th>
-                    <th className="p-3 text-center text-lg w-1/6">{t("common.actions")}</th>
+                    <th className="p-3 text-center text-lg w-1/6">
+                      {t("common.actions")}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -269,7 +287,9 @@ const Members = () => {
                         isDarkMode ? "hover:bg-dark-700" : "hover:bg-olive-100"
                       )}
                     >
-                      <td className="p-3">{member.user.first_name} {member.user.last_name}</td>
+                      <td className="p-3">
+                        {member.user.first_name} {member.user.last_name}
+                      </td>
                       <td className="p-3">{member.user.email}</td>
                       <td className="p-3">{member.user.phone}</td>
                       <td className="p-3">{member.user.dni}</td>
@@ -288,22 +308,28 @@ const Members = () => {
                       </td>
                       <td className="p-3 text-center">
                         <div className="inline-flex space-x-2 items-center">
-                          <SquarePen
-                            size={18}
-                            className="cursor-pointer text-blue-700 hover:text-blue-400"
-                            onClick={() => {
-                              setSelectedMember(member);
-                              setModalEditMemberOpen(true);
-                            }}
-                          />
-                          <Trash2
-                            size={18}
-                            className="cursor-pointer text-red-700 hover:text-red-400"
-                            onClick={() => {
-                              setSelectedMember(member);
-                              setModalDeleteMemberOpen(true);
-                            }}
-                          />
+                          {!member.user.roles.some(
+                            (role) => role.name === "Administrador"
+                          ) && (
+                            <>
+                              <SquarePen
+                                size={18}
+                                className="cursor-pointer text-blue-700 hover:text-blue-400"
+                                onClick={() => {
+                                  setSelectedMember(member);
+                                  setModalEditMemberOpen(true);
+                                }}
+                              />
+                              <Trash2
+                                size={18}
+                                className="cursor-pointer text-red-700 hover:text-red-400"
+                                onClick={() => {
+                                  setSelectedMember(member);
+                                  setModalDeleteMemberOpen(true);
+                                }}
+                              />
+                            </>
+                          )}
                         </div>
                       </td>
                     </tr>
@@ -379,7 +405,6 @@ const Members = () => {
           />
         </div>
       </div>
-
     </div>
   );
 };

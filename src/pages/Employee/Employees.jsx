@@ -378,22 +378,28 @@ const Employees = () => {
                       </td>
                       <td className="p-3 text-center">
                         <div className="inline-flex space-x-2 items-center">
-                          <SquarePen
-                            size={18}
-                            className="cursor-pointer text-blue-700 hover:text-blue-400"
-                            onClick={() => {
-                              setSelectedEmployee(employee);
-                              setModalEditEmployeeOpen(true);
-                            }}
-                          />
-                          <Trash2
-                            size={18}
-                            className="cursor-pointer text-red-700 hover:text-red-400"
-                            onClick={() => {
-                              setSelectedEmployee(employee);
-                              setModalDeleteEmployeeOpen(true);
-                            }}
-                          />
+                          {!employee.user.roles.some(
+                            (role) => role.name === "Administrador"
+                          ) && (
+                            <>
+                              <SquarePen
+                                size={18}
+                                className="cursor-pointer text-blue-700 hover:text-blue-400"
+                                onClick={() => {
+                                  setSelectedEmployee(employee);
+                                  setModalEditEmployeeOpen(true);
+                                }}
+                              />
+                              <Trash2
+                                size={18}
+                                className="cursor-pointer text-red-700 hover:text-red-400"
+                                onClick={() => {
+                                  setSelectedEmployee(employee);
+                                  setModalDeleteEmployeeOpen(true);
+                                }}
+                              />
+                            </>
+                          )}
                         </div>
                       </td>
                     </tr>
@@ -480,7 +486,6 @@ const Employees = () => {
           />
         </div>
       </div>
-
     </div>
   );
 };
