@@ -3,6 +3,10 @@ import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import { UserContext } from "@context/UserContext";
 import { useTheme } from "@context/ThemeContext";
+import { success, error } from "@pnotify/core";
+import "@pnotify/core/dist/PNotify.css";
+import "@pnotify/core/dist/BrightTheme.css";
+import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
 const UserProfile = () => {
   const { t } = useTranslation();
@@ -26,7 +30,11 @@ const UserProfile = () => {
 
   const handleSave = () => {
     setUserData({ ...userData, user: editedUser });
-    alert("Datos guardados con éxito!");
+    success({
+      title: "Perfil actualizado",
+      text: "El perfil ha sido actualizado correctamente",
+      delay: 2000,
+    });
   };
 
   const initials = `${user.first_name.charAt(0).toUpperCase()}${user.last_name
