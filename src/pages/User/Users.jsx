@@ -54,7 +54,7 @@ const Users = () => {
     setError(null);
     try {
       const response = await getUsers();
-      if (response.status === "success" && Array.isArray(response.data)) {
+      if (response.status === "success") {
         setUsuarios(response.data);
       } else {
         setError("No se pudieron obtener los usuarios.");
@@ -310,22 +310,27 @@ const Users = () => {
 
                     <td className="p-3 text-center">
                       <div className="inline-flex space-x-2 items-center">
-                        <SquarePen
-                          size={18}
-                          className="cursor-pointer text-blue-700 hover:text-blue-400"
-                          onClick={() => {
-                            setUsuarioSeleccionado(usuario);
-                            setModalEditUserOpen(true);
-                          }}
-                        />
-                        <Trash2
-                          size={18}
-                          className="cursor-pointer text-red-700 hover:text-red-400"
-                          onClick={() => {
-                            setUsuarioSeleccionado(usuario);
-                            setModalDeleteUserOpen(true);
-                          }}
-                        />
+                        {!usuario.roles.some((role) => role.name === 'Administrador') && (
+                          <>
+                            <SquarePen
+                              size={18}
+                              className="cursor-pointer text-blue-700 hover:text-blue-400"
+                              onClick={() => {
+                                setUsuarioSeleccionado(usuario);
+                                setModalEditUserOpen(true);
+                              }}
+                            />
+                            <Trash2
+                              size={18}
+                              className="cursor-pointer text-red-700 hover:text-red-400"
+                              onClick={() => {
+                                setUsuarioSeleccionado(usuario);
+                                setModalDeleteUserOpen(true);
+                              }}
+                            />
+                          </>
+                        )}
+
                       </div>
                     </td>
                   </tr>

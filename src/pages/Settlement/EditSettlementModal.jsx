@@ -94,7 +94,7 @@ const EditSettlementModal = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent
-        className={clsx("overflow-y-auto",
+        className={clsx("max-h-[50vh] overflow-y-auto",
           isDarkMode
             ? "accent-dark-400 bg-dark-700 border-dark-600 text-dark-50"
             : "accent-olive-600 bg-olive-50 border-gray-300 text-olive-800"
