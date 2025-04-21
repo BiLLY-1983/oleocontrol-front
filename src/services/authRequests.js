@@ -53,3 +53,13 @@ export const getProfileRequest = async (token) => {
         throw new Error(handleError(error));
     }
 };
+
+/* Actualizar Profile */
+export const updateProfileRequest = async (data, token) => {
+    try {
+        const response = await api.put('/profile', data, getAuthHeaders(token));
+        return response.data;
+    } catch (error) {
+        throw new Error(handleError(error));
+    }
+};

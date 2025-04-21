@@ -3,7 +3,9 @@ import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import { UserContext } from "@context/UserContext";
 import { useTheme } from "@context/ThemeContext";
-import { success, error } from "@pnotify/core";
+import { success, error as notifyError } from "@pnotify/core";
+import { updateProfileRequest } from "@services/authRequests";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
@@ -11,14 +13,18 @@ import "@pnotify/confirm/dist/PNotifyConfirm.css";
 const UserProfile = () => {
   const { t } = useTranslation();
   const { userData, setUserData } = useContext(UserContext);
-  const { theme } = useTheme(); // Usar el contexto del tema
+  const { theme } = useTheme();
+
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordField, setShowPasswordField] = useState(false);
 
   if (!userData?.token) {
     return <div>No estás autenticado</div>;
   }
 
   const { user } = userData;
-  const [editedUser, setEditedUser] = useState(user);
+  const [editedUser, setEditedUser] = useState({ ...user, password: "" });
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -28,19 +34,40 @@ const UserProfile = () => {
     }));
   };
 
-  const handleSave = () => {
-    setUserData({ ...userData, user: editedUser });
-    success({
-      title: "Perfil actualizado",
-      text: "El perfil ha sido actualizado correctamente",
-      delay: 2000,
-    });
+  const handleSave = async () => {
+    setLoading(true);
+    try {
+      const userToSend = { ...editedUser };
+      if (!userToSend.password) {
+        delete userToSend.password;
+      }
+
+      const updated = await updateProfileRequest(userToSend, userData.token);
+      setUserData({ ...userData, user: updated.data });
+
+      success({
+        title: "Perfil actualizado",
+        text: "El perfil ha sido actualizado correctamente",
+        delay: 2000,
+      });
+
+      setEditedUser((prev) => ({ ...prev, password: "" }));
+      setShowPassword(false);
+      setShowPasswordField(false); // 🔁 Oculta de nuevo el campo
+    } catch (err) {
+      notifyError({
+        title: "Error",
+        text: err.message || "No se pudo actualizar el perfil",
+        delay: 3000,
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const initials = `${user.first_name.charAt(0).toUpperCase()}${user.last_name
-    .charAt(0)
-    .toUpperCase()}`;
-
+  const initials = `${user.first_name?.charAt(0).toUpperCase() || ""}${
+    user.last_name?.charAt(0).toUpperCase() || ""
+  }`;
   const isDarkMode = theme === "dark";
 
   return (
@@ -57,7 +84,7 @@ const UserProfile = () => {
           isDarkMode ? "bg-dark-900" : "bg-olive-50"
         )}
       >
-        {/* Avatar */}
+        {/* Avatar + botón */}
         <div className="flex items-center mb-6">
           <div
             className={clsx(
@@ -92,15 +119,19 @@ const UserProfile = () => {
               "ml-auto px-4 py-2 rounded-md font-semibold cursor-pointer transition",
               isDarkMode
                 ? "bg-dark-700 text-dark-50 hover:bg-dark-500"
-                : "bg-olive-500 text-white hover:bg-olive-600"
+                : "bg-olive-500 text-white hover:bg-olive-600",
+              loading && "opacity-50 cursor-not-allowed"
             )}
             onClick={handleSave}
+            disabled={loading}
           >
-            {t("userProfile.edit")}
+            {loading
+              ? t("userProfile.saving") || "Guardando..."
+              : t("userProfile.edit") || "Guardar cambios"}
           </button>
         </div>
 
-        {/* Información Personal */}
+        {/* Inputs */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {[
             { label: t("userProfile.firstName"), name: "first_name" },
@@ -121,7 +152,7 @@ const UserProfile = () => {
               <input
                 name={name}
                 type={type}
-                value={editedUser[name]}
+                value={editedUser[name] || ""}
                 onChange={handleChange}
                 className={clsx(
                   "mt-2 p-2 w-full border rounded-md focus:outline-2 transition",
@@ -132,28 +163,96 @@ const UserProfile = () => {
               />
             </div>
           ))}
-          <div>
-            <label
-              className={clsx(
-                "block font-semibold",
-                isDarkMode ? "text-dark-50" : "text-olive-900"
-              )}
-            >
-              {t("userProfile.status")}
-            </label>
-            <input
-              name="status"
-              type="checkbox"
-              checked={editedUser.status}
-              onChange={handleChange}
-              className={clsx(
-                "w-4 h-4 rounded mt-2 focus:ring-2",
-                isDarkMode
-                  ? "accent-dark-500 bg-dark-700 border-dark-600 focus:ring-dark-400"
-                  : "accent-olive-600 bg-gray-100 border-gray-300 focus:ring-olive-500"
-              )}
-            />
+
+          {/* Contraseña */}
+          <div className="md:col-span-2">
+            {!showPasswordField ? (
+              <button
+                type="button"
+                onClick={() => setShowPasswordField(true)}
+                className={clsx(
+                  "text-sm font-medium underline",
+                  isDarkMode ? "text-dark-200" : "text-olive-800"
+                )}
+              >
+                Cambiar contraseña
+              </button>
+            ) : (
+              <div>
+                <label
+                  className={clsx(
+                    "block font-semibold",
+                    isDarkMode ? "text-dark-50" : "text-olive-900"
+                  )}
+                >
+                  {t("userProfile.password")}
+                </label>
+                <div className="relative mt-2">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={editedUser.password}
+                    onChange={handleChange}
+                    className={clsx(
+                      "p-2 w-full border rounded-md pr-10 focus:outline-2 transition",
+                      isDarkMode
+                        ? "bg-dark-700 text-dark-50 border-dark-600 focus:bg-dark-600 focus:outline-dark-500"
+                        : "bg-olive-100 text-olive-900 border-olive-300 focus:bg-olive-50 focus:outline-olive-300"
+                    )}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-600"
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
+
+                {/* Botón cancelar */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowPasswordField(false);
+                    setEditedUser((prev) => ({ ...prev, password: "" }));
+                    setShowPassword(false);
+                  }}
+                  className={clsx(
+                    "mt-2 text-xs underline",
+                    isDarkMode ? "text-dark-300" : "text-olive-600"
+                  )}
+                >
+                  Cancelar cambio de contraseña
+                </button>
+              </div>
+            )}
           </div>
+
+          {/* Status */}
+          {!user.roles.some((role) => role.name === "Administrador") && (
+            <div>
+              <label
+                className={clsx(
+                  "block font-semibold",
+                  isDarkMode ? "text-dark-50" : "text-olive-900"
+                )}
+              >
+                {t("userProfile.status")}
+              </label>
+              <input
+                name="status"
+                type="checkbox"
+                checked={editedUser.status}
+                onChange={handleChange}
+                className={clsx(
+                  "w-4 h-4 rounded mt-2 focus:ring-2",
+                  isDarkMode
+                    ? "accent-dark-500 bg-dark-700 border-dark-600 focus:ring-dark-400"
+                    : "accent-olive-600 bg-gray-100 border-gray-300 focus:ring-olive-500"
+                )}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

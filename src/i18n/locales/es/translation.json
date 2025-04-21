@@ -95,7 +95,8 @@
     "avatar": "Avatar",
     "username": "Nombre de Usuario",
     "password": "Contraseña",
-    "passwordConfirmation": "Repetir contraseña"
+    "passwordConfirmation": "Repetir contraseña",
+    "saving": "Guardando"
   },
   "notifications": {
     "welcome": "¡Bienvenido a tu perfil!",

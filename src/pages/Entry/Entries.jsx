@@ -188,22 +188,46 @@ const Entries = () => {
           <>
             <Card
               className={clsx(
-                "p-6 rounded-lg shadow",
-                isDarkMode ? "bg-dark-700" : "bg-olive-100"
+                "rounded-2xl shadow p-4 w-full border",
+                isDarkMode
+                  ? "bg-dark-900 border-dark-700 text-dark-50"
+                  : "bg-olive-100 border-olive-300 text-olive-800"
               )}
             >
-              <h2 className="text-xl font-semibold">{t("entries.totalTn")}</h2>
-              <p className="text-3xl font-bold">{kgTn.toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Tn</p>
+              <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
+                <div className="text-lg font-semibold">
+                  {t("entries.totalTn")}:
+                </div>
+                <div className="text-3xl font-bold">
+                  {kgTn.toLocaleString("es-ES", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}{" "}
+                  Tn
+                </div>
+              </div>
             </Card>
 
             <Card
               className={clsx(
-                "p-6 rounded-lg shadow",
-                isDarkMode ? "bg-dark-700" : "bg-olive-100"
+                "rounded-2xl shadow p-4 w-full border",
+                isDarkMode
+                  ? "bg-dark-900 border-dark-700 text-dark-50"
+                  : "bg-olive-100 border-olive-300 text-olive-800"
               )}
             >
-              <h2 className="text-xl font-semibold">{t("entries.totalLt")}</h2>
-              <p className="text-3xl font-bold">{totalLitros.toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} L</p>
+              <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
+                <div className="text-lg font-semibold">
+                {t("entries.totalLt")}:
+                </div>
+                <div className="text-3xl font-bold">
+                {totalLitros.toLocaleString("es-ES", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}{" "}
+                L
+                </div>
+              </div>
             </Card>
           </>
         )}

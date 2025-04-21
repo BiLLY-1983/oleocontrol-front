@@ -95,7 +95,8 @@
     "avatar": "Avatar",
     "username": "Username",
     "password": "Password",
-    "passwordConfirmation": "Password confirmation"
+    "passwordConfirmation": "Password confirmation",
+    "saving": "Saving"
   },
   "notifications": {
     "welcome": "Welcome to your profile!",
