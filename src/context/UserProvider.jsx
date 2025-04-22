@@ -7,8 +7,8 @@ import { getProfileRequest, logoutRequest } from "@services/authRequests";
 const INACTIVITY_TIMEOUT = 60 * 60 * 1000; // -> 1 hora
 
 const initializeUserData = () => {
-    const token = sessionStorage.getItem('authToken');
-    const user = sessionStorage.getItem('userData') ? JSON.parse(sessionStorage.getItem('userData')) : null;
+    const token = localStorage.getItem('authToken'); 
+    const user = localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null; 
     return token ? { token, user } : { token: null, user: null };
 };
 
@@ -19,7 +19,7 @@ const UserProvider = ({ children }) => {
     const inactivityTimer = useRef(null);
 
     const logout = useCallback(async () => {
-        const token = sessionStorage.getItem('authToken');
+        const token = localStorage.getItem('authToken');
         if (token) {
             try {
                 await logoutRequest(token);
@@ -27,7 +27,7 @@ const UserProvider = ({ children }) => {
                 console.error("Error cerrando sesión:", e);
             }
         }
-        sessionStorage.clear();
+        localStorage.clear(); 
         setUserData({ token: null, user: null });
         navigate('/');
     }, [navigate]);
@@ -53,8 +53,8 @@ const UserProvider = ({ children }) => {
 
     useEffect(() => {
         const fetchProfileData = async () => {
-            const token = sessionStorage.getItem('authToken');
-            const storedUser = sessionStorage.getItem('userData');
+            const token = localStorage.getItem('authToken');
+            const storedUser = localStorage.getItem('userData'); 
 
             if (!token || storedUser) {
                 setLoading(false);
@@ -65,10 +65,10 @@ const UserProvider = ({ children }) => {
                 const response = await getProfileRequest(token);
                 if (response.status === "success") {
                     setUserData({ token, user: response.data });
-                    sessionStorage.setItem('userData', JSON.stringify(response.data));
+                    localStorage.setItem('userData', JSON.stringify(response.data)); 
                 }
             } catch (error) {
-                logout(); // mejor que handleProfileError para cerrar sesión correctamente
+                logout(); 
             } finally {
                 setLoading(false);
             }
