@@ -84,7 +84,7 @@ export default function Topbar() {
         <div
           ref={menuRef}
           className={clsx(
-            "absolute top-full mt-1 right-43 w-48 shadow-lg rounded-lg border transition-all duration-500 ease-in-out z-10",
+            "absolute top-full mt-1 right-20 w-48 shadow-lg rounded-lg border transition-all duration-500 ease-in-out",
             isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible",
             isDarkMode
               ? "bg-dark-800 border-dark-600"
@@ -125,7 +125,7 @@ export default function Topbar() {
                 {/* Submenú de Apariencia */}
                 <div
                   className={clsx(
-                    "absolute top-0 left-full w-42 shadow-lg rounded-lg border transition-all duration-300 ease-in-out",
+                    "absolute top-0 left-29 w-40 shadow-lg rounded-lg border transition-all duration-300 ease-in-out z-10",
                     isAppearanceOpen
                       ? "opacity-100 visible"
                       : "opacity-0 invisible",
@@ -182,7 +182,7 @@ export default function Topbar() {
                 {/* Submenú de Idioma */}
                 <div
                   className={clsx(
-                    "absolute top-0 left-full w-42 shadow-lg rounded-lg border transition-all duration-300 ease-in-out",
+                    "absolute top-0 left-29 w-40 shadow-lg rounded-lg border transition-all duration-300 ease-in-out z-10",
                     isLanguageOpen
                       ? "opacity-100 visible"
                       : "opacity-0 invisible",

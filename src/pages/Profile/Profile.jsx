@@ -16,7 +16,8 @@ const UserProfile = () => {
   const { theme } = useTheme();
 
   const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // Para la contraseña
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Para la confirmación de contraseña
   const [showPasswordField, setShowPasswordField] = useState(false);
 
   if (!userData?.token) {
@@ -24,7 +25,11 @@ const UserProfile = () => {
   }
 
   const { user } = userData;
-  const [editedUser, setEditedUser] = useState({ ...user, password: "" });
+  const [editedUser, setEditedUser] = useState({
+    ...user,
+    password: "",
+    password_confirmation: "",
+  });
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -51,9 +56,14 @@ const UserProfile = () => {
         delay: 2000,
       });
 
-      setEditedUser((prev) => ({ ...prev, password: "" }));
+      setEditedUser((prev) => ({
+        ...prev,
+        password: "",
+        password_confirmation: "",
+      }));
       setShowPassword(false);
-      setShowPasswordField(false); // 🔁 Oculta de nuevo el campo
+      setShowConfirmPassword(false); // Restablecer la visibilidad de la confirmación de la contraseña
+      setShowPasswordField(false);
     } catch (err) {
       notifyError({
         title: "Error",
@@ -164,6 +174,32 @@ const UserProfile = () => {
             </div>
           ))}
 
+          {/* Status */}
+          {user.roles.some((role) => role.name === "Administrador") && (
+            <div>
+              <label
+                className={clsx(
+                  "block font-semibold",
+                  isDarkMode ? "text-dark-50" : "text-olive-900"
+                )}
+              >
+                {t("userProfile.status")}
+              </label>
+              <input
+                name="status"
+                type="checkbox"
+                checked={editedUser.status}
+                onChange={handleChange}
+                className={clsx(
+                  "w-4 h-4 rounded mt-2 focus:ring-2",
+                  isDarkMode
+                    ? "accent-dark-500 bg-dark-700 border-dark-600 focus:ring-dark-400"
+                    : "accent-olive-600 bg-gray-100 border-gray-300 focus:ring-olive-500"
+                )}
+              />
+            </div>
+          )}
+
           {/* Contraseña */}
           <div className="md:col-span-2">
             {!showPasswordField ? (
@@ -208,50 +244,60 @@ const UserProfile = () => {
                     {showPassword ? <FaEyeSlash /> : <FaEye />}
                   </button>
                 </div>
-
-                {/* Botón cancelar */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowPasswordField(false);
-                    setEditedUser((prev) => ({ ...prev, password: "" }));
-                    setShowPassword(false);
-                  }}
-                  className={clsx(
-                    "mt-2 text-xs underline",
-                    isDarkMode ? "text-dark-300" : "text-olive-600"
-                  )}
-                >
-                  Cancelar cambio de contraseña
-                </button>
               </div>
             )}
           </div>
 
-          {/* Status */}
-          {!user.roles.some((role) => role.name === "Administrador") && (
-            <div>
+          {/* Confirmación de Contraseña */}
+          {showPasswordField && (
+            <div className="md:col-span-2">
               <label
                 className={clsx(
                   "block font-semibold",
                   isDarkMode ? "text-dark-50" : "text-olive-900"
                 )}
               >
-                {t("userProfile.status")}
+                {t("userProfile.confirmPassword")}
               </label>
-              <input
-                name="status"
-                type="checkbox"
-                checked={editedUser.status}
-                onChange={handleChange}
-                className={clsx(
-                  "w-4 h-4 rounded mt-2 focus:ring-2",
-                  isDarkMode
-                    ? "accent-dark-500 bg-dark-700 border-dark-600 focus:ring-dark-400"
-                    : "accent-olive-600 bg-gray-100 border-gray-300 focus:ring-olive-500"
-                )}
-              />
+              <div className="relative mt-2">
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  name="password_confirmation"
+                  value={editedUser.password_confirmation}
+                  onChange={handleChange}
+                  className={clsx(
+                    "p-2 w-full border rounded-md pr-10 focus:outline-2 transition",
+                    isDarkMode
+                      ? "bg-dark-700 text-dark-50 border-dark-600 focus:bg-dark-600 focus:outline-dark-500"
+                      : "bg-olive-100 text-olive-900 border-olive-300 focus:bg-olive-50 focus:outline-olive-300"
+                  )}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
+                  className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-600"
+                >
+                  {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
             </div>
+          )}
+          {/* Botón cancelar */}
+          {showPasswordField && (
+            <button
+              type="button"
+              onClick={() => {
+                setShowPasswordField(false);
+                setEditedUser((prev) => ({ ...prev, password: "" }));
+                setShowPassword(false);
+              }}
+              className={clsx(
+                "mt-2 text-xs underline",
+                isDarkMode ? "text-dark-300" : "text-olive-600"
+              )}
+            >
+              Cancelar cambio de contraseña
+            </button>
           )}
         </div>
       </div>

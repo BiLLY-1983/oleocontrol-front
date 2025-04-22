@@ -11,7 +11,7 @@ const DashboardAdmin = () => {
   return (
     <div
       className={clsx(
-        "flex min-h-screen h-screen overflow-hidden",
+        "flex min-h-screen h-screen overflow-hidden z-0",
         isDarkMode ? "bg-dark-900" : "bg-olive-50"
       )}
     >
