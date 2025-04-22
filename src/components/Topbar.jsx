@@ -62,7 +62,7 @@ export default function Topbar() {
   return (
     <header
       className={clsx(
-        "flex items-center justify-between px-6 py-4 border-b",
+        "flex items-center justify-between px-6 py-4 border-b z-50",
         isDarkMode ? "bg-dark-800 border-dark-700" : "bg-white border-olive-700"
       )}
     >
