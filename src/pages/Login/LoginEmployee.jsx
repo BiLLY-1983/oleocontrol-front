@@ -187,14 +187,19 @@ const LoginEmployee = () => {
             </button>
           </div>
 
-          {/* Enlace para contraseña olvidada */}
-          <div className="mt-4 text-center">
-            <a
-              href="/forgot-password" // Cambiar por la ruta real de "contraseña olvidada"
-              className="text-sm text-olive-500 hover:text-olive-700"
+          <div className="mt-3 text-center">
+            <button
+              type="button"
+              onClick={() => navigate("/forgot-password")}
+              className={clsx(
+                "text-sm underline cursor-pointer",
+                isDarkMode
+                  ? "text-dark-300 hover:text-dark-100"
+                  : "text-olive-500 hover:text-olive-700"
+              )}
             >
               ¿Olvidaste tu contraseña?
-            </a>
+            </button>
           </div>
         </form>
       </div>

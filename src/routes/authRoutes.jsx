@@ -3,6 +3,7 @@ import LoginAdmin from '@pages/Login/LoginAdmin';
 import LoginEmployee from '@pages/Login/LoginEmployee';
 import LoginMember from '@pages/Login/LoginMember';
 import Logout from '@components/Logout';
+import ForgotPassword from '@pages/ForgotPassword/ForgotPassword';
 import Error404 from '@pages/Error/Error404';
 
 const authRoutes = [
@@ -11,6 +12,7 @@ const authRoutes = [
   { path: '/login/employee', element: <LoginEmployee /> },
   { path: '/login/member', element: <LoginMember /> },
   { path: '/logout', element: <Logout /> },
+  { path: '/forgot-password', element: <ForgotPassword /> },
   { path: '*', element: <Error404 /> },
 ];
 

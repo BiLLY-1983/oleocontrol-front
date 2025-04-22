@@ -51,6 +51,20 @@ export const deleteUser = async (id) => {
     }
 };
 
+// Solicitar restablecimiento de contraseña
+export const requestPasswordReset = async (email, username) => {
+    try {
+        const response = await api.post('/reset-password-request', {
+            email,
+            username,
+        });
+        return response.data;  
+    } catch (error) {
+        return handleError(error); 
+    }
+};
+
+
 // Manejar errores
 const handleError = (error) => {
     if (error.response) {
