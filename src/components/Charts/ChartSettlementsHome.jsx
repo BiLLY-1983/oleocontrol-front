@@ -21,6 +21,8 @@ ChartJS.register(ArcElement, Tooltip, Legend);
  *  - `price`: Precio por litro.
  *  - `created_at`: Fecha de creación de la liquidación.
  *
+ * @returns {JSX.Element} El componente visualiza un gráfico de pastel con la distribución de los estados de liquidación y el total de las liquidaciones aceptadas.
+ *
  * @example
  * const settlements = [
  *   {

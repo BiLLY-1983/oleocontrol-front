@@ -5,6 +5,17 @@ import { useTheme } from "@context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 
+/**
+ * Página de bienvenida de la aplicación, que muestra opciones de inicio de sesión.
+ *
+ * Esta página muestra un mensaje de bienvenida y tres botones de inicio de sesión, cada uno dirigido
+ * a una ruta diferente en función del rol del usuario: "Administrador", "Empleado" y "Socio". Si el usuario ya
+ * tiene un token y un rol asignado, será redirigido automáticamente a su página correspondiente al cargar la página.
+ *
+ * @component
+ *
+ * @returns {JSX.Element} La estructura de la página de bienvenida con opciones de inicio de sesión.
+ */
 const LandingPage = () => {
   const { userData } = useContext(UserContext);
   const { theme } = useTheme();
@@ -12,20 +23,29 @@ const LandingPage = () => {
   const isDarkMode = theme === "dark";
   const navigate = useNavigate();
 
+  /**
+   * Hook que redirige al usuario según su rol.
+   *
+   * Si el usuario tiene un token y un rol, se le redirige automáticamente a la página correspondiente:
+   * - "admin" -> "/admin"
+   * - "empleado" -> "/empleado"
+   * - "socio" -> "/socio"
+   * Si no se cumple alguna de estas condiciones, no realiza ninguna acción.
+   */
   useEffect(() => {
     if (userData?.token && userData.user?.role) {
       switch (userData.user.role) {
         case "admin":
-          navigate("/admin");
+          navigate("/admin"); // Redirige a la página de administrador
           break;
         case "empleado":
-          navigate("/empleado");
+          navigate("/empleado"); // Redirige a la página de empleado
           break;
         case "socio":
-          navigate("/socio");
+          navigate("/socio"); // Redirige a la página de socio
           break;
         default:
-          break;
+          break; // Si no tiene rol o el rol no es válido, no hace nada
       }
     }
   }, [userData, navigate]);
@@ -47,7 +67,8 @@ const LandingPage = () => {
           <img src="/logo.png" alt="Logo" className="w-48" />
         </div>
         <h1 className="text-3xl font-semibold mb-2">
-          {t("landing.welcome")} {/* Traducción para "Bienvenido a la plataforma" */}
+          {t("landing.welcome")}{" "}
+          {/* Traducción para "Bienvenido a la plataforma" */}
         </h1>
         <p
           className={clsx(
@@ -55,7 +76,8 @@ const LandingPage = () => {
             isDarkMode ? "text-gray-400" : "text-gray-600"
           )}
         >
-          {t("landing.select_login")} {/* Traducción para "Selecciona cómo deseas iniciar sesión:" */}
+          {t("landing.select_login")}{" "}
+          {/* Traducción para "Selecciona cómo deseas iniciar sesión:" */}
         </p>
         <div className="flex flex-col gap-4">
           <button

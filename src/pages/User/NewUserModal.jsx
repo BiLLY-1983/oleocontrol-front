@@ -24,7 +24,7 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
-// Definir el esquema de validación con Zod
+/** Definir el esquema de validación con Zod */ 
 const userSchema = z
   .object({
     username: z
@@ -48,12 +48,12 @@ const userSchema = z
       .email({ message: "El email no es válido" })
       .min(1, { message: "El email es obligatorio" })
       .max(255, { message: "Máximo 255 caracteres" }),
-    password: z
+/*     password: z
       .string()
       .min(8, { message: "La contraseña debe tener al menos 8 caracteres" }),
     password_confirmation: z.string().min(8, {
       message: "La contraseña de confirmación debe tener al menos 8 caracteres",
-    }),
+    }), */
     phone: z
       .string()
       .min(1, { message: "El teléfono es obligatorio" })
@@ -69,12 +69,12 @@ const userSchema = z
       }),
   })
   .superRefine((data, ctx) => {
-    if (data.password !== data.password_confirmation) {
+    /* if (data.password !== data.password_confirmation) {
       ctx.addIssue({
         path: ["password_confirmation"],
         message: "Las contraseñas no coinciden",
       });
-    }
+    } */
 
     if (data.user_type === "employee" && !data.department_id) {
       ctx.addIssue({
@@ -111,6 +111,7 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
 
   // Función para manejar el envío del formulario
   const handleCreate = async (data) => {
+    console.log(data);
     try {
       data.status = true; // Puedes dejar esto si lo usas en tu backend
   
@@ -233,9 +234,8 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
             )}
           </div>
 
-          <div name="password">
+          {/* <div name="password">
             <Label className="mb-1">{t("userProfile.password")}</Label>{" "}
-            {/* Traducción para "Contraseña" */}
             <Input
               type="password"
               {...register("password")}
@@ -250,7 +250,6 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
             <Label className="mb-1">
               {t("userProfile.passwordConfirmation")}
             </Label>{" "}
-            {/* Traducción para "Confirmar Contraseña" */}
             <Input
               type="password"
               {...register("password_confirmation")}
@@ -261,7 +260,7 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
                 {errors.password_confirmation.message}
               </p>
             )}
-          </div>
+          </div> */}
 
           <div name="phone">
             <Label className="mb-1">{t("userProfile.phone")}</Label>{" "}

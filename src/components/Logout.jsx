@@ -25,28 +25,36 @@ const Logout = () => {
   const { userData, setUserData } = useContext(UserContext);
   const navigate = useNavigate();
 
+  /**
+   * Función que maneja el proceso de cierre de sesión.
+   * Elimina el token de autenticación y los datos del usuario del almacenamiento local,
+   * realiza una solicitud de cierre de sesión al backend, y redirige al usuario a la página principal.
+   * Si la operación es exitosa, muestra una notificación de éxito. En caso de error, muestra una notificación de error.
+   *
+   * @returns {void}
+   */
   const handleLogout = async () => {
     const token = localStorage.getItem("authToken");
     if (token) {
       try {
         const message = await logoutRequest(userData.token);
 
-        setUserData(null); 
+        setUserData(null);
         localStorage.removeItem("authToken");
         localStorage.removeItem("userData");
         localStorage.removeItem("loginType");
 
         success({
-          title: t("auth.logout_title"), 
-          text: t("auth.logout_text_ok"), 
+          title: t("auth.logout_title"),
+          text: t("auth.logout_text_ok"),
           delay: 2000,
         });
 
         navigate("/");
       } catch (err) {
         error({
-          title: t("auth.logout_title"), 
-          text: t("auth.logout_text_fail"), 
+          title: t("auth.logout_title"),
+          text: t("auth.logout_text_fail"),
           delay: 2000,
         });
       }

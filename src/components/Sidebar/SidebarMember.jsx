@@ -41,7 +41,7 @@ const menuItems = [
  * @example
  * <SidebarMember />
  * 
- * @returns {JSX.Element} El sidebar con la navegación para los miembros.
+ * @returns {JSX.Element} El sidebar con la navegación para los socios.
  */
 export default function SidebarMember() {
   const { t } = useTranslation();
@@ -51,6 +51,9 @@ export default function SidebarMember() {
 
   const isDarkMode = theme === "dark";
 
+  /**
+   * useEffect para detectar cambios en el tamaño de la ventana y ajustar el estado de la vista móvil
+   */
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth <= 768;

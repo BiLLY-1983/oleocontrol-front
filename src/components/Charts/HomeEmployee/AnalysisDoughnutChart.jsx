@@ -5,22 +5,30 @@ import { Chart as ChartJS, Tooltip, Legend } from "chart.js";
 ChartJS.register(Tooltip, Legend);
 
 /**
- * Componente que muestra un gráfico tipo doughnut con el análisis de tipos de aceite.
- * 
+ * Componente que muestra un gráfico tipo doughnut representando el número de análisis
+ * realizados para cada tipo de aceite.
+ *
  * @component
  * @param {Object} props - Propiedades del componente.
- * @param {Object.<string, number>} props.oilCounts - Objeto con los tipos de aceite como claves y el número de análisis como valores.
- * 
+ * @param {Object.<string, number>} props.oilCounts - Objeto donde las claves son tipos de aceite y los valores el número de análisis.
+ *
+ * @returns {JSX.Element} Elemento JSX que renderiza el gráfico Doughnut.
+ *
  * @example
  * const oilCounts = {
  *   "Aceite de Oliva Virgen Extra": 8,
  *   "Aceite de Oliva Virgen": 5,
  *   "Aceite de Oliva Lampante": 3
  * };
- * 
+ *
  * <OilAnalysisDoughnutChart oilCounts={oilCounts} />
  */
 const OilAnalysisDoughnutChart = ({ oilCounts }) => {
+  /**
+   * Datos para el gráfico doughnut, generados dinámicamente a partir del objeto `oilCounts`.
+   *
+   * @type {Object}
+   */
   const doughnutOilData = {
     labels: Object.keys(oilCounts),
     datasets: [
@@ -46,6 +54,23 @@ const OilAnalysisDoughnutChart = ({ oilCounts }) => {
     ],
   };
 
+  /**
+   * Callback que personaliza el contenido del tooltip para mostrar el porcentaje de cada tipo de aceite.
+   *
+   * @function
+   * @param {Object} tooltipItem - Objeto con la información del elemento del gráfico.
+   * @param {string} tooltipItem.label - Etiqueta del tipo de aceite.
+   * @param {number} tooltipItem.raw - Valor asociado al tipo de aceite.
+   * @returns {string} Cadena formateada con la cantidad y el porcentaje.
+   */
+  const formatTooltipLabel = (tooltipItem) => {
+    const label = tooltipItem.label;
+    const value = tooltipItem.raw;
+    const total = Object.values(oilCounts).reduce((a, b) => a + b, 0);
+    const percent = ((value / total) * 100).toFixed(1);
+    return `${label}: ${value} análisis (${percent}%)`;
+  };
+
   return (
     <div className="relative" style={{ height: 488 }}>
       <Doughnut
@@ -57,16 +82,7 @@ const OilAnalysisDoughnutChart = ({ oilCounts }) => {
             legend: { position: "bottom" },
             tooltip: {
               callbacks: {
-                label: (tooltipItem) => {
-                  const label = tooltipItem.label;
-                  const value = tooltipItem.raw;
-                  const total = Object.values(oilCounts).reduce(
-                    (a, b) => a + b,
-                    0
-                  );
-                  const percent = ((value / total) * 100).toFixed(1);
-                  return `${label}: ${value} análisis (${percent}%)`;
-                },
+                label: formatTooltipLabel,
               },
             },
           },

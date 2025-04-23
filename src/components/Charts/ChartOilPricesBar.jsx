@@ -13,20 +13,23 @@ import clsx from "clsx";
 
 /**
  * Componente que muestra un gráfico de barras comparando el precio del aceite entre diferentes tipos de aceite.
+ * Utiliza la librería `recharts` para representar los datos de forma visual y adaptativa, con soporte para temas claro y oscuro.
  *
  * @component
  * @param {Object} props - Propiedades del componente.
- * @param {Array} props.oils - Lista de aceites, cada elemento debe contener un nombre (`name`) y un precio (`price`).
+ * @param {Array<{ name: string, price: number }>} props.oils - Lista de aceites, cada elemento debe contener un nombre (`name`) y un precio (`price`).
+ * 
+ * @returns {JSX.Element} Un contenedor con el gráfico de barras representando los precios por tipo de aceite.
  * 
  * @example
  * const oils = [
  *   { name: "Picual", price: 5.6 },
  *   { name: "Arbequina", price: 6.1 },
- *   // Más tipos de aceite...
  * ];
  * 
  * <ChartOilPricesBar oils={oils} />
  */
+
 export default function ChartOilPricesBar({ oils }) {
   const { t } = useTranslation();
   const { theme } = useTheme();

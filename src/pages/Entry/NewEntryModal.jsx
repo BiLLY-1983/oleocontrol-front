@@ -25,7 +25,7 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
-// Validación con Zod
+/** Validación con Zod */
 const entrySchema = z.object({
   entry_date: z.string().min(1, { message: "La fecha es obligatoria" }),
   olive_quantity: z
@@ -34,6 +34,20 @@ const entrySchema = z.object({
   member_id: z.number().min(1, { message: "Debe seleccionar un socio" }),
 });
 
+/**
+ * Componente de modal para crear una nueva entrada de aceite.
+ * Permite al usuario seleccionar una fecha, cantidad de aceituna, y un miembro.
+ * Los datos se validan usando Zod y se envían al backend para su creación.
+ *
+ * @component
+ * @param {Object} props - Propiedades del componente.
+ * @param {boolean} props.open - Estado que indica si el modal está abierto.
+ * @param {Function} props.setOpen - Función para cambiar el estado de apertura del modal.
+ * @param {boolean} props.isDarkMode - Define si el modo oscuro está activado.
+ * @param {Function} props.updateEntries - Función para actualizar la lista de entradas después de crear una nueva.
+ *
+ * @returns {JSX.Element} El modal para crear una nueva entrada de aceite.
+ */
 const NewEntryModal = ({ open, setOpen, isDarkMode, updateEntries }) => {
   const { t } = useTranslation();
   const [members, setMembers] = useState([]);
@@ -50,6 +64,9 @@ const NewEntryModal = ({ open, setOpen, isDarkMode, updateEntries }) => {
           return fullName.includes(query.toLowerCase());
         });
 
+  /**
+   * Hook de formulario usando react-hook-form para gestionar la validación y los envíos.
+   */
   const {
     register,
     handleSubmit,
@@ -64,6 +81,9 @@ const NewEntryModal = ({ open, setOpen, isDarkMode, updateEntries }) => {
     },
   });
 
+  /**
+   * useEffect para obtener los miembros desde la API cuando el componente se monta.
+   */
   useEffect(() => {
     const fetchMembers = async () => {
       const res = await getMembers();
@@ -72,6 +92,11 @@ const NewEntryModal = ({ open, setOpen, isDarkMode, updateEntries }) => {
     fetchMembers();
   }, []);
 
+  /**
+   * Función que maneja la creación de una nueva entrada. Envía los datos al backend y muestra un mensaje de éxito o error.
+   *
+   * @param {Object} data - Datos del formulario.
+   */
   const handleCreate = async (data) => {
     try {
       data.analysis_status = "Pendiente";
@@ -102,7 +127,8 @@ const NewEntryModal = ({ open, setOpen, isDarkMode, updateEntries }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent
-        className={clsx("max-h-[50vh] overflow-y-auto",
+        className={clsx(
+          "max-h-[50vh] overflow-y-auto",
           isDarkMode
             ? "accent-dark-400 bg-dark-700 border-dark-600 text-dark-50"
             : "accent-olive-600 bg-olive-50 border-gray-300 text-olive-800"

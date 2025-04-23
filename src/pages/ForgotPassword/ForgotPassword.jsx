@@ -10,6 +10,21 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
+/**
+ * Componente para recuperar la contraseña de un usuario.
+ *
+ * Este componente permite a los usuarios solicitar el restablecimiento de su contraseña
+ * a través de su nombre de usuario y correo electrónico. Si la solicitud es exitosa,
+ * se envía un mensaje de éxito; si falla, se muestra un mensaje de error.
+ *
+ * @component
+ * @example
+ * return (
+ *   <ForgotPassword />
+ * )
+ *
+ * @returns {JSX.Element} La página de recuperación de contraseña.
+ */
 const ForgotPassword = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
@@ -22,6 +37,12 @@ const ForgotPassword = () => {
 
   const navigate = useNavigate();
 
+  /**
+   * Maneja la acción de enviar el formulario de recuperación de contraseña.
+   * Realiza una solicitud para restablecer la contraseña y muestra mensajes de éxito o error.
+   *
+   * @param {Event} e El evento del formulario al ser enviado.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 

@@ -22,7 +22,7 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
-// Definir el esquema de validación con Zod
+/** Definir el esquema de validación con Zod */
 const userSchema = z
   .object({
     username: z
@@ -46,26 +46,46 @@ const userSchema = z
       .email({ message: "El email no es válido" })
       .min(1, { message: "El email es obligatorio" })
       .max(255, { message: "Máximo 255 caracteres" }),
-    password: z
+/*     password: z
       .string()
       .min(8, { message: "La contraseña debe tener al menos 8 caracteres" }),
     password_confirmation: z.string().min(8, {
       message: "La contraseña de confirmación debe tener al menos 8 caracteres",
-    }),
+    }), */
     phone: z
       .string()
       .min(1, { message: "El teléfono es obligatorio" })
       .max(20, { message: "Máximo 20 caracteres" }),
   })
-  .superRefine((data, ctx) => {
+/*   .superRefine((data, ctx) => {
     if (data.password !== data.password_confirmation) {
       ctx.addIssue({
         path: ["password_confirmation"],
         message: "Las contraseñas no coinciden",
       });
     }
-  });
+  }) */;
 
+  /**
+ * Componente modal para crear un nuevo socio.
+ *
+ * Este modal presenta un formulario validado con Zod que permite registrar
+ * un nuevo socio, incluyendo campos como nombre, apellido, email, DNI,
+ * contraseña.
+ *
+ * Al enviarse correctamente, muestra una notificación de éxito, resetea el
+ * formulario, cierra el modal y ejecuta una función para actualizar la lista
+ * de socios si se ha proporcionado.
+ *
+ * @component
+ * @param {Object} props - Propiedades del componente
+ * @param {boolean} props.open - Determina si el modal está abierto
+ * @param {Function} props.setOpen - Función para cambiar el estado del modal
+ * @param {boolean} props.isDarkMode - Indica si se debe usar el tema oscuro
+ * @param {Function} props.updateEmployees - Función para actualizar la lista de socios tras la creación
+ *
+ * @returns {JSX.Element} Modal con formulario para creación de un nuevo socio
+ */
 const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
   const { t } = useTranslation(); // Hook para traducciones
   const {
@@ -78,7 +98,13 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
     mode: "all",
   });
 
-  // Función para manejar el envío del formulario
+  /**
+   * Maneja el envío del formulario de creación de socio
+   *
+   * @async
+   * @function
+   * @param {Object} data - Datos del formulario validados
+   */
   const handleCreate = async (data) => {
     try {
       data.status = true;
@@ -202,9 +228,8 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
             )}
           </div>
 
-          <div name="password">
+{/*           <div name="password">
             <Label className="mb-1">{t("userProfile.password")}</Label>{" "}
-            {/* Traducción para "Contraseña" */}
             <Input
               type="password"
               {...register("password")}
@@ -219,7 +244,6 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
             <Label className="mb-1">
               {t("userProfile.passwordConfirmation")}
             </Label>{" "}
-            {/* Traducción para "Confirmar Contraseña" */}
             <Input
               type="password"
               {...register("password_confirmation")}
@@ -230,7 +254,7 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
                 {errors.password_confirmation.message}
               </p>
             )}
-          </div>
+          </div> */}
 
           <div name="phone">
             <Label className="mb-1">{t("userProfile.phone")}</Label>{" "}

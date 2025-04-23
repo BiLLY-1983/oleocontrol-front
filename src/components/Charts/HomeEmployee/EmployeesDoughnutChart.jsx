@@ -3,14 +3,17 @@ import { Doughnut } from "react-chartjs-2";
 import clsx from "clsx";
 
 /**
- * Componente que muestra un gráfico doughnut para representar datos relacionados con empleados.
- * 
+ * Componente que muestra un gráfico tipo doughnut para visualizar
+ * la distribución de empleados en diferentes áreas.
+ *
  * @component
  * @param {Object} props - Propiedades del componente.
- * @param {Object} props.data - Datos del gráfico, compatibles con Chart.js.
- * @param {string} props.title - Título que se muestra encima del gráfico.
- * @param {boolean} props.isDarkMode - Determina si se usa el modo oscuro para aplicar estilos.
- * 
+ * @param {Object} props.data - Objeto de configuración para Chart.js, incluyendo etiquetas y datasets.
+ * @param {string} props.title - Título que se muestra sobre el gráfico.
+ * @param {boolean} props.isDarkMode - Si está activado el modo oscuro, se aplican estilos oscuros.
+ *
+ * @returns {JSX.Element} Elemento JSX que contiene el gráfico Doughnut y su encabezado.
+ *
  * @example
  * const data = {
  *   labels: ['Administración', 'Contabilidad', 'Laboratorio'],
@@ -22,7 +25,7 @@ import clsx from "clsx";
  *     }
  *   ]
  * };
- * 
+ *
  * <EmployeesDoughnutChart
  *   data={data}
  *   title="Distribución de empleados"
@@ -30,6 +33,23 @@ import clsx from "clsx";
  * />
  */
 const EmployeesDoughnutChart = ({ data, title, isDarkMode }) => {
+  /**
+   * Callback para formatear las etiquetas del tooltip, mostrando el valor y su porcentaje.
+   *
+   * @function
+   * @param {Object} tooltipItem - Objeto con la información del elemento del gráfico.
+   * @param {string} tooltipItem.label - Etiqueta del elemento.
+   * @param {number} tooltipItem.raw - Valor asociado al elemento.
+   * @returns {string} Cadena formateada con el valor y su porcentaje respecto al total.
+   */
+  const formatTooltipLabel = (tooltipItem) => {
+    const label = tooltipItem.label;
+    const value = tooltipItem.raw;
+    const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
+    const percent = ((value / total) * 100).toFixed(1);
+    return `${label}: ${value} (${percent}%)`;
+  };
+
   return (
     <div
       className={clsx(
@@ -52,13 +72,7 @@ const EmployeesDoughnutChart = ({ data, title, isDarkMode }) => {
               legend: { position: "bottom" },
               tooltip: {
                 callbacks: {
-                  label: (tooltipItem) => {
-                    const label = tooltipItem.label;
-                    const value = tooltipItem.raw;
-                    const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
-                    const percent = ((value / total) * 100).toFixed(1);
-                    return `${label}: ${value} (${percent}%)`;
-                  },
+                  label: formatTooltipLabel,
                 },
               },
             },

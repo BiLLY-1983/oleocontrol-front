@@ -29,6 +29,12 @@ import { EntryPDF } from "@components/pdf/EntryPDF";
 import { EntryWithOilPDF } from "@components/pdf/EntryWithOilPDF";
 import { BiSolidFilePdf } from "react-icons/bi";
 
+/**
+ * Componente para la gestión y visualización de entradas de aceitunas para un miembro específico.
+ * Este componente permite filtrar, paginar, y generar informes en formato PDF sobre las entradas de aceitunas.
+ * 
+ * @component
+ */
 const EntriesMember = () => {
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
@@ -44,6 +50,14 @@ const EntriesMember = () => {
   const [error, setError] = useState(null);
   const [filtro, setFiltro] = useState("");
 
+  /**
+   * Función para obtener las entradas del miembro desde el backend.
+   * Realiza una llamada a la API y actualiza el estado de las entradas.
+   * 
+   * @async
+   * @function fetchEntries
+   * @returns {Promise<void>}
+   */
   const fetchEntries = async () => {
     setLoading(true);
     try {
@@ -65,13 +79,22 @@ const EntriesMember = () => {
     fetchEntries();
   }, []);
 
+  /**
+   * Filtra las entradas por cantidad de aceitunas, según el valor del filtro.
+   * 
+   * @returns {Array} Las entradas filtradas por la cantidad de aceitunas.
+   */
   const entriesFiltered = entries.filter((entry) => {
     const cantidad = Number(filtro);
     if (isNaN(cantidad)) return false;
     return entry.olive_quantity >= cantidad;
   });
 
-  // Paginación
+  /**
+   * Calcula los números de páginas visibles para la paginación.
+   * 
+   * @returns {Array} Array con los números de página visibles.
+   */
   const getVisiblePageNumbers = () => {
     const totalPages = pageNumbers.length;
     const maxVisible = 5;
@@ -107,6 +130,11 @@ const EntriesMember = () => {
     indexOfLastEntry
   );
 
+  /**
+   * Función para cambiar la página actual de la paginación.
+   * 
+   * @param {number} pageNumber - El número de la página a mostrar.
+   */
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const pageNumbers = [];
@@ -118,14 +146,14 @@ const EntriesMember = () => {
     pageNumbers.push(i);
   }
 
-  // Total de kilos
+  /** Total de kilos */ 
   const totalKilos = entries.reduce(
     (sum, e) => sum + Number(e.olive_quantity ?? 0),
     0
   );
   const kgTn = totalKilos / 1000;
 
-  // Total de litros
+  /** Total de litros */ 
   const totalLitros = entries.reduce(
     (sum, e) => sum + Number(e.oil_quantity ?? 0),
     0

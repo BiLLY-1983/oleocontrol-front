@@ -43,7 +43,6 @@ import { formatEuro } from "@/utils/formatEuro";
  *
  * <ChartSettlements settlements={settlements} />
  */
-
 export default function ChartSettlements({ settlements }) {
   const { t } = useTranslation();
   const { theme } = useTheme();

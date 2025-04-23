@@ -33,23 +33,70 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 // Registrar elementos necesarios para Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+/**
+ * Componente `Employees` para la gestión de empleados en el sistema.
+ *
+ * Este componente muestra una lista de empleados con funciones de búsqueda,
+ * filtrado, paginación, y gráficos para visualizar la distribución por departamento.
+ * También permite crear, editar y eliminar empleados mediante modales.
+ *
+ * @component
+ *
+ * @returns {JSX.Element} Interfaz de usuario para la gestión de empleados.
+ *
+ * @example
+ * <Employees />
+ *
+ * @features
+ * - Carga asíncrona de empleados desde la API.
+ * - Filtro por nombre, apellido, email, teléfono, DNI, departamento y estado.
+ * - Paginación configurable por cantidad de empleados por página.
+ * - Visualización con gráficos (donut y de barras) del número de empleados por departamento.
+ * - Modales para agregar, editar y eliminar empleados.
+ * - Soporte para tema claro/oscuro.
+ */
 const Employees = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
 
+  /** Lista de todos los empleados cargados desde la API */
   const [employees, setEmployees] = useState([]);
+
+  /** Empleado seleccionado para editar o eliminar */
   const [selectedEmployee, setSelectedEmployee] = useState(null);
+
+  /** Texto del filtro de búsqueda */
   const [filter, setFilter] = useState("");
+
+  /** Estado de carga */
   const [loading, setLoading] = useState(false);
+
+  /** Mensaje de error en caso de fallo al obtener empleados */
   const [error, setError] = useState(null);
+
+  /** Página actual del paginador */
   const [currentPage, setCurrentPage] = useState(1);
+
+  /** Cantidad de empleados a mostrar por página */
   const [employeesPerPage, setEmployeesPerPage] = useState(10);
+
+  /** Controla la visibilidad del modal para crear empleados */
   const [modalNewEmployeeOpen, setModalNewEmployeeOpen] = useState(false);
+
+  /** Controla la visibilidad del modal para editar empleados */
   const [modalEditEmployeeOpen, setModalEditEmployeeOpen] = useState(false);
+
+  /** Controla la visibilidad del modal para eliminar empleados */
   const [modalDeleteEmployeeOpen, setModalDeleteEmployeeOpen] = useState(false);
 
-  // Función para obtener los socios
+  /**
+   * Obtiene los empleados desde el backend.
+   * Maneja los estados de carga y errores.
+   *
+   * @async
+   * @function
+   */
   const fetchEmployees = async () => {
     setLoading(true);
     setError(null);
@@ -71,12 +118,22 @@ const Employees = () => {
     fetchEmployees();
   }, []);
 
-  // Función para actualizar la lista de socios
+  /**
+   * Refresca la lista de empleados desde el backend.
+   * Se utiliza después de crear, editar o eliminar.
+   */
   const updateEmployees = async () => {
     await fetchEmployees(); // Vuelve a cargar la lista
   };
 
-  // Filtrar socios
+  /**
+   * Lista de empleados filtrada según el texto ingresado por el usuario.
+   *
+   * Filtra a los empleados por nombre, apellidos, email, teléfono, DNI,
+   * nombre del departamento o estado (activo/inactivo).
+   *
+   * @type {Array<Object>}
+   */
   const filteredEmployees = employees.filter(
     (employee) =>
       employee.user.first_name.toLowerCase().includes(filter.toLowerCase()) ||
@@ -90,7 +147,15 @@ const Employees = () => {
       )
   );
 
-  // Paginación
+  /**
+   * Devuelve un subconjunto de números de página visibles, con elipsis si hay muchas páginas.
+   *
+   * Controla cuántas páginas se muestran en la paginación, mostrando como máximo 5 entradas
+   * y utilizando "..." para acortar la lista cuando sea necesario.
+   *
+   * @function
+   * @returns {Array<number|string>} - Lista de páginas visibles (puede incluir "...").
+   */
   const getVisiblePageNumbers = () => {
     const totalPages = pageNumbers.length;
     const maxVisible = 5;
@@ -121,13 +186,30 @@ const Employees = () => {
 
   const indexOfLastEmployee = currentPage * employeesPerPage;
   const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
+
+  /**
+   * Lista de empleados a mostrar en la página actual.
+   *
+   * @type {Array<Object>}
+   */
   const currentEmployees = filteredEmployees.slice(
     indexOfFirstEmployee,
     indexOfLastEmployee
   );
 
+  /**
+   * Cambia la página actual en la paginación.
+   *
+   * @function
+   * @param {number} pageNumber - Número de la página a visualizar.
+   */
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  /**
+   * Array de números de página basado en la cantidad de empleados filtrados.
+   *
+   * @type {Array<number>}
+   */
   const pageNumbers = [];
   for (
     let i = 1;
@@ -140,7 +222,13 @@ const Employees = () => {
   // Preparar datos para el gráfico circular
   const [hoveredDepartment, setHoveredDepartment] = useState(null);
 
-  // Preparar datos para el gráfico circular
+  /**
+   * Objeto con el conteo de empleados activos e inactivos por departamento.
+   *
+   * Se utiliza para generar los gráficos de empleados por departamento.
+   *
+   * @type {Object<string, {active: number, inactive: number}>}
+   */
   const departmentCounts = employees.reduce((acc, emp) => {
     const deptName = emp.department.name;
     if (!acc[deptName]) {
@@ -154,6 +242,13 @@ const Employees = () => {
     return acc;
   }, {});
 
+  /**
+   * Datos para el gráfico circular de empleados por departamento.
+   *
+   * Se usa para visualizar el total (activos + inactivos) por departamento.
+   *
+   * @type {Object}
+   */
   const chartData = {
     labels: Object.keys(departmentCounts),
     datasets: [
@@ -189,41 +284,6 @@ const Employees = () => {
     ],
   };
 
-  // Mostrar información al pasar el cursor
-  const renderHoveredInfo = () => {
-    if (!hoveredDepartment) return null;
-
-    const { active, inactive } = departmentCounts[hoveredDepartment];
-    return (
-      <div className="mt-4">
-        <p>{`Departamento: ${hoveredDepartment}`}</p>
-        <p>{`Empleados activos: ${active}`}</p>
-        <p>{`Empleados inactivos: ${inactive}`}</p>
-      </div>
-    );
-  };
-
-  const barChartData = {
-    labels: Object.keys(departmentCounts),
-    datasets: [
-      {
-        label: "Número de empleados",
-        data: Object.values(departmentCounts),
-        backgroundColor: isDarkMode ? "#A076C4" : "#556339",
-      },
-    ],
-  };
-
-  const barChartOptions = {
-    responsive: true,
-    plugins: {
-      legend: { position: "top" },
-      title: {
-        display: true,
-        text: "Empleados por Departamento",
-      },
-    },
-  };
 
   return (
     <div

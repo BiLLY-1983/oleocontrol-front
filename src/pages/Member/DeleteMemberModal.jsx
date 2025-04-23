@@ -17,6 +17,38 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
+/**
+ * Componente modal para eliminar un socio.
+ *
+ * Este componente muestra un modal para confirmar la eliminación de un socio.
+ * Si se confirma la eliminación, se llama a la función `deleteMember` para eliminar al socio,
+ * y se muestra una notificación de éxito o error dependiendo del resultado de la operación.
+ *
+ * @component
+ * @example
+ * return (
+ *   <DeleteMemberModal
+ *     open={isModalOpen}
+ *     setOpen={setModalOpen}
+ *     isDarkMode={isDarkMode}
+ *     updateMembers={fetchMembers}
+ *     selectedMember={MemberToDelete}
+ *   />
+ * )
+ *
+ * @param {Object} props - Props del componente.
+ * @param {boolean} props.open - Estado que determina si el modal está abierto o cerrado.
+ * @param {function} props.setOpen - Función para cambiar el estado del modal (abrir o cerrar).
+ * @param {boolean} props.isDarkMode - Estado que determina si el tema es oscuro.
+ * @param {function} props.updateMembers - Función para actualizar la lista de socios tras eliminar uno.
+ * @param {Object} props.selectedMember - El socio seleccionado para ser eliminado.
+ * @param {Object} props.selectedMember.user - Información del usuario del socio.
+ * @param {string} props.selectedMember.user.username - El nombre de usuario del socio.
+ * @param {string} props.selectedMember.user.first_name - El primer nombre del socio.
+ * @param {string} props.selectedMember.user.last_name - El apellido del socio.
+ *
+ * @returns {JSX.Element} El modal para eliminar un socio.
+ */
 const DeleteMemberModal = ({
   open,
   setOpen,
@@ -26,6 +58,15 @@ const DeleteMemberModal = ({
 }) => {
   const { t } = useTranslation(); // Hook para traducciones
 
+  /**
+   * Función para manejar la eliminación del socio seleccionado.
+   * Realiza la llamada a la API para eliminar el socio y muestra una notificación.
+   * Si la eliminación es exitosa, se cierra el modal y se actualiza la lista de socios.
+   *
+   * @async
+   * @function handleDelete
+   * @returns {void}
+   */
   const handleDelete = async () => {
     try {
       const result = await deleteMember(selectedMember.user.id);

@@ -23,6 +23,9 @@ ChartJS.register(ArcElement, Tooltip, Legend);
  *  - `entry.olive_quantity`: Cantidad de aceituna analizada.
  *  - `oil.name`: Nombre del aceite resultante del análisis.
  *
+ * @returns {JSX.Element} El componente visualiza un gráfico Doughnut con la distribución de los aceites
+ * obtenidos a partir de los análisis de rendimiento de las aceitunas.
+ *
  * @example
  * const oils = [
  *   { name: "Picual", price: 3.5 },
@@ -93,8 +96,8 @@ export default function ChartOils({ oils, analyses }) {
             "#A076C4",
             "#4DCBC4",
             "#ED7D31",
-            "#8395A7", 
-            "#5A9BD5", 
+            "#8395A7",
+            "#5A9BD5",
           ],
           hoverBackgroundColor: [
             "#609D37",
@@ -136,7 +139,10 @@ export default function ChartOils({ oils, analyses }) {
                         (oil) => oil.name === tooltipItem.label
                       );
                       const quantity = tooltipItem.raw;
-                      return `${tooltipItem.label}: ${quantity.toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} L | Precio: ${oil ? oil.price : 0} €`;
+                      return `${tooltipItem.label}: ${quantity.toLocaleString(
+                        "es-ES",
+                        { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+                      )} L | Precio: ${oil ? oil.price : 0} €`;
                     },
                   },
                 },
@@ -152,7 +158,12 @@ export default function ChartOils({ oils, analyses }) {
 
       <div className="mt-4">
         <div className="text-lg font-medium">
-          {t("home.total_oil")}: {totalOil.toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} L
+          {t("home.total_oil")}:{" "}
+          {totalOil.toLocaleString("es-ES", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })}{" "}
+          L
         </div>
       </div>
     </div>

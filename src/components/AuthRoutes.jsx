@@ -9,41 +9,46 @@ import DepartmentProtectedRoute from "@components/DepartmentProtectedRoute";
 import DashboardAdmin from "@pages/Dashboard/DashboardAdmin.jsx";
 import DashboardMember from "@pages/Dashboard/DashboardMember.jsx";
 import DashboardEmployee from "@pages/Dashboard/DashboardEmployee.jsx";
-import HomeEmployee from '@pages/Home/HomeEmployee';
-import Entries from '@pages/Entry/Entries';
-import Analyses from '@pages/Analysis/Analyses';
-import Employees from '@pages/Employee/Employees';
-import Departments from '@pages/Department/Departments';
-import Members from '@pages/Member/Members';
-import Settlements from '@pages/Settlement/Settlements';
-import OilsEmployee from '@pages/Oil/OilsEmployee';
-import Profile from '@pages/Profile/Profile';
+import HomeEmployee from "@pages/Home/HomeEmployee";
+import Entries from "@pages/Entry/Entries";
+import Analyses from "@pages/Analysis/Analyses";
+import Employees from "@pages/Employee/Employees";
+import Departments from "@pages/Department/Departments";
+import Members from "@pages/Member/Members";
+import Settlements from "@pages/Settlement/Settlements";
+import OilsEmployee from "@pages/Oil/OilsEmployee";
+import Profile from "@pages/Profile/Profile";
 import Error404 from "@pages/Error/Error404.jsx";
 
 /**
- * Función que gestiona la ruta protegida.
- * Si el usuario está autenticado, se renderiza el contenido de la ruta.
- * De lo contrario, redirige al usuario a la página principal.
+ * Componente que protege las rutas para garantizar que el usuario esté autenticado.
+ * Si el usuario está autenticado, renderiza los elementos hijos, de lo contrario, redirige al inicio.
  *
  * @param {Object} props - Propiedades del componente.
- * @param {boolean} props.isAuthenticated - Indicador de autenticación del usuario.
- * @param {JSX.Element} props.children - Elementos que se renderizarán si el usuario está autenticado.
- * @returns {JSX.Element} Componente de ruta protegida o redirección.
+ * @param {boolean} props.isAuthenticated - Estado de autenticación del usuario.
+ * @param {JSX.Element} props.children - Elementos hijos a renderizar si el usuario está autenticado.
+ * @returns {JSX.Element} - Redirección o el contenido protegido.
  */
 function ProtectedRoute({ isAuthenticated, children }) {
   return isAuthenticated ? children : <Navigate to="/" />;
 }
 
 /**
- * Componente principal de autenticación de rutas.
- * Gestiona las rutas públicas, protegidas y las específicas de los dashboards.
- * Utiliza el contexto de usuario para determinar si el usuario está autenticado.
+ * Componente principal que gestiona todas las rutas de la aplicación,
+ * incluidas las rutas públicas, protegidas y de dashboards.
+ * Usa el contexto de usuario para comprobar si el usuario está autenticado.
  *
- * @returns {JSX.Element} Componente de rutas con las configuraciones correspondientes.
+ * @returns {JSX.Element} - El componente de rutas configurado.
  */
 export default function AuthRoutes() {
   const { userData, setUserData } = useContext(UserContext);
 
+  /**
+   * useEffect que se ejecuta al montar el componente para verificar si el usuario ya está autenticado.
+   * Si se encuentra un token de autenticación y los datos del usuario en el almacenamiento local,
+   * se actualizan los datos del usuario en el contexto.
+   *
+   */
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     const user = localStorage.getItem("userData");

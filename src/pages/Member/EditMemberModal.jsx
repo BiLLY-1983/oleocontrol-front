@@ -22,6 +22,33 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
+/**
+ * Componente modal para editar los datos de un socio.
+ *
+ * Este modal muestra un formulario prellenado con los datos del socio seleccionado y permite editarlos.
+ * Incluye campos como nombre, apellidos, usuario, email, teléfono, departamento y estado.
+ * Utiliza `react-hook-form` para la gestión del formulario y validaciones.
+ * Muestra esqueleto de carga mientras los datos del socio no están disponibles.
+ *
+ * @component
+ * @param {Object} props - Props del componente.
+ * @param {boolean} props.open - Indica si el modal está abierto.
+ * @param {Function} props.setOpen - Función para abrir/cerrar el modal.
+ * @param {boolean} props.isDarkMode - Indica si se está utilizando el modo oscuro.
+ * @param {Function} props.updateMembers - Función para actualizar la lista de socios después de editar.
+ * @param {Object} props.selectedMember - Datos del socio seleccionado para editar.
+ *
+ * @returns {JSX.Element} El modal con el formulario para editar un socio.
+ *
+ * @example
+ * <EditMemberModal
+ *   open={modalOpen}
+ *   setOpen={setModalOpen}
+ *   isDarkMode={true}
+ *   updateMembers={loadMembers}
+ *   selectedMember={MemberData}
+ * />
+ */
 const EditMemberModal = ({
   open,
   setOpen,
@@ -41,14 +68,22 @@ const EditMemberModal = ({
     mode: "all",
   });
 
-  // Actualizar los valores del formulario cuando usuarioSeleccionado cambie
+  /**
+   * useEffect para actualizar los valores del formulario cuando socio cambie
+   * */
   useEffect(() => {
     if (selectedMember) {
       reset(selectedMember); // Actualiza los valores del formulario
     }
   }, [selectedMember, reset]);
 
-  // Función para manejar el envío del formulario
+  /**
+   * Maneja el envío del formulario de edición de socio
+   *
+   * @async
+   * @function
+   * @param {Object} data - Datos del formulario validados
+   */
   const handleEdit = async (data) => {
     const result = await updateMember(selectedMember.id, data);
 

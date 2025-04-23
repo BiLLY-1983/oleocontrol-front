@@ -12,6 +12,19 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
+/**
+ * Componente de inicio de sesión para el portal de Socio.
+ * Este componente gestiona la autenticación del socio a través de su nombre de usuario y contraseña.
+ * Los usuarios pueden optar por recordar sus credenciales y acceder al sistema si sus datos son correctos.
+ *
+ * @component
+ * @example
+ * return (
+ *   <LoginMember />
+ * );
+ *
+ * @returns {JSX.Element} El componente LoginAdmin con su formulario de inicio de sesión.
+ */
 const LoginMember = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
@@ -27,6 +40,9 @@ const LoginMember = () => {
 
   const navigate = useNavigate();
 
+  /**
+   * Hook para cargar las credenciales guardadas en localStorage si el usuario ha optado por recordarlas
+   */
   useEffect(() => {
     const savedUsername = localStorage.getItem("rememberedUsername");
     const savedPassword = localStorage.getItem("rememberedPassword");
@@ -39,6 +55,12 @@ const LoginMember = () => {
     }
   }, []);
 
+  /**
+   * Función para manejar el envío del formulario de inicio de sesión.
+   * Realiza la autenticación del usuario y maneja el almacenamiento de las credenciales si el usuario opta por recordarlas.
+   *
+   * @param {Event} e - El evento de envío del formulario.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!username || !password) {

@@ -58,6 +58,10 @@ export default function SidebarAdmin() {
 
   const isDarkMode = theme === "dark";
 
+  /**
+   * useEffect que detecta el tamaño de la pantalla y ajusta el estado del sidebar.
+   * Además, ajusta la visibilidad de los elementos cuando se redimensiona la ventana.
+   */
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth <= 768;

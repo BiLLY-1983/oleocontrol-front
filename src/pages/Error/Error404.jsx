@@ -4,9 +4,23 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "@context/ThemeContext";
 import clsx from "clsx";
 
+/**
+ * Componente para mostrar una página de error 404.
+ * 
+ * Este componente muestra un mensaje de error cuando la página no es encontrada
+ * (Error 404). Incluye un botón para regresar a la página anterior.
+ * 
+ * @component
+ * @example
+ * return (
+ *   <Error404 />
+ * )
+ * 
+ * @returns {JSX.Element} La página de error 404.
+ */
 const Error404 = () => {
-  const { t } = useTranslation(); // Hook para traducciones
-  const { theme } = useTheme(); // Hook para el tema
+  const { t } = useTranslation(); 
+  const { theme } = useTheme(); 
   const isDarkMode = theme === "dark";
   const navigate = useNavigate();
 
@@ -31,7 +45,7 @@ const Error404 = () => {
           isDarkMode ? "text-dark-300" : "text-olive-600"
         )}
       >
-        {t("error.notFound")} {/* Traducción para "Página no encontrada" */}
+        {t("error.notFound")} 
       </p>
       <button
         onClick={() => navigate(-1)}
@@ -42,7 +56,7 @@ const Error404 = () => {
             : "bg-olive-500 text-white hover:bg-olive-600 focus:ring-olive-400"
         )}
       >
-        {t("common.goBack")} {/* Traducción para "Volver atrás" */}
+        {t("common.goBack")}
       </button>
     </div>
   );

@@ -5,10 +5,20 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
-// Configuración dinámica de la baseURL dependiendo del entorno
+
+/**
+ * Define la base URL para las solicitudes API, que puede variar según el entorno.
+ * Si no está definida en el entorno, se usa la URL local por defecto.
+ * 
+ * @constant {string} baseURL
+ */
 const baseURL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api';
 
-// Crear una instancia de Axios
+/**
+ * Crea una instancia de Axios con configuración personalizada, como la base URL, los headers y el tiempo de espera (timeout).
+ * 
+ * @constant {AxiosInstance} api
+ */
 const api = axios.create({
     baseURL,  // Usa la baseURL configurada
     headers: {
@@ -17,7 +27,14 @@ const api = axios.create({
     timeout: 10000,  // Timeout de 10 segundos para evitar que las solicitudes se queden colgadas
 });
 
-// Agregar un interceptor para incluir el token en cada solicitud
+/**
+ * Interceptor para añadir el token de autenticación en cada solicitud.
+ * Si el token está disponible en el localStorage, se incluye en los headers de la solicitud.
+ * 
+ * @function
+ * @param {Object} config - La configuración de la solicitud.
+ * @returns {Object} La configuración de la solicitud modificada.
+ */
 api.interceptors.request.use(
     (config) => {
         // Obtener el token del localStorage
@@ -36,7 +53,16 @@ api.interceptors.request.use(
     }
 );
 
-// Interceptor para manejar errores de respuesta
+/**
+ * Interceptor para manejar los errores de respuesta de las solicitudes.
+ * Si la respuesta es un error 401, elimina el token y los datos del usuario.
+ * Si la respuesta es un error 500, muestra una alerta al usuario.
+ * 
+ * @function
+ * @param {Object} response - La respuesta de la solicitud.
+ * @param {Object} error - El error de la respuesta.
+ * @returns {Promise} Promesa con la respuesta o el error.
+ */
 api.interceptors.response.use(
     (response) => response, // Devuelve la respuesta si todo está bien
     (error) => {

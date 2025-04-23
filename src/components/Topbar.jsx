@@ -22,7 +22,6 @@ import { useTheme } from "@context/ThemeContext";
  *
  * @component
  * @example
- * // Uso del componente Topbar
  * <Topbar />
  *
  * @returns {JSX.Element} El componente Topbar renderizado.
@@ -49,6 +48,10 @@ export default function Topbar() {
   const appearanceRef = useRef(null);
   const languageRef = useRef(null);
 
+  /**
+   * useEffect que maneja los clics fuera de los menús para cerrarlos automáticamente.
+   * Se suscribe al evento 'mousedown' para detectar clics fuera de los elementos de menú.
+   */
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (

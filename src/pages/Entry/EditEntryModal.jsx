@@ -23,13 +23,38 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
-// Validación con Zod
+/** Validación con Zod */
 const entrySchema = z.object({
   olive_quantity: z
     .number({ invalid_type_error: "Debe ser un número" })
     .min(1, { message: "Debe ser mayor que 0" }),
 });
 
+/**
+ * Modal para editar una entrada de aceite en el sistema.
+ * Permite actualizar la cantidad de aceitunas registradas en una entrada.
+ *
+ * @component
+ * @example
+ * const [open, setOpen] = useState(false);
+ * const [selectedEntry, setSelectedEntry] = useState(null);
+ *
+ * <EditUserModal
+ *   open={open}
+ *   setOpen={setOpen}
+ *   isDarkMode={false}
+ *   selectedEntry={selectedEntry}
+ *   updateEntries={fetchEntries} />
+ *
+ * @param {Object} props - Props del componente.
+ * @param {boolean} props.open - Estado para controlar la visibilidad del modal.
+ * @param {Function} props.setOpen - Función para cambiar el estado de visibilidad del modal.
+ * @param {boolean} props.isDarkMode - Determina si el modo oscuro está habilitado.
+ * @param {Function} props.updateEntries - Función para actualizar la lista de entradas después de la edición.
+ * @param {Object|null} props.selectedEntry - Datos de la entrada seleccionada para editar, o null si aún no está cargada.
+ *
+ * @returns {JSX.Element} El modal para editar la entrada.
+ */
 const EditUserModal = ({
   open,
   setOpen,
@@ -56,6 +81,13 @@ const EditUserModal = ({
     }
   }, [selectedEntry, reset]);
 
+  /**
+   * Función que maneja la edición de la entrada de aceite.
+   * Realiza una solicitud para actualizar la entrada y notifica el resultado.
+   *
+   * @param {Object} data - Los datos de la entrada que se editarán.
+   * @returns {Promise<void>}
+   */
   const handleEdit = async (data) => {
     const result = await updateEntry(selectedEntry.id, data);
 
@@ -84,7 +116,8 @@ const EditUserModal = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent
-        className={clsx("max-h-[50vh] overflow-y-auto",
+        className={clsx(
+          "max-h-[50vh] overflow-y-auto",
           isDarkMode
             ? "accent-dark-400 bg-dark-700 border-dark-600 text-dark-50"
             : "accent-olive-600 bg-olive-50 border-gray-300 text-olive-800"
@@ -92,9 +125,7 @@ const EditUserModal = ({
       >
         <DialogHeader>
           <DialogTitle>
-            {selectedEntry
-              ? t("entries.editEntry")
-              : t("entries.loadingEntry")}{" "}
+            {selectedEntry ? t("entries.editEntry") : t("entries.loadingEntry")}{" "}
             {/* Traducción para "Cargando usuario..." */}
           </DialogTitle>
           <DialogDescription>

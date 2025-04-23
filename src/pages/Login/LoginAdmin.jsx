@@ -12,6 +12,19 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
+/**
+ * Componente de inicio de sesión para el portal de Administrador.
+ * Este componente gestiona la autenticación del administrador a través de su nombre de usuario y contraseña.
+ * Los usuarios pueden optar por recordar sus credenciales y acceder al sistema si sus datos son correctos.
+ *
+ * @component
+ * @example
+ * return (
+ *   <LoginAdmin />
+ * );
+ *
+ * @returns {JSX.Element} El componente LoginAdmin con su formulario de inicio de sesión.
+ */
 const LoginAdmin = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
@@ -27,6 +40,9 @@ const LoginAdmin = () => {
 
   const navigate = useNavigate();
 
+  /**
+   * Hook para cargar las credenciales guardadas en localStorage si el usuario ha optado por recordarlas
+   */
   useEffect(() => {
     const savedUsername = localStorage.getItem("rememberedUsername");
     const savedPassword = localStorage.getItem("rememberedPassword");
@@ -39,6 +55,12 @@ const LoginAdmin = () => {
     }
   }, []);
 
+  /**
+   * Función para manejar el envío del formulario de inicio de sesión.
+   * Realiza la autenticación del usuario y maneja el almacenamiento de las credenciales si el usuario opta por recordarlas.
+   *
+   * @param {Event} e - El evento de envío del formulario.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!username || !password) {
@@ -118,9 +140,9 @@ const LoginAdmin = () => {
         >
           Iniciar sesión
         </h2>
-        <h5 className={clsx(
-            "text-1xl text-red-500 italic text-center mb-6"
-          )}>( Portal para Administrador )</h5>
+        <h5 className={clsx("text-1xl text-red-500 italic text-center mb-6")}>
+          ( Portal para Administrador )
+        </h5>
 
         {err && (
           <div className="text-red-500 text-sm text-center mb-4">{err}</div>
@@ -235,7 +257,9 @@ const LoginAdmin = () => {
               onClick={() => navigate("/")}
               className={clsx(
                 "text-sm underline cursor-pointer",
-                isDarkMode ? "text-dark-300 hover:text-dark-100" : "text-olive-500 hover:text-olive-700"
+                isDarkMode
+                  ? "text-dark-300 hover:text-dark-100"
+                  : "text-olive-500 hover:text-olive-700"
               )}
             >
               Volver al inicio
@@ -248,13 +272,14 @@ const LoginAdmin = () => {
               onClick={() => navigate("/forgot-password")}
               className={clsx(
                 "text-sm underline cursor-pointer",
-                isDarkMode ? "text-dark-300 hover:text-dark-100" : "text-olive-500 hover:text-olive-700"
+                isDarkMode
+                  ? "text-dark-300 hover:text-dark-100"
+                  : "text-olive-500 hover:text-olive-700"
               )}
             >
               ¿Olvidaste tu contraseña?
             </button>
           </div>
-
         </form>
       </div>
     </div>

@@ -23,6 +23,33 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
+/**
+ * Componente modal para editar los datos de un empleado.
+ *
+ * Este modal muestra un formulario prellenado con los datos del empleado seleccionado y permite editarlos.
+ * Incluye campos como nombre, apellidos, usuario, email, teléfono, departamento y estado.
+ * Utiliza `react-hook-form` para la gestión del formulario y validaciones.
+ * Muestra esqueleto de carga mientras los datos del empleado no están disponibles.
+ *
+ * @component
+ * @param {Object} props - Props del componente.
+ * @param {boolean} props.open - Indica si el modal está abierto.
+ * @param {Function} props.setOpen - Función para abrir/cerrar el modal.
+ * @param {boolean} props.isDarkMode - Indica si se está utilizando el modo oscuro.
+ * @param {Function} props.updateEmployees - Función para actualizar la lista de empleados después de editar.
+ * @param {Object} props.selectedEmployee - Datos del empleado seleccionado para editar.
+ *
+ * @returns {JSX.Element} El modal con el formulario para editar un empleado.
+ *
+ * @example
+ * <EditEmployeeModal
+ *   open={modalOpen}
+ *   setOpen={setModalOpen}
+ *   isDarkMode={true}
+ *   updateEmployees={loadEmployees}
+ *   selectedEmployee={employeeData}
+ * />
+ */
 const EditEmployeeModal = ({
   open,
   setOpen,
@@ -44,25 +71,35 @@ const EditEmployeeModal = ({
     mode: "all",
   });
 
-  // Obtener departamentos al cargar el modal
-    useEffect(() => {
-      const fetchDepartments = async () => {
-        const result = await getDepartments();
-        if (result.status === "success") {
-          setDepartments(result.data);
-        }
-      };
-      fetchDepartments();
-    }, []);
+  /**
+   * useEffect para obtener los departamentos al montar el componente
+   */
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      const result = await getDepartments();
+      if (result.status === "success") {
+        setDepartments(result.data);
+      }
+    };
+    fetchDepartments();
+  }, []);
 
-  // Actualizar los valores del formulario cuando usuarioSeleccionado cambie
+  /**
+   * useEffect para actualizar los valores del formulario cuando empleado cambie
+   * */
   useEffect(() => {
     if (selectedEmployee) {
       reset(selectedEmployee); // Actualiza los valores del formulario
     }
   }, [selectedEmployee, reset]);
 
-  // Función para manejar el envío del formulario
+  /**
+   * Maneja el envío del formulario de edición de empleado
+   *
+   * @async
+   * @function
+   * @param {Object} data - Datos del formulario validados
+   */
   const handleEdit = async (data) => {
     const result = await updateEmployee(selectedEmployee.id, data);
 
@@ -81,7 +118,7 @@ const EditEmployeeModal = ({
       }
     } else {
       error({
-        title: t("users.errorEditTitle"), // Traducción para "Error al actualizar usuario"
+        title: t("users.errorEditTitle"),
         text: t("users.errorEditText"),
         delay: 2000,
       });
@@ -91,7 +128,8 @@ const EditEmployeeModal = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent
-        className={clsx("max-h-[50vh] overflow-y-auto",
+        className={clsx(
+          "max-h-[50vh] overflow-y-auto",
           isDarkMode
             ? "accent-dark-400 bg-dark-700 border-dark-600 text-dark-50"
             : "accent-olive-600 bg-olive-50 border-gray-300 text-olive-800"
@@ -104,13 +142,13 @@ const EditEmployeeModal = ({
                   username: selectedEmployee.user.username,
                   firstName: selectedEmployee.user.first_name,
                   lastName: selectedEmployee.user.last_name,
-                }) // Traducción para "Editar usuario"
-              : t("users.loadingUser")} {/* Traducción para "Cargando usuario..." */}
+                })
+              : t("users.loadingUser")}
           </DialogTitle>
           <DialogDescription>
             {selectedEmployee
               ? t("users.editUserDescription")
-              : t("users.loadingUserDescription")} 
+              : t("users.loadingUserDescription")}
           </DialogDescription>
         </DialogHeader>
 
@@ -126,7 +164,7 @@ const EditEmployeeModal = ({
         ) : (
           <form onSubmit={handleSubmit(handleEdit)} className="space-y-4">
             <div name="username">
-              <Label className="mb-1">{t("userProfile.username")}</Label> {/* Traducción para "Usuario" */}
+              <Label className="mb-1">{t("userProfile.username")}</Label>
               <Input
                 type="text"
                 {...register("user.username")}
@@ -140,7 +178,7 @@ const EditEmployeeModal = ({
             </div>
 
             <div name="first_name">
-              <Label className="mb-1">{t("userProfile.firstName")}</Label> {/* Traducción para "Nombre" */}
+              <Label className="mb-1">{t("userProfile.firstName")}</Label>
               <Input
                 type="text"
                 {...register("user.first_name")}
@@ -154,7 +192,7 @@ const EditEmployeeModal = ({
             </div>
 
             <div name="last_name">
-              <Label className="mb-1">{t("userProfile.lastName")}</Label> {/* Traducción para "Apellidos" */}
+              <Label className="mb-1">{t("userProfile.lastName")}</Label>
               <Input
                 type="text"
                 {...register("user.last_name")}
@@ -168,38 +206,44 @@ const EditEmployeeModal = ({
             </div>
 
             <div name="dni">
-              <Label className="mb-1">{t("userProfile.dni")}</Label> {/* Traducción para "DNI" */}
+              <Label className="mb-1">{t("userProfile.dni")}</Label>
               <Input
                 type="text"
                 {...register("user.dni")}
                 className="w-full px-3 py-2 border rounded-md"
               />
               {errors.user?.dni && (
-                <p className="text-red-500 text-sm">{errors.user.dni.message}</p>
+                <p className="text-red-500 text-sm">
+                  {errors.user.dni.message}
+                </p>
               )}
             </div>
 
             <div name="email">
-              <Label className="mb-1">{t("userProfile.email")}</Label> {/* Traducción para "Email" */}
+              <Label className="mb-1">{t("userProfile.email")}</Label>
               <Input
                 type="email"
                 {...register("user.email")}
                 className="w-full px-3 py-2 border rounded-md"
               />
               {errors.user?.email && (
-                <p className="text-red-500 text-sm">{errors.user.email.message}</p>
+                <p className="text-red-500 text-sm">
+                  {errors.user.email.message}
+                </p>
               )}
             </div>
 
             <div name="phone">
-              <Label className="mb-1">{t("userProfile.phone")}</Label> {/* Traducción para "Teléfono" */}
+              <Label className="mb-1">{t("userProfile.phone")}</Label>
               <Input
                 type="text"
                 {...register("user.phone")}
                 className="w-full px-3 py-2 border rounded-md"
               />
               {errors.user?.phone && (
-                <p className="text-red-500 text-sm">{errors.user.phone.message}</p>
+                <p className="text-red-500 text-sm">
+                  {errors.user.phone.message}
+                </p>
               )}
             </div>
 
@@ -236,7 +280,9 @@ const EditEmployeeModal = ({
                 )}
               />
               {errors.user?.status && (
-                <p className="text-red-500 text-sm">{errors.user.status.message}</p>
+                <p className="text-red-500 text-sm">
+                  {errors.user.status.message}
+                </p>
               )}
             </div>
 
@@ -246,7 +292,7 @@ const EditEmployeeModal = ({
                   variant="ghost"
                   className="py-2 font-semibold rounded-md focus:outline-none focus:ring-2 cursor-pointer"
                 >
-                  {t("common.cancel")} {/* Traducción para "Cancelar" */}
+                  {t("common.cancel")}
                 </Button>
               </DialogClose>
               <Button
@@ -259,9 +305,7 @@ const EditEmployeeModal = ({
                     : "bg-olive-500 text-white hover:bg-olive-600 focus:ring-olive-400"
                 )}
               >
-                {isSubmitting
-                  ? t("users.editing") 
-                  : t("users.editUser")} 
+                {isSubmitting ? t("users.editing") : t("users.editUser")}
               </Button>
             </DialogFooter>
           </form>

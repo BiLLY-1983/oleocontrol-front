@@ -33,22 +33,100 @@ import { EntryPDF } from "@components/pdf/EntryPDF";
 import { EntryWithOilPDF } from "@components/pdf/EntryWithOilPDF";
 import { BiSolidFilePdf } from "react-icons/bi";
 
+/**
+ * Componente que maneja la visualización y gestión de las entradas de aceituna y aceite.
+ * Permite la visualización de datos, la filtración, la paginación, y las acciones sobre las entradas (editar, eliminar, generar informes).
+ *
+ * @component
+ * @example
+ * return (
+ *   <Entries />
+ * )
+ */
 const Entries = () => {
+  /**
+   * Estado que almacena el tema actual de la aplicación (oscuro o claro).
+   * @type {Object}
+   */
   const { theme } = useTheme();
+
+  /**
+   * Estado que indica si el modo oscuro está activado o no.
+   * @type {boolean}
+   */
   const isDarkMode = theme === "dark";
+
+  /**
+   * Hook para la traducción de textos.
+   * @type {function}
+   */
   const { t } = useTranslation();
 
+  /**
+   * Estado que almacena las entradas de aceituna.
+   * @type {Array<Object>}
+   */
   const [entries, setEntries] = useState([]);
+
+  /**
+   * Estado que almacena la entrada seleccionada para edición o eliminación.
+   * @type {Object|null}
+   */
   const [selectedEntry, setSelectedEntry] = useState(null);
+
+  /**
+   * Estado que indica si las entradas se están cargando.
+   * @type {boolean}
+   */
   const [loading, setLoading] = useState(true);
+
+  /**
+   * Estado que almacena la página actual de la paginación.
+   * @type {number}
+   */
   const [currentPage, setCurrentPage] = useState(1);
+
+  /**
+   * Estado que almacena la cantidad de entradas por página.
+   * @type {number}
+   */
   const [entriesPerPage, setEntriesPerPage] = useState(10);
+
+  /**
+   * Estado que almacena un error en caso de que ocurra al obtener las entradas.
+   * @type {string|null}
+   */
   const [error, setError] = useState(null);
+
+  /**
+   * Estado que almacena el texto de filtrado.
+   * @type {string}
+   */
   const [filtro, setFiltro] = useState("");
+
+  /**
+   * Estado que indica si el modal de nueva entrada está abierto.
+   * @type {boolean}
+   */
   const [modalNewEntryOpen, setModalNewEntryOpen] = useState(false);
+
+  /**
+   * Estado que indica si el modal de edición de entrada está abierto.
+   * @type {boolean}
+   */
   const [modalEditEntryOpen, setModalEditEntryOpen] = useState(false);
+
+  /**
+   * Estado que indica si el modal de eliminación de entrada está abierto.
+   * @type {boolean}
+   */
   const [modalDeleteEntryOpen, setModalDeleteEntryOpen] = useState(false);
 
+  /**
+   * Función para obtener las entradas desde la API.
+   * @async
+   * @function
+   */
   const fetchEntries = async () => {
     setLoading(true);
     try {
@@ -63,36 +141,39 @@ const Entries = () => {
     }
   };
 
-  useEffect(() => {
-    fetchEntries();
-  }, []);
-
+  /**
+   * Actualiza las entradas después de alguna acción como crear, editar o eliminar.
+   * @function
+   */
   const updateEntries = async () => {
     await fetchEntries();
   };
 
+  /**
+   * Filtra las entradas en base al texto introducido en el campo de búsqueda.
+   * @type {Array<Object>}
+   */
   const entriesFiltered = entries.filter((entry) =>
     entry.member?.name.toLowerCase().includes(filtro.toLowerCase())
   );
 
-  // Paginación
+  /**
+   * Calcula y devuelve los números de página visibles en la paginación.
+   * @function
+   * @returns {Array<number|string>} Números de página visibles o elípticos ("...").
+   */
   const getVisiblePageNumbers = () => {
     const totalPages = pageNumbers.length;
     const maxVisible = 5;
-    //const pages = [];
-
     if (totalPages <= maxVisible) {
       return pageNumbers;
     }
-
     if (currentPage <= 3) {
       return [...pageNumbers.slice(0, 3), "...", totalPages];
     }
-
     if (currentPage >= totalPages - 2) {
       return [1, "...", ...pageNumbers.slice(totalPages - 3)];
     }
-
     return [
       1,
       "...",
@@ -104,32 +185,19 @@ const Entries = () => {
     ];
   };
 
-  const indexOfLastEntry = currentPage * entriesPerPage;
-  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-  const currentEntries = entriesFiltered.slice(
-    indexOfFirstEntry,
-    indexOfLastEntry
-  );
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  const pageNumbers = [];
-  for (
-    let i = 1;
-    i <= Math.ceil(entriesFiltered.length / entriesPerPage);
-    i++
-  ) {
-    pageNumbers.push(i);
-  }
-
-  // Total de kilos
+  /**
+   * Calcula el total de kilos de aceituna de todas las entradas.
+   * @type {number}
+   */
   const totalKilos = entries.reduce(
     (sum, e) => sum + Number(e.olive_quantity ?? 0),
     0
   );
-  const kgTn = totalKilos / 1000;
 
-  // Total de litros
+  /**
+   * Calcula el total de litros de aceite de todas las entradas.
+   * @type {number}
+   */
   const totalLitros = entries.reduce(
     (sum, e) => sum + Number(e.oil_quantity ?? 0),
     0
@@ -218,14 +286,14 @@ const Entries = () => {
             >
               <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
                 <div className="text-lg font-semibold">
-                {t("entries.totalLt")}:
+                  {t("entries.totalLt")}:
                 </div>
                 <div className="text-3xl font-bold">
-                {totalLitros.toLocaleString("es-ES", {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}{" "}
-                L
+                  {totalLitros.toLocaleString("es-ES", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}{" "}
+                  L
                 </div>
               </div>
             </Card>

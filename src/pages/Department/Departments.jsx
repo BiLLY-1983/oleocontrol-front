@@ -18,6 +18,12 @@ import { getEmployees } from "@services/employeeRequests.js";
 // Registrar elementos necesarios para Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+/**
+ * Componente que muestra los departamentos y la cantidad de empleados en cada uno.
+ * Incluye una visualización en gráfico circular y un diálogo con el listado de empleados por departamento.
+ *
+ * @returns {JSX.Element} El componente renderizado.
+ */
 const Departments = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
@@ -30,7 +36,13 @@ const Departments = () => {
   const [loadingDepartments, setLoadingDepartments] = useState(true);
   const [loadingEmployees, setLoadingEmployees] = useState(false);
 
-  // Obtener departamentos y conteo de empleados por departamento
+  /**
+   * Obtiene los departamentos y el número de empleados en cada uno.
+   * Actualiza el estado con la información transformada.
+   * @async
+   * @function
+   * @returns {Promise<void>}
+   */
   const fetchDepartmentsAndCounts = async () => {
     setLoadingDepartments(true);
     try {
@@ -70,7 +82,13 @@ const Departments = () => {
     }
   };
 
-  // Obtener empleados por departamento
+  /**
+   * Obtiene empleados filtrados por ID de departamento.
+   * @async
+   * @function
+   * @param {number|string} departmentId - ID del departamento.
+   * @returns {Promise<void>}
+   */
   const fetchEmployeesByDepartment = async (departmentId) => {
     setLoadingEmployees(true);
     try {
@@ -95,33 +113,38 @@ const Departments = () => {
     fetchDepartmentsAndCounts();
   }, []);
 
+  /**
+   * Maneja el evento de clic sobre una tarjeta de departamento.
+   * Establece el departamento seleccionado y abre el diálogo.
+   * @function
+   * @param {object} department - Departamento seleccionado.
+   */
   const handleCardClick = async (department) => {
     setSelectedDepartment(department);
     await fetchEmployeesByDepartment(department.id);
     setDialogOpen(true);
   };
 
-  // Preparar datos para el gráfico circular
   const chartData = {
     labels: departments.map((department) => department.name),
     datasets: [
       {
         data: departments.map((department) => department.employeeCount),
         backgroundColor: [
-          "#5A9BD5", // Azul Desaturado
-          "#70AD47", // Verde Desaturado
-          "#A076C4", // Púrpura Desaturado
-          "#4DCBC4", // Teal Desaturado
-          "#ED7D31", // Naranja Desaturado (como contraste)
-          "#8395A7", // Gris Azulado
+          "#5A9BD5",
+          "#70AD47",
+          "#A076C4",
+          "#4DCBC4",
+          "#ED7D31",
+          "#8395A7",
         ],
         hoverBackgroundColor: [
-          "#4A8BC5", // Azul un poco más intenso
-          "#609D37", // Verde un poco más intenso
-          "#9066B4", // Púrpura un poco más intenso
-          "#3DBABA", // Teal un poco más intenso
-          "#DD6D21", // Naranja un poco más intenso
-          "#738597", // Gris Azulado un poco más intenso
+          "#4A8BC5",
+          "#609D37",
+          "#9066B4",
+          "#3DBABA",
+          "#DD6D21",
+          "#738597",
         ],
       },
     ],
@@ -164,7 +187,6 @@ const Departments = () => {
               >
                 <h2 className="text-xl font-semibold">{department.name}</h2>
                 <p className="text-3xl font-bold">{department.employeeCount}</p>
-
               </Card>
             ))}
           </div>
@@ -223,7 +245,9 @@ const Departments = () => {
               <table className="min-w-full text-sm">
                 <thead>
                   <tr>
-                    <th className="p-3 text-left">{t("userProfile.firstName")}</th>
+                    <th className="p-3 text-left">
+                      {t("userProfile.firstName")}
+                    </th>
                     <th className="p-3 text-left">{t("userProfile.email")}</th>
                     <th className="p-3 text-left">{t("userProfile.phone")}</th>
                   </tr>
@@ -240,7 +264,9 @@ const Departments = () => {
                             : "hover:bg-olive-100"
                         )}
                       >
-                        <td className="p-3">{employee.user.first_name} {employee.user.last_name}</td>
+                        <td className="p-3">
+                          {employee.user.first_name} {employee.user.last_name}
+                        </td>
                         <td className="p-3">{employee.user.email}</td>
                         <td className="p-3">{employee.user.phone}</td>
                       </tr>

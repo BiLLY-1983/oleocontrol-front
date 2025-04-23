@@ -28,20 +28,92 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import { AnalysisPDF } from "@components/pdf/AnalysisPDF";
 import { BiSolidFilePdf } from "react-icons/bi";
 
+/**
+ * Componente `Analyses` para gestionar y mostrar los análisis de aceituna en la almazara por parte de los empleados.
+ * Permite la visualización de los análisis con paginación, filtrado, y descarga en PDF de informes.
+ *
+ * @component
+ * @example
+ * return (
+ *   <Analyses />
+ * )
+ */
 const Analyses = () => {
+  /**
+   * Hook para obtener el tema actual (oscuro o claro).
+   * @type {Object}
+   * @property {string} theme - El tema actual, puede ser "dark" o "light".
+   */
   const { theme } = useTheme();
+
+  /**
+   * Determina si el modo oscuro está activado.
+   * @type {boolean}
+   */
   const isDarkMode = theme === "dark";
+
+  /**
+   * Hook para gestionar la traducción de textos.
+   * @type {Object}
+   * @property {function} t - Función de traducción.
+   */
   const { t } = useTranslation();
 
+  /**
+   * Estado que guarda los análisis recuperados desde el servidor.
+   * @type {Array}
+   */
   const [analyses, setAnalyses] = useState([]);
+
+  /**
+   * Estado que guarda el análisis seleccionado para editar.
+   * @type {Object|null}
+   */
   const [selectedAnalysis, setSelectedAnalysis] = useState(null);
+
+  /**
+   * Estado que maneja el estado de carga de los análisis.
+   * @type {boolean}
+   */
   const [loadingAnalyses, setLoadingAnalyses] = useState(true);
+
+  /**
+   * Estado que mantiene la página actual para la paginación.
+   * @type {number}
+   */
   const [currentPage, setCurrentPage] = useState(1);
+
+  /**
+   * Estado que establece la cantidad de análisis por página en la paginación.
+   * @type {number}
+   */
   const [analysesPerPage, setAnalysesPerPage] = useState(10);
+
+  /**
+   * Estado que maneja los errores de carga de los análisis.
+   * @type {string|null}
+   */
   const [errorAnalyses, setErrorAnalyses] = useState(null);
+
+  /**
+   * Estado que guarda el filtro de búsqueda de los análisis.
+   * @type {string}
+   */
   const [filtro, setFiltro] = useState("");
+
+  /**
+   * Estado que controla la visibilidad del modal de edición de análisis.
+   * @type {boolean}
+   */
   const [modalEditAnalysisOpen, setModalEditAnalysisOpen] = useState(false);
 
+  /**
+   * Función para recuperar los análisis desde el servidor.
+   * Actualiza el estado de `analyses` y maneja errores.
+   *
+   * @async
+   * @returns {Promise<void>}
+   */
   const fetchAnalyses = async () => {
     setLoadingAnalyses(true);
     try {
@@ -61,21 +133,34 @@ const Analyses = () => {
     fetchAnalyses();
   }, []);
 
+  /**
+   * Función para actualizar la lista de análisis.
+   * Llama a `fetchAnalyses` para recargar los análisis.
+   *
+   * @async
+   * @returns {Promise<void>}
+   */
   const updateAnalyses = async () => {
     await fetchAnalyses();
   };
 
+  /**
+   * Filtra los análisis según el filtro de búsqueda (por miembro o tipo de aceite).
+   * @type {Array}
+   */
   const analysesFiltered = analyses.filter(
     (analysis) =>
       analysis.member?.name.toLowerCase().includes(filtro.toLowerCase()) ||
       analysis.oil?.name.toLowerCase().includes(filtro.toLowerCase())
   );
 
-  // Paginación
+  /**
+   * Calcula los números de página visibles para la paginación.
+   * @returns {Array} Arreglo de números de página visibles o puntos suspensivos.
+   */
   const getVisiblePageNumbers = () => {
     const totalPages = pageNumbers.length;
     const maxVisible = 5;
-    //const pages = [];
 
     if (totalPages <= maxVisible) {
       return pageNumbers;
@@ -100,15 +185,32 @@ const Analyses = () => {
     ];
   };
 
+  /**
+   * Calcula los índices del primer y último análisis a mostrar en la página actual.
+   * @type {number}
+   */
   const indexOfLastAnalysis = currentPage * analysesPerPage;
   const indexOfFirstAnalysis = indexOfLastAnalysis - analysesPerPage;
+
+  /**
+   * Lista de los análisis que deben ser mostrados en la página actual.
+   * @type {Array}
+   */
   const currentAnalyses = analysesFiltered.slice(
     indexOfFirstAnalysis,
     indexOfLastAnalysis
   );
 
+  /**
+   * Función que maneja el cambio de página en la paginación.
+   * @param {number} pageNumber - El número de la página a mostrar.
+   */
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  /**
+   * Lista de números de página generados según el total de análisis y la cantidad por página.
+   * @type {Array}
+   */
   const pageNumbers = [];
   for (
     let i = 1;
@@ -118,12 +220,24 @@ const Analyses = () => {
     pageNumbers.push(i);
   }
 
+  /**
+   * Lista de análisis pendientes (sin fecha de análisis).
+   * @type {Array}
+   */
   const pendingAnalyses = analyses.filter((a) => !a.analysis_date);
 
+  /**
+   * Lista de análisis con rendimiento definido.
+   * @type {Array}
+   */
   const analysesWithYield = analyses.filter(
     (a) => a.yield !== null && a.yield !== undefined
   );
 
+  /**
+   * Promedio del rendimiento de los análisis con rendimiento disponible.
+   * @type {number}
+   */
   const averageYield =
     analysesWithYield.length > 0
       ? analysesWithYield.reduce((sum, a) => sum + Number(a.yield), 0) /
@@ -331,7 +445,7 @@ const Analyses = () => {
                             }}
                           />
                         )}
-                          <PDFDownloadLink
+                        <PDFDownloadLink
                           document={<AnalysisPDF analysis={analysis} />}
                           fileName={`informe_analisis-${analysis.member?.name}-${analysis.id}.pdf`}
                         >

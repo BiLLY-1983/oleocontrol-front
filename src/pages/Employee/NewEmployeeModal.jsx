@@ -24,7 +24,9 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
-// Definir el esquema de validación con Zod
+/**
+ *  Definir el esquema de validación con Zod
+ */
 const userSchema = z
   .object({
     username: z
@@ -48,32 +50,52 @@ const userSchema = z
       .email({ message: "El email no es válido" })
       .min(1, { message: "El email es obligatorio" })
       .max(255, { message: "Máximo 255 caracteres" }),
-    password: z
+/*     password: z
       .string()
       .min(8, { message: "La contraseña debe tener al menos 8 caracteres" }),
     password_confirmation: z.string().min(8, {
       message: "La contraseña de confirmación debe tener al menos 8 caracteres",
-    }),
+    }), */
     phone: z
       .string()
       .min(1, { message: "El teléfono es obligatorio" })
       .max(20, { message: "Máximo 20 caracteres" }),
     department_id: z
       .string()
-      .min(1 , { message: "El departamento es obligatorio" })
+      .min(1, { message: "El departamento es obligatorio" })
       .refine((val) => val || true, {
         message: "El departamento es obligatorio",
       }),
   })
-  .superRefine((data, ctx) => {
+/*   .superRefine((data, ctx) => {
     if (data.password !== data.password_confirmation) {
       ctx.addIssue({
         path: ["password_confirmation"],
         message: "Las contraseñas no coinciden",
       });
     }
-  });
+  }) */;
 
+/**
+ * Componente modal para crear un nuevo empleado.
+ *
+ * Este modal presenta un formulario validado con Zod que permite registrar
+ * un nuevo empleado, incluyendo campos como nombre, apellido, email, DNI,
+ * contraseña y departamento.
+ *
+ * Al enviarse correctamente, muestra una notificación de éxito, resetea el
+ * formulario, cierra el modal y ejecuta una función para actualizar la lista
+ * de empleados si se ha proporcionado.
+ *
+ * @component
+ * @param {Object} props - Propiedades del componente
+ * @param {boolean} props.open - Determina si el modal está abierto
+ * @param {Function} props.setOpen - Función para cambiar el estado del modal
+ * @param {boolean} props.isDarkMode - Indica si se debe usar el tema oscuro
+ * @param {Function} props.updateEmployees - Función para actualizar la lista de empleados tras la creación
+ *
+ * @returns {JSX.Element} Modal con formulario para creación de un nuevo empleado
+ */
 const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
   const { t } = useTranslation(); // Hook para traducciones
   const [departments, setDepartments] = useState([]);
@@ -87,7 +109,9 @@ const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
     mode: "all",
   });
 
-  // Obtener departamentos al cargar el modal
+  /**
+   * useEffect para obtener los departamentos al montar el componente
+   */
   useEffect(() => {
     const fetchDepartments = async () => {
       const result = await getDepartments();
@@ -98,7 +122,13 @@ const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
     fetchDepartments();
   }, []);
 
-  // Función para manejar el envío del formulario
+  /**
+   * Maneja el envío del formulario de creación de empleado
+   *
+   * @async
+   * @function
+   * @param {Object} data - Datos del formulario validados
+   */
   const handleCreate = async (data) => {
     try {
       data.status = true;
@@ -117,13 +147,12 @@ const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
         delay: 2000,
       });
 
-      reset();        // Limpiar el formulario
+      reset(); // Limpiar el formulario
       setOpen(false); // Cerrar el modal
 
       if (updateEmployees) {
         updateEmployees(); // Actualizar lista
       }
-
     } catch (err) {
       // Mostrar mensaje de error
       error({
@@ -134,11 +163,11 @@ const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
     }
   };
 
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent
-        className={clsx("max-h-[50vh] overflow-y-auto",
+        className={clsx(
+          "max-h-[50vh] overflow-y-auto",
           isDarkMode
             ? "accent-dark-400 bg-dark-700 border-dark-600 text-dark-50"
             : "accent-olive-600 bg-olive-50 border-gray-300 text-olive-800"
@@ -146,11 +175,7 @@ const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
       >
         <DialogHeader>
           <DialogTitle>{t("users.newUser")}</DialogTitle>{" "}
-          {/* Traducción para "Crear nuevo usuario" */}
-          <DialogDescription>
-            {t("users.allFieldsRequired")}{" "}
-            {/* Traducción para "Todos los campos son obligatorios." */}
-          </DialogDescription>
+          <DialogDescription>{t("users.allFieldsRequired")} </DialogDescription>
         </DialogHeader>
 
         {/* Formulario de creación de usuario */}
@@ -170,7 +195,6 @@ const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
 
           <div name="first_name">
             <Label className="mb-1">{t("userProfile.firstName")}</Label>{" "}
-            {/* Traducción para "Nombre" */}
             <Input
               type="text"
               {...register("first_name")}
@@ -185,7 +209,6 @@ const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
 
           <div name="last_name">
             <Label className="mb-1">{t("userProfile.lastName")}</Label>{" "}
-            {/* Traducción para "Apellidos" */}
             <Input
               type="text"
               {...register("last_name")}
@@ -198,7 +221,6 @@ const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
 
           <div name="dni">
             <Label className="mb-1">{t("userProfile.dni")}</Label>{" "}
-            {/* Traducción para "DNI" */}
             <Input
               type="text"
               {...register("dni")}
@@ -211,7 +233,6 @@ const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
 
           <div name="email">
             <Label className="mb-1">{t("userProfile.email")}</Label>{" "}
-            {/* Traducción para "Email" */}
             <Input
               type="email"
               {...register("email")}
@@ -222,9 +243,8 @@ const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
             )}
           </div>
 
-          <div name="password">
+          {/* <div name="password">
             <Label className="mb-1">{t("userProfile.password")}</Label>{" "}
-            {/* Traducción para "Contraseña" */}
             <Input
               type="password"
               {...register("password")}
@@ -239,7 +259,6 @@ const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
             <Label className="mb-1">
               {t("userProfile.passwordConfirmation")}
             </Label>{" "}
-            {/* Traducción para "Confirmar Contraseña" */}
             <Input
               type="password"
               {...register("password_confirmation")}
@@ -250,11 +269,10 @@ const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
                 {errors.password_confirmation.message}
               </p>
             )}
-          </div>
+          </div> */}
 
           <div name="phone">
             <Label className="mb-1">{t("userProfile.phone")}</Label>{" "}
-            {/* Traducción para "Teléfono" */}
             <Input
               type="text"
               {...register("phone")}
@@ -285,14 +303,13 @@ const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
             )}
           </div>
 
-
           <DialogFooter>
             <DialogClose asChild>
               <Button
                 variant="ghost"
                 className="py-2 font-semibold rounded-md focus:outline-none focus:ring-2 cursor-pointer"
               >
-                {t("common.cancel")} {/* Traducción para "Cancelar" */}
+                {t("common.cancel")}
               </Button>
             </DialogClose>
             <Button
@@ -305,7 +322,9 @@ const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
                   : "bg-olive-500 text-white hover:bg-olive-600 focus:ring-olive-400"
               )}
             >
-              {isSubmitting ? t("users.creating") : t("employees.createEmployee")}
+              {isSubmitting
+                ? t("users.creating")
+                : t("employees.createEmployee")}
             </Button>
           </DialogFooter>
         </form>

@@ -85,6 +85,9 @@ export default function SidebarEmployee() {
 
   const filteredMenuItems = departmentMenus[departmentName] || menuItems;
 
+  /**
+   * useEffect para detectar cambios en el tamaño de la ventana y ajustar el estado de la vista móvil
+   */
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth <= 768;
