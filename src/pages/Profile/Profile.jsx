@@ -175,7 +175,7 @@ const UserProfile = () => {
           ))}
 
           {/* Status */}
-          {user.roles.some((role) => role.name === "Administrador") && (
+          {!user.roles.some((role) => role.name === "Administrador") && (
             <div>
               <label
                 className={clsx(
