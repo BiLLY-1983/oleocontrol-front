@@ -2,6 +2,33 @@ import React from 'react';
 import { Doughnut } from "react-chartjs-2";
 import clsx from "clsx";
 
+/**
+ * Componente que muestra un gráfico doughnut para representar datos relacionados con empleados.
+ * 
+ * @component
+ * @param {Object} props - Propiedades del componente.
+ * @param {Object} props.data - Datos del gráfico, compatibles con Chart.js.
+ * @param {string} props.title - Título que se muestra encima del gráfico.
+ * @param {boolean} props.isDarkMode - Determina si se usa el modo oscuro para aplicar estilos.
+ * 
+ * @example
+ * const data = {
+ *   labels: ['Administración', 'Contabilidad', 'Laboratorio'],
+ *   datasets: [
+ *     {
+ *       data: [10, 20, 15],
+ *       backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+ *       hoverBackgroundColor: ['#FF6384CC', '#36A2EBCC', '#FFCE56CC']
+ *     }
+ *   ]
+ * };
+ * 
+ * <EmployeesDoughnutChart
+ *   data={data}
+ *   title="Distribución de empleados"
+ *   isDarkMode={false}
+ * />
+ */
 const EmployeesDoughnutChart = ({ data, title, isDarkMode }) => {
   return (
     <div

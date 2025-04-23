@@ -4,6 +4,22 @@ import { Chart as ChartJS, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(Tooltip, Legend);
 
+/**
+ * Componente que muestra un gráfico tipo doughnut con el análisis de tipos de aceite.
+ * 
+ * @component
+ * @param {Object} props - Propiedades del componente.
+ * @param {Object.<string, number>} props.oilCounts - Objeto con los tipos de aceite como claves y el número de análisis como valores.
+ * 
+ * @example
+ * const oilCounts = {
+ *   "Aceite de Oliva Virgen Extra": 8,
+ *   "Aceite de Oliva Virgen": 5,
+ *   "Aceite de Oliva Lampante": 3
+ * };
+ * 
+ * <OilAnalysisDoughnutChart oilCounts={oilCounts} />
+ */
 const OilAnalysisDoughnutChart = ({ oilCounts }) => {
   const doughnutOilData = {
     labels: Object.keys(oilCounts),
@@ -19,12 +35,12 @@ const OilAnalysisDoughnutChart = ({ oilCounts }) => {
           "#8395A7",
         ],
         hoverBackgroundColor: [
-          "#4A8BC5", 
-          "#609D37", 
-          "#9066B4", 
+          "#4A8BC5",
+          "#609D37",
+          "#9066B4",
           "#3DBABA",
           "#DD6D21",
-          "#738597", 
+          "#738597",
         ],
       },
     ],

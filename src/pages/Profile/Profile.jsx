@@ -257,7 +257,7 @@ const UserProfile = () => {
                   isDarkMode ? "text-dark-50" : "text-olive-900"
                 )}
               >
-                {t("userProfile.confirmPassword")}
+                {t("userProfile.passwordConfirmation")}
               </label>
               <div className="relative mt-2">
                 <input

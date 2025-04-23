@@ -6,6 +6,31 @@ import clsx from "clsx";
 // Registrar los elementos de Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+/**
+ * Componente que representa un gráfico Doughnut para mostrar la distribución de socios.
+ *
+ * @component
+ * @param {Object} props - Propiedades del componente.
+ * @param {Object} props.doughnutData - Datos del gráfico, siguiendo la estructura esperada por Chart.js.
+ * @param {string} props.title - Título del gráfico que se muestra encima del mismo.
+ * @param {boolean} props.isDarkMode - Determina si se debe usar el tema oscuro.
+ *
+ * @example
+ * const data = {
+ *   labels: ['Activos', 'Inactivos'],
+ *   datasets: [{
+ *     data: [120, 30],
+ *     backgroundColor: ['#4DCBC4', '#ED7D31'],
+ *     hoverBackgroundColor: ['#3DBABA', '#DD6D21']
+ *   }]
+ * };
+ *
+ * <MembersDoughnutChart
+ *   doughnutData={data}
+ *   title="Estado de los socios"
+ *   isDarkMode={true}
+ * />
+ */
 const MembersDoughnutChart = ({ doughnutData, title, isDarkMode }) => {
   return (
     <div className="w-full md:w-1/3">
