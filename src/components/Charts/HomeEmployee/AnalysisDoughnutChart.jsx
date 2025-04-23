@@ -11,20 +11,20 @@ const OilAnalysisDoughnutChart = ({ oilCounts }) => {
       {
         data: Object.values(oilCounts),
         backgroundColor: [
-          "#5A9BD5", // Azul Desaturado
-          "#70AD47", // Verde Desaturado
-          "#A076C4", // Púrpura Desaturado
-          "#4DCBC4", // Teal Desaturado
-          "#ED7D31", // Naranja Desaturado (como contraste)
-          "#8395A7", // Gris Azulado
+          "#5A9BD5",
+          "#70AD47",
+          "#A076C4",
+          "#4DCBC4",
+          "#ED7D31",
+          "#8395A7",
         ],
         hoverBackgroundColor: [
-          "#4A8BC5", // Azul un poco más intenso
-          "#609D37", // Verde un poco más intenso
-          "#9066B4", // Púrpura un poco más intenso
-          "#3DBABA", // Teal un poco más intenso
-          "#DD6D21", // Naranja un poco más intenso
-          "#738597", // Gris Azulado un poco más intenso
+          "#4A8BC5", 
+          "#609D37", 
+          "#9066B4", 
+          "#3DBABA",
+          "#DD6D21",
+          "#738597", 
         ],
       },
     ],
