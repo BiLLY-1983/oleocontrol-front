@@ -13,13 +13,12 @@ Font.register({
   src: "/fonts/Roboto-Regular.ttf",
 });
 
-// Estilos refinados
 const styles = StyleSheet.create({
   page: {
     padding: 40,
     fontSize: 12,
     fontFamily: "Roboto",
-    backgroundColor: "#f3f4f6", // gris claro suave
+    backgroundColor: "#f3f4f6",
   },
   logoContainer: {
     alignItems: "center",
@@ -33,7 +32,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     textAlign: "center",
-    color: "#1f2937", // gris oscuro
+    color: "#1f2937",
     marginBottom: 30,
   },
   card: {
@@ -42,7 +41,7 @@ const styles = StyleSheet.create({
     padding: 16,
     marginBottom: 32,
     borderWidth: 1,
-    borderColor: "#e5e7eb", // gris claro
+    borderColor: "#e5e7eb",
     shadowColor: "#000",
   },
   cardTitle: {
@@ -72,6 +71,31 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * Componente que genera un documento PDF con el informe de recepción de aceituna y su estimación de aceite.
+ * Incluye información sobre la fecha de entrada, los datos del socio y los resultados del análisis, 
+ * así como la cantidad estimada de aceite resultante.
+ *
+ * @component
+ * @param {Object} props - Propiedades del componente.
+ * @param {Object} props.entry - Objeto que contiene los datos de la entrada de aceituna.
+ * @param {string} props.entry.entry_date - Fecha de entrada de la aceituna.
+ * @param {Object} props.entry.member - Información del socio.
+ * @param {string} props.entry.member.name - Nombre del socio.
+ * @param {string|number} props.entry.member.member_number - Número de socio.
+ * @param {number} props.entry.olive_quantity - Cantidad de aceituna en kilogramos.
+ * @param {number} props.entry.oil_quantity - Cantidad estimada de aceite resultante en litros.
+ *
+ * @returns {JSX.Element} Documento PDF con el informe de recepción de aceituna y aceite estimado.
+ *
+ * @example
+ * <EntryWithOilPDF entry={{
+ *   entry_date: "2025-03-22",
+ *   member: { name: "Juan Pérez", member_number: 102 },
+ *   olive_quantity: 1500,
+ *   oil_quantity: 200
+ * }} />
+ */
 export const EntryWithOilPDF = ({ entry }) => {
   return (
     <Document>

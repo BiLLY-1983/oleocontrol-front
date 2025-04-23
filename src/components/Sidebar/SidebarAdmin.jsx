@@ -18,6 +18,17 @@ import {
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@context/ThemeContext";
 
+/**
+ * Definición de los elementos del menú de la barra lateral.
+ * Cada objeto contiene propiedades como `name`, `icon` y `to` que representan 
+ * el nombre de la ruta para traducir, el icono que se usará en el menú y la 
+ * ruta a la que lleva el enlace.
+ * 
+ * @type {Array<Object>}
+ * @property {string} name - Nombre de la ruta para la traducción.
+ * @property {JSX.Element} icon - El ícono correspondiente a la ruta.
+ * @property {string} to - La ruta de navegación a la que apunta el enlace.
+ */
 const menuItems = [
   { name: "navigation.home", icon: Home, to: "home" },
   { name: "navigation.users", icon: Users, to: "users" },
@@ -31,6 +42,14 @@ const menuItems = [
   { name: "navigation.oils", icon: Droplets, to: "oils" },
 ];
 
+/**
+ * Sidebar de administración con funcionalidad de colapsar y cambiar entre temas.
+ * @component
+ * @example
+ * <SidebarAdmin />
+ * 
+ * @returns {JSX.Element} El sidebar con la navegación para los administradores.
+ */
 export default function SidebarAdmin() {
   const { t } = useTranslation();
   const { theme } = useTheme();

@@ -5,8 +5,24 @@ import { useTheme } from "@context/ThemeContext";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 
-// Registro de los elementos necesarios para Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
+
+/**
+ * Componente que muestra un gráfico de tipo Doughnut (rosquilla) con la distribución de aceite por tipo.
+ *
+ * @component
+ * @param {Object} props - Propiedades del componente.
+ * @param {Object} props.oilByType - Objeto con los distintos tipos de aceite como claves y su cantidad en litros como valores.
+ *
+ * @example
+ * const oilByType = {
+ *   "Aceite Virgen": 1200,
+ *   "Aceite Extra": 850,
+ *   "Lampante": 500,
+ * };
+ *
+ * <ChartOilsByType oilByType={oilByType} />
+ */
 
 export default function ChartOilsByType({ oilByType }) {
   const { t } = useTranslation();

@@ -3,10 +3,20 @@ import { useTheme } from "@context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import { Skeleton } from "@/components/ui/skeleton";
 
-
+/**
+ * Componente de tarjeta de estadísticas que muestra un título, un valor y un subtexto opcional.
+ * El estilo y el texto son sensibles al tema actual (oscuro o claro).
+ * 
+ * @param {Object} props - Propiedades del componente.
+ * @param {string} props.title - Título de la tarjeta, que se traduce usando el hook de i18n.
+ * @param {string|number} props.value - Valor que se muestra de forma destacada en la tarjeta.
+ * @param {string} [props.subtext] - Subtexto opcional que se muestra debajo del valor, también traducido.
+ * 
+ * @returns {JSX.Element} Componente de tarjeta con el título, valor y subtexto (si se proporciona).
+ */
 export default function StatCard({ title, value, subtext }) {
   const { theme } = useTheme();
-  const { t } = useTranslation(); // Hook para traducciones
+  const { t } = useTranslation(); 
   const isDarkMode = theme === "dark";
 
   return (
@@ -24,7 +34,7 @@ export default function StatCard({ title, value, subtext }) {
           isDarkMode ? "text-dark-200" : "text-olive-600"
         )}
       >
-        {t(title)} {/* Traducción del título */}
+        {t(title)} 
       </div>
       <div className="text-2xl font-bold">{value}</div>
       {subtext && (
@@ -34,7 +44,7 @@ export default function StatCard({ title, value, subtext }) {
             isDarkMode ? "text-dark-400" : "text-olive-500"
           )}
         >
-          {t(subtext)} {/* Traducción del subtexto */}
+          {t(subtext)}
         </div>
       )}
     </div>

@@ -6,11 +6,9 @@ import protectedRoutes from "@routes/protectedRoutes.jsx";
 import dashboardRoutesAdmin from "@routes/dashboardRoutesAdmin.jsx";
 import dashboardRoutesMember from "@routes/dashboardRoutesMember.jsx";
 import DepartmentProtectedRoute from "@components/DepartmentProtectedRoute";
-//import dashboardRoutesEmployee from "@routes/dashboardRoutesEmployee.jsx";
 import DashboardAdmin from "@pages/Dashboard/DashboardAdmin.jsx";
 import DashboardMember from "@pages/Dashboard/DashboardMember.jsx";
 import DashboardEmployee from "@pages/Dashboard/DashboardEmployee.jsx";
-
 import HomeEmployee from '@pages/Home/HomeEmployee';
 import Entries from '@pages/Entry/Entries';
 import Analyses from '@pages/Analysis/Analyses';
@@ -21,12 +19,28 @@ import Settlements from '@pages/Settlement/Settlements';
 import OilsEmployee from '@pages/Oil/OilsEmployee';
 import Profile from '@pages/Profile/Profile';
 import Error404 from "@pages/Error/Error404.jsx";
-import AccessDenied from "@pages/Error/AccessDenied.jsx";
 
+/**
+ * Función que gestiona la ruta protegida.
+ * Si el usuario está autenticado, se renderiza el contenido de la ruta.
+ * De lo contrario, redirige al usuario a la página principal.
+ *
+ * @param {Object} props - Propiedades del componente.
+ * @param {boolean} props.isAuthenticated - Indicador de autenticación del usuario.
+ * @param {JSX.Element} props.children - Elementos que se renderizarán si el usuario está autenticado.
+ * @returns {JSX.Element} Componente de ruta protegida o redirección.
+ */
 function ProtectedRoute({ isAuthenticated, children }) {
   return isAuthenticated ? children : <Navigate to="/" />;
 }
 
+/**
+ * Componente principal de autenticación de rutas.
+ * Gestiona las rutas públicas, protegidas y las específicas de los dashboards.
+ * Utiliza el contexto de usuario para determinar si el usuario está autenticado.
+ *
+ * @returns {JSX.Element} Componente de rutas con las configuraciones correspondientes.
+ */
 export default function AuthRoutes() {
   const { userData, setUserData } = useContext(UserContext);
 

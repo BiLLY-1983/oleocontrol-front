@@ -15,6 +15,18 @@ import { UserContext } from "@context/UserContext";
 import Logout from "@components/Logout";
 import { useTheme } from "@context/ThemeContext";
 
+/**
+ * Componente Topbar que representa la barra superior de navegación en la interfaz de usuario.
+ * Contiene opciones para cambiar la apariencia (modo claro/oscuro), idioma (español/inglés) y acceder al perfil del usuario.
+ * Además, permite cerrar sesión mediante el componente Logout.
+ *
+ * @component
+ * @example
+ * // Uso del componente Topbar
+ * <Topbar />
+ *
+ * @returns {JSX.Element} El componente Topbar renderizado.
+ */
 export default function Topbar() {
   const { t, i18n } = useTranslation();
   const changeLanguage = (lng) => i18n.changeLanguage(lng);
@@ -23,7 +35,7 @@ export default function Topbar() {
   const { theme, setTheme } = useTheme();
 
   if (!userData?.token) {
-    return <div>{t("auth.not_authenticated")}</div>; // Traducción para "No estás autenticado"
+    return <div>{t("auth.not_authenticated")}</div>; 
   }
 
   const { user } = userData;
@@ -104,7 +116,7 @@ export default function Topbar() {
                     : "text-olive-800 border-olive-800"
                 )}
               >
-                {t("settings.settings")} {/* Traducción para "Configuración" */}
+                {t("settings.settings")} 
               </li>
 
               {/* Submenú: Apariencia */}
@@ -146,7 +158,7 @@ export default function Topbar() {
                       onClick={() => setTheme("light")}
                     >
                       <Sun size={18} className="text-yellow-500" />
-                      {t("settings.light_mode")} {/* Traducción para "Modo Claro" */}
+                      {t("settings.light_mode")} 
                     </li>
                     <li
                       className={clsx(
@@ -158,7 +170,7 @@ export default function Topbar() {
                       onClick={() => setTheme("dark")}
                     >
                       <Moon size={18} className="text-blue-800" />
-                      {t("settings.dark_mode")} {/* Traducción para "Modo Oscuro" */}
+                      {t("settings.dark_mode")} 
                     </li>
                   </ul>
                 </div>
@@ -204,7 +216,7 @@ export default function Topbar() {
                       )}
                       onClick={() => changeLanguage("es")}
                     >
-                      🇪🇸 {t("settings.spanish")} {/* Traducción para "Español" */}
+                      🇪🇸 {t("settings.spanish")}
                     </li>
                     <li
                       className={clsx(
@@ -213,7 +225,7 @@ export default function Topbar() {
                       )}
                       onClick={() => changeLanguage("en")}
                     >
-                      🇬🇧 {t("settings.english")} {/* Traducción para "Inglés" */}
+                      🇬🇧 {t("settings.english")}
                     </li>
                   </ul>
                 </div>
@@ -232,7 +244,7 @@ export default function Topbar() {
                 )}
               >
                 <User size={20} />
-                <span>{t("navigation.profile")} {/* Traducción para "Perfil" */}</span>
+                <span>{t("navigation.profile")}</span>
               </li>
 
               <li

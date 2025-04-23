@@ -13,13 +13,12 @@ Font.register({
   src: "/fonts/Roboto-Regular.ttf",
 });
 
-// Estilos refinados
 const styles = StyleSheet.create({
   page: {
     padding: 40,
     fontSize: 12,
     fontFamily: "Roboto",
-    backgroundColor: "#f3f4f6", // gris claro suave
+    backgroundColor: "#f3f4f6",
   },
   logoContainer: {
     alignItems: "center",
@@ -33,7 +32,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     textAlign: "center",
-    color: "#1f2937", // gris oscuro
+    color: "#1f2937", 
     marginBottom: 30,
   },
   card: {
@@ -42,7 +41,7 @@ const styles = StyleSheet.create({
     padding: 16,
     marginBottom: 16,
     borderWidth: 1,
-    borderColor: "#e5e7eb", // gris claro
+    borderColor: "#e5e7eb", 
     shadowColor: "#000",
   },
   cardTitle: {
@@ -80,8 +79,42 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * Componente que genera un documento PDF con el informe de liquidación de un aceite. 
+ * Incluye información sobre los datos del socio, el empleado que resolvió la liquidación,
+ * los detalles del aceite, y el estado de la liquidación.
+ *
+ * @component
+ * @param {Object} props - Propiedades del componente.
+ * @param {Object} props.settlement - Objeto que contiene los datos de la liquidación.
+ * @param {string} props.settlement.settlement_date - Fecha de la solicitud de liquidación.
+ * @param {Object} props.settlement.member - Información del socio.
+ * @param {string} props.settlement.member.name - Nombre del socio.
+ * @param {string|number} props.settlement.member.member_number - Número de socio.
+ * @param {Object} props.settlement.employee - Información del empleado que resolvió la liquidación.
+ * @param {string} props.settlement.employee.name - Nombre del empleado.
+ * @param {string} props.settlement.settlement_date_res - Fecha de resolución de la liquidación.
+ * @param {number} props.settlement.amount - Cantidad de aceite en litros.
+ * @param {Object} props.settlement.oil - Información sobre el aceite.
+ * @param {string} props.settlement.oil.name - Nombre del tipo de aceite.
+ * @param {number} props.settlement.price - Precio por litro de aceite.
+ * @param {string} props.settlement.settlement_status - Estado de la liquidación (ACEPTADA, CANCELADA, otro).
+ *
+ * @returns {JSX.Element} Documento PDF con el informe de liquidación.
+ *
+ * @example
+ * <SettlementPDF settlement={{
+ *   settlement_date: "2025-03-22",
+ *   member: { name: "Juan Pérez", member_number: 102 },
+ *   employee: { name: "Pedro García" },
+ *   settlement_date_res: "2025-03-23",
+ *   amount: 1000,
+ *   oil: { name: "Aceite de oliva virgen extra" },
+ *   price: 3.5,
+ *   settlement_status: "ACEPTADA"
+ * }} />
+ */
 export const SettlementPDF = ({ settlement }) => {
-  // Convertir amount y price a número
   const amount = Number(settlement.amount);
   const price = Number(settlement.price);
 

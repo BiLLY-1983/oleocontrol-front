@@ -11,6 +11,14 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
+/**
+ * Componente de cierre de sesión.
+ * Permite al usuario cerrar sesión, elimina los datos del usuario
+ * del almacenamiento local, y redirige a la página de inicio.
+ * Muestra notificaciones de éxito o error según el resultado del cierre de sesión.
+ *
+ * @returns {JSX.Element} Un icono de cierre de sesión y un botón para cerrar sesión.
+ */
 const Logout = () => {
   const { t } = useTranslation();
 
@@ -21,24 +29,24 @@ const Logout = () => {
     const token = localStorage.getItem("authToken");
     if (token) {
       try {
-        const message = await logoutRequest(userData.token); // Usamos la función logoutRequest
+        const message = await logoutRequest(userData.token);
 
-        setUserData(null); // Limpiar el estado del usuario
-        localStorage.removeItem("authToken"); // Eliminar el token del almacenamiento local
+        setUserData(null); 
+        localStorage.removeItem("authToken");
         localStorage.removeItem("userData");
-        localStorage.removeItem("loginType"); // Eliminar el tipo de login
+        localStorage.removeItem("loginType");
 
         success({
-          title: t("auth.logout_title"), // Usar traducción para el título
-          text: t("auth.logout_text_ok"), // Usar traducción para el texto
+          title: t("auth.logout_title"), 
+          text: t("auth.logout_text_ok"), 
           delay: 2000,
         });
 
         navigate("/");
       } catch (err) {
         error({
-          title: t("auth.logout_title"), // Usar traducción para el título
-          text: t("auth.logout_text_fail"), // Usar traducción para el texto
+          title: t("auth.logout_title"), 
+          text: t("auth.logout_text_fail"), 
           delay: 2000,
         });
       }
@@ -52,7 +60,7 @@ const Logout = () => {
         onClick={handleLogout}
         className="w-full text-left cursor-pointer"
       >
-        {t("navigation.logout")} {/* Usar traducción para el texto del botón */}
+        {t("navigation.logout")}
       </button>
     </>
   );

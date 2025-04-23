@@ -11,6 +11,22 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "@context/ThemeContext";
 import clsx from "clsx";
 
+/**
+ * Componente que muestra un gráfico de barras comparando el precio del aceite entre diferentes tipos de aceite.
+ *
+ * @component
+ * @param {Object} props - Propiedades del componente.
+ * @param {Array} props.oils - Lista de aceites, cada elemento debe contener un nombre (`name`) y un precio (`price`).
+ * 
+ * @example
+ * const oils = [
+ *   { name: "Picual", price: 5.6 },
+ *   { name: "Arbequina", price: 6.1 },
+ *   // Más tipos de aceite...
+ * ];
+ * 
+ * <ChartOilPricesBar oils={oils} />
+ */
 export default function ChartOilPricesBar({ oils }) {
   const { t } = useTranslation();
   const { theme } = useTheme();

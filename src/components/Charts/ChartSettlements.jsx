@@ -13,12 +13,42 @@ import { useTheme } from "@context/ThemeContext";
 import clsx from "clsx";
 import { formatEuro } from "@/utils/formatEuro";
 
+/**
+ * Componente que muestra un gráfico de barras con la evolución mensual
+ * de las liquidaciones aceptadas y canceladas durante los últimos 12 meses.
+ *
+ * @component
+ * @param {Object} props - Propiedades del componente.
+ * @param {Array} props.settlements - Array de objetos de liquidación, donde cada uno debe incluir:
+ *  - `settlement_date_res`: Fecha de resolución de la liquidación.
+ *  - `settlement_status`: Estado de la liquidación ("Aceptada" o "Cancelada").
+ *  - `amount`: Cantidad de aceite liquidada.
+ *  - `price`: Precio por litro.
+ *
+ * @example
+ * const settlements = [
+ *   {
+ *     settlement_date_res: "2024-04-10",
+ *     settlement_status: "Aceptada",
+ *     amount: 1000,
+ *     price: 3.5
+ *   },
+ *   {
+ *     settlement_date_res: "2024-03-05",
+ *     settlement_status: "Cancelada",
+ *     amount: 800,
+ *     price: 3.2
+ *   }
+ * ];
+ *
+ * <ChartSettlements settlements={settlements} />
+ */
+
 export default function ChartSettlements({ settlements }) {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
 
-  // Obtener los últimos 12 meses
   const today = new Date();
   const last12Months = Array.from({ length: 12 }).map((_, index) => {
     const date = new Date(
@@ -40,13 +70,11 @@ export default function ChartSettlements({ settlements }) {
     };
   });
 
-  // Clasificar y agregar las liquidaciones aceptadas y canceladas por mes y estado
   settlements.forEach((settlement) => {
     const settlementDateRes = settlement.settlement_date_res
       ? new Date(settlement.settlement_date_res)
       : null;
 
-    // Si hay fecha de resolución (settlement_date_res), usamos esta para aceptadas y canceladas
     if (settlementDateRes) {
       const key = `${settlementDateRes.getFullYear()}-${String(
         settlementDateRes.getMonth() + 1
@@ -55,16 +83,13 @@ export default function ChartSettlements({ settlements }) {
       const month = last12Months.find((m) => m.key === key);
 
       if (month) {
-        // Convertir amount y price a número
         const amount = Number(settlement.amount);
         const price = Number(settlement.price);
 
-        // Si es aceptada, sumar al mes correspondiente
         if (settlement.settlement_status === "Aceptada") {
           month.accepted += amount * price;
         }
 
-        // Si es cancelada, sumar al mes correspondiente
         if (settlement.settlement_status === "Cancelada") {
           month.cancelled += amount * price;
         }

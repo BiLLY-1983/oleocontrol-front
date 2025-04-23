@@ -5,9 +5,40 @@ import { useTheme } from "@context/ThemeContext";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 
-// Registro de los elementos necesarios para Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+/**
+ * Componente que muestra un gráfico circular (Pie Chart) con el estado actual
+ * de las liquidaciones: Pendientes, Aceptadas y Canceladas.
+ *
+ * También muestra el total en euros de las liquidaciones aceptadas.
+ *
+ * @component
+ * @param {Object} props - Propiedades del componente.
+ * @param {Array} props.settlements - Array de objetos de liquidación. Cada objeto debe contener:
+ *  - `settlement_status`: Estado de la liquidación ("Pendiente", "Aceptada" o "Cancelada").
+ *  - `amount`: Cantidad de aceite liquidada.
+ *  - `price`: Precio por litro.
+ *  - `created_at`: Fecha de creación de la liquidación.
+ *
+ * @example
+ * const settlements = [
+ *   {
+ *     settlement_status: "Aceptada",
+ *     amount: 1200,
+ *     price: 3.2,
+ *     created_at: "2024-06-15"
+ *   },
+ *   {
+ *     settlement_status: "Cancelada",
+ *     amount: 900,
+ *     price: 2.8,
+ *     created_at: "2024-07-20"
+ *   }
+ * ];
+ *
+ * <ChartSettlementsHome settlements={settlements} />
+ */
 export default function ChartSettlementsHome({ settlements }) {
   const { t } = useTranslation();
   const { theme } = useTheme();
@@ -50,7 +81,6 @@ export default function ChartSettlementsHome({ settlements }) {
     setTotalAmountAccepted(acceptedAmount);
     setTotalAmountCancelled(cancelledAmount);
 
-    // ✅ Liquidaciones aceptadas/canceladas en los últimos 12 meses
     const acceptedLast12Months = acceptedSettlements.filter((s) => {
       const date = new Date(s.created_at);
       return date >= twelveMonthsAgo && date <= now;
@@ -72,7 +102,6 @@ export default function ChartSettlementsHome({ settlements }) {
 
     setTotalLast12Months(totalAccepted12 + totalCancelled12);
 
-    // 📊 Datos para el gráfico
     const chartData = {
       labels: [
         t("settlements.pending"),

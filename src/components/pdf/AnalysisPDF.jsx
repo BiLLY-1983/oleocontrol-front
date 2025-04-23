@@ -13,13 +13,12 @@ Font.register({
   src: "/fonts/Roboto-Regular.ttf",
 });
 
-// Estilos refinados
 const styles = StyleSheet.create({
   page: {
     padding: 40,
     fontSize: 12,
     fontFamily: "Roboto",
-    backgroundColor: "#f3f4f6", // gris claro suave
+    backgroundColor: "#f3f4f6", 
   },
   logoContainer: {
     alignItems: "center",
@@ -33,7 +32,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     textAlign: "center",
-    color: "#1f2937", // gris oscuro
+    color: "#1f2937", 
     marginBottom: 30,
   },
   card: {
@@ -42,7 +41,7 @@ const styles = StyleSheet.create({
     padding: 16,
     marginBottom: 16,
     borderWidth: 1,
-    borderColor: "#e5e7eb", // gris claro
+    borderColor: "#e5e7eb",
     shadowColor: "#000",
   },
   cardTitle: {
@@ -72,6 +71,42 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * Componente que genera un documento PDF con los resultados de un análisis
+ * de aceituna, incluyendo información del socio, empleado, y los resultados
+ * obtenidos en el laboratorio.
+ *
+ * @component
+ * @param {Object} props - Propiedades del componente.
+ * @param {Object} props.analysis - Objeto que contiene todos los datos del análisis.
+ * @param {Object} props.analysis.member - Información del socio.
+ * @param {string} props.analysis.member.name - Nombre del socio.
+ * @param {string|number} props.analysis.member.member_number - Número de socio.
+ * @param {Object} [props.analysis.employee] - Información del empleado que realizó el análisis.
+ * @param {string} props.analysis.employee.name - Nombre del empleado.
+ * @param {string} props.analysis.analysis_date - Fecha en la que se realizó el análisis.
+ * @param {Object} props.analysis.entry - Entrada del análisis.
+ * @param {number} props.analysis.entry.olive_quantity - Cantidad de aceituna en kilogramos.
+ * @param {number} props.analysis.acidity - Nivel de acidez (%).
+ * @param {number} props.analysis.humidity - Nivel de humedad (%).
+ * @param {number} props.analysis.yield - Rendimiento del aceite (%).
+ * @param {Object} props.analysis.oil - Tipo de aceite resultante.
+ * @param {string} props.analysis.oil.name - Nombre del aceite.
+ *
+ * @returns {JSX.Element} Documento PDF con el informe del análisis.
+ *
+ * @example
+ * <AnalysisPDF analysis={{
+ *   member: { name: "Juan Pérez", member_number: 102 },
+ *   employee: { name: "Laura Ruiz" },
+ *   analysis_date: "2025-03-22",
+ *   entry: { olive_quantity: 1500 },
+ *   acidity: 0.4,
+ *   humidity: 48.5,
+ *   yield: 20.3,
+ *   oil: { name: "Picual" }
+ * }} />
+ */
 export const AnalysisPDF = ({ analysis }) => {
   const estimatedOil =
     analysis.oil?.name && analysis.entry?.olive_quantity && analysis.yield

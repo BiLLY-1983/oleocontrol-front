@@ -5,9 +5,45 @@ import { useTheme } from "@context/ThemeContext";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 
-// Registro de los elementos necesarios para Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+/**
+ * Componente que muestra un gráfico de tipo doughnut con la distribución de los aceites
+ * obtenidos a partir de los análisis de rendimiento de las aceitunas.
+ *
+ * También muestra el total de litros de aceite obtenidos.
+ *
+ * @component
+ * @param {Object} props - Propiedades del componente.
+ * @param {Array} props.oils - Array de aceites disponibles. Cada objeto debe contener:
+ *  - `name`: Nombre del aceite.
+ *  - `price`: Precio por litro.
+ * @param {Array} props.analyses - Array de análisis. Cada objeto debe contener:
+ *  - `yield`: Porcentaje de rendimiento del análisis.
+ *  - `entry.olive_quantity`: Cantidad de aceituna analizada.
+ *  - `oil.name`: Nombre del aceite resultante del análisis.
+ *
+ * @example
+ * const oils = [
+ *   { name: "Picual", price: 3.5 },
+ *   { name: "Hojiblanca", price: 4.2 },
+ * ];
+ *
+ * const analyses = [
+ *   {
+ *     yield: 18.5,
+ *     entry: { olive_quantity: 1000 },
+ *     oil: { name: "Picual" }
+ *   },
+ *   {
+ *     yield: 20,
+ *     entry: { olive_quantity: 800 },
+ *     oil: { name: "Hojiblanca" }
+ *   }
+ * ];
+ *
+ * <ChartOils oils={oils} analyses={analyses} />
+ */
 export default function ChartOils({ oils, analyses }) {
   const { t } = useTranslation();
   const { theme } = useTheme();
@@ -24,21 +60,18 @@ export default function ChartOils({ oils, analyses }) {
       return;
     }
 
-    // Calculamos las cantidades de aceite por tipo
     const oilQuantities = oils.map((oil) => ({
       name: oil.name,
       quantity: 0,
       price: oil.price,
     }));
 
-    // Recorremos los análisis y calculamos la cantidad de aceite por tipo
     analyses.forEach((analysis) => {
       if (analysis.oil && analysis.oil.name && analysis.yield) {
         const oliveQuantity = analysis.entry.olive_quantity;
         const yieldRate = analysis.yield / 100; // Convertir el rendimiento a porcentaje
         const oilQuantity = oliveQuantity * yieldRate;
 
-        // Encontrar el tipo de aceite y agregar la cantidad
         const oil = oilQuantities.find((oil) => oil.name === analysis.oil.name);
         if (oil) {
           oil.quantity += oilQuantity;
@@ -46,11 +79,9 @@ export default function ChartOils({ oils, analyses }) {
       }
     });
 
-    // Calculamos el total de aceite
     const total = oilQuantities.reduce((sum, oil) => sum + oil.quantity, 0);
     setTotalOil(total);
 
-    // Actualizamos los datos del gráfico
     const chartData = {
       labels: oilQuantities.map((oil) => oil.name),
       datasets: [
