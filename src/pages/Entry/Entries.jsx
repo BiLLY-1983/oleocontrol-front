@@ -136,6 +136,7 @@ const Entries = () => {
       }
     } catch (error) {
       console.error("Error fetching entries:", error);
+      setError("Error al obtener las entradas.");
     } finally {
       setLoading(false);
     }
@@ -159,12 +160,12 @@ const Entries = () => {
 
   /**
    * Calcula y devuelve los números de página visibles en la paginación.
-   * @function
    * @returns {Array<number|string>} Números de página visibles o elípticos ("...").
    */
   const getVisiblePageNumbers = () => {
     const totalPages = pageNumbers.length;
     const maxVisible = 5;
+
     if (totalPages <= maxVisible) {
       return pageNumbers;
     }
@@ -197,7 +198,7 @@ const Entries = () => {
   const pageNumbers = [];
   for (
     let i = 1;
-    i <= Math.ceil(settlementsFiltered.length / entriesPerPage);
+    i <= Math.ceil(entriesFiltered.length / entriesPerPage);
     i++
   ) {
     pageNumbers.push(i);

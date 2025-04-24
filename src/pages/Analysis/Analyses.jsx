@@ -160,15 +160,12 @@ const Analyses = () => {
     if (totalPages <= maxVisible) {
       return pageNumbers;
     }
-
     if (currentPage <= 3) {
       return [...pageNumbers.slice(0, 3), "...", totalPages];
     }
-
     if (currentPage >= totalPages - 2) {
       return [1, "...", ...pageNumbers.slice(totalPages - 3)];
     }
-
     return [
       1,
       "...",

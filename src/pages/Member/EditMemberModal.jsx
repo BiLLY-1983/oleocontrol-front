@@ -16,6 +16,7 @@ import { Input } from "@components/ui/input";
 import { Button } from "@components/ui/button";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import { success, error } from "@pnotify/core";
