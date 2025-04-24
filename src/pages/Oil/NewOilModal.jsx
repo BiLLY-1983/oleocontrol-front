@@ -21,6 +21,21 @@ import { success, error } from "@pnotify/core";
 import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 
+/**
+ * Componente modal para crear un nuevo aceite.
+ * 
+ * Este modal permite al usuario ingresar los detalles de un nuevo aceite, incluyendo su nombre, descripción y precio.
+ * 
+ * @component
+ * 
+ * @param {Object} props - Props del componente.
+ * @param {boolean} props.open - Estado de apertura del modal.
+ * @param {function} props.setOpen - Función para cambiar el estado de apertura del modal.
+ * @param {boolean} props.isDarkMode - Estado del modo oscuro.
+ * @param {function} props.updateOils - Función para actualizar la lista de aceites.
+ * 
+ * @returns {JSX.Element} - Componente modal para crear un nuevo aceite.
+ */
 const NewOilModal = ({ open, setOpen, isDarkMode, updateOils }) => {
   const { t } = useTranslation();
 
@@ -48,6 +63,11 @@ const NewOilModal = ({ open, setOpen, isDarkMode, updateOils }) => {
     mode: "all",
   });
 
+  /** 
+   * Función para manejar la creación de un nuevo aceite.
+   * 
+   * @param {Object} data - Datos del nuevo aceite.
+   */
   const handleCreate = async (data) => {
     try {
       const result = await createOil(data);

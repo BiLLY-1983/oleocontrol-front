@@ -185,6 +185,24 @@ const Entries = () => {
     ];
   };
 
+  const indexOfLastEntry = currentPage * entriesPerPage;
+  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
+  const currentEntries = entriesFiltered.slice(
+    indexOfFirstEntry,
+    indexOfLastEntry
+  );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const pageNumbers = [];
+  for (
+    let i = 1;
+    i <= Math.ceil(settlementsFiltered.length / entriesPerPage);
+    i++
+  ) {
+    pageNumbers.push(i);
+  }
+
   /**
    * Calcula el total de kilos de aceituna de todas las entradas.
    * @type {number}

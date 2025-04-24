@@ -4,9 +4,23 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "@context/ThemeContext";
 import clsx from "clsx";
 
+/**
+ * Componente para mostrar una página de Acceso denegado.
+ * 
+ * Este componente muestra un mensaje de error cuando la página no es encontrada
+ * (Acceso denegado). Incluye un botón para regresar a la página anterior.
+ * 
+ * @component
+ * @example
+ * return (
+ *   <AccessDenied />
+ * )
+ * 
+ * @returns {JSX.Element} La página de error 404.
+ */
 const AccessDenied = () => {
-  const { t } = useTranslation(); // Hook para traducciones
-  const { theme } = useTheme(); // Hook para el tema
+  const { t } = useTranslation();
+  const { theme } = useTheme();
   const isDarkMode = theme === "dark";
   const navigate = useNavigate();
 
@@ -31,7 +45,7 @@ const AccessDenied = () => {
           isDarkMode ? "text-dark-300" : "text-olive-600"
         )}
       >
-        Acceso denegado {/* Traducción para "Página no encontrada" */}
+        Acceso denegado 
       </p>
       <button
         onClick={() => navigate(-1)}
@@ -42,7 +56,7 @@ const AccessDenied = () => {
             : "bg-olive-500 text-white hover:bg-olive-600 focus:ring-olive-400"
         )}
       >
-        {t("common.goBack")} {/* Traducción para "Volver atrás" */}
+        {t("common.goBack")}
       </button>
     </div>
   );

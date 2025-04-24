@@ -18,6 +18,12 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 // Registrar los elementos necesarios para Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+/**
+ * @component Roles
+ * 
+ * @returns {JSX.Element} - Componente de gestión de roles
+ * @description Este componente muestra una lista de roles y un gráfico circular que representa la cantidad de usuarios por rol. Al hacer clic en un rol, se abre un diálogo que muestra los usuarios asociados a ese rol.
+ */
 const Roles = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
@@ -30,7 +36,13 @@ const Roles = () => {
   const [loadingRoles, setLoadingRoles] = useState(true);
   const [loadingUsers, setLoadingUsers] = useState(false);
 
-  // Obtener roles y conteo de usuarios por rol
+  /**
+   * @function fetchRolesAndCounts
+   * @description Función para obtener los roles y la cantidad de usuarios por rol.
+   * 
+   * @returns {void} - Promesa que se resuelve cuando se completan las solicitudes.
+   * @throws {Error} - Si ocurre un error durante la obtención de datos.
+   */
   const fetchRolesAndCounts = async () => {
     setLoadingRoles(true);
     try {
@@ -69,7 +81,13 @@ const Roles = () => {
     }
   };
 
-  // Obtener usuarios por rol
+  /**
+   * @function fetchUsersByRole
+   * @description Función para obtener los usuarios asociados a un rol específico.
+   * @param {string} roleId - ID del rol para filtrar los usuarios.
+   * @returns {void} - Promesa que se resuelve cuando se completan las solicitudes.
+   * @throws {Error} - Si ocurre un error durante la obtención de datos.
+   */
   const fetchUsersByRole = async (roleId) => {
     setLoadingUsers(true);
     try {
@@ -90,13 +108,20 @@ const Roles = () => {
     }
   };
 
+  
   useEffect(() => {
     fetchRolesAndCounts();
   }, []);
 
+  /**
+   * @function handleCardClick
+   * @description Función para manejar el clic en una tarjeta de rol.
+   * @param {object} role - Objeto del rol seleccionado.
+   * @returns {void} - Cambia el estado del diálogo y obtiene los usuarios por rol.
+   */
   const handleCardClick = async (role) => {
     setSelectedRole(role);
-    await fetchUsersByRole(role.id);
+    fetchUsersByRole(role.id);
     setDialogOpen(true);
   };
 
@@ -174,8 +199,8 @@ const Roles = () => {
               <Doughnut
                 data={chartData}
                 options={{
-                  responsive: true, // Hacer el gráfico responsivo
-                  maintainAspectRatio: false, // Permitir que el gráfico se ajuste al contenedor
+                  responsive: true, 
+                  maintainAspectRatio: false, 
                   plugins: {
                     legend: {
                       position: "bottom",

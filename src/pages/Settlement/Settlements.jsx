@@ -33,6 +33,14 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import { SettlementPDF } from "@components/pdf/SettlementPDF";
 import { BiSolidFilePdf } from "react-icons/bi";
 
+/**
+ * Componente que muestra la gestión de liquidaciones.
+ * Permite ver, filtrar y gestionar liquidaciones de empleados.
+ * 
+ * @component Settlements
+ * @returns {JSX.Element} Componente de gestión de liquidaciones.
+ * 
+ */
 const Settlements = () => {
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
@@ -54,6 +62,13 @@ const Settlements = () => {
   const [modalDeleteSettlementOpen, setModalDeleteSettlementOpen] =
     useState(false);
 
+  /**
+   * Función para obtener las liquidaciones desde la API.
+   * Actualiza el estado de las liquidaciones y maneja errores.
+   * 
+   * @async
+   * @function fetchSettlements
+   */
   const fetchSettlements = async () => {
     setLoadingSettlement(true);
     try {
@@ -69,14 +84,29 @@ const Settlements = () => {
     }
   };
 
+  /**
+   * Efecto para cargar las liquidaciones al montar el componente.
+   * Se ejecuta una vez al cargar el componente.
+   */
   useEffect(() => {
     fetchSettlements();
   }, []);
 
+  /**
+   * Función para actualizar las liquidaciones después de realizar una acción.
+   * Se utiliza para refrescar la lista de liquidaciones después de crear, editar o eliminar una liquidación.
+   * 
+   * @async
+   * @function updateSettlements
+   */
   const updateSettlements = async () => {
     await fetchSettlements();
   };
 
+  /**
+   * Filtra las liquidaciones en base al texto introducido en el campo de búsqueda.
+   * @type {Array<Object>}
+   */
   const settlementsFiltered = settlements.filter(
     (settlement) =>
       settlement.member?.name.toLowerCase().includes(filter.toLowerCase()) ||
@@ -87,7 +117,11 @@ const Settlements = () => {
       settlement.oil?.name.toLowerCase().includes(filter.toLowerCase())
   );
 
-  // Paginación
+  /**
+   * Calcula y devuelve los números de página visibles en la paginación.
+   * @function
+   * @returns {Array<number|string>} Números de página visibles o elípticos ("...").
+   */
   const getVisiblePageNumbers = () => {
     const totalPages = pageNumbers.length;
     const maxVisible = 5;

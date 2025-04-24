@@ -22,7 +22,7 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import { updateOil } from "@services/oilRequests";
 
-// Esquema de validación
+/** Esquema de validación zod */
 const oilSchema = z.object({
   name: z
     .string()
@@ -42,6 +42,30 @@ const oilSchema = z.object({
     .nullable(),
 });
 
+/**
+ * EditOilModal - Componente para editar un aceite.
+ * 
+ * Este modal permite editar la información de un aceite seleccionado.
+ * 
+ * @component
+ * @param {Object} props - Props del componente.
+ * @param {boolean} props.open - Estado de apertura del modal.
+ * @param {function} props.setOpen - Función para cambiar el estado de apertura del modal.
+ * @param {boolean} props.isDarkMode - Indica si se está utilizando el modo oscuro.
+ * @param {Object} props.selectedOil - Datos del aceite seleccionado para editar.
+ * @param {Function} props.updateOils - Función para actualizar la lista de aceites después de editar.
+ * 
+ * @returns {JSX.Element} - Componente del modal de edición de aceite.
+ * 
+ * @example
+ * <EditOilModal
+ *   open={modalOpen}
+ *   setOpen={setModalOpen}
+ *   isDarkMode={true}
+ *   selectedOil={selectedOilData}
+ *   updateOils={loadOils}
+ * />
+ */
 const EditOilModal = ({
   open,
   setOpen,
@@ -62,12 +86,20 @@ const EditOilModal = ({
     defaultValues: selectedOil,
   });
 
+  /**
+   * Efecto para restablecer el formulario cuando se selecciona un aceite.
+   * Se ejecuta cada vez que cambia el aceite seleccionado o se abre el modal.
+   */
   useEffect(() => {
     if (selectedOil) {
       reset(selectedOil);
     }
   }, [selectedOil, reset]);
 
+  /**
+   * Función para manejar la edición de un aceite.
+   * Se encarga de enviar los datos editados al servidor y manejar la respuesta.
+   */
   const handleEdit = async (data) => {
     const result = await updateOil(selectedOil.id, data);
 

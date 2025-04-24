@@ -17,6 +17,20 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
+/**
+ * Componente para mostrar un modal de confirmación de eliminación de aceite.
+ * 
+ * Este componente se utiliza para confirmar la eliminación de un aceite específico.
+ * 
+ * @component
+ * @param {Object} props - Props del componente.
+ * @param {boolean} props.open - Estado del modal.
+ * @param {function} props.setOpen - Función para cambiar el estado del modal.
+ * @param {boolean} props.isDarkMode - Estado del modo oscuro.
+ * @param {function} props.updateOils - Función para actualizar la lista de aceites.
+ * @param {Object} props.selectedOil - Aceite seleccionado para eliminar.
+ * @returns {JSX.Element} - El modal de eliminación de aceite.
+ */
 const DeleteOilModal = ({
   open,
   setOpen,

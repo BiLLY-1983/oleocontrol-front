@@ -6,6 +6,15 @@ import clsx from "clsx";
 import { useTheme } from "@context/ThemeContext";
 import { useTranslation } from "react-i18next";
 
+/**
+ * Componente para mostrar los precios de los aceites en la sección de empleados.
+ * Utiliza el componente ChartOilPricesBar para mostrar un gráfico de barras con los precios.
+ * 
+ * @component
+ * 
+ * @returns {JSX.Element} Componente que muestra los precios de los aceites.
+ * @description Este componente muestra los precios de los aceites disponibles para los empleados.
+ */
 const OilsEmployee = () => {
   const { theme } = useTheme();
   const { t } = useTranslation();
@@ -15,6 +24,13 @@ const OilsEmployee = () => {
   const [loadingOils, setLoadingOils] = useState(true);
   const [errorOils, setErrorOils] = useState(null);
 
+  /**
+   * Función para obtener los aceites desde la API.
+   * Se actualiza el estado de loadingOils y errorOils según la respuesta de la API.
+   * También maneja la lógica de actualización del estado de los aceites.
+   * 
+   * @returns {void} No retorna ningún valor.
+   */
   const fetchOils = async () => {
     setLoadingOils(true);
     setErrorOils(null);
@@ -32,6 +48,10 @@ const OilsEmployee = () => {
     }
   };
 
+  /**
+   * Efecto para cargar los aceites al montar el componente.
+   * Se ejecuta una vez cuando el componente se monta.
+   */
   useEffect(() => {
     fetchOils();
   }, []);

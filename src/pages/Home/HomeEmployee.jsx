@@ -27,6 +27,17 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+/**
+ * Componente HomeEmployee
+ * 
+ * Página de inicio del Dashboard.
+ * 
+ * Muestra estadísticas y gráficas relevantes para los empleados del sistema: 
+ * socios activos, entradas de aceituna, producción de aceite, rendimiento medio y liquidaciones pendientes.
+ * 
+ * @component
+ * @returns {JSX.Element} El componente HomeAdmin renderizado.
+ */
 const HomeEmployee = () => {
   const { theme } = useTheme();
   const { t } = useTranslation();
@@ -56,6 +67,9 @@ const HomeEmployee = () => {
   const [newEntryModalOpen, setNewEntryModalOpen] = useState(false);
   const [newMemberModalOpen, setNewMemberModalOpen] = useState(false);
 
+  /**
+   * useEffect que obtiene la lista de aceites.
+   */
   const fetchOils = async () => {
     setLoadingOils(true);
     setErrorOils(null);
@@ -73,6 +87,9 @@ const HomeEmployee = () => {
     }
   };
 
+  /**
+   * useEffect que obtiene la lista de socios.
+   */
   const fetchMembers = async () => {
     setLoadingMembers(true);
     setErrorMembers(null);
@@ -90,6 +107,9 @@ const HomeEmployee = () => {
     }
   };
 
+  /**
+   * useEffect que obtiene la lista de entradas.
+   */
   const fetchEntries = async () => {
     setLoadingEntries(true);
     setErrorEntries(null);
@@ -107,6 +127,9 @@ const HomeEmployee = () => {
     }
   };
 
+  /**
+   * useEffect que obtiene la lista de análisis.
+   */
   const fetchAnalyses = async () => {
     setLoadingAnalyses(true);
     setErrorAnalyses(null);
@@ -124,6 +147,9 @@ const HomeEmployee = () => {
     }
   };
 
+  /**
+   * useEffect que obtiene la lista de liquidaciones.
+   */
   const fetchSettlements = async () => {
     setLoadingSettlements(true);
     setErrorSettlements(null);
@@ -141,6 +167,9 @@ const HomeEmployee = () => {
     }
   };
 
+  /**
+   * useEffect que obtiene la lista de empleados.
+   */
   const fetchEmployees = async () => {
     setLoadingEmployees(true);
     setErrorEmployees(null);
@@ -158,6 +187,10 @@ const HomeEmployee = () => {
     }
   };
 
+  /**
+   * useEffect que se ejecuta cuando el nombre del departamento cambia.
+   * Llama a la función correspondiente para obtener los datos según el departamento del usuario.
+   */
   useEffect(() => {
     if (!departmentName) return;
 

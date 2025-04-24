@@ -19,6 +19,31 @@ import {
   DialogTitle,
 } from "@components/ui/dialog";
 
+/**
+ * 
+ * Componente `Oils` para la gestión de aceites en el sistema.
+ * 
+ * Este componente muestra una lista de aceites con funciones de búsqueda,
+ * filtrado, paginación, y gráficos para visualizar la distribución por tipo de aceite.
+ * También permite crear, editar y eliminar aceites mediante modales.
+ * 
+ * @component
+ * 
+ * @returns {JSX.Element} Interfaz de usuario para la gestión de aceites.
+ * @description Este componente permite a los usuarios gestionar aceites, mostrando
+ * los precios y detalles de cada aceite disponible en el sistema.
+ * 
+ * @example
+ * <Oils />
+ * 
+ * @features
+ * - Carga asíncrona de aceites desde la API.
+ * - Filtro por nombre, precio y descripción.
+ * - Paginación configurable por cantidad de aceites por página.
+ * - Visualización con gráficos (donut y de barras) del número de aceites por tipo.
+ * - Modales para agregar, editar y eliminar aceites.
+ * - Soporte para tema claro/oscuro.
+ */
 const Oils = () => {
   const { theme } = useTheme();
   const { t } = useTranslation();
@@ -40,6 +65,12 @@ const Oils = () => {
   const [modalEditOilOpen, setModalEditOilOpen] = useState(false);
   const [modalDeleteOilOpen, setModalDeleteOilOpen] = useState(false);
 
+  /**
+   * Función para obtener los análisis de aceites desde la API.
+   * Actualiza el estado de `analyses` con los datos obtenidos.
+   * 
+   * @returns {void} No retorna ningún valor.
+   */
   const fetchAnalyses = async () => {
     setLoadingAnalyses(true);
     setErrorAnalyses(null);
@@ -57,6 +88,12 @@ const Oils = () => {
     }
   };
 
+  /**
+   * Función para obtener los aceites desde la API.
+   * Actualiza el estado de `oils` con los datos obtenidos.
+   * 
+   * @returns {void} No retorna ningún valor.
+   */
   const fetchOils = async () => {
     setLoadingOils(true);
     setErrorOils(null);
@@ -74,11 +111,23 @@ const Oils = () => {
     }
   };
 
+  /**
+   * Función para obtener los aceites desde la API.
+   * Actualiza el estado de `oils` con los datos obtenidos.
+   * 
+   * @returns {void} No retorna ningún valor.
+   */
   useEffect(() => {
     fetchOils();
     fetchAnalyses();
   }, []);
 
+  /**
+   * Función para procesar los datos de aceites y análisis.
+   * Actualiza el estado de `oilQuantities` y `totalOil` con los datos procesados.
+   * 
+   * @returns {void} No retorna ningún valor.
+   */
   useEffect(() => {
     if (!oils || !analyses || oils.length === 0 || analyses.length === 0) {
       return;
@@ -139,10 +188,17 @@ const Oils = () => {
     setOilData(chartData);
   }, [analyses, oils, t]);
 
+  /**
+   * Función para actualizar los aceites después de realizar una acción
+   * (crear, editar o eliminar).
+   */
   const updateOils = async () => {
-    await fetchOils();
+    fetchOils();
   };
 
+  /**
+   * Función para manejar el clic en una tarjeta de aceite.
+   */
   const handleCardClick = (oil) => {
     setSelectedOil(oil);
     setIsDialogOpen(true);

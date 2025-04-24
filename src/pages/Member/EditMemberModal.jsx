@@ -103,20 +103,19 @@ const EditMemberModal = ({
 
     if (result.status === "success") {
       success({
-        title: t("users.successEditTitle"), // Traducción para "Usuario actualizado con éxito"
-        text: t("users.successEditText"), // Traducción para "El usuario ha sido actualizado correctamente."
+        title: t("users.successEditTitle"),
+        text: t("users.successEditText"), 
         delay: 2000,
       });
-      reset(); // Limpiar formulario
-      setOpen(false); // Cerrar modal
+      reset();
+      setOpen(false); 
 
-      // Llama a la función de actualización para la lista
       if (updateMembers) {
         updateMembers();
       }
     } else {
       error({
-        title: t("users.errorEditTitle"), // Traducción para "Error al actualizar usuario"
+        title: t("users.errorEditTitle"), 
         text: t("users.errorEditText"),
         delay: 2000,
       });
@@ -139,8 +138,8 @@ const EditMemberModal = ({
                   username: selectedMember.user.username,
                   firstName: selectedMember.user.first_name,
                   lastName: selectedMember.user.last_name,
-                }) // Traducción para "Editar usuario"
-              : t("users.loadingUser")} {/* Traducción para "Cargando usuario..." */}
+                }) 
+              : t("users.loadingUser")} 
           </DialogTitle>
           <DialogDescription>
             {selectedMember
@@ -161,7 +160,7 @@ const EditMemberModal = ({
         ) : (
           <form onSubmit={handleSubmit(handleEdit)} className="space-y-4">
             <div name="username">
-              <Label className="mb-1">{t("userProfile.username")}</Label> {/* Traducción para "Usuario" */}
+              <Label className="mb-1">{t("userProfile.username")}</Label>
               <Input
                 type="text"
                 {...register("user.username")}
@@ -175,7 +174,7 @@ const EditMemberModal = ({
             </div>
 
             <div name="first_name">
-              <Label className="mb-1">{t("userProfile.firstName")}</Label> {/* Traducción para "Nombre" */}
+              <Label className="mb-1">{t("userProfile.firstName")}</Label>
               <Input
                 type="text"
                 {...register("user.first_name")}

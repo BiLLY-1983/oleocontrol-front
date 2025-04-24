@@ -32,6 +32,17 @@ ChartJS.register(
   BarElement
 );
 
+/**
+ * Componente HomeMember
+ * 
+ * Página de inicio del Dashboard.
+ * 
+ * Muestra estadísticas y gráficas relevantes para el socios del sistema: 
+ * entradas de aceituna, producción de aceite, rendimiento medio y liquidaciones pendientes.
+ * 
+ * @component
+ * @returns {JSX.Element} El componente HomeAdmin renderizado.
+ */
 const HomeMember = () => {
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
@@ -47,6 +58,11 @@ const HomeMember = () => {
 
   const [loading, setLoading] = useState(true);
 
+  
+  /**
+   * useEffect que se ejecuta al montarse el componente o cuando cambia el `memberId`.
+   * Realiza las solicitudes para obtener los datos de las entradas, análisis, liquidaciones y aceites.
+   */
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);

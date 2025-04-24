@@ -85,7 +85,15 @@ const userSchema = z
 * @param {boolean} props.isDarkMode - Indica si se debe usar el tema oscuro
 * @param {Function} props.updateEmployees - Función para actualizar la lista de socios tras la creación
 *
-* @returns {JSX.Element} Modal con formulario para creación de un nuevo socio
+* @returns {JSX.Element} Modal con formulario para creación de un nuevo socio.
+* 
+* @example
+* <NewMemberModal
+*   open={modalOpen}
+*   setOpen={setModalOpen}
+*   isDarkMode={true}
+*   updateMembers={loadMembers}
+* />
 */
 const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
   const { t } = useTranslation(); // Hook para traducciones

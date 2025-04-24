@@ -14,6 +14,17 @@ import { getSettlements } from "@services/settlementRequests";
 import { Skeleton } from "@/components/ui/skeleton";
 import { formatEuro } from "@/utils/formatEuro";
 
+/**
+ * Componente HomeAdmin
+ * 
+ * Página de inicio del Dashboard.
+ * 
+ * Muestra estadísticas y gráficas relevantes para el administrador del sistema: 
+ * socios activos, entradas de aceituna, producción de aceite, rendimiento medio y liquidaciones pendientes.
+ * 
+ * @component
+ * @returns {JSX.Element} El componente HomeAdmin renderizado.
+ */
 const HomeAdmin = () => {
   const { theme } = useTheme();
   const { t } = useTranslation();
@@ -35,6 +46,12 @@ const HomeAdmin = () => {
   const [errorSettlements, setErrorSettlements] = useState(null);
   const [errorOils, setErrorOils] = useState(null);
 
+  /**
+   * useEffect que obtiene la lista de socios.
+   * 
+   * @async
+   * @function fetchMembers
+   */
   const fetchMembers = async () => {
     setLoadingMembers(true);
     setErrorMembers(null);
@@ -52,6 +69,12 @@ const HomeAdmin = () => {
     }
   };
 
+  /**
+   * useEffect que obtiene la lista de entradas.
+   * 
+   * @async
+   * @function fetchEntries
+   */
   const fetchEntries = async () => {
     setLoadingEntries(true);
     setErrorEntries(null);
@@ -69,6 +92,12 @@ const HomeAdmin = () => {
     }
   };
 
+  /**
+   * useEffect que obtiene la lista de análisis.
+   * 
+   * @async
+   * @function fetchAnalyses
+   */
   const fetchAnalyses = async () => {
     setLoadingAnalyses(true);
     setErrorAnalyses(null);
@@ -86,6 +115,12 @@ const HomeAdmin = () => {
     }
   };
 
+  /**
+   * useEffect que obtiene la lista de aceites.
+   * 
+   * @async
+   * @function fetchOils
+   */
   const fetchOils = async () => {
     setLoadingOils(true);
     setErrorOils(null);
@@ -103,6 +138,12 @@ const HomeAdmin = () => {
     }
   };
 
+  /**
+   * useEffect que obtiene la lista de liquidaciones.
+   * 
+   * @async
+   * @function fetchSettlements
+   */
   const fetchSettlements = async () => {
     setLoadingSettlements(true);
     setErrorSettlements(null);
@@ -120,6 +161,9 @@ const HomeAdmin = () => {
     }
   };
 
+  /**
+   * Hook quue carga todas los dstos necesarios (socios, entradas, análisis, liquidaciones y aceites) al cargar el componente.
+   */
   useEffect(() => {
     fetchMembers();
     fetchEntries();
@@ -152,17 +196,15 @@ const HomeAdmin = () => {
   const averageYield =
     analysesWithYield.length > 0
       ? analysesWithYield.reduce((sum, a) => sum + Number(a.yield), 0) /
-        analysesWithYield.length
+      analysesWithYield.length
       : 0;
 
   const pendingSettlements = settlements.filter(
     (settlement) => settlement.settlement_status === "Pendiente"
   );
 
-  // Obtener la cantidad total de liquidaciones pendientes
   const totalPendingSettlements = pendingSettlements.length;
 
-  // Obtener la suma del 'amount' de todas las liquidaciones pendientes
   const totalPendingAmount = pendingSettlements.reduce(
     (sum, settlement) => sum + Number(settlement.amount * settlement.price || 0),
     0
@@ -176,7 +218,6 @@ const HomeAdmin = () => {
       )}
     >
       <h1 className="text-2xl font-bold">{t("navigation.home")}</h1>{" "}
-      {/* Traducción del título */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
         {loadingMembers ? (
           <div className="space-y-4">

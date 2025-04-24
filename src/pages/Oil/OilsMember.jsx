@@ -15,6 +15,15 @@ import { getOils } from "@services/oilRequests";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card } from "@components/ui/card";
 
+/**
+ * Componente OilsMember que muestra un resumen de los aceites y su cantidad
+ * obtenida a partir de los análisis del miembro.
+ * 
+ * @component
+ * 
+ * @returns {JSX.Element} Componente OilsMember.
+ * @description Este componente muestra un resumen de los aceites y su cantidad
+ */
 const OilsMember = () => {
   const { theme } = useTheme();
   const { t } = useTranslation();
