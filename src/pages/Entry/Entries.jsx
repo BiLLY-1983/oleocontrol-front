@@ -143,6 +143,14 @@ const Entries = () => {
   };
 
   /**
+   * Efecto que se ejecuta al montar el componente y obtiene las entradas.
+   * 
+   */
+  useEffect(() => {
+    fetchEntries();
+  }, []);
+
+  /**
    * Actualiza las entradas después de alguna acción como crear, editar o eliminar.
    * @function
    */
@@ -212,11 +220,8 @@ const Entries = () => {
     (sum, e) => sum + Number(e.olive_quantity ?? 0),
     0
   );
+  const kgTn = totalKilos / 1000;
 
-  /**
-   * Calcula el total de litros de aceite de todas las entradas.
-   * @type {number}
-   */
   const totalLitros = entries.reduce(
     (sum, e) => sum + Number(e.oil_quantity ?? 0),
     0

@@ -92,7 +92,7 @@ const LoginMember = () => {
         } else {
           error({
             title: t("auth.login_text_fail"),
-            text: t("auth.login_title_fail_cred"),
+            text: t("auth.login_text_fail_no_member"),
             delay: 2000,
           });
 
@@ -112,7 +112,7 @@ const LoginMember = () => {
     } catch (err) {
       error({
         title: t("auth.login_text_fail"),
-        text: t("auth.login_text_fail_no_admin"),
+        text: t("auth.login_title_fail_cred"),
         delay: 2000,
       });
     }
