@@ -16,6 +16,7 @@ import { Input } from "@components/ui/input";
 import { Button } from "@components/ui/button";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
+import { z } from "zod";
 
 import { success, error } from "@pnotify/core";
 import "@pnotify/core/dist/PNotify.css";
