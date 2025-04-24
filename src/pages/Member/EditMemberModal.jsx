@@ -23,6 +23,18 @@ import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
 /**
+ *  Definir el esquema de validación con Zod
+ */
+const userSchema = z
+  .object({
+    dni: z
+      .string()
+      .regex(/^\d{8}[A-Za-z]$/, {
+        message: "El DNI debe tener 8 números seguidos de una letra",
+      }),
+  });
+
+/**
  * Componente modal para editar los datos de un socio.
  *
  * Este modal muestra un formulario prellenado con los datos del socio seleccionado y permite editarlos.
@@ -64,6 +76,7 @@ const EditMemberModal = ({
     formState: { errors, isSubmitting },
     reset,
   } = useForm({
+    resolver: zodResolver(userSchema),
     defaultValues: selectedMember,
     mode: "all",
   });

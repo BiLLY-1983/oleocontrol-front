@@ -30,7 +30,11 @@ const userSchema = z
     username: z.string().max(255, { message: "Máximo 255 caracteres" }),
     first_name: z.string().max(255, { message: "Máximo 255 caracteres" }),
     last_name: z.string().max(255, { message: "Máximo 255 caracteres" }),
-    dni: z.string().max(20, { message: "Máximo 20 caracteres" }),
+    dni: z
+      .string()
+      .regex(/^\d{8}[A-Za-z]$/, {
+        message: "El DNI debe tener 8 números seguidos de una letra",
+      }),
     email: z
       .string()
       .email({ message: "El email no es válido" })
@@ -53,6 +57,7 @@ const EditUserModal = ({
     formState: { errors, isSubmitting },
     reset,
   } = useForm({
+    resolver: zodResolver(userSchema),
     defaultValues: usuarioSeleccionado,
     mode: "all",
   });

@@ -29,10 +29,10 @@ import "@pnotify/confirm/dist/PNotifyConfirm.css";
  */
 const userSchema = z
   .object({
-/*     username: z
-      .string()
-      .min(1, { message: "El nombre de usuario es obligatorio" })
-      .max(255, { message: "Máximo 255 caracteres" }), */
+    /*     username: z
+          .string()
+          .min(1, { message: "El nombre de usuario es obligatorio" })
+          .max(255, { message: "Máximo 255 caracteres" }), */
     first_name: z
       .string()
       .min(1, { message: "El nombre es obligatorio" })
@@ -43,19 +43,20 @@ const userSchema = z
       .max(255, { message: "Máximo 255 caracteres" }),
     dni: z
       .string()
-      .min(1, { message: "El DNI es obligatorio" })
-      .max(20, { message: "Máximo 20 caracteres" }),
+      .regex(/^\d{8}[A-Za-z]$/, {
+        message: "El DNI debe tener 8 números seguidos de una letra",
+      }),
     email: z
       .string()
       .email({ message: "El email no es válido" })
       .min(1, { message: "El email es obligatorio" })
       .max(255, { message: "Máximo 255 caracteres" }),
-/*     password: z
-      .string()
-      .min(8, { message: "La contraseña debe tener al menos 8 caracteres" }),
-    password_confirmation: z.string().min(8, {
-      message: "La contraseña de confirmación debe tener al menos 8 caracteres",
-    }), */
+    /*     password: z
+          .string()
+          .min(8, { message: "La contraseña debe tener al menos 8 caracteres" }),
+        password_confirmation: z.string().min(8, {
+          message: "La contraseña de confirmación debe tener al menos 8 caracteres",
+        }), */
     phone: z
       .string()
       .min(1, { message: "El teléfono es obligatorio" })
@@ -180,7 +181,7 @@ const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
 
         {/* Formulario de creación de usuario */}
         <form onSubmit={handleSubmit(handleCreate)} className="space-y-4">
-{/*           <div name="username">
+          {/*           <div name="username">
             <Label className="mb-1">{t("userProfile.username")}</Label>{" "}
             <Input
               type="text"

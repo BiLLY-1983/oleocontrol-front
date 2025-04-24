@@ -24,13 +24,13 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
-/** Definir el esquema de validación con Zod */ 
+/** Definir el esquema de validación con Zod */
 const userSchema = z
   .object({
-/*     username: z
-      .string()
-      .min(1, { message: "El nombre de usuario es obligatorio" })
-      .max(255, { message: "Máximo 255 caracteres" }), */
+    /*     username: z
+          .string()
+          .min(1, { message: "El nombre de usuario es obligatorio" })
+          .max(255, { message: "Máximo 255 caracteres" }), */
     first_name: z
       .string()
       .min(1, { message: "El nombre es obligatorio" })
@@ -41,19 +41,20 @@ const userSchema = z
       .max(255, { message: "Máximo 255 caracteres" }),
     dni: z
       .string()
-      .min(1, { message: "El DNI es obligatorio" })
-      .max(20, { message: "Máximo 20 caracteres" }),
+      .regex(/^\d{8}[A-Za-z]$/, {
+        message: "El DNI debe tener 8 números seguidos de una letra",
+      }),
     email: z
       .string()
       .email({ message: "El email no es válido" })
       .min(1, { message: "El email es obligatorio" })
       .max(255, { message: "Máximo 255 caracteres" }),
-/*     password: z
-      .string()
-      .min(8, { message: "La contraseña debe tener al menos 8 caracteres" }),
-    password_confirmation: z.string().min(8, {
-      message: "La contraseña de confirmación debe tener al menos 8 caracteres",
-    }), */
+    /*     password: z
+          .string()
+          .min(8, { message: "La contraseña debe tener al menos 8 caracteres" }),
+        password_confirmation: z.string().min(8, {
+          message: "La contraseña de confirmación debe tener al menos 8 caracteres",
+        }), */
     phone: z
       .string()
       .min(1, { message: "El teléfono es obligatorio" })
@@ -113,28 +114,28 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
   const handleCreate = async (data) => {
     try {
       data.status = true; // Puedes dejar esto si lo usas en tu backend
-  
+
       // Enviar todos los datos necesarios al backend
       const userResult = await createUser(data);
-  
+
       if (userResult.status !== "success") {
         throw new Error(userResult.message || t("users.errorTitle"));
       }
-  
+
       // Mostrar mensaje de éxito
       success({
         title: t("users.successTitle"),
         text: t("users.successText"),
         delay: 2000,
       });
-  
+
       reset();        // Limpiar el formulario
       setOpen(false); // Cerrar el modal
-  
+
       if (updateUsuarios) {
         updateUsuarios(); // Actualizar lista
       }
-  
+
     } catch (err) {
       // Mostrar mensaje de error
       error({
@@ -144,7 +145,7 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
       });
     }
   };
- 
+
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -166,7 +167,7 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
 
         {/* Formulario de creación de usuario */}
         <form onSubmit={handleSubmit(handleCreate)} className="space-y-4">
-{/*           <div name="username">
+          {/*           <div name="username">
             <Label className="mb-1">{t("userProfile.username")}</Label>{" "}
             <Input
               type="text"

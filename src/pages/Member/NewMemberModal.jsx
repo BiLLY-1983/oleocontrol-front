@@ -25,10 +25,10 @@ import "@pnotify/confirm/dist/PNotifyConfirm.css";
 /** Definir el esquema de validación con Zod */
 const userSchema = z
   .object({
-/*     username: z
-      .string()
-      .min(1, { message: "El nombre de usuario es obligatorio" })
-      .max(255, { message: "Máximo 255 caracteres" }), */
+    /*     username: z
+          .string()
+          .min(1, { message: "El nombre de usuario es obligatorio" })
+          .max(255, { message: "Máximo 255 caracteres" }), */
     first_name: z
       .string()
       .min(1, { message: "El nombre es obligatorio" })
@@ -39,19 +39,20 @@ const userSchema = z
       .max(255, { message: "Máximo 255 caracteres" }),
     dni: z
       .string()
-      .min(1, { message: "El DNI es obligatorio" })
-      .max(20, { message: "Máximo 20 caracteres" }),
+      .regex(/^\d{8}[A-Za-z]$/, {
+        message: "El DNI debe tener 8 números seguidos de una letra",
+      }),
     email: z
       .string()
       .email({ message: "El email no es válido" })
       .min(1, { message: "El email es obligatorio" })
       .max(255, { message: "Máximo 255 caracteres" }),
-/*     password: z
-      .string()
-      .min(8, { message: "La contraseña debe tener al menos 8 caracteres" }),
-    password_confirmation: z.string().min(8, {
-      message: "La contraseña de confirmación debe tener al menos 8 caracteres",
-    }), */
+    /*     password: z
+          .string()
+          .min(8, { message: "La contraseña debe tener al menos 8 caracteres" }),
+        password_confirmation: z.string().min(8, {
+          message: "La contraseña de confirmación debe tener al menos 8 caracteres",
+        }), */
     phone: z
       .string()
       .min(1, { message: "El teléfono es obligatorio" })
@@ -66,26 +67,26 @@ const userSchema = z
     }
   }) */;
 
-  /**
- * Componente modal para crear un nuevo socio.
- *
- * Este modal presenta un formulario validado con Zod que permite registrar
- * un nuevo socio, incluyendo campos como nombre, apellido, email, DNI,
- * contraseña.
- *
- * Al enviarse correctamente, muestra una notificación de éxito, resetea el
- * formulario, cierra el modal y ejecuta una función para actualizar la lista
- * de socios si se ha proporcionado.
- *
- * @component
- * @param {Object} props - Propiedades del componente
- * @param {boolean} props.open - Determina si el modal está abierto
- * @param {Function} props.setOpen - Función para cambiar el estado del modal
- * @param {boolean} props.isDarkMode - Indica si se debe usar el tema oscuro
- * @param {Function} props.updateEmployees - Función para actualizar la lista de socios tras la creación
- *
- * @returns {JSX.Element} Modal con formulario para creación de un nuevo socio
- */
+/**
+* Componente modal para crear un nuevo socio.
+*
+* Este modal presenta un formulario validado con Zod que permite registrar
+* un nuevo socio, incluyendo campos como nombre, apellido, email, DNI,
+* contraseña.
+*
+* Al enviarse correctamente, muestra una notificación de éxito, resetea el
+* formulario, cierra el modal y ejecuta una función para actualizar la lista
+* de socios si se ha proporcionado.
+*
+* @component
+* @param {Object} props - Propiedades del componente
+* @param {boolean} props.open - Determina si el modal está abierto
+* @param {Function} props.setOpen - Función para cambiar el estado del modal
+* @param {boolean} props.isDarkMode - Indica si se debe usar el tema oscuro
+* @param {Function} props.updateEmployees - Función para actualizar la lista de socios tras la creación
+*
+* @returns {JSX.Element} Modal con formulario para creación de un nuevo socio
+*/
 const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
   const { t } = useTranslation(); // Hook para traducciones
   const {
@@ -161,7 +162,7 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
 
         {/* Formulario de creación de usuario */}
         <form onSubmit={handleSubmit(handleCreate)} className="space-y-4">
-{/*           <div name="username">
+          {/*           <div name="username">
             <Label className="mb-1">{t("userProfile.username")}</Label>{" "}
             <Input
               type="text"
@@ -223,7 +224,7 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
             )}
           </div>
 
-{/*           <div name="password">
+          {/*           <div name="password">
             <Label className="mb-1">{t("userProfile.password")}</Label>{" "}
             <Input
               type="password"
@@ -262,9 +263,9 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
             {errors.phone && (
               <p className="text-red-500 text-sm">{errors.phone.message}</p>
             )}
-          </div>     
+          </div>
 
-  
+
           <DialogFooter>
             <DialogClose asChild>
               <Button
