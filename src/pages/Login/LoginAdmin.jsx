@@ -71,8 +71,6 @@ const LoginAdmin = () => {
     try {
       const data = await loginRequest(username, password);
 
-      console.log(data);
-
       if (data.access_token) {
         setUserData({
           token: data.access_token,
