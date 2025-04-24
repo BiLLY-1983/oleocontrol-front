@@ -92,7 +92,7 @@ const LoginMember = () => {
         } else {
           error({
             title: t("auth.login_text_fail"),
-            text: t("auth.login_text_fail_no_member"),
+            text: t("auth.login_title_fail_cred"),
             delay: 2000,
           });
 
@@ -110,7 +110,11 @@ const LoginMember = () => {
         localStorage.setItem("rememberMe", "false");
       }
     } catch (err) {
-      setErr(err.message);
+      error({
+        title: t("auth.login_text_fail"),
+        text: t("auth.login_text_fail_no_admin"),
+        delay: 2000,
+      });
     }
   };
 

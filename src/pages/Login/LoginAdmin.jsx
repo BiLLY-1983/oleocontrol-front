@@ -71,6 +71,8 @@ const LoginAdmin = () => {
     try {
       const data = await loginRequest(username, password);
 
+      console.log(data);
+
       if (data.access_token) {
         setUserData({
           token: data.access_token,
@@ -110,7 +112,11 @@ const LoginAdmin = () => {
         localStorage.setItem("rememberMe", "false");
       }
     } catch (err) {
-      setErr(err.message);
+      error({
+        title: t("auth.login_text_fail"),
+        text: t("auth.login_title_fail_cred"),
+        delay: 2000,
+      });
     }
   };
 

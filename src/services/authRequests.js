@@ -1,19 +1,5 @@
 import api from '@config/api.js';
 
-/* Función para manejar los errores */
-const handleError = (error) => {
-    if (error.response) {
-        // El error proviene del backend
-        return error.response.data.message || 'Error en la solicitud al servidor.';
-    } else if (error.request) {
-        // No se obtuvo respuesta del servidor (problema de red o servidor no disponible)
-        return 'No se pudo contactar con el servidor.';
-    } else {
-        // Problema con la configuración de la solicitud
-        return `Error en la solicitud: ${error.message}`;
-    }
-};
-
 /* Función para hacer peticiones con el token */
 const getAuthHeaders = (token) => ({
     headers: {
@@ -63,3 +49,19 @@ export const updateProfileRequest = async (data, token) => {
         throw new Error(handleError(error));
     }
 };
+
+
+/* Función para manejar los errores */
+const handleError = (error) => {
+    if (error.response) {
+        // El error proviene del backend
+        return error.response.data.message || 'Error en la solicitud al servidor.';
+    } else if (error.request) {
+        // No se obtuvo respuesta del servidor (problema de red o servidor no disponible)
+        return 'No se pudo contactar con el servidor.';
+    } else {
+        // Problema con la configuración de la solicitud
+        return `Error en la solicitud: ${error.message}`;
+    }
+};
+
