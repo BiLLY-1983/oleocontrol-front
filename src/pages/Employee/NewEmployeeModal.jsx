@@ -29,10 +29,10 @@ import "@pnotify/confirm/dist/PNotifyConfirm.css";
  */
 const userSchema = z
   .object({
-    username: z
+/*     username: z
       .string()
       .min(1, { message: "El nombre de usuario es obligatorio" })
-      .max(255, { message: "Máximo 255 caracteres" }),
+      .max(255, { message: "Máximo 255 caracteres" }), */
     first_name: z
       .string()
       .min(1, { message: "El nombre es obligatorio" })
@@ -180,9 +180,8 @@ const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
 
         {/* Formulario de creación de usuario */}
         <form onSubmit={handleSubmit(handleCreate)} className="space-y-4">
-          <div name="username">
+{/*           <div name="username">
             <Label className="mb-1">{t("userProfile.username")}</Label>{" "}
-            {/* Traducción para "Usuario" */}
             <Input
               type="text"
               {...register("username")}
@@ -191,7 +190,7 @@ const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
             {errors.username && (
               <p className="text-red-500 text-sm">{errors.username.message}</p>
             )}
-          </div>
+          </div> */}
 
           <div name="first_name">
             <Label className="mb-1">{t("userProfile.firstName")}</Label>{" "}

@@ -25,10 +25,10 @@ import "@pnotify/confirm/dist/PNotifyConfirm.css";
 /** Definir el esquema de validación con Zod */
 const userSchema = z
   .object({
-    username: z
+/*     username: z
       .string()
       .min(1, { message: "El nombre de usuario es obligatorio" })
-      .max(255, { message: "Máximo 255 caracteres" }),
+      .max(255, { message: "Máximo 255 caracteres" }), */
     first_name: z
       .string()
       .min(1, { message: "El nombre es obligatorio" })
@@ -161,9 +161,8 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
 
         {/* Formulario de creación de usuario */}
         <form onSubmit={handleSubmit(handleCreate)} className="space-y-4">
-          <div name="username">
+{/*           <div name="username">
             <Label className="mb-1">{t("userProfile.username")}</Label>{" "}
-            {/* Traducción para "Usuario" */}
             <Input
               type="text"
               {...register("username")}
@@ -172,11 +171,10 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
             {errors.username && (
               <p className="text-red-500 text-sm">{errors.username.message}</p>
             )}
-          </div>
+          </div> */}
 
           <div name="first_name">
             <Label className="mb-1">{t("userProfile.firstName")}</Label>{" "}
-            {/* Traducción para "Nombre" */}
             <Input
               type="text"
               {...register("first_name")}
@@ -191,7 +189,6 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
 
           <div name="last_name">
             <Label className="mb-1">{t("userProfile.lastName")}</Label>{" "}
-            {/* Traducción para "Apellidos" */}
             <Input
               type="text"
               {...register("last_name")}
@@ -204,7 +201,6 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
 
           <div name="dni">
             <Label className="mb-1">{t("userProfile.dni")}</Label>{" "}
-            {/* Traducción para "DNI" */}
             <Input
               type="text"
               {...register("dni")}
@@ -217,7 +213,6 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
 
           <div name="email">
             <Label className="mb-1">{t("userProfile.email")}</Label>{" "}
-            {/* Traducción para "Email" */}
             <Input
               type="email"
               {...register("email")}

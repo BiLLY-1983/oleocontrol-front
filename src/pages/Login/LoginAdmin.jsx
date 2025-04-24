@@ -144,10 +144,6 @@ const LoginAdmin = () => {
           ( Portal para Administrador )
         </h5>
 
-        {err && (
-          <div className="text-red-500 text-sm text-center mb-4">{err}</div>
-        )}
-
         <form onSubmit={handleSubmit}>
           <div className="mb-4 relative">
             <input
