@@ -241,7 +241,7 @@ const UserProfile = () => {
                     onClick={() => setShowPassword((prev) => !prev)}
                     className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-600"
                   >
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    {showPassword ? <FaEye /> : <FaEyeSlash />}
                   </button>
                 </div>
               </div>
