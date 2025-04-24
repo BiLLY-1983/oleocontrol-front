@@ -11,6 +11,9 @@ import Oils from '@pages/Oil/Oils';
 import Profile from '@pages/Profile/Profile';
 import Error404 from '@pages/Error/Error404';
 
+/**
+ * @description Rutas del dashboard para el rol de administrador.
+ */
 const dashboardRoutesAdmin = [
     { path: "home", element: <HomeAdmin /> },
     { path: "users", element: <Users /> },

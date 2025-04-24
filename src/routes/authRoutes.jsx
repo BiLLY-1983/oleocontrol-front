@@ -6,6 +6,9 @@ import Logout from '@components/Logout';
 import ForgotPassword from '@pages/ForgotPassword/ForgotPassword';
 import Error404 from '@pages/Error/Error404';
 
+/**
+ * @description Rutas de autenticación
+ */
 const authRoutes = [
   { path: '/', element: <LandingPage /> },
   { path: '/login/admin', element: <LoginAdmin /> },

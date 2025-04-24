@@ -32,6 +32,14 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import { SettlementPDF } from "@components/pdf/SettlementPDF";
 import { BiSolidFilePdf } from "react-icons/bi";
 
+/**
+ * Componente que muestra la gestión de liquidaciones del miembro.
+ * Incluye un botón para crear una nueva liquidación,
+ * un filtro de búsqueda, una tabla con las liquidaciones y un gráfico de liquidaciones.
+ * 
+ * @component
+ * @returns {JSX.Element} Componente de liquidaciones del miembro.
+ */
 const SettlementsMember = () => {
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
@@ -50,6 +58,13 @@ const SettlementsMember = () => {
   const [modalNewSettlementOpen, setModalNewSettlementOpen] = useState(false);
   const [modalDeleteSettlementOpen, setModalDeleteSettlementOpen] = useState(false);
 
+  /**
+   * Función para obtener las liquidaciones del socio.
+   * Se llama a la API para obtener las liquidaciones y se actualiza el estado del componente.
+   * 
+   * @async
+   * @function fetchSettlements
+   */
   const fetchSettlements = async () => {
     setLoadingSettlement(true);
     try {
@@ -69,6 +84,13 @@ const SettlementsMember = () => {
     fetchSettlements();
   }, []);
 
+  /**
+   * Función para actualizar las liquidaciones después de crear o eliminar una liquidación.
+   * Se llama a la función fetchSettlements para obtener las liquidaciones actualizadas.
+   * 
+   * @async
+   * @function updateSettlements
+   */
   const updateSettlements = async () => {
     await fetchSettlements();
   };

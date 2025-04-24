@@ -1,5 +1,10 @@
 import api from '@config/api.js';
 
+/**
+ * funciones para manejar las peticiones a la API de los socios
+ * Estas funciones realizan solicitudes HTTP a la API para obtener, crear, actualizar y eliminar socios.
+ */
+
 export const getMembers = async () => {
     try {
         const response = await api.get('/members');

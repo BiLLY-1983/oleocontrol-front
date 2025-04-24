@@ -36,6 +36,21 @@ const settlementSchema = z.object({
   member_id: z.number().min(1, "Debe seleccionar un socio"),
 });
 
+/**
+ * Componente de modales para crear una nueva liquidación.
+ * Este componente permite a los usuarios ingresar los detalles de una nueva liquidación y enviarlos para su procesamiento.
+ * 
+ * @component
+ * 
+ * @param {boolean} open - Indica si el modal está abierto o cerrado.
+ * @param {function} setOpen - Función para cambiar el estado del modal (abierto/cerrado).
+ * @param {boolean} isDarkMode - Indica si el modo oscuro está activado.
+ * @param {function} updateSettlements - Función para actualizar la lista de liquidaciones.
+ * @param {Array} employees - Lista de empleados disponibles.
+ * 
+ * @returns {JSX.Element} - Un modal que permite crear una nueva liquidación.
+ * 
+ */
 const NewSettlementModal = ({
   open,
   setOpen,
@@ -55,7 +70,14 @@ const NewSettlementModal = ({
   const [queryEmployee, setQueryEmployee] = useState("");
   const [members, setMembers] = useState([]);
 
-  // Filtrar miembros según el input
+  /**
+   * Filtra los miembros según la consulta de búsqueda.
+   * Si la consulta está vacía, devuelve todos los miembros.
+   * 
+   * @type {Array} filteredMembers - Lista de miembros filtrados según la consulta.
+   * @param {string} query - Consulta de búsqueda ingresada por el usuario.
+   * @returns {Array} - Miembros filtrados según la consulta.
+   */
   const filteredMembers =
     query === ""
       ? members
@@ -79,7 +101,11 @@ const NewSettlementModal = ({
       settlement_status: "Pendiente",
     },
   });
-
+ 
+  /**
+   * useEffect que se ejecuta al abrir el modal.
+   * Se encarga de restablecer los valores del formulario y de cargar los miembros.
+   */
   useEffect(() => {
     const fetchMembers = async () => {
       const res = await getMembers();
@@ -88,10 +114,21 @@ const NewSettlementModal = ({
     fetchMembers();
   }, []);
 
+  /**
+   * useEffect que se ejecuta al abrir el modal.
+   * Se encarga de restablecer los valores del formulario y de cargar los aceites.
+   */
   useEffect(() => {
     fetchOils();
   }, []);
 
+  /**
+   * Función para cargar los aceites disponibles.
+   * Se encarga de hacer una solicitud a la API para obtener la lista de aceites y almacenarlos en el estado.
+   * 
+   * @async
+   * @function fetchOils
+   */
   const fetchOils = async () => {
     setLoadingOils(true);
     try {
@@ -107,6 +144,13 @@ const NewSettlementModal = ({
     }
   };
 
+  /**
+   * Función para cargar las liquidaciones.
+   * Se encarga de hacer una solicitud a la API para obtener la lista de liquidaciones y almacenarlas en el estado.
+   * 
+   * @async
+   * @function fetchSettlements
+   */
   const handleCreate = async (data) => {
     try {
       const alreadyExists = settlements.some(

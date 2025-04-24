@@ -1,5 +1,10 @@
 import api from '@config/api.js';
 
+/**
+ * Funcionaes para manejar los roles de usuario en la API.
+ * Estas funciones permiten obtener, crear, actualizar y eliminar roles de usuario.
+ */
+
 export const getRoles = async () => {
     try {
         const response = await api.get('/roles');

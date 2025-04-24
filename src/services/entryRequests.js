@@ -1,5 +1,10 @@
 import api from '@config/api.js';
 
+/**
+ * Funciones para manejar las entradas en la API.
+ * Estas funciones permiten obtener, crear, actualizar y eliminar entradas.
+ */
+
 export const getEntries = async () => {
     try {
         const response = await api.get('/entries');

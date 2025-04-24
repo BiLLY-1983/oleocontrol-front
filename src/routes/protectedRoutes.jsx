@@ -4,6 +4,10 @@ import DashboardMember from '@pages/Dashboard/DashboardMember';
 import Profile from '@pages/Profile/Profile';
 import ProtectedRoute from '@components/ProtectedRoute';
 
+/**
+ * Rutas protegidas que requieren autenticación y autorización.
+ * Estas rutas son accesibles solo para usuarios con roles específicos.
+ */
 const protectedRoutes = [
   {
     path: '/dashboard/admin',

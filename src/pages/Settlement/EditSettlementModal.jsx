@@ -31,6 +31,20 @@ const settlementSchema = z.object({
   }),
 });
 
+/**
+ * Componente de modal para editar liquidaciones.
+ * Permite actualizar el estado de una liquidación seleccionada.
+ * 
+ * @component
+ * 
+ * @param {boolean} open - Estado de apertura del modal.
+ * @param {function} setOpen - Función para cambiar el estado de apertura del modal.
+ * @param {boolean} isDarkMode - Estado del modo oscuro.
+ * @param {function} updateSettlements - Función para actualizar la lista de liquidaciones.
+ * @param {object} selectedSettlement - Liquidación seleccionada para editar.
+ * 
+ * @returns {JSX.Element} - Componente de modal para editar liquidaciones.
+ */
 const EditSettlementModal = ({
   open,
   setOpen,

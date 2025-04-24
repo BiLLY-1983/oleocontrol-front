@@ -42,6 +42,20 @@ const userSchema = z
     phone: z.string().max(20, { message: "Máximo 20 caracteres" }),
   });
 
+/**
+ * Componente de modal para editar un usuario.
+ * Este componente permite editar los detalles de un usuario seleccionado.
+ * 
+ * @component
+ * 
+ * @param {boolean} open - Estado que indica si el modal está abierto o cerrado.
+ * @param {function} setOpen - Función para cambiar el estado del modal.
+ * @param {boolean} isDarkMode - Estado que indica si el modo oscuro está activado.
+ * @param {function} updateUsuarios - Función para actualizar la lista de usuarios.
+ * @param {object} usuarioSeleccionado - Usuario seleccionado para editar.
+ * 
+ * @returns {JSX.Element} - El componente del modal de edición de usuario.
+ */
 const EditUserModal = ({
   open,
   setOpen,
@@ -51,6 +65,9 @@ const EditUserModal = ({
 }) => {
   const { t } = useTranslation(); // Hook para traducciones
 
+  /**
+   * useForm hook para manejar el formulario de edición de usuario.
+   */
   const {
     register,
     handleSubmit,
@@ -62,14 +79,29 @@ const EditUserModal = ({
     mode: "all",
   });
 
-  // Actualizar los valores del formulario cuando usuarioSeleccionado cambie
+  /**
+   * useEffect hook para actualizar el formulario cuando cambia el usuario seleccionado.
+   * Si hay un usuario seleccionado, se actualizan los valores del formulario con los datos del usuario.
+   * 
+   * @param {object} usuarioSeleccionado - Usuario seleccionado para editar.
+   * @param {function} reset - Función para restablecer los valores del formulario.
+   */
   useEffect(() => {
     if (usuarioSeleccionado) {
       reset(usuarioSeleccionado); // Actualiza los valores del formulario
     }
   }, [usuarioSeleccionado, reset]);
 
-  // Función para manejar el envío del formulario
+  /**
+   * Función para manejar la edición del usuario.
+   * Se llama cuando se envía el formulario.
+   * 
+   * @param {object} data - Datos del formulario.
+   * @returns {void} - Promesa que se resuelve cuando se completa la edición.
+   * 
+   * @async
+   * @throws {Error} - Si ocurre un error al actualizar el usuario.
+   */
   const handleEdit = async (data) => {
     const result = await updateUser(usuarioSeleccionado.id, data);
 

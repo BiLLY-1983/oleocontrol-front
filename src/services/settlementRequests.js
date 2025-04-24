@@ -1,5 +1,10 @@
 import api from '@config/api.js';
 
+/**
+ * Funciones para manejar las liquidaciones de los usuarios.
+ * Estas funciones permiten realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre las liquidaciones.
+ */
+
 export const getSettlements = async () => {
     try {
         const response = await api.get('/settlements');

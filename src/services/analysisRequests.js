@@ -1,5 +1,10 @@
 import api from '@config/api.js';
 
+/**
+ * Funciones para manejar las peticiones relacionadas con los análisis de los miembros.
+ * Estas funciones interactúan con la API para crear, obtener, actualizar y eliminar análisis.
+ */
+
 export const getAnalyses = async () => {
     try {
         const response = await api.get('/analyses');

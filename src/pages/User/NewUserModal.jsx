@@ -85,6 +85,20 @@ const userSchema = z
     }
   });
 
+/**
+ * Componente de modal para crear un nuevo usuario.
+ * Este componente oermite al usuario ingresar los datos necesarios para crear un nuevo usuario en el sistema.
+ * 
+ * @component
+ * 
+ * @param {Object} props - Props del componente.
+ * @param {boolean} props.open - Estado de apertura del modal.
+ * @param {function} props.setOpen - Función para cambiar el estado de apertura del modal.
+ * @param {boolean} props.isDarkMode - Estado del modo oscuro.
+ * @param {function} props.updateUsuarios - Función para actualizar la lista de usuarios.
+ * 
+ * @returns {JSX.Element} - Componente de modal.
+ */
 const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
   const { t } = useTranslation(); // Hook para traducciones
   const [userType, setUserType] = useState("");
@@ -99,7 +113,13 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
     mode: "all",
   });
 
-  // Obtener departamentos al cargar el modal
+  /**
+   * useEffect para obtener los departamentos al cargar el componente.
+   * Se ejecuta una vez al montar el componente.
+   * 
+   * @function
+   * @returns {void}
+   */
   useEffect(() => {
     const fetchDepartments = async () => {
       const result = await getDepartments();
@@ -110,7 +130,22 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
     fetchDepartments();
   }, []);
 
-  // Función para manejar el envío del formulario
+  /**
+   * Función para manejar la creación de un nuevo usuario.
+   * Se encarga de enviar los datos al backend y manejar la respuesta.
+   * 
+   * @param {string} data.first_name - Nombre del usuario.
+   * @param {string} data.last_name - Apellido del usuario.
+   * @param {string} data.dni - DNI del usuario.
+   * @param {string} data.email - Email del usuario.
+   * @param {string} data.password - Contraseña del usuario.
+   * @param {string} data.phone - Teléfono del usuario.
+   * @param {string} data.user_type - Tipo de usuario.
+   * @param {string} data.department_id - ID del departamento del usuario.
+   * 
+   * @returns {void}
+   * @throws {Error} - Si ocurre un error al crear el usuario.
+   */
   const handleCreate = async (data) => {
     try {
       data.status = true; // Puedes dejar esto si lo usas en tu backend

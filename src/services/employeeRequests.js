@@ -1,5 +1,10 @@
 import api from '@config/api.js';
 
+/**
+ * Funciones para manejar los empleados.
+ * Estas funciones realizan solicitudes HTTP a la API para obtener, crear, actualizar y eliminar empleados.
+ */
+
 export const getEmployees = async () => {
     try {
         const response = await api.get('/employees');

@@ -1,5 +1,10 @@
 import api from '@config/api.js';
 
+/**
+ * Funciones para manejar los departamentos.
+ * Estas funciones interactúan con la API para obtener, crear, actualizar y eliminar departamentos.
+ */
+
 export const getDepartments = async () => {
     try {
         const response = await api.get('/departments');

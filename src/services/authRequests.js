@@ -1,5 +1,10 @@
 import api from '@config/api.js';
 
+/**
+ * Funciones para manejar la autenticación de usuarios.
+ * Estas funciones interactúan con la API para iniciar sesión, cerrar sesión y obtener el perfil del usuario.
+ */
+
 /* Función para hacer peticiones con el token */
 const getAuthHeaders = (token) => ({
     headers: {

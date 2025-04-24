@@ -6,6 +6,9 @@ import OilsMember from '@pages/Oil/OilsMember';
 import Profile from '@pages/Profile/Profile';
 import Error404 from '@pages/Error/Error404';
 
+/**
+ * @description Rutas del dashboard para el rol de socio.
+ */
 const dashboardRoutesMember = [
     { path: "home", element: <HomeMember /> },
     { path: "entries", element: <EntriesMember /> },

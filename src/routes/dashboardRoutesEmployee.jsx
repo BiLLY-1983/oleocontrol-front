@@ -9,6 +9,9 @@ import OilsEmployee from '@pages/Oil/OilsEmployee';
 import Profile from '@pages/Profile/Profile';
 import Error404 from '@pages/Error/Error404';
 
+/**
+ * @description Rutas del dashboard para el rol de empleado.
+ */
 const dashboardRoutesEmployee = [
   { path: "home", element: <HomeEmployee /> },
   { path: "entries", element: <Entries /> },

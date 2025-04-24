@@ -1,5 +1,10 @@
 import api from '@config/api.js';
 
+/**
+ * Funciones para manera las peticiones relacionadas con los usuarios.
+ * Estas funciones permiten realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre los usuarios.
+ */
+
 // Obtener todos los usuarios (solo accesible por admin)
 export const getUsers = async () => {
     try {

@@ -34,6 +34,21 @@ const settlementSchema = z.object({
   oil_id: z.string().min(1, "Debe seleccionar un tipo de aceite"),
 });
 
+/**
+ * Componente de modal para crear una nueva liquidación de aceite.
+ * Permite al usuario seleccionar una fecha, cantidad de aceite, y un tipo de aceite.
+ * Los datos se validan usando Zod y se envían al backend para su creación.
+ *
+ * @component
+ * 
+ * @param {string} memberId - ID del miembro para el cual se crea la liquidación.
+ * @param {boolean} open - Estado de apertura del modal.
+ * @param {function} setOpen - Función para cambiar el estado de apertura del modal.
+ * @param {boolean} isDarkMode - Estado del modo oscuro.
+ * @param {function} updateSettlements - Función para actualizar la lista de liquidaciones.
+ * 
+ * @returns {JSX.Element} Modal para crear una nueva liquidación de aceite.
+ */
 const NewSettlementAvailableModal = ({
   memberId,
   open,
@@ -49,6 +64,9 @@ const NewSettlementAvailableModal = ({
   const [loading, setLoading] = useState(true);
   const [loadingOils, setLoadingOils] = useState(true);
 
+  /**
+   * Hook de formulario usando react-hook-form para gestionar la validación y los envíos.
+   */
   const {
     register,
     handleSubmit,
@@ -65,6 +83,13 @@ const NewSettlementAvailableModal = ({
     },
   });
 
+  /**
+   * Función para obtener los aceites disponibles desde el backend.
+   * Actualiza el estado de los aceites y maneja errores de carga.
+   * 
+   * @async
+   * @function fetchOils
+   */
   const fetchOils = async () => {
     setLoadingOils(true);
     try {
@@ -80,13 +105,20 @@ const NewSettlementAvailableModal = ({
     }
   };
 
+  /**
+   * Función para obtener las liquidaciones del miembro desde el backend.
+   * Actualiza el estado de las liquidaciones y maneja errores de carga.
+   * 
+   * @async
+   * @function fetchSettlements
+   */
   const fetchSettlements = async () => {
     setLoading(true);
     try {
       const response = await getSettlementsByMember(memberId);
       if (response.status === "success") {
         setSettlements(response.data);
-      } 
+      }
     } catch (error) {
       console.error("Error fetching settlements:", error);
       setErrorerrorSettlement("Error al cargar liquidaciones.");
@@ -100,6 +132,13 @@ const NewSettlementAvailableModal = ({
     fetchSettlements();
   }, []);
 
+  /**
+   * Función para manejar la creación de una nueva liquidación.
+   * Valida si ya existe una liquidación pendiente del mismo tipo de aceite.
+   * 
+   * @async
+   * @function handleCreate
+   */
   const handleCreate = async (data) => {
     try {
       data.member_id = memberId;

@@ -33,6 +33,23 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 // Registrar elementos necesarios para Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+/**
+ * Componente principal para la gestión de usuarios.
+ * Permite listar, filtrar, agregar, editar y eliminar usuarios.
+ * Incluye funcionalidades de paginación y manejo de estado de carga.
+ * 
+ * @component
+ * 
+ * @returns {JSX.Element} Componente de gestión de usuarios.
+ * 
+ * @features
+ * - Listar usuarios con paginación y filtrado.
+ * - Manejar estado de carga y errores.
+ * - Permitir agregar, editar y eliminar usuarios.
+ * - Implementar gráficos para visualizar datos de usuarios.
+ * - Integrar nuevas funcionalidades de búsqueda avanzada.
+ * - Permitir búsqueda por múltiples criterios.
+ */
 const Users = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
@@ -49,6 +66,13 @@ const Users = () => {
   const [modalEditUserOpen, setModalEditUserOpen] = useState(false);
   const [modalDeleteUserOpen, setModalDeleteUserOpen] = useState(false);
 
+  /**
+   * Función para obtener la lista de usuarios desde la API.
+   * Maneja el estado de carga y errores durante la solicitud.
+   * 
+   * @async
+   * @function fetchUsuarios
+   */
   const fetchUsuarios = async () => {
     setLoading(true);
     setError(null);
@@ -73,11 +97,24 @@ const Users = () => {
   const activeCount = usuarios.filter((user) => user.status === 1).length;
   const inactiveCount = usuarios.filter((user) => user.status !== 1).length;
 
-  // Función para actualizar la lista de usuarios
+  /**
+   * Función para actualizar la lista de usuarios después de realizar cambios.
+   * Se llama después de agregar, editar o eliminar un usuario.
+   * 
+   * @async
+   * @function updateUsuarios
+   */
   const updateUsuarios = async () => {
     await fetchUsuarios(); // Vuelve a cargar la lista de usuarios
   };
 
+  /**
+   * Función para filtrar los usuarios según el criterio de búsqueda.
+   * Permite buscar por nombre, apellido, email, teléfono y estado.
+   * 
+   * @function filterUsuarios
+   * @param {string} filtro - Criterio de búsqueda.
+   */
   const usuariosFiltrados = usuarios.filter(
     (usuario) =>
       usuario.first_name.toLowerCase().includes(filtro.toLowerCase()) ||

@@ -1,5 +1,10 @@
 import api from '@config/api.js';
 
+/**
+ * Funciones para manejar los aceites (oils) en la API.
+ * Estas funciones realizan operaciones CRUD (Crear, Leer, Actualizar, Eliminar) para los aceites.
+ */
+
 export const getOils = async () => {
     try {
         const response = await api.get('/oils');

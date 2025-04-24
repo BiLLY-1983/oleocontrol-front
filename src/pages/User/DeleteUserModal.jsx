@@ -17,6 +17,21 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
+/**
+ * Componente de modal para eliminar un usuario.
+ * Este componente permite al usuario confirmar la eliminación de un usuario seleccionado.
+ * Al confirmar, se realiza una solicitud para eliminar el usuario y se muestra un mensaje de éxito o error.
+ * 
+ * @component
+ * 
+ * @param {boolean} open - Estado que indica si el modal está abierto o cerrado.
+ * @param {function} setOpen - Función para cambiar el estado del modal.
+ * @param {boolean} isDarkMode - Estado que indica si el modo oscuro está activado.
+ * @param {function} updateUsuarios - Función para actualizar la lista de usuarios después de eliminar uno.
+ * @param {object} usuarioSeleccionado - Objeto que contiene la información del usuario seleccionado para eliminar.
+ * 
+ * @returns {JSX.Element} - Un modal que permite al usuario confirmar la eliminación de un usuario.
+ */
 const DeleteUserModal = ({
   open,
   setOpen,
@@ -26,6 +41,13 @@ const DeleteUserModal = ({
 }) => {
   const { t } = useTranslation(); // Hook para traducciones
 
+  /**
+   * Función que maneja la eliminación del usuario seleccionado.
+   * Realiza una solicitud para eliminar el usuario y muestra un mensaje de éxito o error.
+   * 
+   * @async
+   * @function handleDelete
+   */
   const handleDelete = async () => {
     try {
       const result = await deleteUser(usuarioSeleccionado.id);
