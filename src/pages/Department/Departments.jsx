@@ -94,9 +94,10 @@ const Departments = () => {
     try {
       const response = await getEmployees(`/employees`);
       if (response.status === "success") {
-        const filteredEmployees = response.data.filter(
-          (employee) => employee.department?.id === departmentId
-        );
+        const filteredEmployees = response.data
+          .filter((employee) => employee.department?.id === departmentId)
+          .sort((a, b) => a.user.username.localeCompare(b.user.username)); 
+
         setEmployees(filteredEmployees);
       } else {
         setEmployees([]);

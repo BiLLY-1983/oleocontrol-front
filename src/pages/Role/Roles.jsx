@@ -93,9 +93,12 @@ const Roles = () => {
     try {
       const response = await getUsers(`/users`);
       if (response.status === "success") {
-        const filteredUsers = response.data.filter((user) =>
-          user.roles.some((role) => role.id === roleId)
-        );
+        const filteredUsers = response.data
+          .filter((user) =>
+            user.roles.some((role) => role.id === roleId)
+          )
+          .sort((a, b) => a.username.localeCompare(b.username)); // Orden ascendente por username
+
         setUsers(filteredUsers);
       } else {
         setUsers([]);
@@ -108,7 +111,7 @@ const Roles = () => {
     }
   };
 
-  
+
   useEffect(() => {
     fetchRolesAndCounts();
   }, []);
@@ -188,7 +191,7 @@ const Roles = () => {
               >
                 <h2 className="text-xl font-semibold">{role.label}</h2>
                 <p className="text-3xl font-bold">{role.userCount}</p>
-           
+
               </Card>
             ))}
           </div>
@@ -199,8 +202,8 @@ const Roles = () => {
               <Doughnut
                 data={chartData}
                 options={{
-                  responsive: true, 
-                  maintainAspectRatio: false, 
+                  responsive: true,
+                  maintainAspectRatio: false,
                   plugins: {
                     legend: {
                       position: "bottom",
