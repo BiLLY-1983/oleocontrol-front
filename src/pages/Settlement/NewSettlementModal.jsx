@@ -155,8 +155,9 @@ const NewSettlementModal = ({
   const fetchSettlements = async () => {
     const response = await getSettlements();
     if (response.status === "success") {
-      setSettlements(response.data);
+      return response.data;
     }
+    return [];
   };
 
   useEffect(() => {
@@ -172,7 +173,7 @@ const NewSettlementModal = ({
    */
   const handleCreate = async (data) => {
     try {
-      await fetchSettlements();
+      const currentSettlements = await fetchSettlements();
 
       const alreadyExists = settlements.some(
         (s) =>
