@@ -145,7 +145,8 @@
     "delete": "Delete",
     "userType": "User Type",
     "member": "Member",
-    "employee": "Employee"
+    "employee": "Employee",
+    "searchPlaceholder": "Search user..."
   },
   "validation": {
     "usernameRequired": "The username is required.",
@@ -186,13 +187,15 @@
     "editMemberTitle": "Edit member {{username}} ({{firstName}} {{lastName}})",
     "deleteMemberTitle": "Delete member {{username}} ({{firstName}} {{lastName}})",
     "createMember": "Create Member",
-    "editMember": "Edit Member"
+    "editMember": "Edit Member",
+    "searchPlaceholder": "Search member..."
   },
   "employees": {
     "newEmployee": "New Employee",
     "editEmployeeTitle": "Edit employee {{username}} ({{firstName}} {{lastName}})",
     "deleteEmployeeTitle": "Delete employee {{username}} ({{firstName}} {{lastName}})",
-    "createEmployee": "Crear Employee"
+    "createEmployee": "Crear Employee",
+    "searchPlaceholder": "Search employee..."
   },
   "entries": {
     "management": "Entries Management",
@@ -221,7 +224,8 @@
     "deleteEntryDescription": "Are you sure you want to delete this entry? This action cannot be undone.",
     "successDeleteTitle": "Entry deleted successfully.",
     "successDeleteText": "The entry has been deleted successfully.",
-    "errorDeleteTitle": "Error deleting entry"
+    "errorDeleteTitle": "Error deleting entry",
+    "searchPlaceholder": "Search entry..."
   },
   "analyses": {
     "management": "Analysis Management",
@@ -236,7 +240,8 @@
     "loadingAnalysis": "Loading analysis",
     "loadingAnalysisDescription": "Please wait while the analysis information is being loaded.",
     "successEditTitle": "Analysis updated",
-    "successEditText": "The analysis was successfully updated"
+    "successEditText": "The analysis was successfully updated",
+    "searchPlaceholder": "Search analysis..."
   },
   "analysis": {
     "date": "Date",
@@ -276,7 +281,8 @@
     "successDeleteTitle": "Settlement deleted",
     "successDeleteText": "The settlement has been successfully deleted.",
     "errorDeleteTitle": "Error deleting settlement",
-    "errorDeleteText": "There was an error while trying to delete the settlement."
+    "errorDeleteText": "There was an error while trying to delete the settlement.",
+    "searchPlaceholder": "Search settlement..."
   },
   "oils": {
     "newOil": "New olive oil",

@@ -145,7 +145,8 @@
     "delete": "Eliminar",
     "userType": "Tipo de Usuario",
     "member": "Socio",
-    "employee": "Empleado"
+    "employee": "Empleado",
+    "searchPlaceholder": "Buscar usuario..."
   },
   "validation": {
     "usernameRequired": "El nombre de usuario es obligatorio.",
@@ -186,13 +187,15 @@
     "editMemberTitle": "Editar socio {{username}} ({{firstName}} {{lastName}})",
     "deleteMemberTitle": "Eliminar socio {{username}} ({{firstName}} {{lastName}})",
     "createMember": "Crear Socio",
-    "editMember": "Editar Socio"
+    "editMember": "Editar Socio",
+    "searchPlaceholder": "Buscar socio..."
   },
   "employees": {
     "newEmployee": "Nuevo Empleado",
     "editEmployeeTitle": "Editar empleado {{username}} ({{firstName}} {{lastName}})",
     "deleteEmployeeTitle": "Eliminar empleado {{username}} ({{firstName}} {{lastName}})",
-    "createEmployee": "Crear Empleado"
+    "createEmployee": "Crear Empleado",
+    "searchPlaceholder": "Buscar empleado..."
   },
   "entries": {
     "management": "Gestión de Entradas",
@@ -221,7 +224,8 @@
     "deleteEntryDescription": "¿Estás seguro de que deseas eliminar esta entrada? Esta acción no se puede deshacer.",
     "successDeleteTitle": "Entrada eliminada con éxito",
     "successDeleteText": "La entrada ha sido eliminada correctamente",
-    "errorDeleteTitle": "Error al eliminar la entrada"
+    "errorDeleteTitle": "Error al eliminar la entrada",
+    "searchPlaceholder": "Buscar entrada..."
   },
   "analyses": {
     "management": "Gestión de análisis",
@@ -236,7 +240,8 @@
     "loadingAnalysis": "Cargando análisis",
     "loadingAnalysisDescription": "Espere mientras se carga la información del análisis.",
     "successEditTitle": "Análisis editado con éxito",
-    "successEditText": "El análisis fue actualizado correctamente"
+    "successEditText": "El análisis fue actualizado correctamente",
+    "searchPlaceholder": "Buscar analysis..."
   },
   "analysis": {
     "date": "Fecha",
@@ -276,7 +281,8 @@
     "successDeleteTitle": "Liquidación eliminada",
     "successDeleteText": "La liquidación ha sido eliminada correctamente.",
     "errorDeleteTitle": "Error al eliminar la liquidación",
-    "errorDeleteText": "Ocurrió un error al intentar eliminar la liquidación."
+    "errorDeleteText": "Ocurrió un error al intentar eliminar la liquidación.",
+    "searchPlaceholder": "Buscar liquidación..."
   },
   "oils": {
     "newOil": "Nuevo tipo de aceite",

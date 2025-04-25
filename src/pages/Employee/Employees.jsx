@@ -327,7 +327,7 @@ const Employees = () => {
 
       <div className="flex flex-col md:flex-row justify-between items-center gap-4">
         <Input
-          placeholder="Buscar empleados..."
+          placeholder={t("employees.searchPlaceholder")}
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           className="w-full md:w-1/2"

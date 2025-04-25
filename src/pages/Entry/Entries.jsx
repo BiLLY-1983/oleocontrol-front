@@ -328,7 +328,7 @@ const Entries = () => {
       {/* Filtro y Selector */}
       <div className="flex flex-col md:flex-row justify-between items-center gap-4">
         <Input
-          placeholder="Buscar entradas..."
+          placeholder={t("entries.searchPlaceholder")}
           value={filtro}
           onChange={(e) => setFiltro(e.target.value)}
           className={clsx("w-full md:w-1/2")}

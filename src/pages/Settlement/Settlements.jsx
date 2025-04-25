@@ -285,7 +285,7 @@ const Settlements = () => {
       {/* Filtro y Selector */}
       <div className="flex flex-col md:flex-row justify-between items-center gap-4">
         <Input
-          placeholder="Buscar liquidaciones..."
+          placeholder={t("settlements.searchPlaceholder")}
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           className="w-full md:w-1/2"
