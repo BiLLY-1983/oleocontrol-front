@@ -241,7 +241,7 @@
     "loadingAnalysisDescription": "Espere mientras se carga la información del análisis.",
     "successEditTitle": "Análisis editado con éxito",
     "successEditText": "El análisis fue actualizado correctamente",
-    "searchPlaceholder": "Buscar analysis..."
+    "searchPlaceholder": "Buscar análisis..."
   },
   "analysis": {
     "date": "Fecha",
