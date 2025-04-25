@@ -1,152 +1,79 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "@context/UserContext";
-import ChartOils from "@components/Charts/ChartsOils";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@components/ui/dialog";
-import clsx from "clsx";
+import StatCard from "@components/StatCard";
+import ChartOilInventory from "@components/Charts/ChartOilInventory";
+import { getOilInventoriesForMember } from "@services/oilInventoryRequests";
+import { getOilSettlementsForMember } from "@services/oilSettlementRequests";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useTheme } from "@context/ThemeContext";
 import { useTranslation } from "react-i18next";
-import { getAnalysesForMember } from "@services/analysisRequests";
-import { getOils } from "@services/oilRequests";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Card } from "@components/ui/card";
+import clsx from "clsx";
 
 /**
- * Componente OilsMember que muestra un resumen de los aceites y su cantidad
- * obtenida a partir de los análisis del miembro.
- * 
+ * Componente OilMember
+ *
+ * Página del Dashboard de aceite para un miembro.
+ *
+ * Muestra estadísticas y gráficas relevantes para el miembro del sistema,
+ * como inventarios de aceite, liquidaciones y la cantidad de aceite almacenado.
+ *
  * @component
- * 
- * @returns {JSX.Element} Componente OilsMember.
- * @description Este componente muestra un resumen de los aceites y su cantidad
+ * @returns {JSX.Element} El componente OilMember renderizado.
  */
-const OilsMember = () => {
+const OilMember = () => {
   const { theme } = useTheme();
-  const { t } = useTranslation();
   const isDarkMode = theme === "dark";
-
+  const { t } = useTranslation();
   const { userData } = useContext(UserContext);
+
   const memberId = userData?.user?.member?.id;
 
-  const [analyses, setAnalyses] = useState([]);
-  const [oils, setOils] = useState([]);
-  const [oilQuantities, setOilQuantities] = useState([]);
-  const [totalOil, setTotalOil] = useState(0);
-  const [oilData, setOilData] = useState(null);
+  const [oilsInventories, setOilsInventories] = useState([]);
+  const [oilSettlements, setOilSettlements] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [loadingAnalyses, setLoadingAnalyses] = useState(true);
-  const [loadingOils, setLoadingOils] = useState(true);
-  const [errorAnalyses, setErrorAnalyses] = useState(null);
-  const [errorOils, setErrorOils] = useState(null);
-  const [selectedOil, setSelectedOil] = useState(null);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-  const fetchAnalyses = async () => {
-    setLoadingAnalyses(true);
-    setErrorAnalyses(null);
-    try {
-      const response = await getAnalysesForMember(memberId);
-      if (response.status === "success") {
-        setAnalyses(response.data);
-      } else {
-        setErrorAnalyses("No se pudieron obtener los análisis.");
-      }
-    } catch (error) {
-      setErrorAnalyses("Hubo un error al cargar los análisis.");
-    } finally {
-      setLoadingAnalyses(false);
-    }
-  };
-
-  const fetchOils = async () => {
-    setLoadingOils(true);
-    setErrorOils(null);
-    try {
-      const response = await getOils();
-      if (response.status === "success") {
-        setOils(response.data);
-      } else {
-        setErrorOils("Hubo un error al cargar los aceites.");
-      }
-    } catch (error) {
-      setErrorOils("Hubo un error al cargar los aceites.");
-    } finally {
-      setLoadingOils(false);
-    }
-  };
-
+  /**
+   * useEffect que se ejecuta al montarse el componente o cuando cambia el `memberId`.
+   * Realiza las solicitudes para obtener los datos de los inventarios de aceite y liquidaciones.
+   */
   useEffect(() => {
-    fetchOils();
-    fetchAnalyses();
-  }, []);
-
-  useEffect(() => {
-    if (!oils || !analyses || oils.length === 0 || analyses.length === 0) {
-      return;
-    }
-
-    const oilTotals = oils.map((oil) => ({
-      id: oil.id,
-      name: oil.name,
-      quantity: 0,
-      price: oil.price,
-      description: oil.description,
-    }));
-
-    analyses.forEach((analysis) => {
-      if (analysis.oil && analysis.oil.name && analysis.yield) {
-        const oliveQuantity = analysis.entry?.olive_quantity ?? 0;
-        const yieldRate = analysis.yield / 100;
-        const oilQuantity = oliveQuantity * yieldRate;
-
-        const oil = oilTotals.find((o) => o.name === analysis.oil.name);
-        if (oil) {
-          oil.quantity += oilQuantity;
-        }
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const [oilsInventoriesRes, oilSettlementsRes] = await Promise.all([
+          getOilInventoriesForMember(memberId),
+          getOilSettlementsForMember(memberId),
+        ]);
+        setOilsInventories(oilsInventoriesRes.data || []);
+        setOilSettlements(oilSettlementsRes.data || []);
+      } catch (err) {
+        console.error("Error cargando datos:", err);
+      } finally {
+        setLoading(false);
       }
-    });
-
-    setOilQuantities(oilTotals);
-
-    const total = oilTotals.reduce((sum, oil) => sum + oil.quantity, 0);
-    setTotalOil(total);
-
-    const chartData = {
-      labels: oilTotals.map((oil) => oil.name),
-      datasets: [
-        {
-          label: t("analysis.oilQuantity"),
-          data: oilTotals.map((oil) => oil.quantity),
-          backgroundColor: [
-            "#70AD47",
-            "#A076C4",
-            "#4DCBC4",
-            "#ED7D31",
-            "#8395A7",
-            "#5A9BD5",
-          ],
-          hoverBackgroundColor: [
-            "#609D37",
-            "#9066B4",
-            "#3DBABA",
-            "#DD6D21",
-            "#738597",
-            "#4A8BC5",
-          ],
-        },
-      ],
     };
 
-    setOilData(chartData);
-  }, [analyses, oils, t]);
+    if (memberId) fetchData();
+  }, [memberId]);
 
-  const handleCardClick = (oil) => {
-    setSelectedOil(oil);
-    setIsDialogOpen(true);
+  // Agrupar los datos por tipo de aceite
+  const oilInventoryByType = oilsInventories.reduce((acc, oilInventory) => {
+    const { oil_name, total_quantity } = oilInventory;
+    acc[oil_name] = (acc[oil_name] || 0) + total_quantity;
+    return acc;
+  }, {});
+
+  const oilSettlementByType = oilSettlements.reduce((acc, oilSettlement) => {
+    const { oil_name, total_amount } = oilSettlement;
+    acc[oil_name] = (acc[oil_name] || 0) + total_amount;
+    return acc;
+  }, {});
+
+  // Calcular el aceite disponible (inventario - liquidación)
+  const calculateAvailableOil = (oilName) => {
+    const inventory = oilInventoryByType[oilName] || 0;
+    const settlement = oilSettlementByType[oilName] || 0;
+    return inventory - settlement;
   };
 
   return (
@@ -160,83 +87,96 @@ const OilsMember = () => {
 
       {/* Cards de resumen por tipo de aceite */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-        {loadingAnalyses || loadingOils ? (
+        {loading ? (
           <>
             <Skeleton className="h-24 w-full" />
             <Skeleton className="h-24 w-full" />
           </>
-        ) : errorAnalyses || errorOils ? (
-          <div className="text-red-600">{errorAnalyses || errorOils}</div>
         ) : (
           <>
-            {/* Card de total general */}
-            <Card
-              className={clsx(
-                "p-6 rounded-lg shadow",
-                isDarkMode ? "bg-dark-700" : "bg-olive-100"
-              )}
-            >
-              <h2 className="text-xl font-semibold">
-                {t("analysis.oilQuantity")}
-              </h2>
-              <p className="text-3xl font-bold">{`${(totalOil / 1000).toFixed(
-                2
-              )} Tn`}</p>
-            </Card>
-            {/* Cards por tipo */}
-            {oilQuantities.map((oil) => (
-              <Card
-                key={oil.id}
-                onClick={() => handleCardClick(oil)}
-                className={clsx(
-                  "p-4 rounded-lg shadow transition-transform transform relative cursor-pointer hover:scale-[1.02]",
-                  isDarkMode
-                    ? "bg-dark-700 text-dark-50"
-                    : "bg-olive-100 text-olive-800"
-                )}
-              >
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h2 className="text-xl font-semibold">{oil.name}</h2>
-                    <p className="text-3xl font-bold">
-                      {(oil.quantity / 1000).toFixed(2)} Tn
-                    </p>
-                    {oil.price && (
-                      <p className="text-sm mt-5">{oil.price} €/L</p>
-                    )}
-                  </div>
-                </div>
-              </Card>
+            {/* Card de disponibilidad de aceites */}
+            {Object.keys(oilInventoryByType).map((oilName) => {
+              const availableOil = calculateAvailableOil(oilName);
+              return (
+                <StatCard
+                  key={oilName}
+                  title={`${oilName}`}
+                  subtext={`${t("home.available_oil")}`}
+                  value={t("home.liters", {
+                    value: availableOil.toLocaleString("es-ES", {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    }),
+                  })}
+                />
+              );
+            })}
+
+            {/* Card de inventarios */}
+            {Object.keys(oilInventoryByType).map((oilName) => (
+              <StatCard
+                key={oilName}
+                title={`${oilName}`}
+                subtext={`${t("home.oil_production")}`}
+                value={t("home.liters", {
+                  value: oilInventoryByType[oilName].toLocaleString("es-ES", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }),
+                })}
+              />
+            ))}
+
+            {/* Card de liquidaciones */}
+            {Object.keys(oilSettlementByType).map((oilName) => (
+              <StatCard
+                key={oilName}
+                title={`${oilName}`}
+                subtext={`${t("home.oilSettlements")}`}
+                value={t("home.euros", {
+                  value: oilSettlementByType[oilName].toLocaleString("es-ES", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }),
+                })}
+              />
             ))}
           </>
         )}
       </div>
 
-      {/* Gráfico */}
-      {oilData && (
-        <ChartOils oils={oils} analyses={analyses} chartData={oilData} />
-      )}
+      {/* Contenedor para los gráficos con grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Gráfico de Inventario de Aceites */}
+        <div className="w-full">
+          <h2 className="text-xl font-semibold text-olive-800 dark:text-white mb-4">
+            {t("home.oilInventory")}
+          </h2>
+          <ChartOilInventory
+            oils={Object.entries(oilInventoryByType).map(
+              ([name, quantity]) => ({
+                oil_name: name,
+                total_quantity: quantity,
+              })
+            )}
+          />
+        </div>
 
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent
-          className={clsx(
-            "max-h-[50vh] overflow-y-auto",
-            isDarkMode ? "bg-dark-700 text-dark-50" : "bg-olive-50 text-olive-800"
-          )}
-        >
-          <DialogHeader>
-            <DialogTitle>{selectedOil?.name}</DialogTitle>
-          </DialogHeader>
-          <p className="mt-2 text-sm">{selectedOil?.description}</p>
-          {selectedOil?.price && (
-            <p className="mt-4 text-sm">
-              <strong>Precio:</strong> {selectedOil.price} €/L
-            </p>
-          )}
-        </DialogContent>
-      </Dialog>
+        {/* Gráfico de Liquidaciones de Aceites */}
+        <div className="w-full">
+          <h2 className="text-xl font-semibold text-olive-800 dark:text-white mb-4">
+            {t("home.oilSettlements")}
+          </h2>
+          <ChartOilInventory
+            oils={Object.entries(oilSettlementByType).map(([name, amount]) => ({
+              oil_name: name,
+              total_amount: amount,
+            }))}
+          />
+        </div>
+      </div>
     </div>
   );
 };
 
-export default OilsMember;
+export default OilMember;

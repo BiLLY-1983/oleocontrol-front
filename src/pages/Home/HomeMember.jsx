@@ -12,6 +12,8 @@ import { getEntriesForMember } from "@services/entryRequests";
 import { getAnalysesForMember } from "@services/analysisRequests";
 import { getSettlementsByMember } from "@services/settlementRequests";
 import { getOils } from "@services/oilRequests";
+import { getOilInventoriesForMember } from "@services/oilInventoryRequests";
+import { getOilSettlementsForMember } from "@services/oilSettlementRequests";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Chart as ChartJS,
@@ -34,12 +36,12 @@ ChartJS.register(
 
 /**
  * Componente HomeMember
- * 
+ *
  * Página de inicio del Dashboard.
- * 
- * Muestra estadísticas y gráficas relevantes para el socios del sistema: 
+ *
+ * Muestra estadísticas y gráficas relevantes para el socios del sistema:
  * entradas de aceituna, producción de aceite, rendimiento medio y liquidaciones pendientes.
- * 
+ *
  * @component
  * @returns {JSX.Element} El componente HomeAdmin renderizado.
  */
@@ -55,10 +57,11 @@ const HomeMember = () => {
   const [analyses, setAnalyses] = useState([]);
   const [settlements, setSettlements] = useState([]);
   const [oils, setOils] = useState([]);
+  const [oilsInventories, setOilsInventories] = useState([]);
+  const [oilSettlements, setOilSettlements] = useState([]);
 
   const [loading, setLoading] = useState(true);
 
-  
   /**
    * useEffect que se ejecuta al montarse el componente o cuando cambia el `memberId`.
    * Realiza las solicitudes para obtener los datos de las entradas, análisis, liquidaciones y aceites.
@@ -67,17 +70,27 @@ const HomeMember = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const [entriesRes, analysesRes, settlementsRes, oilsRes] =
-          await Promise.all([
-            getEntriesForMember(memberId),
-            getAnalysesForMember(memberId),
-            getSettlementsByMember(memberId),
-            getOils(),
-          ]);
+        const [
+          entriesRes,
+          analysesRes,
+          settlementsRes,
+          oilsRes,
+          oilsInventoriesRes,
+          oilSettlementsRes,
+        ] = await Promise.all([
+          getEntriesForMember(memberId),
+          getAnalysesForMember(memberId),
+          getSettlementsByMember(memberId),
+          getOils(),
+          getOilInventoriesForMember(memberId),
+          getOilSettlementsForMember(memberId),
+        ]);
         setEntries(entriesRes.data || []);
         setAnalyses(analysesRes.data || []);
         setSettlements(settlementsRes.data || []);
         setOils(oilsRes.data || []);
+        setOilsInventories(oilsInventoriesRes.data || []);
+        setOilSettlements(oilSettlementsRes.data || []);
       } catch (err) {
         console.error("Error cargando datos:", err);
       } finally {
@@ -144,16 +157,29 @@ const HomeMember = () => {
     0
   );
 
-  const barData = {
-    labels: oils.map((o) => o.name),
-    datasets: [
-      {
-        label: "Precio por litro (€)",
-        data: oils.map((o) => o.price),
-        backgroundColor: "#10b981",
-      },
-    ],
-  };
+  const oilInventoryByType = oilsInventories.reduce((acc, oilInventory) => {
+    const { oil_name, total_quantity } = oilInventory;
+
+    if (acc[oil_name]) {
+      acc[oil_name] += total_quantity;
+    } else {
+      acc[oil_name] = total_quantity;
+    }
+
+    return acc;
+  }, {});
+
+  const oilSettlementByType = oilSettlements.reduce((acc, oilSettlement) => {
+    const { oil_name, total_amount } = oilSettlement;
+
+    if (acc[oil_name]) {
+      acc[oil_name] += total_amount;
+    } else {
+      acc[oil_name] = total_amount;
+    }
+
+    return acc;
+  }, {});
 
   return (
     <div className="p-4 md:p-6 space-y-6">
@@ -169,49 +195,95 @@ const HomeMember = () => {
         </div>
       ) : (
         <>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <StatCard
+            title={t("home.entries")}
+            value={t("home.tons", {
+              value: (totalKilos / 1000).toFixed(2),
+            })}
+          />
+          <StatCard
+            title={t("home.oilProduced")}
+            value={t("home.liters", {
+              value: totalLitros.toLocaleString("es-ES", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              }),
+            })}
+            subtext={t("home.byType")}
+          />
+          <StatCard
+            title={t("home.pendingSettlements")}
+            value={totalPending}
+            subtext={t("home.euros", {
+              value: totalPendingAmount.toLocaleString("es-ES", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              }),
+            })}
+          />
+        </div>
+
+        {/* Tarjetas de Oil Inventory */}
+        <div className="mt-6">
+          <h2 className="text-xl font-semibold text-olive-800 dark:text-white mb-4">
+            {t("home.oilInventory")}
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <StatCard
-              title={t("home.entries")}
-              value={t("home.tons", {
-                value: (totalKilos / 1000).toFixed(2),
-              })}
-            />
-            <StatCard
-              title={t("home.oilProduced")}
-              value={t("home.liters", {
-                value: totalLitros.toLocaleString("es-ES", {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                }),
-              })}
-              subtext={t("home.byType")}
-            />
-            <StatCard
-              title={t("home.pendingSettlements")}
-              value={totalPending}
-              subtext={t("home.euros", {
-                value: totalPendingAmount.toLocaleString("es-ES", {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                }),
-              })}
-            />
+            {Object.keys(oilInventoryByType).map((oilName) => (
+              <StatCard
+                key={oilName}
+                title={oilName}
+                value={t("home.liters", {
+                  value:
+                    oilInventoryByType[oilName] &&
+                    oilInventoryByType[oilName].toLocaleString("es-ES", {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    }),
+                })}
+              />
+            ))}
           </div>
+        </div>
 
-          <ChartEntries entries={entries} />
-
-          <div className="flex flex-col md:flex-row gap-4 w-full">
-            <div className="w-full md:w-1/3">
-              <ChartOilsByType oils={oils} oilByType={oilByType} />
-            </div>
-            <div className="w-full md:w-1/3">
-              <ChartSettlementsHome settlements={settlements} />
-            </div>
-            <div className="w-full md:w-1/3">
-              <ChartOilPricesBar oils={oils} />
-            </div>
+        {/* Tarjetas de Oil Settlement */}
+        <div className="mt-6">
+          <h2 className="text-xl font-semibold text-olive-800 dark:text-white mb-4">
+            {t("home.oilSettlements")}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {Object.keys(oilSettlementByType).map((oilName) => (
+              <StatCard
+                key={oilName}
+                title={oilName}
+                value={t("home.liters", {
+                  value:
+                    oilSettlementByType[oilName] &&
+                    oilSettlementByType[oilName].toLocaleString("es-ES", {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    }),
+                })}
+              />
+            ))}
           </div>
-        </>
+        </div>
+
+        <ChartEntries entries={entries} />
+
+        <div className="flex flex-col md:flex-row gap-4 w-full">
+          <div className="w-full md:w-1/3">
+            <ChartOilsByType oils={oils} oilByType={oilByType} />
+          </div>
+          <div className="w-full md:w-1/3">
+            <ChartSettlementsHome settlements={settlements} />
+          </div>
+          <div className="w-full md:w-1/3">
+            <ChartOilPricesBar oils={oils} />
+          </div>
+        </div>
+      </>
       )}
     </div>
   );

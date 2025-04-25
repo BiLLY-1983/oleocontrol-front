@@ -82,7 +82,12 @@
     "pendingSettlements": "Liquidaciones pendientes",
     "euros": "{{value}} €",
     "liters": "{{value}} L",
-    "tons": "{{value}} Tn"
+    "tons": "{{value}} Tn",
+    "oilInventoryTotal": "Total aceite producido",
+    "oilSettlementTotal": "Total aceite liquidado",
+    "oilInventory": "Inventario de aceite",
+    "oilSettlements": "Liquidaciones de aceite",
+    "available_oil": "Total disponible para liquidar"
   },
   "userProfile": {
     "firstName": "Nombre",

@@ -24,7 +24,11 @@ import { Button } from "@components/ui/button";
 import { success, error } from "@pnotify/core";
 import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
-import { getSettlements, createSettlement,createSettlementAvailable } from "@services/settlementRequests";
+import {
+  getSettlements,
+  createSettlement,
+  createSettlementAvailable,
+} from "@services/settlementRequests";
 
 // Schema
 const settlementSchema = z.object({
@@ -39,17 +43,17 @@ const settlementSchema = z.object({
 /**
  * Componente de modales para crear una nueva liquidación.
  * Este componente permite a los usuarios ingresar los detalles de una nueva liquidación y enviarlos para su procesamiento.
- * 
+ *
  * @component
- * 
+ *
  * @param {boolean} open - Indica si el modal está abierto o cerrado.
  * @param {function} setOpen - Función para cambiar el estado del modal (abierto/cerrado).
  * @param {boolean} isDarkMode - Indica si el modo oscuro está activado.
  * @param {function} updateSettlements - Función para actualizar la lista de liquidaciones.
  * @param {Array} employees - Lista de empleados disponibles.
- * 
+ *
  * @returns {JSX.Element} - Un modal que permite crear una nueva liquidación.
- * 
+ *
  */
 const NewSettlementModal = ({
   open,
@@ -73,7 +77,7 @@ const NewSettlementModal = ({
   /**
    * Filtra los miembros según la consulta de búsqueda.
    * Si la consulta está vacía, devuelve todos los miembros.
-   * 
+   *
    * @type {Array} filteredMembers - Lista de miembros filtrados según la consulta.
    * @param {string} query - Consulta de búsqueda ingresada por el usuario.
    * @returns {Array} - Miembros filtrados según la consulta.
@@ -82,10 +86,10 @@ const NewSettlementModal = ({
     query === ""
       ? members
       : members.filter((member) => {
-        const fullName =
-          `${member.user?.first_name} ${member.user?.last_name}`.toLowerCase();
-        return fullName.includes(query.toLowerCase());
-      });
+          const fullName =
+            `${member.user?.first_name} ${member.user?.last_name}`.toLowerCase();
+          return fullName.includes(query.toLowerCase());
+        });
 
   const {
     register,
@@ -126,7 +130,7 @@ const NewSettlementModal = ({
   /**
    * Función para cargar los aceites disponibles.
    * Se encarga de hacer una solicitud a la API para obtener la lista de aceites y almacenarlos en el estado.
-   * 
+   *
    * @async
    * @function fetchOils
    */
@@ -148,7 +152,7 @@ const NewSettlementModal = ({
   /**
    * Función para cargar las liquidaciones existentes.
    * Se encarga de hacer una solicitud a la API para obtener la lista de liquidaciones y almacenarlas en el estado.
-   * 
+   *
    * @async
    * @function fetchSettlements
    */
@@ -167,15 +171,16 @@ const NewSettlementModal = ({
   /**
    * Función para manejar la creación de una nueva liquidación.
    * Valida si ya existe una liquidación pendiente del mismo tipo de aceite.
-   * 
+   *
    * @async
    * @function handleCreate
    */
   const handleCreate = async (data) => {
     try {
-      const currentSettlements = await fetchSettlements();
+      const response = await getSettlements();
+      const currentSettlements = response.data;
 
-      const alreadyExists = settlements.some(
+      const alreadyExists = currentSettlements.some(
         (s) =>
           s.settlement_status === "Pendiente" &&
           Number(s.member.member_id) === Number(data.member_id) &&
@@ -206,7 +211,8 @@ const NewSettlementModal = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent
-        className={clsx("max-h-[50vh] overflow-y-auto",
+        className={clsx(
+          "max-h-[50vh] overflow-y-auto",
           isDarkMode
             ? "accent-dark-400 bg-dark-700 border-dark-600 text-dark-50"
             : "accent-olive-600 bg-olive-50 border-gray-300 text-olive-800"
@@ -299,16 +305,18 @@ const NewSettlementModal = ({
                               key={member.id}
                               value={member}
                               className={({ active }) =>
-                                `cursor-default select-none py-2 pl-10 pr-4 ${active
-                                  ? "bg-olive-100 text-olive-900"
-                                  : "text-gray-900"
+                                `cursor-default select-none py-2 pl-10 pr-4 ${
+                                  active
+                                    ? "bg-olive-100 text-olive-900"
+                                    : "text-gray-900"
                                 }`
                               }
                             >
                               {({ selected }) => (
                                 <span
-                                  className={`block truncate ${selected ? "font-medium" : "font-normal"
-                                    }`}
+                                  className={`block truncate ${
+                                    selected ? "font-medium" : "font-normal"
+                                  }`}
                                 >
                                   ({member.member_number}){" "}
                                   {member.user?.first_name}{" "}

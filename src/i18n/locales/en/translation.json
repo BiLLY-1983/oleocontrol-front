@@ -82,7 +82,12 @@
     "pendingSettlements": "Pending settlements",
     "euros": "{{value}} €",
     "liters": "{{value}} L",
-    "tons": "{{value}} Tn"
+    "tons": "{{value}} Tn",
+    "oilInventoryTotal": "Total produced olive oil",
+    "oilSettlementTotal": "Total settled olive oil",
+    "oilInventory": "Olive oil inventory",
+    "oilSettlements": "Olive oil settlements",
+    "available_oil": "Total available for settlement"
   },
   "userProfile": {
     "firstName": "First Name",
