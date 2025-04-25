@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext, Fragment } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { Combobox, Transition } from "@headlessui/react"; 
+import { Combobox, Transition } from "@headlessui/react";
 import { UserContext } from "@context/UserContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -24,7 +24,7 @@ import { Button } from "@components/ui/button";
 import { success, error } from "@pnotify/core";
 import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
-import { createSettlement } from "@services/settlementRequests";
+import { getSettlements, createSettlement,createSettlementAvailable } from "@services/settlementRequests";
 
 // Schema
 const settlementSchema = z.object({
@@ -82,10 +82,10 @@ const NewSettlementModal = ({
     query === ""
       ? members
       : members.filter((member) => {
-          const fullName =
-            `${member.user?.first_name} ${member.user?.last_name}`.toLowerCase();
-          return fullName.includes(query.toLowerCase());
-        });
+        const fullName =
+          `${member.user?.first_name} ${member.user?.last_name}`.toLowerCase();
+        return fullName.includes(query.toLowerCase());
+      });
 
   const {
     register,
@@ -101,7 +101,7 @@ const NewSettlementModal = ({
       settlement_status: "Pendiente",
     },
   });
- 
+
   /**
    * useEffect que se ejecuta al abrir el modal.
    * Se encarga de restablecer los valores del formulario y de cargar los miembros.
@@ -120,6 +120,7 @@ const NewSettlementModal = ({
    */
   useEffect(() => {
     fetchOils();
+    fetchSettlements();
   }, []);
 
   /**
@@ -145,29 +146,61 @@ const NewSettlementModal = ({
   };
 
   /**
-   * Función para cargar las liquidaciones.
+   * Función para cargar las liquidaciones existentes.
    * Se encarga de hacer una solicitud a la API para obtener la lista de liquidaciones y almacenarlas en el estado.
    * 
    * @async
    * @function fetchSettlements
    */
+  const fetchSettlements = async () => {
+    const response = await getSettlements();
+    if (response.status === "success") {
+      setSettlements(response.data);
+    }
+  };
+
+  useEffect(() => {
+    fetchSettlements();
+  }, []);
+
+  /**
+   * Función para manejar la creación de una nueva liquidación.
+   * Valida si ya existe una liquidación pendiente del mismo tipo de aceite.
+   * 
+   * @async
+   * @function handleCreate
+   */
   const handleCreate = async (data) => {
     try {
+      // Actualiza settlements antes de la validación
+      await fetchSettlements();
+
+      if (!settlements || settlements.length === 0) {
+        error({
+          title: "Error",
+          text: "No se pudieron cargar las liquidaciones existentes.",
+          delay: 3000,
+        });
+        return;
+      }
+
       const alreadyExists = settlements.some(
         (s) =>
-          s.settlement_status == "Pendiente" && s.oil?.oil_id == data.oil_id
+          s.settlement_status === "Pendiente" &&
+          Number(s.member.member_id) === Number(data.member_id) &&
+          Number(s.oil.oil_id) === Number(data.oil_id)
       );
 
       if (alreadyExists) {
         error({
-          title: "Ya existe una liquidación pendiente",
+          title: "Ya existe una liquidación pendiente para este socio",
           text: "No puedes crear otra liquidación del mismo tipo de aceite hasta que se resuelva la anterior.",
           delay: 3000,
         });
         return;
       }
 
-      const res = await createSettlement(data);
+      const res = await createSettlementAvailable(data);
       if (res.status !== "success") throw new Error(res.message);
 
       success({ title: "Liquidación creada", delay: 2000 });
@@ -275,18 +308,16 @@ const NewSettlementModal = ({
                               key={member.id}
                               value={member}
                               className={({ active }) =>
-                                `cursor-default select-none py-2 pl-10 pr-4 ${
-                                  active
-                                    ? "bg-olive-100 text-olive-900"
-                                    : "text-gray-900"
+                                `cursor-default select-none py-2 pl-10 pr-4 ${active
+                                  ? "bg-olive-100 text-olive-900"
+                                  : "text-gray-900"
                                 }`
                               }
                             >
                               {({ selected }) => (
                                 <span
-                                  className={`block truncate ${
-                                    selected ? "font-medium" : "font-normal"
-                                  }`}
+                                  className={`block truncate ${selected ? "font-medium" : "font-normal"
+                                    }`}
                                 >
                                   ({member.member_number}){" "}
                                   {member.user?.first_name}{" "}
