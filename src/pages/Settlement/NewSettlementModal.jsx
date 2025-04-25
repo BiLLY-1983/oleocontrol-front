@@ -172,17 +172,7 @@ const NewSettlementModal = ({
    */
   const handleCreate = async (data) => {
     try {
-      // Actualiza settlements antes de la validación
       await fetchSettlements();
-
-      if (!settlements || settlements.length === 0) {
-        error({
-          title: "Error",
-          text: "No se pudieron cargar las liquidaciones existentes.",
-          delay: 3000,
-        });
-        return;
-      }
 
       const alreadyExists = settlements.some(
         (s) =>
