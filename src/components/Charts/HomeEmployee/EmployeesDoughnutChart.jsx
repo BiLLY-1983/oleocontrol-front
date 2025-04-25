@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Doughnut } from "react-chartjs-2";
 import clsx from "clsx";
 
@@ -33,6 +34,8 @@ import clsx from "clsx";
  * />
  */
 const EmployeesDoughnutChart = ({ data, title, isDarkMode }) => {
+  const { t } = useTranslation();
+
   /**
    * Callback para formatear las etiquetas del tooltip, mostrando el valor y su porcentaje.
    *
@@ -60,11 +63,14 @@ const EmployeesDoughnutChart = ({ data, title, isDarkMode }) => {
       )}
     >
       <div className="mb-4">
-        <h2 className="text-lg font-semibold text-center">{title}</h2>
+        <h2 className="text-lg font-semibold text-center">{t(`chart_titles.${title}`, { defaultValue: title })}</h2>
       </div>
       <div className="relative" style={{ height: 488 }}>
         <Doughnut
-          data={data}
+          data={{
+            ...data,
+            labels: data.labels.map((label) => t(`employee_areas.${label}`, { defaultValue: label })),
+          }}
           options={{
             responsive: true,
             maintainAspectRatio: false,

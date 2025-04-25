@@ -305,5 +305,20 @@
     "name": "Name",
     "description": "Description",
     "price": "Price (€)"
+  },
+  "oil_types": {
+    "Aceite de Oliva Virgen Extra": "Extra Virgin Olive Oil",
+    "Aceite de Oliva Virgen": "Virgin Olive Oil",
+    "Aceite de Oliva Lampante": "Lampante Olive Oil"
+  },
+  "chart_titles": {
+    "Distribución de empleados": "Employee Distribution"
+  },
+  "employee_areas": {
+    "Administración": "Administration",
+    "Contabilidad": "Accounting",
+    "Laboratorio": "Laboratory",
+    "Control de entradas": "Entry Control",
+    "RRHH": "HR"
   }
 }

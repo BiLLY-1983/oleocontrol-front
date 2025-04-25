@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, Tooltip, Legend } from "chart.js";
 
@@ -24,6 +25,7 @@ ChartJS.register(Tooltip, Legend);
  * <OilAnalysisDoughnutChart oilCounts={oilCounts} />
  */
 const OilAnalysisDoughnutChart = ({ oilCounts }) => {
+  const { t } = useTranslation();
   /**
    * Datos para el gráfico doughnut, generados dinámicamente a partir del objeto `oilCounts`.
    *
@@ -68,7 +70,7 @@ const OilAnalysisDoughnutChart = ({ oilCounts }) => {
     const value = tooltipItem.raw;
     const total = Object.values(oilCounts).reduce((a, b) => a + b, 0);
     const percent = ((value / total) * 100).toFixed(1);
-    return `${label}: ${value} análisis (${percent}%)`;
+    return `${label}: ${value} ${t('analysis')} (${percent}%)`;
   };
 
   return (
