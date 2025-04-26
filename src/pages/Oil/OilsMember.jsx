@@ -84,84 +84,94 @@ const OilMember = () => {
       )}
     >
       <h1 className="text-2xl font-bold">{t("navigation.oils")}</h1>
-
-      {/* Cards de resumen por tipo de aceite */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-        {loading ? (
-          <>
-            <Skeleton className="h-24 w-full" />
-            <Skeleton className="h-24 w-full" />
-          </>
-        ) : (
-          <>
-            {/* Card de disponibilidad de aceites */}
-            {Object.keys(oilInventoryByType).map((oilName) => {
-              const availableOil = calculateAvailableOil(oilName);
-              return (
+  
+      {loading ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-a gap-6">
+          <Skeleton className="h-24 w-full" />
+          <Skeleton className="h-24 w-full" />
+        </div>
+      ) : (
+        <>
+          {/* DISPONIBILIDAD */}
+          <div>
+            <h2 className="text-xl font-semibold mb-4">{t("home.available_oil")}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {Object.keys(oilInventoryByType).map((oilName) => {
+                const availableOil = calculateAvailableOil(oilName);
+                return (
+                  <StatCard
+                    key={`available-${oilName}`}
+                    title={oilName}
+                    subtext={t("home.available_oil")}
+                    value={t("home.liters", {
+                      value: availableOil.toLocaleString("es-ES", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }),
+                    })}
+                  />
+                );
+              })}
+            </div>
+          </div>
+  
+          {/* INVENTARIO */}
+          <div>
+            <h2 className="text-xl font-semibold mb-4">{t("home.oil_production")}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {Object.keys(oilInventoryByType).map((oilName) => (
                 <StatCard
-                  key={oilName}
-                  title={`${oilName}`}
-                  subtext={`${t("home.available_oil")}`}
+                  key={`inventory-${oilName}`}
+                  title={oilName}
+                  subtext={t("home.oil_production")}
                   value={t("home.liters", {
-                    value: availableOil.toLocaleString("es-ES", {
+                    value: oilInventoryByType[oilName].toLocaleString("es-ES", {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
                     }),
                   })}
                 />
-              );
-            })}
-
-            {/* Card de inventarios */}
-            {Object.keys(oilInventoryByType).map((oilName) => (
-              <StatCard
-                key={oilName}
-                title={`${oilName}`}
-                subtext={`${t("home.oil_production")}`}
-                value={t("home.liters", {
-                  value: oilInventoryByType[oilName].toLocaleString("es-ES", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  }),
-                })}
-              />
-            ))}
-
-            {/* Card de liquidaciones */}
-            {Object.keys(oilSettlementByType).map((oilName) => (
-              <StatCard
-                key={oilName}
-                title={`${oilName}`}
-                subtext={`${t("home.oilSettlements")}`}
-                value={t("home.euros", {
-                  value: oilSettlementByType[oilName].toLocaleString("es-ES", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  }),
-                })}
-              />
-            ))}
-          </>
-        )}
-      </div>
-
-      {/* Contenedor para los gráficos con grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              ))}
+            </div>
+          </div>
+  
+          {/* LIQUIDACIONES */}
+          <div>
+            <h2 className="text-xl font-semibold mb-4">{t("home.oilSettlements")}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {Object.keys(oilSettlementByType).map((oilName) => (
+                <StatCard
+                  key={`settlement-${oilName}`}
+                  title={oilName}
+                  subtext={t("home.oilSettlements")}
+                  value={t("home.euros", {
+                    value: oilSettlementByType[oilName].toLocaleString("es-ES", {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    }),
+                  })}
+                />
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+  
+      {/* GRÁFICAS */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
         {/* Gráfico de Inventario de Aceites */}
         <div className="w-full">
           <h2 className="text-xl font-semibold text-olive-800 dark:text-white mb-4">
             {t("home.oilInventory")}
           </h2>
           <ChartOilInventory
-            oils={Object.entries(oilInventoryByType).map(
-              ([name, quantity]) => ({
-                oil_name: name,
-                total_quantity: quantity,
-              })
-            )}
+            oils={Object.entries(oilInventoryByType).map(([name, quantity]) => ({
+              oil_name: name,
+              total_quantity: quantity,
+            }))}
           />
         </div>
-
+  
         {/* Gráfico de Liquidaciones de Aceites */}
         <div className="w-full">
           <h2 className="text-xl font-semibold text-olive-800 dark:text-white mb-4">
@@ -177,6 +187,7 @@ const OilMember = () => {
       </div>
     </div>
   );
+  
 };
 
 export default OilMember;
