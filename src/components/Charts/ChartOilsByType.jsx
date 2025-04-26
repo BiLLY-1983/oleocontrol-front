@@ -142,7 +142,7 @@ export default function ChartOilsByType({ oilByType }) {
 
       <div className="mt-4">
         <div className="text-lg font-medium">
-          {t("home.total_oil")}: {totalOil} L
+          {t("home.total_oil")}: {totalOil.toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " L"}
         </div>
       </div>
     </div>
