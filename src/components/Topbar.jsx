@@ -99,7 +99,7 @@ export default function Topbar() {
         <div
           ref={menuRef}
           className={clsx(
-            "absolute top-full mt-1 right-39 w-48 shadow-lg rounded-lg border transition-all duration-500 ease-in-out",
+            "absolute top-full mt-1 right-30 w-48 shadow-lg rounded-lg border transition-all duration-500 ease-in-out",
             isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible",
             isDarkMode
               ? "bg-dark-800 border-dark-600"
