@@ -27,14 +27,13 @@ import "@pnotify/confirm/dist/PNotifyConfirm.css";
 /**
  *  Definir el esquema de validación con Zod
  */
-const userSchema = z
-  .object({
-    dni: z
-      .string()
-      .regex(/^\d{8}[A-Za-z]$/, {
-        message: "El DNI debe tener 8 números seguidos de una letra",
-      }),
-  });
+const userSchema = z.object({
+  user: z.object({
+    dni: z.string().regex(/^\d{8}[A-Za-z]$/, {
+      message: "El DNI debe tener 8 números seguidos de una letra",
+    }),
+  }),
+});
 
 /**
  * Componente modal para editar los datos de un socio.
@@ -105,18 +104,18 @@ const EditMemberModal = ({
     if (result.status === "success") {
       success({
         title: t("users.successEditTitle"),
-        text: t("users.successEditText"), 
+        text: t("users.successEditText"),
         delay: 2000,
       });
       reset();
-      setOpen(false); 
+      setOpen(false);
 
       if (updateMembers) {
         updateMembers();
       }
     } else {
       error({
-        title: t("users.errorEditTitle"), 
+        title: t("users.errorEditTitle"),
         text: t("users.errorEditText"),
         delay: 2000,
       });
@@ -126,7 +125,8 @@ const EditMemberModal = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent
-        className={clsx("max-h-[50vh] overflow-y-auto",
+        className={clsx(
+          "max-h-[50vh] overflow-y-auto",
           isDarkMode
             ? "accent-dark-400 bg-dark-700 border-dark-600 text-dark-50"
             : "accent-olive-600 bg-olive-50 border-gray-300 text-olive-800"
@@ -139,13 +139,13 @@ const EditMemberModal = ({
                   username: selectedMember.user.username,
                   firstName: selectedMember.user.first_name,
                   lastName: selectedMember.user.last_name,
-                }) 
-              : t("users.loadingUser")} 
+                })
+              : t("users.loadingUser")}
           </DialogTitle>
           <DialogDescription>
             {selectedMember
               ? t("users.editUserDescription")
-              : t("users.loadingUserDescription")} 
+              : t("users.loadingUserDescription")}
           </DialogDescription>
         </DialogHeader>
 
@@ -189,7 +189,8 @@ const EditMemberModal = ({
             </div>
 
             <div name="last_name">
-              <Label className="mb-1">{t("userProfile.lastName")}</Label> {/* Traducción para "Apellidos" */}
+              <Label className="mb-1">{t("userProfile.lastName")}</Label>{" "}
+              {/* Traducción para "Apellidos" */}
               <Input
                 type="text"
                 {...register("user.last_name")}
@@ -203,7 +204,8 @@ const EditMemberModal = ({
             </div>
 
             <div name="dni">
-              <Label className="mb-1">{t("userProfile.dni")}</Label> {/* Traducción para "DNI" */}
+              <Label className="mb-1">{t("userProfile.dni")}</Label>{" "}
+              {/* Traducción para "DNI" */}
               <Input
                 type="text"
                 {...register("user.dni")}
@@ -215,7 +217,8 @@ const EditMemberModal = ({
             </div>
 
             <div name="email">
-              <Label className="mb-1">{t("userProfile.email")}</Label> {/* Traducción para "Email" */}
+              <Label className="mb-1">{t("userProfile.email")}</Label>{" "}
+              {/* Traducción para "Email" */}
               <Input
                 type="email"
                 {...register("user.email")}
@@ -227,7 +230,8 @@ const EditMemberModal = ({
             </div>
 
             <div name="phone">
-              <Label className="mb-1">{t("userProfile.phone")}</Label> {/* Traducción para "Teléfono" */}
+              <Label className="mb-1">{t("userProfile.phone")}</Label>{" "}
+              {/* Traducción para "Teléfono" */}
               <Input
                 type="text"
                 {...register("user.phone")}
@@ -239,14 +243,17 @@ const EditMemberModal = ({
             </div>
 
             <div name="member_number">
-              <Label className="mb-1">{t("members.memberNumber")}</Label> {/* Traducción para "Número de socio" */}
+              <Label className="mb-1">{t("members.memberNumber")}</Label>{" "}
+              {/* Traducción para "Número de socio" */}
               <Input
                 type="text"
                 {...register("member_number")}
                 className="w-full px-3 py-2 border rounded-md"
               />
               {errors.phone && (
-                <p className="text-red-500 text-sm">{errors.member_number.message}</p>
+                <p className="text-red-500 text-sm">
+                  {errors.member_number.message}
+                </p>
               )}
             </div>
 
@@ -286,9 +293,7 @@ const EditMemberModal = ({
                     : "bg-olive-500 text-white hover:bg-olive-600 focus:ring-olive-400"
                 )}
               >
-                {isSubmitting
-                  ? t("users.editing") 
-                  : t("members.editMember")} 
+                {isSubmitting ? t("users.editing") : t("members.editMember")}
               </Button>
             </DialogFooter>
           </form>
