@@ -331,5 +331,10 @@
     "Laboratorio": "Laboratorio",
     "Control de entradas": "Control de entradas",
     "RRHH": "RRHH"
+  },
+  "oilTypes": {
+    "Aceite de Oliva Virgen Extra": "Aceite de Oliva Virgen Extra",
+    "Aceite de Oliva Virgen": "Aceite de Oliva Virgen",
+    "Aceite de Oliva Lampante": "Aceite de Oliva Lampante"
   }
 }

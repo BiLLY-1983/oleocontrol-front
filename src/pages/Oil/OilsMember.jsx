@@ -32,6 +32,12 @@ const OilMember = () => {
   const [oilSettlements, setOilSettlements] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const oilTypesOrder = [
+    "Aceite de Oliva Virgen Extra",
+    "Aceite de Oliva Virgen",
+    "Aceite de Oliva Lampante",
+  ];
+
   /**
    * useEffect que se ejecuta al montarse el componente o cuando cambia el `memberId`.
    * Realiza las solicitudes para obtener los datos de los inventarios de aceite y liquidaciones.
@@ -84,7 +90,7 @@ const OilMember = () => {
       )}
     >
       <h1 className="text-2xl font-bold">{t("navigation.oils")}</h1>
-  
+
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-a gap-6">
           <Skeleton className="h-24 w-full" />
@@ -94,14 +100,16 @@ const OilMember = () => {
         <>
           {/* DISPONIBILIDAD */}
           <div>
-            <h2 className="text-xl font-semibold mb-4">{t("home.available_oil")}</h2>
+            <h2 className="text-xl font-semibold mb-4">
+              {t("home.available_oil")}
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {Object.keys(oilInventoryByType).map((oilName) => {
-                const availableOil = calculateAvailableOil(oilName);
+              {oilTypesOrder.map((oilKey) => {
+                const availableOil = calculateAvailableOil(oilKey);
                 return (
                   <StatCard
-                    key={`available-${oilName}`}
-                    title={oilName}
+                    key={`available-${oilKey}`}
+                    title={t(`oilTypes.${oilKey}`)}
                     subtext={t("home.available_oil")}
                     value={t("home.liters", {
                       value: availableOil.toLocaleString("es-ES", {
@@ -114,41 +122,47 @@ const OilMember = () => {
               })}
             </div>
           </div>
-  
-          {/* INVENTARIO */}
+
+          {/* PRODUCCIÓN */}
           <div>
-            <h2 className="text-xl font-semibold mb-4">{t("home.oil_production")}</h2>
+            <h2 className="text-xl font-semibold mb-4">
+              {t("home.oil_production")}
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {Object.keys(oilInventoryByType).map((oilName) => (
+              {oilTypesOrder.map((oilKey) => (
                 <StatCard
-                  key={`inventory-${oilName}`}
-                  title={oilName}
+                  key={`inventory-${oilKey}`}
+                  title={t(`oilTypes.${oilKey}`)}
                   subtext={t("home.oil_production")}
                   value={t("home.liters", {
-                    value: oilInventoryByType[oilName].toLocaleString("es-ES", {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    }),
+                    value:
+                      oilInventoryByType[oilKey]?.toLocaleString("es-ES", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }) ?? "0,00",
                   })}
                 />
               ))}
             </div>
           </div>
-  
+
           {/* LIQUIDACIONES */}
           <div>
-            <h2 className="text-xl font-semibold mb-4">{t("home.oilSettlements")}</h2>
+            <h2 className="text-xl font-semibold mb-4">
+              {t("home.oilSettlements")}
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {Object.keys(oilSettlementByType).map((oilName) => (
+              {oilTypesOrder.map((oilKey) => (
                 <StatCard
-                  key={`settlement-${oilName}`}
-                  title={oilName}
+                  key={`settlement-${oilKey}`}
+                  title={t(`oilTypes.${oilKey}`)}
                   subtext={t("home.oilSettlements")}
-                  value={t("home.euros", {
-                    value: oilSettlementByType[oilName].toLocaleString("es-ES", {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    }),
+                  value={t("home.liters", {
+                    value:
+                      oilSettlementByType[oilKey]?.toLocaleString("es-ES", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }) ?? "0,00",
                   })}
                 />
               ))}
@@ -156,7 +170,7 @@ const OilMember = () => {
           </div>
         </>
       )}
-  
+
       {/* GRÁFICAS */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
         {/* Gráfico de Inventario de Aceites */}
@@ -165,13 +179,15 @@ const OilMember = () => {
             {t("home.oilInventory")}
           </h2>
           <ChartOilInventory
-            oils={Object.entries(oilInventoryByType).map(([name, quantity]) => ({
-              oil_name: name,
-              total_quantity: quantity,
-            }))}
+            oils={Object.entries(oilInventoryByType).map(
+              ([name, quantity]) => ({
+                oil_name: name,
+                total_quantity: quantity,
+              })
+            )}
           />
         </div>
-  
+
         {/* Gráfico de Liquidaciones de Aceites */}
         <div className="w-full">
           <h2 className="text-xl font-semibold text-olive-800 dark:text-white mb-4">
@@ -187,7 +203,6 @@ const OilMember = () => {
       </div>
     </div>
   );
-  
 };
 
 export default OilMember;
