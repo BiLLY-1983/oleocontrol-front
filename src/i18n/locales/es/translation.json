@@ -30,7 +30,8 @@
     "my_settlements": "Mis Liquidaciones",
     "oil_prices": "Precios de aceite actuales",
     "oil_price_comparison": "Comparativa de precios por litro",
-    "price": "Precio"
+    "price": "Precio",
+    "prices": "Precios actuales"
   },
   "months": {
     "jan": "Ene",

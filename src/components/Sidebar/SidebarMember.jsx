@@ -9,6 +9,7 @@ import {
   Droplets,
   ChevronLeft,
   ChevronRight,
+  Euro
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@context/ThemeContext";
@@ -30,6 +31,7 @@ const menuItems = [
   { name: "navigation.my_analyses", icon: FlaskConical, to: "analyses" },
   { name: "navigation.my_settlements", icon: Wallet, to: "settlements" },
   { name: "navigation.oils", icon: Droplets, to: "oils" },
+  { name: "navigation.prices", icon: Euro, to: "prices" },
 ];
 
 /**

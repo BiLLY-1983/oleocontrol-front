@@ -214,7 +214,7 @@ const Oils = () => {
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">{t("navigation.oils")}</h1>
 
-        <Button
+{/*         <Button
           className={clsx(
             "cursor-pointer text-white",
             isDarkMode
@@ -224,7 +224,7 @@ const Oils = () => {
           onClick={() => setModalNewOilOpen(true)}
         >
           + {t("oils.newOil")}
-        </Button>
+        </Button> */}
       </div>
 
       <NewOilModal
@@ -251,7 +251,7 @@ const Oils = () => {
       />
 
       {/* Cards de resumen por tipo de aceite */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {loadingAnalyses || loadingOils ? (
           <>
             <Skeleton className="h-24 w-full" />
@@ -308,7 +308,7 @@ const Oils = () => {
                         setModalEditOilOpen(true);
                       }}
                     />
-                    <Trash2
+{/*                     <Trash2
                       size={18}
                       className="cursor-pointer text-red-700 hover:text-red-400 hover:scale-120 transition-all duration-300"
                       onClick={(e) => {
@@ -316,7 +316,7 @@ const Oils = () => {
                         setSelectedOil(oils.find((o) => o.id === oil.id));
                         setModalDeleteOilOpen(true);
                       }}
-                    />
+                    /> */}
                   </div>
                 </div>
               </Card>
