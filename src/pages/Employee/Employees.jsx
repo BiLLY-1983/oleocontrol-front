@@ -357,7 +357,7 @@ const Employees = () => {
 
       <Card
         className={clsx(
-          "rounded-2xl shadow p-4 w-full border overflow-x-auto",
+          "rounded-2xl shadow-2xl p-4 w-full border overflow-x-auto",
           isDarkMode
             ? "bg-dark-900 border-dark-700 text-dark-50"
             : "bg-olive-50 border-olive-200 text-olive-800"
@@ -520,7 +520,7 @@ const Employees = () => {
 
       {/* Gráfico circular */}
       <div className="mt-20 flex justify-center h-100">
-        <div className="w-full max-w-sm">
+        <div className="w-full max-w-sm shadow-2xl rounded-2xl">
           <Doughnut
             data={chartData}
             options={{

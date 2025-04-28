@@ -68,7 +68,7 @@ const OilPrices = () => {
             <Card
               key={oil.id}
               className={clsx(
-                "p-6 rounded-lg shadow-xl transition-transform transform relative",
+                "p-6 rounded-lg shadow-2xl transition-transform transform relative",
                 isDarkMode
                   ? "bg-dark-700 text-dark-50"
                   : "bg-olive-50 text-olive-800"

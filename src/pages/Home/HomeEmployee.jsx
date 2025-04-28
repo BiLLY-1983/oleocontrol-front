@@ -301,7 +301,7 @@ const HomeEmployee = () => {
 
         return (
           <>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-4">
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2 mb-4">
               <StatCard title="Socios Activos" value={activeMembers.length} />
               <StatCard
                 title="Socios Inactivos"
@@ -385,7 +385,7 @@ const HomeEmployee = () => {
 
         return (
           <>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-4">
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2 mb-4">
               <StatCard
                 title="Empleados Activos"
                 value={activeEmployees.length}
@@ -491,7 +491,7 @@ const HomeEmployee = () => {
             <div className="w-full md:w-1/3 mx-auto">
               <div
                 className={clsx(
-                  "rounded-2xl shadow p-6 mt-6 border",
+                  "rounded-2xl shadow-2xl p-6 mt-6 border",
                   isDarkMode
                     ? "bg-dark-900 border-dark-700 text-dark-50"
                     : "bg-olive-50 border-olive-200 text-olive-800"
@@ -593,7 +593,7 @@ const HomeEmployee = () => {
               <div className="w-full md:w-1/3">
                 <div
                   className={clsx(
-                    "rounded-2xl shadow p-6 mt-6 border",
+                    "rounded-2xl shadow-2xl p-6 mt-6 border",
                     isDarkMode
                       ? "bg-dark-900 border-dark-700 text-dark-50"
                       : "bg-olive-50 border-olive-200 text-olive-800"

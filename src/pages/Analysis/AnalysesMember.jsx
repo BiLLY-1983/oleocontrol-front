@@ -257,7 +257,7 @@ const AnalysesMember = () => {
           <>
             <Card
               className={clsx(
-                "rounded-2xl shadow p-4 w-full border",
+                "rounded-2xl shadow-xl p-4 w-full border",
                 isDarkMode
                   ? "bg-dark-900 border-dark-700 text-dark-50"
                   : "bg-olive-100 border-olive-300 text-olive-800"
@@ -274,7 +274,7 @@ const AnalysesMember = () => {
             </Card>
             <Card
               className={clsx(
-                "rounded-2xl shadow p-4 w-full border",
+                "rounded-2xl shadow-xl p-4 w-full border",
                 isDarkMode
                   ? "bg-dark-900 border-dark-700 text-dark-50"
                   : "bg-olive-100 border-olive-300 text-olive-800"
@@ -327,7 +327,7 @@ const AnalysesMember = () => {
       {/* Tabla o Skeleton */}
       <Card
         className={clsx(
-          "rounded-2xl shadow p-4 w-full border overflow-x-auto",
+          "rounded-2xl shadow-2xl p-4 w-full border overflow-x-auto",
           isDarkMode
             ? "bg-dark-900 border-dark-700 text-dark-50"
             : "bg-olive-50 border-olive-200 text-olive-800"

@@ -183,7 +183,7 @@ const EntriesMember = () => {
           <>
             <Card
               className={clsx(
-                "p-6 rounded-lg shadow",
+                "p-6 rounded-lg shadow-xl",
                 isDarkMode ? "bg-dark-700" : "bg-olive-100"
               )}
             >
@@ -193,7 +193,7 @@ const EntriesMember = () => {
 
             <Card
               className={clsx(
-                "p-6 rounded-lg shadow",
+                "p-6 rounded-lg shadow-xl",
                 isDarkMode ? "bg-dark-700" : "bg-olive-100"
               )}
             >
@@ -238,7 +238,7 @@ const EntriesMember = () => {
       {/* Tabla o Skeleton */}
       <Card
         className={clsx(
-          "rounded-2xl shadow p-4 w-full border overflow-x-auto",
+          "rounded-2xl shadow-2xl p-4 w-full border overflow-x-auto",
           isDarkMode
             ? "bg-dark-900 border-dark-700 text-dark-50"
             : "bg-olive-50 border-olive-200 text-olive-800"

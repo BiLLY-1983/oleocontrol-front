@@ -110,7 +110,7 @@ export default function ChartOilsByType({ oilByType }) {
   return (
     <div
       className={clsx(
-        "rounded-2xl shadow p-6 mt-6 border",
+        "rounded-2xl p-6 mt-6 border shadow-2xl",
         isDarkMode
           ? "bg-dark-900 border-dark-700 text-dark-50"
           : "bg-olive-50 border-olive-200 text-olive-800"

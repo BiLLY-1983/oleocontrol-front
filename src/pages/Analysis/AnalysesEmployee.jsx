@@ -274,7 +274,7 @@ const Analyses = () => {
           <>
             <Card
               className={clsx(
-                "rounded-2xl shadow p-4 w-full border",
+                "rounded-2xl shadow-xl p-4 w-full border",
                 isDarkMode
                   ? "bg-dark-900 border-dark-700 text-dark-50"
                   : "bg-olive-100 border-olive-300 text-olive-800"
@@ -291,7 +291,7 @@ const Analyses = () => {
             </Card>
             <Card
               className={clsx(
-                "rounded-2xl shadow p-4 w-full border",
+                "rounded-2xl shadow-xl p-4 w-full border",
                 isDarkMode
                   ? "bg-dark-900 border-dark-700 text-dark-50"
                   : "bg-olive-100 border-olive-300 text-olive-800"

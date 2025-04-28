@@ -99,7 +99,10 @@ const OilMember = () => {
       ) : (
         <>
           {/* DISPONIBILIDAD */}
-          <div>
+          <div className={clsx(
+            "card p-4 shadow-2xl rounded-lg",
+            isDarkMode ? "text-dark-200 bg-dark-900" : "text-olive-600 bg-olive-100"
+          )} >
             <h2 className="text-xl font-semibold mb-4">
               {t("home.available_oil")}
             </h2>
@@ -124,7 +127,7 @@ const OilMember = () => {
           </div>
 
           {/* PRODUCCIÓN */}
-          <div>
+          <div className="card p-4 shadow-md rounded-lg">
             <h2 className="text-xl font-semibold mb-4">
               {t("home.oil_production")}
             </h2>
@@ -147,7 +150,7 @@ const OilMember = () => {
           </div>
 
           {/* LIQUIDACIONES */}
-          <div>
+          <div className="card p-4 shadow-md rounded-lg">
             <h2 className="text-xl font-semibold mb-4">
               {t("home.oilSettlements")}
             </h2>

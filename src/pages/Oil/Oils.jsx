@@ -281,7 +281,7 @@ const Oils = () => {
                 key={oil.id}
                 onClick={() => handleCardClick(oil)}
                 className={clsx(
-                  "p-4 rounded-lg shadow transition-transform transform relative cursor-pointer",
+                  "p-4 rounded-lg shadow-xl transition-transform transform relative cursor-pointer",
                   isDarkMode
                     ? "bg-dark-700 text-dark-50"
                     : "bg-olive-100 text-olive-800"

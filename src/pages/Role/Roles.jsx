@@ -182,7 +182,7 @@ const Roles = () => {
               <Card
                 key={role.id}
                 className={clsx(
-                  "p-4 rounded-lg shadow cursor-pointer transition-transform transform hover:scale-105 hover:bg-olive-200",
+                  "p-4 rounded-lg shadow-xl cursor-pointer transition-transform transform hover:scale-105 hover:bg-olive-200",
                   isDarkMode
                     ? "bg-dark-700 text-dark-50"
                     : "bg-olive-100 text-olive-800"
@@ -198,7 +198,7 @@ const Roles = () => {
 
           {/* Gráfico circular */}
           <div className="mt-20 flex justify-center h-100">
-            <div className="w-full max-w-sm">
+            <div className="w-full max-w-sm rounded-2xl shadow-2xl">
               <Doughnut
                 data={chartData}
                 options={{

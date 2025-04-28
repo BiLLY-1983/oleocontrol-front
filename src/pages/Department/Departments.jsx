@@ -174,12 +174,12 @@ const Departments = () => {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6">
             {departments.map((department) => (
               <Card
                 key={department.id}
                 className={clsx(
-                  "p-4 rounded-lg shadow cursor-pointer transition-transform transform hover:scale-105 hover:bg-olive-200",
+                  "p-4 rounded-lg shadow-xl cursor-pointer transition-transform transform hover:scale-105 hover:bg-olive-200",
                   isDarkMode
                     ? "bg-dark-700 text-dark-50"
                     : "bg-olive-100 text-olive-800"
@@ -194,7 +194,7 @@ const Departments = () => {
 
           {/* Gráfico circular */}
           <div className="mt-20 flex justify-center h-100">
-            <div className="w-full max-w-sm">
+            <div className="w-full max-w-sm rounded-2xl shadow-2xl">
               <Doughnut
                 data={chartData}
                 options={{
