@@ -28,15 +28,13 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import { AnalysisPDF } from "@components/pdf/AnalysisPDF";
 import { BiSolidFilePdf } from "react-icons/bi";
 
+
 /**
- * Componente `Analyses` para gestionar y mostrar los análisis de aceituna en la almazara por parte de los empleados.
- * Permite la visualización de los análisis con paginación, filtrado, y descarga en PDF de informes.
+ * Página para que los empleados gestionen los análisis de aceituna.
+ * Permite filtrado, paginación y descarga de informes en PDF.
  *
- * @component
- * @example
- * return (
- *   <Analyses />
- * )
+ * @page
+ * @returns {JSX.Element} Página de gestión de análisis para empleados.
  */
 const Analyses = () => {
   /**

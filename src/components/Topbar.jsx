@@ -17,8 +17,9 @@ import { useTheme } from "@context/ThemeContext";
 
 /**
  * Componente Topbar que representa la barra superior de navegación en la interfaz de usuario.
+ * 
  * Contiene opciones para cambiar la apariencia (modo claro/oscuro), idioma (español/inglés) y acceder al perfil del usuario.
- * Además, permite cerrar sesión mediante el componente Logout.
+ * También permite cerrar sesión mediante el componente Logout.
  *
  * @component
  * @example
@@ -48,10 +49,6 @@ export default function Topbar() {
   const appearanceRef = useRef(null);
   const languageRef = useRef(null);
 
-  /**
-   * useEffect que maneja los clics fuera de los menús para cerrarlos automáticamente.
-   * Se suscribe al evento 'mousedown' para detectar clics fuera de los elementos de menú.
-   */
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (

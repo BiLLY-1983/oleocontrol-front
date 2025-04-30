@@ -38,12 +38,9 @@ const userSchema = z
   });
 
 /**
- * Componente modal para editar los datos de un empleado.
- *
- * Este modal muestra un formulario prellenado con los datos del empleado seleccionado y permite editarlos.
- * Incluye campos como nombre, apellidos, usuario, email, teléfono, departamento y estado.
- * Utiliza `react-hook-form` para la gestión del formulario y validaciones.
- * Muestra esqueleto de carga mientras los datos del empleado no están disponibles.
+ * Modal para editar los datos de un empleado.
+ * Muestra un formulario prellenado con los datos del empleado seleccionado.
+ * Permite editar campos como nombre, apellidos, email, teléfono, departamento y estado.
  *
  * @component
  * @param {Object} props - Props del componente.
@@ -52,17 +49,7 @@ const userSchema = z
  * @param {boolean} props.isDarkMode - Indica si se está utilizando el modo oscuro.
  * @param {Function} props.updateEmployees - Función para actualizar la lista de empleados después de editar.
  * @param {Object} props.selectedEmployee - Datos del empleado seleccionado para editar.
- *
- * @returns {JSX.Element} El modal con el formulario para editar un empleado.
- *
- * @example
- * <EditEmployeeModal
- *   open={modalOpen}
- *   setOpen={setModalOpen}
- *   isDarkMode={true}
- *   updateEmployees={loadEmployees}
- *   selectedEmployee={employeeData}
- * />
+ * @returns {JSX.Element} Modal con formulario para editar un empleado.
  */
 const EditEmployeeModal = ({
   open,

@@ -35,17 +35,6 @@ const entrySchema = z.object({
  * Permite actualizar la cantidad de aceitunas registradas en una entrada.
  *
  * @component
- * @example
- * const [open, setOpen] = useState(false);
- * const [selectedEntry, setSelectedEntry] = useState(null);
- *
- * <EditUserModal
- *   open={open}
- *   setOpen={setOpen}
- *   isDarkMode={false}
- *   selectedEntry={selectedEntry}
- *   updateEntries={fetchEntries} />
- *
  * @param {Object} props - Props del componente.
  * @param {boolean} props.open - Estado para controlar la visibilidad del modal.
  * @param {Function} props.setOpen - Función para cambiar el estado de visibilidad del modal.
@@ -55,7 +44,7 @@ const entrySchema = z.object({
  *
  * @returns {JSX.Element} El modal para editar la entrada.
  */
-const EditUserModal = ({
+const EditEntryModal = ({
   open,
   setOpen,
   isDarkMode,
@@ -189,4 +178,4 @@ const EditUserModal = ({
   );
 };
 
-export default EditUserModal;
+export default EditEntryModal;

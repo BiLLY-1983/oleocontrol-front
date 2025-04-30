@@ -40,6 +40,18 @@ const calculateOilId = (acidity) => {
   return 3; // Lampante
 };
 
+/**
+ * Modal para editar un análisis de aceituna.
+ *
+ * @page
+ * @param {Object} props - Propiedades del componente.
+ * @param {boolean} props.open - Indica si el modal está abierto.
+ * @param {Function} props.setOpen - Función para cambiar el estado del modal.
+ * @param {boolean} props.isDarkMode - Indica si el tema oscuro está activado.
+ * @param {Function} props.updateAnalyses - Función para actualizar la lista de análisis.
+ * @param {Object} props.selectedAnalysis - Análisis seleccionado para editar.
+ * @returns {JSX.Element} Modal de edición.
+ */
 const EditAnalysisModal = ({
   open,
   setOpen,

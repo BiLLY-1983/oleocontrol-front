@@ -19,10 +19,11 @@ import { getEmployees } from "@services/employeeRequests.js";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 /**
- * Componente que muestra los departamentos y la cantidad de empleados en cada uno.
- * Incluye una visualización en gráfico circular y un diálogo con el listado de empleados por departamento.
+ * Página para gestionar los departamentos y visualizar la cantidad de empleados en cada uno.
+ * Incluye un gráfico circular y un diálogo con el listado de empleados por departamento.
  *
- * @returns {JSX.Element} El componente renderizado.
+ * @page
+ * @returns {JSX.Element} Página de gestión de departamentos.
  */
 const Departments = () => {
   const { t } = useTranslation();

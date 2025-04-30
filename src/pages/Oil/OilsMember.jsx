@@ -10,15 +10,13 @@ import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 
 /**
- * Componente OilMember
- *
- * Página del Dashboard de aceite para un miembro.
- *
- * Muestra estadísticas y gráficas relevantes para el miembro del sistema,
- * como inventarios de aceite, liquidaciones y la cantidad de aceite almacenado.
+ * Página del Dashboard de aceites para socios.
+ * 
+ * Muestra estadísticas y gráficas relevantes para los socios, como inventarios de aceite,
+ * liquidaciones y la cantidad de aceite almacenado.
  *
  * @component
- * @returns {JSX.Element} El componente OilMember renderizado.
+ * @returns {JSX.Element} Página de aceites para socios.
  */
 const OilMember = () => {
   const { theme } = useTheme();

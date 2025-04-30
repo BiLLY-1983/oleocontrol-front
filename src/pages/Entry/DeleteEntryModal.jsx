@@ -18,28 +18,19 @@ import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
 /**
  * Modal de confirmación para eliminar una entrada.
- *
- * Este componente permite al usuario confirmar la eliminación de una entrada. Si se confirma la eliminación,
- * se hace una llamada a la API para eliminar la entrada seleccionada. Si la eliminación es exitosa, se muestra una notificación
- * de éxito y se actualiza la lista de entradas. En caso de error, se muestra una notificación de error.
+ * Permite al usuario confirmar la eliminación de una entrada y actualiza la lista tras la operación.
  *
  * @component
- *
- * @param {boolean} open - Controla si el modal está abierto o cerrado.
- * @param {Function} setOpen - Función para cambiar el estado de apertura del modal.
- * @param {boolean} isDarkMode - Indica si el modo oscuro está habilitado.
- * @param {Function} updateEntries - Función para actualizar la lista de entradas tras la eliminación.
- * @param {Object} selectedEntry - La entrada seleccionada para eliminar. Contiene datos como `id`.
+ * @param {Object} props - Props del componente.
+ * @param {boolean} props.open - Controla si el modal está abierto o cerrado.
+ * @param {Function} props.setOpen - Función para cambiar el estado de apertura del modal.
+ * @param {boolean} props.isDarkMode - Indica si el modo oscuro está habilitado.
+ * @param {Function} props.updateEntries - Función para actualizar la lista de entradas tras la eliminación.
+ * @param {Object} props.selectedEntry - La entrada seleccionada para eliminar. Contiene datos como `id`.
  *
  * @returns {JSX.Element} El componente del modal de confirmación de eliminación.
  */
-const DeleteUserModal = ({
-  open,
-  setOpen,
-  isDarkMode,
-  updateEntries,
-  selectedEntry,
-}) => {
+const DeleteEntryModal = ({ open, setOpen, isDarkMode, updateEntries, selectedEntry }) => {
   const { t } = useTranslation();
 
   /**
@@ -124,4 +115,4 @@ const DeleteUserModal = ({
   );
 };
 
-export default DeleteUserModal;
+export default DeleteEntryModal;

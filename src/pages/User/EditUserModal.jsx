@@ -43,18 +43,17 @@ const userSchema = z
   });
 
 /**
- * Componente de modal para editar un usuario.
- * Este componente permite editar los detalles de un usuario seleccionado.
+ * Modal para editar un usuario.
  * 
+ * Permite modificar los datos de un usuario seleccionado, como nombre, correo electrónico, teléfono, DNI y estado.
+ *
  * @component
- * 
- * @param {boolean} open - Estado que indica si el modal está abierto o cerrado.
- * @param {function} setOpen - Función para cambiar el estado del modal.
- * @param {boolean} isDarkMode - Estado que indica si el modo oscuro está activado.
- * @param {function} updateUsuarios - Función para actualizar la lista de usuarios.
- * @param {object} usuarioSeleccionado - Usuario seleccionado para editar.
- * 
- * @returns {JSX.Element} - El componente del modal de edición de usuario.
+ * @param {boolean} open - Indica si el modal está abierto.
+ * @param {Function} setOpen - Función para cambiar el estado del modal.
+ * @param {boolean} isDarkMode - Indica si el modo oscuro está activado.
+ * @param {Function} updateUsuarios - Función para actualizar la lista de usuarios tras la edición.
+ * @param {Object} usuarioSeleccionado - Datos del usuario seleccionado para editar.
+ * @returns {JSX.Element} Modal para editar un usuario.
  */
 const EditUserModal = ({
   open,

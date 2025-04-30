@@ -1,8 +1,10 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
 /**
- * Contexto que almacena el tema actual de la aplicación (oscuro o claro).
- * Proporciona el valor del tema y la función para actualizarlo.
+ * Contexto para gestionar el tema de la aplicación.
+ * 
+ * Proporciona acceso global al tema actual (oscuro o claro) y una función para actualizarlo.
+ * Este contexto se utiliza para aplicar estilos dinámicos basados en el tema seleccionado.
  *
  * @constant {React.Context} ThemeContext
  */
@@ -10,10 +12,14 @@ const ThemeContext = createContext();
 
 /**
  * Proveedor del contexto del tema.
- * Gestiona el estado del tema y proporciona una función para actualizarlo.
+ * 
+ * Gestiona el estado del tema de la aplicación y proporciona una función para cambiar entre los temas.
+ * También aplica el tema seleccionado al cargar la aplicación.
  *
- * @param {Object} props - Propiedades del componente, incluyendo `children`.
- * @returns {JSX.Element} El proveedor del contexto que envuelve los componentes hijos.
+ * @component
+ * @param {Object} props - Propiedades del componente.
+ * @param {JSX.Element} props.children - Componentes hijos que estarán envueltos por el proveedor.
+ * @returns {JSX.Element} Proveedor del contexto del tema.
  */
 export function ThemeProvider({ children }) {
   /**
@@ -72,7 +78,8 @@ export function ThemeProvider({ children }) {
 
 /**
  * Hook personalizado para acceder al contexto del tema.
- * Permite que los componentes obtengan y actualicen el tema de manera sencilla.
+ * 
+ * Permite a los componentes obtener y actualizar el tema de manera sencilla.
  *
  * @returns {Object} El valor del contexto que incluye `theme` y `setTheme`.
  */

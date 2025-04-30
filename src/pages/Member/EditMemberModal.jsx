@@ -36,12 +36,9 @@ const userSchema = z.object({
 });
 
 /**
- * Componente modal para editar los datos de un socio.
- *
- * Este modal muestra un formulario prellenado con los datos del socio seleccionado y permite editarlos.
- * Incluye campos como nombre, apellidos, usuario, email, teléfono, departamento y estado.
- * Utiliza `react-hook-form` para la gestión del formulario y validaciones.
- * Muestra esqueleto de carga mientras los datos del socio no están disponibles.
+ * Modal para editar los datos de un socio.
+ * Muestra un formulario prellenado con los datos del socio seleccionado y permite editarlos.
+ * Incluye campos como nombre, apellidos, email, DNI, teléfono y estado.
  *
  * @component
  * @param {Object} props - Props del componente.
@@ -51,16 +48,7 @@ const userSchema = z.object({
  * @param {Function} props.updateMembers - Función para actualizar la lista de socios después de editar.
  * @param {Object} props.selectedMember - Datos del socio seleccionado para editar.
  *
- * @returns {JSX.Element} El modal con el formulario para editar un socio.
- *
- * @example
- * <EditMemberModal
- *   open={modalOpen}
- *   setOpen={setModalOpen}
- *   isDarkMode={true}
- *   updateMembers={loadMembers}
- *   selectedMember={MemberData}
- * />
+ * @returns {JSX.Element} Modal con formulario para editar un socio.
  */
 const EditMemberModal = ({
   open,

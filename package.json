@@ -7,11 +7,13 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "docs": "jsdoc -c jsdoc.json"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.1",
     "@hookform/resolvers": "^5.0.1",
+    "@pnotify/confirm": "^5.2.0",
     "@pnotify/core": "^5.2.0",
     "@radix-ui/react-dialog": "^1.1.7",
     "@radix-ui/react-label": "^2.1.3",
@@ -27,7 +29,7 @@
     "clsx": "^2.1.1",
     "i18next": "^24.2.3",
     "lucide-react": "^0.487.0",
-    "pnotify": "^5.2.0",
+    "pnotify": "^4.0.1",
     "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-chartjs-2": "^5.3.0",
@@ -48,10 +50,14 @@
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react-swc": "^3.8.0",
+    "clean-jsdoc-theme": "^4.3.0",
+    "docdash": "^2.0.2",
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
+    "jsdoc": "^4.0.4",
+    "minami": "^1.2.3",
     "tailwindcss": "^4.1.3",
     "vite": "^6.2.0"
   }

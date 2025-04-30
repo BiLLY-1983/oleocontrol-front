@@ -18,17 +18,6 @@ import {
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@context/ThemeContext";
 
-/**
- * Definición de los elementos del menú de la barra lateral.
- * Cada objeto contiene propiedades como `name`, `icon` y `to` que representan 
- * el nombre de la ruta para traducir, el icono que se usará en el menú y la 
- * ruta a la que lleva el enlace.
- * 
- * @type {Array<Object>}
- * @property {string} name - Nombre de la ruta para la traducción.
- * @property {JSX.Element} icon - El ícono correspondiente a la ruta.
- * @property {string} to - La ruta de navegación a la que apunta el enlace.
- */
 const menuItems = [
   { name: "navigation.home", icon: Home, to: "home" },
   { name: "navigation.users", icon: Users, to: "users" },
@@ -44,6 +33,10 @@ const menuItems = [
 
 /**
  * Sidebar de administración con funcionalidad de colapsar y cambiar entre temas.
+ * 
+ * Permite a los administradores navegar entre diferentes secciones de la aplicación,
+ * como usuarios, roles, empleados, departamentos, socios, entradas, análisis, liquidaciones y aceites.
+ *
  * @component
  * @example
  * <SidebarAdmin />
@@ -58,10 +51,6 @@ export default function SidebarAdmin() {
 
   const isDarkMode = theme === "dark";
 
-  /**
-   * useEffect que detecta el tamaño de la pantalla y ajusta el estado del sidebar.
-   * Además, ajusta la visibilidad de los elementos cuando se redimensiona la ventana.
-   */
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth <= 768;

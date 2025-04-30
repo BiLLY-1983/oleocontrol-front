@@ -68,33 +68,19 @@ const userSchema = z
   }) */;
 
 /**
-* Componente modal para crear un nuevo socio.
-*
-* Este modal presenta un formulario validado con Zod que permite registrar
-* un nuevo socio, incluyendo campos como nombre, apellido, email, DNI,
-* contraseña.
-*
-* Al enviarse correctamente, muestra una notificación de éxito, resetea el
-* formulario, cierra el modal y ejecuta una función para actualizar la lista
-* de socios si se ha proporcionado.
-*
-* @component
-* @param {Object} props - Propiedades del componente
-* @param {boolean} props.open - Determina si el modal está abierto
-* @param {Function} props.setOpen - Función para cambiar el estado del modal
-* @param {boolean} props.isDarkMode - Indica si se debe usar el tema oscuro
-* @param {Function} props.updateEmployees - Función para actualizar la lista de socios tras la creación
-*
-* @returns {JSX.Element} Modal con formulario para creación de un nuevo socio.
-* 
-* @example
-* <NewMemberModal
-*   open={modalOpen}
-*   setOpen={setModalOpen}
-*   isDarkMode={true}
-*   updateMembers={loadMembers}
-* />
-*/
+ * Modal para crear un nuevo socio.
+ * Presenta un formulario validado con Zod que permite registrar un nuevo socio.
+ * Incluye campos como nombre, apellidos, email, DNI y teléfono.
+ *
+ * @component
+ * @param {Object} props - Propiedades del componente.
+ * @param {boolean} props.open - Indica si el modal está abierto.
+ * @param {Function} props.setOpen - Función para cambiar el estado del modal.
+ * @param {boolean} props.isDarkMode - Indica si se debe usar el tema oscuro.
+ * @param {Function} props.updateMembers - Función para actualizar la lista de socios tras la creación.
+ *
+ * @returns {JSX.Element} Modal con formulario para creación de un nuevo socio.
+ */
 const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
   const { t } = useTranslation(); // Hook para traducciones
   const {

@@ -3,12 +3,23 @@ import { UserContext } from '@context/UserContext';
 
 /**
  * Hook que proporciona funcionalidades relacionadas con la autenticación y los roles de usuario.
- * Utiliza el contexto de usuario (UserContext) para obtener los datos del usuario y proporciona
- * funciones para verificar el rol y el departamento del usuario.
  * 
- * @returns {Object} Un objeto que contiene dos funciones:
+ * Utiliza el contexto de usuario (`UserContext`) para obtener los datos del usuario y proporciona
+ * funciones para verificar el rol y el departamento del usuario.
+ *
+ * @hook
+ * @returns {Object} Un objeto que contiene:
  *   - `hasRole`: Función que verifica si el usuario tiene un rol específico.
- *   - `hasDepartment`: Función que verifica si el usuario (empleado) pertenece a un departamento específico.
+ *   - `hasDepartment`: Función que verifica si el usuario pertenece a un departamento específico.
+ *
+ * @example
+ * const { hasRole, hasDepartment } = useUserAuth();
+ * if (hasRole("admin")) {
+ *   console.log("El usuario es administrador");
+ * }
+ * if (hasDepartment("ventas")) {
+ *   console.log("El usuario pertenece al departamento de ventas");
+ * }
  */
 export default function useUserAuth() {
     

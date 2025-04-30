@@ -8,9 +8,9 @@ import { useEffect, useState } from "react";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 /**
- * Componente que muestra un gráfico de tipo doughnut con la distribución de los aceites
- * obtenidos a partir de los análisis de rendimiento de las aceitunas.
- *
+ * Componente de gráfica tipo donut.
+ * 
+ * Muestra un gráfico Doughnut con la distribución de los aceites obtenidos a partir de los análisis de rendimiento de las aceitunas.
  * También muestra el total de litros de aceite obtenidos.
  *
  * @component
@@ -22,30 +22,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
  *  - `yield`: Porcentaje de rendimiento del análisis.
  *  - `entry.olive_quantity`: Cantidad de aceituna analizada.
  *  - `oil.name`: Nombre del aceite resultante del análisis.
- *
- * @returns {JSX.Element} El componente visualiza un gráfico Doughnut con la distribución de los aceites
- * obtenidos a partir de los análisis de rendimiento de las aceitunas.
- *
- * @example
- * const oils = [
- *   { name: "Picual", price: 3.5 },
- *   { name: "Hojiblanca", price: 4.2 },
- * ];
- *
- * const analyses = [
- *   {
- *     yield: 18.5,
- *     entry: { olive_quantity: 1000 },
- *     oil: { name: "Picual" }
- *   },
- *   {
- *     yield: 20,
- *     entry: { olive_quantity: 800 },
- *     oil: { name: "Hojiblanca" }
- *   }
- * ];
- *
- * <ChartOils oils={oils} analyses={analyses} />
+ * @returns {JSX.Element} Gráfico Doughnut con la distribución de los aceites.
  */
 export default function ChartOils({ oils, analyses }) {
   const { t } = useTranslation();

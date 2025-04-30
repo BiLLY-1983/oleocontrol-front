@@ -5,11 +5,10 @@ import clsx from "clsx";
 import { useTheme } from "@context/ThemeContext";
 
 /**
- * DashboardMember
- * 
- * Componente layout principal para los usuarios con rol de miembro (ej. agricultores).
- * Incluye la barra lateral específica del miembro, la barra superior y el área de contenido.
- * 
+ * Layout principal para los usuarios con rol de miembro (ej. agricultores).
+ * Incluye barra lateral, barra superior y área de contenido.
+ *
+ * @page
  * @returns {JSX.Element} Estructura del dashboard de miembro.
  */
 const DashboardMember = () => {

@@ -5,18 +5,16 @@ import { useTheme } from "@context/ThemeContext";
 import clsx from "clsx";
 
 /**
- * Componente para mostrar una página de Acceso denegado.
- * 
- * Este componente muestra un mensaje de error cuando la página no es encontrada
- * (Acceso denegado). Incluye un botón para regresar a la página anterior.
- * 
+ * Componente para mostrar una página de acceso denegado.
+ * Muestra un mensaje indicando que el acceso está restringido e incluye un botón para regresar.
+ *
  * @component
  * @example
  * return (
  *   <AccessDenied />
  * )
- * 
- * @returns {JSX.Element} La página de error 404.
+ *
+ * @returns {JSX.Element} La página de acceso denegado.
  */
 const AccessDenied = () => {
   const { t } = useTranslation();

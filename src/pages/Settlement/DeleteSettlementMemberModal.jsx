@@ -17,27 +17,20 @@ import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
 /**
- * Componente de modal para eliminar un una liquidacion de un socio.
+ * Modal para eliminar una liquidación de un socio.
  * 
+ * Permite a los socios confirmar y eliminar una de sus liquidaciones pendientes.
+ *
  * @component
- * 
- * @param {string} memberId - ID del socio a eliminar.
- * @param {boolean} open - Estado de apertura del modal.
- * @param {function} setOpen - Función para cambiar el estado de apertura del modal.
- * @param {boolean} isDarkMode - Estado del modo oscuro.
- * @param {function} updateSettlements - Función para actualizar las liquidaciones.
- * @param {object} selectedSettlement - Liquidación seleccionada.
- * 
- * @returns {JSX.Element} - Modal para eliminar una liquidacion de un socio.
+ * @param {string} memberId - ID del socio.
+ * @param {boolean} open - Indica si el modal está abierto.
+ * @param {Function} setOpen - Función para cambiar el estado del modal.
+ * @param {boolean} isDarkMode - Indica si el modo oscuro está activado.
+ * @param {Function} updateSettlements - Función para actualizar la lista de liquidaciones.
+ * @param {Object} selectedSettlement - Liquidación seleccionada para eliminar.
+ * @returns {JSX.Element} Modal para eliminar una liquidación de un socio.
  */
-const DeleteSettlementMemberModal = ({
-  memberId,
-  open,
-  setOpen,
-  isDarkMode,
-  updateSettlements,
-  selectedSettlement,
-}) => {
+const DeleteSettlementMemberModal = ({ memberId, open, setOpen, isDarkMode, updateSettlements, selectedSettlement }) => {
   const { t } = useTranslation();
 
   /**

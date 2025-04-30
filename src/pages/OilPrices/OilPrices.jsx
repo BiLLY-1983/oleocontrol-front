@@ -6,6 +6,15 @@ import { Card } from "@components/ui/card";
 import { useTheme } from "@context/ThemeContext";
 import clsx from "clsx";
 
+/**
+ * Página para mostrar los precios de los aceites.
+ * 
+ * Muestra una lista de aceites con su nombre, imagen, precio y descripción.
+ * Los datos se obtienen desde la API y se manejan estados de carga y error.
+ *
+ * @component
+ * @returns {JSX.Element} Página de precios de aceites.
+ */
 const OilPrices = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();

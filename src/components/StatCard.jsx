@@ -4,14 +4,15 @@ import { useTranslation } from "react-i18next";
 import { Skeleton } from "@/components/ui/skeleton";
 
 /**
- * Componente de tarjeta de estadísticas que muestra un título, un valor y un subtexto opcional.
- * El estilo y el texto son sensibles al tema actual (oscuro o claro).
+ * Componente de tarjeta de estadísticas.
  * 
+ * Muestra un título, un valor y un subtexto opcional. El estilo y el texto son sensibles al tema actual (oscuro o claro).
+ *
+ * @component
  * @param {Object} props - Propiedades del componente.
  * @param {string} props.title - Título de la tarjeta, que se traduce usando el hook de i18n.
  * @param {string|number} props.value - Valor que se muestra de forma destacada en la tarjeta.
  * @param {string} [props.subtext] - Subtexto opcional que se muestra debajo del valor, también traducido.
- * 
  * @returns {JSX.Element} Componente de tarjeta con el título, valor y subtexto (si se proporciona).
  */
 export default function StatCard({ title, value, subtext }) {

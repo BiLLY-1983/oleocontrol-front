@@ -8,9 +8,9 @@ import { useEffect, useState } from "react";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 /**
- * Componente que muestra un gráfico circular (Pie Chart) con el estado actual
- * de las liquidaciones: Pendientes, Aceptadas y Canceladas.
- *
+ * Componente de gráfica circular (Pie Chart).
+ * 
+ * Muestra un gráfico circular con el estado actual de las liquidaciones: Pendientes, Aceptadas y Canceladas.
  * También muestra el total en euros de las liquidaciones aceptadas.
  *
  * @component
@@ -20,26 +20,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
  *  - `amount`: Cantidad de aceite liquidada.
  *  - `price`: Precio por litro.
  *  - `created_at`: Fecha de creación de la liquidación.
- *
- * @returns {JSX.Element} El componente visualiza un gráfico de pastel con la distribución de los estados de liquidación y el total de las liquidaciones aceptadas.
- *
- * @example
- * const settlements = [
- *   {
- *     settlement_status: "Aceptada",
- *     amount: 1200,
- *     price: 3.2,
- *     created_at: "2024-06-15"
- *   },
- *   {
- *     settlement_status: "Cancelada",
- *     amount: 900,
- *     price: 2.8,
- *     created_at: "2024-07-20"
- *   }
- * ];
- *
- * <ChartSettlementsHome settlements={settlements} />
+ * @returns {JSX.Element} Gráfico circular con la distribución de los estados de liquidación.
  */
 export default function ChartSettlementsHome({ settlements }) {
   const { t } = useTranslation();

@@ -20,29 +20,13 @@ import {
 } from "@components/ui/dialog";
 
 /**
+ * Página para la gestión de aceites en el sistema.
  * 
- * Componente `Oils` para la gestión de aceites en el sistema.
- * 
- * Este componente muestra una lista de aceites con funciones de búsqueda,
- * filtrado, paginación, y gráficos para visualizar la distribución por tipo de aceite.
- * También permite crear, editar y eliminar aceites mediante modales.
- * 
+ * Muestra una lista de aceites con funciones de búsqueda, filtrado, paginación y gráficos
+ * para visualizar la distribución por tipo de aceite. También permite crear, editar y eliminar aceites mediante modales.
+ *
  * @component
- * 
- * @returns {JSX.Element} Interfaz de usuario para la gestión de aceites.
- * @description Este componente permite a los usuarios gestionar aceites, mostrando
- * los precios y detalles de cada aceite disponible en el sistema.
- * 
- * @example
- * <Oils />
- * 
- * @features
- * - Carga asíncrona de aceites desde la API.
- * - Filtro por nombre, precio y descripción.
- * - Paginación configurable por cantidad de aceites por página.
- * - Visualización con gráficos (donut y de barras) del número de aceites por tipo.
- * - Modales para agregar, editar y eliminar aceites.
- * - Soporte para tema claro/oscuro.
+ * @returns {JSX.Element} Página de gestión de aceites.
  */
 const Oils = () => {
   const { theme } = useTheme();

@@ -86,18 +86,17 @@ const userSchema = z
   });
 
 /**
- * Componente de modal para crear un nuevo usuario.
- * Este componente oermite al usuario ingresar los datos necesarios para crear un nuevo usuario en el sistema.
+ * Modal para crear un nuevo usuario.
  * 
+ * Permite al administrador ingresar los datos necesarios para registrar un nuevo usuario en el sistema.
+ * Incluye validación de datos y manejo de errores.
+ *
  * @component
- * 
- * @param {Object} props - Props del componente.
- * @param {boolean} props.open - Estado de apertura del modal.
- * @param {function} props.setOpen - Función para cambiar el estado de apertura del modal.
- * @param {boolean} props.isDarkMode - Estado del modo oscuro.
- * @param {function} props.updateUsuarios - Función para actualizar la lista de usuarios.
- * 
- * @returns {JSX.Element} - Componente de modal.
+ * @param {boolean} open - Indica si el modal está abierto.
+ * @param {Function} setOpen - Función para cambiar el estado del modal.
+ * @param {boolean} isDarkMode - Indica si el modo oscuro está activado.
+ * @param {Function} updateUsuarios - Función para actualizar la lista de usuarios tras la creación.
+ * @returns {JSX.Element} Modal para crear un nuevo usuario.
  */
 const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
   const { t } = useTranslation(); // Hook para traducciones

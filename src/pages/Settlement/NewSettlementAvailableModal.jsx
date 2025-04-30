@@ -35,19 +35,17 @@ const settlementSchema = z.object({
 });
 
 /**
- * Componente de modal para crear una nueva liquidación de aceite.
- * Permite al usuario seleccionar una fecha, cantidad de aceite, y un tipo de aceite.
- * Los datos se validan usando Zod y se envían al backend para su creación.
+ * Modal para crear una nueva liquidación disponible para un socio.
+ * 
+ * Permite a los socios ingresar los detalles de una nueva liquidación, como cantidad, precio y tipo de aceite.
  *
  * @component
- * 
- * @param {string} memberId - ID del miembro para el cual se crea la liquidación.
- * @param {boolean} open - Estado de apertura del modal.
- * @param {function} setOpen - Función para cambiar el estado de apertura del modal.
- * @param {boolean} isDarkMode - Estado del modo oscuro.
- * @param {function} updateSettlements - Función para actualizar la lista de liquidaciones.
- * 
- * @returns {JSX.Element} Modal para crear una nueva liquidación de aceite.
+ * @param {string} memberId - ID del socio.
+ * @param {boolean} open - Indica si el modal está abierto.
+ * @param {Function} setOpen - Función para cambiar el estado del modal.
+ * @param {boolean} isDarkMode - Indica si el modo oscuro está activado.
+ * @param {Function} updateSettlements - Función para actualizar la lista de liquidaciones.
+ * @returns {JSX.Element} Modal para crear una nueva liquidación disponible.
  */
 const NewSettlementAvailableModal = ({
   memberId,

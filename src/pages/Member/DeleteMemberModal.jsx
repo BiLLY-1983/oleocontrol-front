@@ -18,36 +18,19 @@ import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
 /**
- * Componente modal para eliminar un socio.
- *
- * Este componente muestra un modal para confirmar la eliminación de un socio.
- * Si se confirma la eliminación, se llama a la función `deleteMember` para eliminar al socio,
- * y se muestra una notificación de éxito o error dependiendo del resultado de la operación.
+ * Modal para eliminar un socio.
+ * Muestra una confirmación antes de eliminar al socio seleccionado.
+ * Llama a la API para eliminar al socio y actualiza la lista tras la operación.
  *
  * @component
- * @example
- * return (
- *   <DeleteMemberModal
- *     open={isModalOpen}
- *     setOpen={setModalOpen}
- *     isDarkMode={isDarkMode}
- *     updateMembers={fetchMembers}
- *     selectedMember={MemberToDelete}
- *   />
- * )
- *
  * @param {Object} props - Props del componente.
- * @param {boolean} props.open - Estado que determina si el modal está abierto o cerrado.
- * @param {function} props.setOpen - Función para cambiar el estado del modal (abrir o cerrar).
- * @param {boolean} props.isDarkMode - Estado que determina si el tema es oscuro.
- * @param {function} props.updateMembers - Función para actualizar la lista de socios tras eliminar uno.
- * @param {Object} props.selectedMember - El socio seleccionado para ser eliminado.
- * @param {Object} props.selectedMember.user - Información del usuario del socio.
- * @param {string} props.selectedMember.user.username - El nombre de usuario del socio.
- * @param {string} props.selectedMember.user.first_name - El primer nombre del socio.
- * @param {string} props.selectedMember.user.last_name - El apellido del socio.
+ * @param {boolean} props.open - Indica si el modal está abierto.
+ * @param {Function} props.setOpen - Función para abrir/cerrar el modal.
+ * @param {boolean} props.isDarkMode - Indica si se está utilizando el modo oscuro.
+ * @param {Function} props.updateMembers - Función para actualizar la lista de socios tras eliminar uno.
+ * @param {Object} props.selectedMember - Datos del socio seleccionado para eliminar.
  *
- * @returns {JSX.Element} El modal para eliminar un socio.
+ * @returns {JSX.Element} Modal para confirmar la eliminación de un socio.
  */
 const DeleteMemberModal = ({
   open,

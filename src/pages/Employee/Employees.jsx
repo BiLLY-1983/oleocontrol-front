@@ -34,26 +34,12 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 /**
- * Componente `Employees` para la gestión de empleados en el sistema.
+ * Página para gestionar empleados en el sistema.
+ * Incluye búsqueda, filtrado, paginación y gráficos de distribución por departamento.
+ * Permite crear, editar y eliminar empleados mediante modales.
  *
- * Este componente muestra una lista de empleados con funciones de búsqueda,
- * filtrado, paginación, y gráficos para visualizar la distribución por departamento.
- * También permite crear, editar y eliminar empleados mediante modales.
- *
- * @component
- *
- * @returns {JSX.Element} Interfaz de usuario para la gestión de empleados.
- *
- * @example
- * <Employees />
- *
- * @features
- * - Carga asíncrona de empleados desde la API.
- * - Filtro por nombre, apellido, email, teléfono, DNI, departamento y estado.
- * - Paginación configurable por cantidad de empleados por página.
- * - Visualización con gráficos (donut y de barras) del número de empleados por departamento.
- * - Modales para agregar, editar y eliminar empleados.
- * - Soporte para tema claro/oscuro.
+ * @page
+ * @returns {JSX.Element} Página de gestión de empleados.
  */
 const Employees = () => {
   const { t } = useTranslation();

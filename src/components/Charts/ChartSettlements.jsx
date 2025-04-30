@@ -14,8 +14,9 @@ import clsx from "clsx";
 import { formatEuro } from "@/utils/formatEuro";
 
 /**
- * Componente que muestra un gráfico de barras con la evolución mensual
- * de las liquidaciones aceptadas y canceladas durante los últimos 12 meses.
+ * Componente de gráfica de barras.
+ * 
+ * Muestra un gráfico de barras con la evolución mensual de las liquidaciones aceptadas y canceladas durante los últimos 12 meses.
  *
  * @component
  * @param {Object} props - Propiedades del componente.
@@ -24,24 +25,7 @@ import { formatEuro } from "@/utils/formatEuro";
  *  - `settlement_status`: Estado de la liquidación ("Aceptada" o "Cancelada").
  *  - `amount`: Cantidad de aceite liquidada.
  *  - `price`: Precio por litro.
- *
- * @example
- * const settlements = [
- *   {
- *     settlement_date_res: "2024-04-10",
- *     settlement_status: "Aceptada",
- *     amount: 1000,
- *     price: 3.5
- *   },
- *   {
- *     settlement_date_res: "2024-03-05",
- *     settlement_status: "Cancelada",
- *     amount: 800,
- *     price: 3.2
- *   }
- * ];
- *
- * <ChartSettlements settlements={settlements} />
+ * @returns {JSX.Element} Gráfico de barras con la evolución mensual de las liquidaciones.
  */
 export default function ChartSettlements({ settlements }) {
   const { t } = useTranslation();

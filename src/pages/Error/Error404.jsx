@@ -6,16 +6,14 @@ import clsx from "clsx";
 
 /**
  * Componente para mostrar una página de error 404.
- * 
- * Este componente muestra un mensaje de error cuando la página no es encontrada
- * (Error 404). Incluye un botón para regresar a la página anterior.
- * 
+ * Muestra un mensaje indicando que la página no fue encontrada e incluye un botón para regresar.
+ *
  * @component
  * @example
  * return (
  *   <Error404 />
  * )
- * 
+ *
  * @returns {JSX.Element} La página de error 404.
  */
 const Error404 = () => {

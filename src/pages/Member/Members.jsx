@@ -34,26 +34,12 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 /**
- * Componente `Members` para la gestión de socios en el sistema.
+ * Página para gestionar los socios en el sistema.
+ * Incluye búsqueda, filtrado, paginación y gráficos para visualizar la distribución por estado.
+ * Permite crear, editar y eliminar socios mediante modales.
  *
- * Este componente muestra una lista de socios con funciones de búsqueda,
- * filtrado, paginación, y gráficos para visualizar la distribución por departamento.
- * También permite crear, editar y eliminar socios mediante modales.
- *
- * @component
- *
- * @returns {JSX.Element} Interfaz de usuario para la gestión de socios.
- *
- * @example
- * <Members />
- *
- * @features
- * - Carga asíncrona de socios desde la API.
- * - Filtro por nombre, apellido, email, teléfono, DNI y estado.
- * - Paginación configurable por cantidad de socios por página.
- * - Visualización con gráficos (donut y de barras) del número de socios por departamento.
- * - Modales para agregar, editar y eliminar socios.
- * - Soporte para tema claro/oscuro.
+ * @page
+ * @returns {JSX.Element} Página de gestión de socios.
  */
 const Members = () => {
   const { t } = useTranslation();

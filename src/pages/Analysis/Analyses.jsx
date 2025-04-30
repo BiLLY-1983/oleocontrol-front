@@ -29,14 +29,11 @@ import { BiSolidFilePdf } from "react-icons/bi";
 import EditAnalysisModal from "@pages/Analysis/EditAnalysisModal";
 
 /**
- * Componente que gestiona el listado y visualización de análisis de aceituna.
- * Permite realizar filtrados, paginación, y la descarga de informes en PDF.
+ * Página para gestionar y visualizar los análisis de aceituna.
+ * Incluye filtrado, paginación y descarga de informes en PDF.
  *
- * @component
- * @example
- * return (
- *   <Analyses />
- * )
+ * @page
+ * @returns {JSX.Element} Página de gestión de análisis.
  */
 const Analyses = () => {
   /**

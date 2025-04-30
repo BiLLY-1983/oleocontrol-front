@@ -34,12 +34,13 @@ import { SettlementPDF } from "@components/pdf/SettlementPDF";
 import { BiSolidFilePdf } from "react-icons/bi";
 
 /**
- * Componente que muestra la gestión de liquidaciones.
- * Permite ver, filtrar y gestionar liquidaciones de empleados.
+ * Página para la gestión de liquidaciones.
  * 
- * @component Settlements
- * @returns {JSX.Element} Componente de gestión de liquidaciones.
- * 
+ * Permite a los administradores y empleados visualizar, filtrar, crear, editar y eliminar liquidaciones.
+ * También incluye gráficos y opciones de exportación en PDF.
+ *
+ * @component
+ * @returns {JSX.Element} Página de gestión de liquidaciones.
  */
 const Settlements = () => {
   const { theme } = useTheme();

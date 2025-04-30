@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>pages/Analysis/AnalysesMember.jsx - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AccessDenied">AccessDenied</a></li><li><a href="global.html#Analyses">Analyses</a></li><li><a href="global.html#AnalysesMember">AnalysesMember</a></li><li><a href="global.html#AnalysisPDF">AnalysisPDF</a></li><li><a href="global.html#ChartOilInventory">ChartOilInventory</a></li><li><a href="global.html#DashboardAdmin">DashboardAdmin</a></li><li><a href="global.html#DashboardEmployee">DashboardEmployee</a></li><li><a href="global.html#DashboardMember">DashboardMember</a></li><li><a href="global.html#DeleteEmployeeModal">DeleteEmployeeModal</a></li><li><a href="global.html#DeleteEntryModal">DeleteEntryModal</a></li><li><a href="global.html#DeleteMemberModal">DeleteMemberModal</a></li><li><a href="global.html#DeleteOilModal">DeleteOilModal</a></li><li><a href="global.html#DeleteSettlementMemberModal">DeleteSettlementMemberModal</a></li><li><a href="global.html#DeleteSettlementModal">DeleteSettlementModal</a></li><li><a href="global.html#DeleteUserModal">DeleteUserModal</a></li><li><a href="global.html#DepartmentProtectedRoute">DepartmentProtectedRoute</a></li><li><a href="global.html#Departments">Departments</a></li><li><a href="global.html#EditAnalysisModal">EditAnalysisModal</a></li><li><a href="global.html#EditEmployeeModal">EditEmployeeModal</a></li><li><a href="global.html#EditEntryModal">EditEntryModal</a></li><li><a href="global.html#EditMemberModal">EditMemberModal</a></li><li><a href="global.html#EditOilModal">EditOilModal</a></li><li><a href="global.html#EditSettlementModal">EditSettlementModal</a></li><li><a href="global.html#EditUserModal">EditUserModal</a></li><li><a href="global.html#Employees">Employees</a></li><li><a href="global.html#EmployeesDoughnutChart">EmployeesDoughnutChart</a></li><li><a href="global.html#Entries">Entries</a></li><li><a href="global.html#EntriesMember">EntriesMember</a></li><li><a href="global.html#EntryPDF">EntryPDF</a></li><li><a href="global.html#EntryWithOilPDF">EntryWithOilPDF</a></li><li><a href="global.html#Error404">Error404</a></li><li><a href="global.html#ForgotPassword">ForgotPassword</a></li><li><a href="global.html#HomeAdmin">HomeAdmin</a></li><li><a href="global.html#HomeEmployee">HomeEmployee</a></li><li><a href="global.html#HomeMember">HomeMember</a></li><li><a href="global.html#LandingPage">LandingPage</a></li><li><a href="global.html#LoginAdmin">LoginAdmin</a></li><li><a href="global.html#LoginEmployee">LoginEmployee</a></li><li><a href="global.html#LoginMember">LoginMember</a></li><li><a href="global.html#Logout">Logout</a></li><li><a href="global.html#Members">Members</a></li><li><a href="global.html#MembersDoughnutChart">MembersDoughnutChart</a></li><li><a href="global.html#NewEmployeeModal">NewEmployeeModal</a></li><li><a href="global.html#NewEntryModal">NewEntryModal</a></li><li><a href="global.html#NewMemberModal">NewMemberModal</a></li><li><a href="global.html#NewOilModal">NewOilModal</a></li><li><a href="global.html#NewSettlementAvailableModal">NewSettlementAvailableModal</a></li><li><a href="global.html#NewSettlementModal">NewSettlementModal</a></li><li><a href="global.html#NewUserModal">NewUserModal</a></li><li><a href="global.html#OilAnalysisDoughnutChart">OilAnalysisDoughnutChart</a></li><li><a href="global.html#OilMember">OilMember</a></li><li><a href="global.html#OilPrices">OilPrices</a></li><li><a href="global.html#Oils">Oils</a></li><li><a href="global.html#OilsEmployee">OilsEmployee</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#Roles">Roles</a></li><li><a href="global.html#SettlementDoughnutChart">SettlementDoughnutChart</a></li><li><a href="global.html#SettlementPDF">SettlementPDF</a></li><li><a href="global.html#Settlements">Settlements</a></li><li><a href="global.html#SettlementsMember">SettlementsMember</a></li><li><a href="global.html#UserProfile">UserProfile</a></li><li><a href="global.html#Users">Users</a></li><li><a href="global.html#authRoutes">authRoutes</a></li><li><a href="global.html#dashboardRoutesAdmin">dashboardRoutesAdmin</a></li><li><a href="global.html#dashboardRoutesEmployee">dashboardRoutesEmployee</a></li><li><a href="global.html#dashboardRoutesMember">dashboardRoutesMember</a></li><li><a href="global.html#entrySchema">entrySchema</a></li><li><a href="global.html#fetchAnalyses">fetchAnalyses</a></li><li><a href="global.html#fetchEntries">fetchEntries</a></li><li><a href="global.html#fetchMembers">fetchMembers</a></li><li><a href="global.html#fetchOils">fetchOils</a></li><li><a href="global.html#fetchRolesAndCounts">fetchRolesAndCounts</a></li><li><a href="global.html#fetchSettlements">fetchSettlements</a></li><li><a href="global.html#fetchUsersByRole">fetchUsersByRole</a></li><li><a href="global.html#fetchUsuarios">fetchUsuarios</a></li><li><a href="global.html#filterUsuarios">filterUsuarios</a></li><li><a href="global.html#formatEuro">formatEuro</a></li><li><a href="global.html#getAnalyses">getAnalyses</a></li><li><a href="global.html#getDepartments">getDepartments</a></li><li><a href="global.html#getEmployees">getEmployees</a></li><li><a href="global.html#getEntries">getEntries</a></li><li><a href="global.html#getMembers">getMembers</a></li><li><a href="global.html#getOilInventories">getOilInventories</a></li><li><a href="global.html#getOilSettlements">getOilSettlements</a></li><li><a href="global.html#getOils">getOils</a></li><li><a href="global.html#getRoles">getRoles</a></li><li><a href="global.html#getSettlements">getSettlements</a></li><li><a href="global.html#getUsers">getUsers</a></li><li><a href="global.html#handleCardClick">handleCardClick</a></li><li><a href="global.html#handleCreate">handleCreate</a></li><li><a href="global.html#handleDelete">handleDelete</a></li><li><a href="global.html#oilSchema">oilSchema</a></li><li><a href="global.html#protectedRoutes">protectedRoutes</a></li><li><a href="global.html#updateSettlements">updateSettlements</a></li><li><a href="global.html#updateUsuarios">updateUsuarios</a></li><li><a href="global.html#userSchema">userSchema</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">pages/Analysis/AnalysesMember.jsx</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState, useContext } from "react";
+import { UserContext } from "@context/UserContext";
+import { Card } from "@/components/ui/card";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useTheme } from "@context/ThemeContext";
+import clsx from "clsx";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { getAnalysesForMember } from "@services/analysisRequests";
+import { SquarePen } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import { AnalysisPDF } from "@components/pdf/AnalysisPDF";
+import { BiSolidFilePdf } from "react-icons/bi";
+
+/**
+ * Página para que los socios visualicen sus análisis de aceituna.
+ * Incluye filtrado, estadísticas y descarga de informes en PDF.
+ *
+ * @page
+ * @returns {JSX.Element} Página de análisis para socios.
+ */
+const AnalysesMember = () => {
+  /**
+   * Hook para obtener el tema actual (oscuro o claro).
+   * @type {Object}
+   * @property {string} theme - El tema actual, puede ser "dark" o "light".
+   */
+  const { theme } = useTheme();
+
+  /**
+   * Determina si el modo oscuro está activado.
+   * @type {boolean}
+   */
+  const isDarkMode = theme === "dark";
+
+  /**
+   * Hook para gestionar la traducción de textos.
+   * @type {Object}
+   * @property {function} t - Función de traducción.
+   */
+  const { t } = useTranslation();
+
+  /**
+   * Hook para acceder a los datos del usuario en el contexto global.
+   * @type {Object}
+   * @property {Object} userData - Datos del usuario actual.
+   * @property {Object} userData.user - Información del usuario.
+   * @property {Object} userData.user.member - Información del miembro del usuario.
+   */
+  const { userData } = useContext(UserContext);
+  const memberId = userData?.user?.member?.id;
+
+  /**
+   * Estado que guarda la lista de análisis del miembro.
+   * @type {Array}
+   */
+  const [analyses, setAnalyses] = useState([]);
+
+  /**
+   * Estado que indica si los análisis están siendo cargados.
+   * @type {boolean}
+   */
+  const [loadingAnalyses, setLoadingAnalyses] = useState(true);
+
+  /**
+   * Estado que guarda la página actual de los análisis.
+   * @type {number}
+   */
+  const [currentPage, setCurrentPage] = useState(1);
+
+  /**
+   * Estado que guarda la cantidad de análisis por página.
+   * @type {number}
+   */
+  const [analysesPerPage, setAnalysesPerPage] = useState(10);
+
+  /**
+   * Estado que maneja el error al cargar los análisis.
+   * @type {string|null}
+   */
+  const [errorAnalyses, setErrorAnalyses] = useState(null);
+
+  /**
+   * Estado para almacenar el valor del filtro de búsqueda.
+   * @type {string}
+   */
+  const [filtro, setFiltro] = useState("");
+
+  /**
+   * Función para cargar los análisis de un miembro desde la API.
+   * Actualiza el estado de los análisis y el estado de carga.
+   */
+  const fetchAnalyses = async () => {
+    setLoadingAnalyses(true);
+    try {
+      const response = await getAnalysesForMember(memberId);
+      if (response.status === "success") {
+        setAnalyses(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching analyses:", error);
+      setErrorAnalyses("Error al cargar los análisis.");
+    } finally {
+      setLoadingAnalyses(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAnalyses();
+  }, []);
+
+  /**
+   * Función que filtra los análisis basándose en el valor del filtro.
+   * @returns {Array} - Análisis filtrados.
+   */
+  const analysesFiltered = analyses.filter((analysis) => {
+    if (!filtro) return true; // si no hay filtro, muestra todos
+    return analysis.oil?.name?.toLowerCase().includes(filtro.toLowerCase());
+  });
+
+  /**
+   * Calcula los números de páginas visibles en la paginación.
+   * @returns {Array} - Números de páginas visibles.
+   */
+  const getVisiblePageNumbers = () => {
+    const totalPages = pageNumbers.length;
+    const maxVisible = 5;
+    //const pages = [];
+
+    if (totalPages &lt;= maxVisible) {
+      return pageNumbers;
+    }
+
+    if (currentPage &lt;= 3) {
+      return [...pageNumbers.slice(0, 3), "...", totalPages];
+    }
+
+    if (currentPage >= totalPages - 2) {
+      return [1, "...", ...pageNumbers.slice(totalPages - 3)];
+    }
+
+    return [
+      1,
+      "...",
+      currentPage - 1,
+      currentPage,
+      currentPage + 1,
+      "...",
+      totalPages,
+    ];
+  };
+
+  /**
+   * Calcula el índice del primer análisis en la página actual.
+   * @type {number}
+   */
+  const indexOfLastAnalysis = currentPage * analysesPerPage;
+
+  /**
+   * Calcula el índice del último análisis en la página actual.
+   * @type {number}
+   */
+  const indexOfFirstAnalysis = indexOfLastAnalysis - analysesPerPage;
+
+  /**
+   * Lista de los análisis visibles en la página actual.
+   * @type {Array}
+   */
+  const currentAnalyses = analysesFiltered.slice(
+    indexOfFirstAnalysis,
+    indexOfLastAnalysis
+  );
+
+  /**
+   * Función para cambiar de página en la paginación.
+   * @param {number} pageNumber - Número de la página a la que cambiar.
+   */
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  /**
+   * Lista de todos los números de página para la paginación.
+   * @type {Array}
+   */
+  const pageNumbers = [];
+  for (
+    let i = 1;
+    i &lt;= Math.ceil(analysesFiltered.length / analysesPerPage);
+    i++
+  ) {
+    pageNumbers.push(i);
+  }
+
+  /**
+   * Lista de análisis pendientes (sin fecha de análisis).
+   * @type {Array}
+   */
+  const pendingAnalyses = analyses.filter((a) => !a.analysis_date);
+
+  /**
+   * Lista de análisis con rendimiento disponible.
+   * @type {Array}
+   */
+  const analysesWithYield = analyses.filter(
+    (a) => a.yield !== null &amp;&amp; a.yield !== undefined
+  );
+
+  /**
+   * Promedio del rendimiento de los análisis con rendimiento disponible.
+   * @type {number}
+   */
+  const averageYield =
+    analysesWithYield.length > 0
+      ? analysesWithYield.reduce((sum, a) => sum + Number(a.yield), 0) /
+        analysesWithYield.length
+      : 0;
+
+  return (
+    &lt;div
+      className={clsx(
+        "p-6 space-y-6",
+        isDarkMode ? "bg-dark-800 text-dark-50" : "bg-white text-olive-800"
+      )}
+    >
+      &lt;div className="flex justify-between items-center">
+        &lt;h1 className="text-2xl font-bold">{t("analyses.management")}&lt;/h1>
+      &lt;/div>
+
+      {/* Cards Kilos / Litros */}
+      &lt;div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+        {loadingAnalyses ? (
+          &lt;div className="space-y-4">
+            &lt;Skeleton className="h-16 w-1*2" />
+          &lt;/div>
+        ) : errorAnalyses ? (
+          &lt;div className="text-red-600">{errorAnalyses}&lt;/div>
+        ) : (
+          &lt;>
+            &lt;Card
+              className={clsx(
+                "rounded-2xl shadow-xl p-4 w-full border",
+                isDarkMode
+                  ? "bg-dark-900 border-dark-700 text-dark-50"
+                  : "bg-olive-100 border-olive-300 text-olive-800"
+              )}
+            >
+              &lt;div className="flex flex-col sm:flex-row justify-between items-center gap-2">
+                &lt;div className="text-lg font-semibold">
+                  {t("analysis.pending")}:
+                &lt;/div>
+                &lt;div className="text-3xl font-bold">
+                  {pendingAnalyses.length}
+                &lt;/div>
+              &lt;/div>
+            &lt;/Card>
+            &lt;Card
+              className={clsx(
+                "rounded-2xl shadow-xl p-4 w-full border",
+                isDarkMode
+                  ? "bg-dark-900 border-dark-700 text-dark-50"
+                  : "bg-olive-100 border-olive-300 text-olive-800"
+              )}
+            >
+              &lt;div className="flex flex-col sm:flex-row justify-between items-center gap-2">
+                &lt;div className="text-lg font-semibold">
+                  {t("home.oil_yield")}:
+                &lt;/div>
+                &lt;div className="text-3xl font-bold">
+                  {averageYield.toFixed(2)}%
+                &lt;/div>
+              &lt;/div>
+            &lt;/Card>
+          &lt;/>
+        )}
+      &lt;/div>
+
+      {/* Filtro y Selector */}
+      &lt;div className="flex flex-col md:flex-row justify-between items-center gap-4">
+        &lt;Input
+          placeholder="Buscar análisis..."
+          value={filtro}
+          onChange={(e) => setFiltro(e.target.value)}
+          className={clsx("w-full md:w-1/2")}
+        />
+        &lt;div className="flex items-center gap-2">
+          &lt;span className="text-sm text-muted-foreground">Mostrar:&lt;/span>
+          &lt;Select
+            value={String(analysesPerPage)}
+            onValueChange={(value) => {
+              setAnalysesPerPage(Number(value));
+              setCurrentPage(1);
+            }}
+          >
+            &lt;SelectTrigger className="w-[80px]">
+              &lt;SelectValue />
+            &lt;/SelectTrigger>
+            &lt;SelectContent>
+              {[5, 10, 20, 50, 100].map((num) => (
+                &lt;SelectItem key={num} value={String(num)}>
+                  {num}
+                &lt;/SelectItem>
+              ))}
+            &lt;/SelectContent>
+          &lt;/Select>
+        &lt;/div>
+      &lt;/div>
+
+      {/* Tabla o Skeleton */}
+      &lt;Card
+        className={clsx(
+          "rounded-2xl shadow-2xl p-4 w-full border overflow-x-auto",
+          isDarkMode
+            ? "bg-dark-900 border-dark-700 text-dark-50"
+            : "bg-olive-50 border-olive-200 text-olive-800"
+        )}
+      >
+        {loadingAnalyses ? (
+          &lt;div className="space-y-4">
+            {Array.from({ length: analysesPerPage }).map((_, idx) => (
+              &lt;Skeleton key={idx} className="h-10 w-full rounded-md" />
+            ))}
+          &lt;/div>
+        ) : (
+          &lt;div className="overflow-y-auto">
+            &lt;table className="min-w-full text-sm">
+              &lt;thead>
+                &lt;tr className="text-left border-b-2">
+                  &lt;th className="p-3 text-left w-1/14">ID&lt;/th>
+                  &lt;th className="p-3 text-left w-1/8">{t("analysis.date")}&lt;/th>
+                  &lt;th className="p-3 text-left w-1/8">
+                    {t("analysis.member")}
+                  &lt;/th>
+                  &lt;th className="p-3 text-left w-1/10">
+                    {t("analysis.oliveQuantity")}
+                  &lt;/th>
+                  &lt;th className="p-3 text-left w-1/10">
+                    {t("analysis.acidity")}
+                  &lt;/th>
+                  &lt;th className="p-3 text-left w-1/10">
+                    {t("analysis.humidity")}
+                  &lt;/th>
+                  &lt;th className="p-3 text-left w-1/8">{t("analysis.yield")}&lt;/th>
+                  &lt;th className="p-3 text-left w-1/6">
+                    {t("analysis.oilType")}
+                  &lt;/th>
+                  &lt;th className="p-3 text-left w-1/6">
+                    {t("analysis.oilQuantity")}
+                  &lt;/th>
+                  &lt;th className="p-3 text-center w-1/8">
+                    {t("common.actions")}
+                  &lt;/th>
+                &lt;/tr>
+              &lt;/thead>
+              &lt;tbody>
+                {currentAnalyses.map((analysis) => (
+                  &lt;tr
+                    key={analysis.id}
+                    className={clsx(
+                      "border-b transition-colors",
+                      isDarkMode ? "hover:bg-dark-700" : "hover:bg-olive-100"
+                    )}
+                  >
+                    &lt;td className="p-3">{analysis.id}&lt;/td>
+                    &lt;td className="p-3 font-medium">
+                      {analysis.analysis_date
+                        ? `${analysis.analysis_date}`
+                        : "-"}
+                    &lt;/td>
+                    &lt;td className="p-3">{analysis.member?.name}&lt;/td>
+                    &lt;td className="p-3">
+                      {analysis.entry?.olive_quantity} Kg (ID Ent:{" "}
+                      &lt;span className="font-bold">
+                        {analysis.entry?.entry_id}
+                      &lt;/span>
+                      )
+                    &lt;/td>
+                    &lt;td className="p-3">
+                      {analysis.acidity ? `${analysis.acidity}%` : "-"}
+                    &lt;/td>
+                    &lt;td className="p-3">
+                      {analysis.humidity ? `${analysis.humidity}%` : "-"}
+                    &lt;/td>
+                    &lt;td className="p-3">
+                      {analysis.yield ? `${analysis.yield}%` : "-"}
+                    &lt;/td>
+                    &lt;td className="p-3">
+                      {analysis.oil?.name ? `${analysis.oil?.name}` : "-"}
+                    &lt;/td>
+                    &lt;td className="p-3">
+                      {analysis.oil?.name &amp;&amp;
+                      analysis.entry?.olive_quantity &amp;&amp;
+                      analysis.yield
+                        ? `${(
+                            (analysis.entry.olive_quantity * analysis.yield) /
+                            100
+                          ).toFixed(2)} Kg`
+                        : "-"}
+                    &lt;/td>
+
+                    &lt;td className="p-3 text-center">
+                      &lt;div className="inline-flex space-x-2 items-center">
+                        &lt;PDFDownloadLink
+                          document={&lt;AnalysisPDF analysis={analysis} />}
+                          fileName={`informe_analisis-${analysis.member?.name}-${analysis.id}.pdf`}
+                        >
+                          {({ loadingAnalyses }) =>
+                            loadingAnalyses ? (
+                              &lt;BiSolidFilePdf size={20} />
+                            ) : (
+                              &lt;BiSolidFilePdf size={20} />
+                            )
+                          }
+                        &lt;/PDFDownloadLink>
+                      &lt;/div>
+                    &lt;/td>
+                  &lt;/tr>
+                ))}
+              &lt;/tbody>
+            &lt;/table>
+          &lt;/div>
+        )}
+      &lt;/Card>
+
+      {/* Paginación */}
+      {pageNumbers.length > 1 &amp;&amp; (
+        &lt;Pagination>
+          &lt;PaginationContent className="overflow-x-auto">
+            &lt;PaginationItem>
+              &lt;PaginationPrevious
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (currentPage > 1) setCurrentPage(currentPage - 1);
+                }}
+              />
+            &lt;/PaginationItem>
+
+            {getVisiblePageNumbers().map((page, index) => (
+              &lt;PaginationItem key={index}>
+                {page === "..." ? (
+                  &lt;PaginationEllipsis />
+                ) : (
+                  &lt;PaginationLink
+                    href="#"
+                    isActive={currentPage === page}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      paginate(Number(page));
+                    }}
+                  >
+                    {page}
+                  &lt;/PaginationLink>
+                )}
+              &lt;/PaginationItem>
+            ))}
+
+            &lt;PaginationItem>
+              &lt;PaginationNext
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (currentPage &lt; pageNumbers.length)
+                    setCurrentPage(currentPage + 1);
+                }}
+              />
+            &lt;/PaginationItem>
+          &lt;/PaginationContent>
+        &lt;/Pagination>
+      )}
+    &lt;/div>
+  );
+};
+
+export default AnalysesMember;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Wed Apr 30 2025 21:16:33 GMT+0200 (hora de verano de Europa central) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

@@ -13,9 +13,13 @@ import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
 /**
  * Componente de cierre de sesión.
- * Permite al usuario cerrar sesión, elimina los datos del usuario
- * del almacenamiento local, y redirige a la página de inicio.
+ * 
+ * Permite al usuario cerrar sesión, elimina los datos del usuario del almacenamiento local y redirige a la página de inicio.
  * Muestra notificaciones de éxito o error según el resultado del cierre de sesión.
+ *
+ * @component
+ * @example
+ * <Logout />
  *
  * @returns {JSX.Element} Un icono de cierre de sesión y un botón para cerrar sesión.
  */
@@ -25,14 +29,6 @@ const Logout = () => {
   const { userData, setUserData } = useContext(UserContext);
   const navigate = useNavigate();
 
-  /**
-   * Función que maneja el proceso de cierre de sesión.
-   * Elimina el token de autenticación y los datos del usuario del almacenamiento local,
-   * realiza una solicitud de cierre de sesión al backend, y redirige al usuario a la página principal.
-   * Si la operación es exitosa, muestra una notificación de éxito. En caso de error, muestra una notificación de error.
-   *
-   * @returns {void}
-   */
   const handleLogout = async () => {
     const token = localStorage.getItem("authToken");
     if (token) {

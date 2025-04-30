@@ -19,10 +19,13 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 /**
- * @component Roles
+ * Página para la gestión de roles en el sistema.
  * 
- * @returns {JSX.Element} - Componente de gestión de roles
- * @description Este componente muestra una lista de roles y un gráfico circular que representa la cantidad de usuarios por rol. Al hacer clic en un rol, se abre un diálogo que muestra los usuarios asociados a ese rol.
+ * Muestra una lista de roles y un gráfico circular que representa la cantidad de usuarios por rol.
+ * Al hacer clic en un rol, se abre un diálogo que muestra los usuarios asociados a ese rol.
+ *
+ * @component
+ * @returns {JSX.Element} Página de gestión de roles.
  */
 const Roles = () => {
   const { t } = useTranslation();

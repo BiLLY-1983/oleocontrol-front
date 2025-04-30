@@ -11,29 +11,20 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "@context/ThemeContext";
 import clsx from "clsx";
 
+
 /**
- * Componente que muestra un gráfico de barras que representa la evolución mensual de las entradas de aceituna durante los últimos 12 meses.
+ * Componente de gráfica de barras.
+ * 
+ * Muestra un gráfico de barras que representa la evolución mensual de las entradas de aceituna durante los últimos 12 meses.
  * Cada barra representa el total de kilos registrados en ese mes, agrupados y convertidos a toneladas para su visualización.
- *
- * El diseño se adapta al tema (claro u oscuro) mediante el contexto de tema (`useTheme`).
  *
  * @component
  * @param {Object} props - Propiedades del componente.
  * @param {Array<Object>} props.entries - Lista de entradas de aceituna. Cada objeto debe contener:
  *  - `entry_date` (string): Fecha de la entrada, en formato ISO.
  *  - `olive_quantity` (number): Cantidad de aceituna en kilogramos.
- *
- * @returns {JSX.Element} Un contenedor con el gráfico de barras responsivo que representa la cantidad de aceituna por mes.
- *
- * @example
- * const entries = [
- *   { entry_date: "2024-03-12", olive_quantity: 1500 },
- *   { entry_date: "2024-02-20", olive_quantity: 2000 },
- * ];
- * 
- * <ChartEntries entries={entries} />
+ * @returns {JSX.Element} Gráfico de barras con la evolución mensual de las entradas de aceituna.
  */
-
 export default function ChartEntries({ entries }) {
   const { t } = useTranslation();
   const { theme } = useTheme();

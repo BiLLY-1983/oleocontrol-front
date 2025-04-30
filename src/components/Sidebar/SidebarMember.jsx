@@ -14,17 +14,6 @@ import {
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@context/ThemeContext";
 
-/**
- * Definición de los elementos del menú de la barra lateral.
- * Cada objeto contiene propiedades como `name`, `icon` y `to` que representan 
- * el nombre de la ruta para traducir, el icono que se usará en el menú y la 
- * ruta a la que lleva el enlace.
- * 
- * @type {Array<Object>}
- * @property {string} name - Nombre de la ruta para la traducción.
- * @property {JSX.Element} icon - El ícono correspondiente a la ruta.
- * @property {string} to - La ruta de navegación a la que apunta el enlace.
- */
 const menuItems = [
   { name: "navigation.home", icon: Home, to: "home" },
   { name: "navigation.my_entries", icon: FileText, to: "entries" },
@@ -35,10 +24,12 @@ const menuItems = [
 ];
 
 /**
- * Componente para la barra lateral (sidebar) de un miembro.
- * Permite navegar entre diferentes secciones de la aplicación.
- * Incluye la opción de colapsar el menú y adaptarse a dispositivos móviles.
+ * Sidebar para socios con opciones de navegación específicas.
  * 
+ * Permite a los socios navegar entre diferentes secciones de la aplicación,
+ * como inicio, entradas, análisis, liquidaciones, aceites y precios.
+ * Incluye funcionalidad para colapsar el menú y adaptarse a dispositivos móviles.
+ *
  * @component
  * @example
  * <SidebarMember />
@@ -53,9 +44,6 @@ export default function SidebarMember() {
 
   const isDarkMode = theme === "dark";
 
-  /**
-   * useEffect para detectar cambios en el tamaño de la ventana y ajustar el estado de la vista móvil
-   */
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth <= 768;

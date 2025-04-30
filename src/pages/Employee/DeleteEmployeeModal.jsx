@@ -18,44 +18,20 @@ import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
 /**
- * Componente modal para eliminar un empleado.
- *
- * Este componente muestra un modal para confirmar la eliminación de un empleado.
- * Si se confirma la eliminación, se llama a la función `deleteEmployee` para eliminar al empleado,
- * y se muestra una notificación de éxito o error dependiendo del resultado de la operación.
+ * Modal para eliminar un empleado.
+ * Muestra una confirmación antes de eliminar al empleado seleccionado.
+ * Llama a la API para eliminar al empleado y actualiza la lista tras la operación.
  *
  * @component
- * @example
- * return (
- *   <DeleteEmployeeModal
- *     open={isModalOpen}
- *     setOpen={setModalOpen}
- *     isDarkMode={isDarkMode}
- *     updateEmployees={fetchEmployees}
- *     selectedEmployee={employeeToDelete}
- *   />
- * )
- *
  * @param {Object} props - Props del componente.
- * @param {boolean} props.open - Estado que determina si el modal está abierto o cerrado.
- * @param {function} props.setOpen - Función para cambiar el estado del modal (abrir o cerrar).
- * @param {boolean} props.isDarkMode - Estado que determina si el tema es oscuro.
- * @param {function} props.updateEmployees - Función para actualizar la lista de empleados tras eliminar uno.
- * @param {Object} props.selectedEmployee - El empleado seleccionado para ser eliminado.
- * @param {Object} props.selectedEmployee.user - Información del usuario del empleado.
- * @param {string} props.selectedEmployee.user.username - El nombre de usuario del empleado.
- * @param {string} props.selectedEmployee.user.first_name - El primer nombre del empleado.
- * @param {string} props.selectedEmployee.user.last_name - El apellido del empleado.
- *
- * @returns {JSX.Element} El modal para eliminar un empleado.
+ * @param {boolean} props.open - Indica si el modal está abierto.
+ * @param {Function} props.setOpen - Función para abrir/cerrar el modal.
+ * @param {boolean} props.isDarkMode - Indica si se está utilizando el modo oscuro.
+ * @param {Function} props.updateEmployees - Función para actualizar la lista de empleados tras eliminar uno.
+ * @param {Object} props.selectedEmployee - Datos del empleado seleccionado para eliminar.
+ * @returns {JSX.Element} Modal para confirmar la eliminación de un empleado.
  */
-const DeleteEmployeeModal = ({
-  open,
-  setOpen,
-  isDarkMode,
-  updateEmployees,
-  selectedEmployee,
-}) => {
+const DeleteEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees, selectedEmployee }) => {
   const { t } = useTranslation(); // Hook para traducciones
 
   /**

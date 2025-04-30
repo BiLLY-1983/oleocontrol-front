@@ -35,20 +35,18 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 /**
  * Componente principal para la gestión de usuarios.
- * Permite listar, filtrar, agregar, editar y eliminar usuarios.
- * Incluye funcionalidades de paginación y manejo de estado de carga.
  * 
+ * Permite listar, filtrar, agregar, editar y eliminar usuarios. Incluye funcionalidades de paginación,
+ * manejo de estado de carga y errores, y gráficos para visualizar datos de usuarios.
+ *
  * @component
- * 
  * @returns {JSX.Element} Componente de gestión de usuarios.
- * 
+ *
  * @features
  * - Listar usuarios con paginación y filtrado.
  * - Manejar estado de carga y errores.
  * - Permitir agregar, editar y eliminar usuarios.
- * - Implementar gráficos para visualizar datos de usuarios.
- * - Integrar nuevas funcionalidades de búsqueda avanzada.
- * - Permitir búsqueda por múltiples criterios.
+ * - Visualizar datos de usuarios mediante gráficos.
  */
 const Users = () => {
   const { t } = useTranslation();

@@ -28,15 +28,13 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 /**
- * Componente HomeEmployee
+ * Página de inicio del Dashboard para empleados.
  * 
- * Página de inicio del Dashboard.
- * 
- * Muestra estadísticas y gráficas relevantes para los empleados del sistema: 
+ * Muestra estadísticas y gráficas relevantes para los empleados del sistema:
  * socios activos, entradas de aceituna, producción de aceite, rendimiento medio y liquidaciones pendientes.
- * 
+ *
  * @component
- * @returns {JSX.Element} El componente HomeAdmin renderizado.
+ * @returns {JSX.Element} Página de inicio para empleados.
  */
 const HomeEmployee = () => {
   const { theme } = useTheme();

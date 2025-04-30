@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>pages/Member/Members.jsx - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AccessDenied">AccessDenied</a></li><li><a href="global.html#Analyses">Analyses</a></li><li><a href="global.html#AnalysesMember">AnalysesMember</a></li><li><a href="global.html#AnalysisPDF">AnalysisPDF</a></li><li><a href="global.html#ChartOilInventory">ChartOilInventory</a></li><li><a href="global.html#DashboardAdmin">DashboardAdmin</a></li><li><a href="global.html#DashboardEmployee">DashboardEmployee</a></li><li><a href="global.html#DashboardMember">DashboardMember</a></li><li><a href="global.html#DeleteEmployeeModal">DeleteEmployeeModal</a></li><li><a href="global.html#DeleteEntryModal">DeleteEntryModal</a></li><li><a href="global.html#DeleteMemberModal">DeleteMemberModal</a></li><li><a href="global.html#DeleteOilModal">DeleteOilModal</a></li><li><a href="global.html#DeleteSettlementMemberModal">DeleteSettlementMemberModal</a></li><li><a href="global.html#DeleteSettlementModal">DeleteSettlementModal</a></li><li><a href="global.html#DeleteUserModal">DeleteUserModal</a></li><li><a href="global.html#DepartmentProtectedRoute">DepartmentProtectedRoute</a></li><li><a href="global.html#Departments">Departments</a></li><li><a href="global.html#EditAnalysisModal">EditAnalysisModal</a></li><li><a href="global.html#EditEmployeeModal">EditEmployeeModal</a></li><li><a href="global.html#EditEntryModal">EditEntryModal</a></li><li><a href="global.html#EditMemberModal">EditMemberModal</a></li><li><a href="global.html#EditOilModal">EditOilModal</a></li><li><a href="global.html#EditSettlementModal">EditSettlementModal</a></li><li><a href="global.html#EditUserModal">EditUserModal</a></li><li><a href="global.html#Employees">Employees</a></li><li><a href="global.html#EmployeesDoughnutChart">EmployeesDoughnutChart</a></li><li><a href="global.html#Entries">Entries</a></li><li><a href="global.html#EntriesMember">EntriesMember</a></li><li><a href="global.html#EntryPDF">EntryPDF</a></li><li><a href="global.html#EntryWithOilPDF">EntryWithOilPDF</a></li><li><a href="global.html#Error404">Error404</a></li><li><a href="global.html#ForgotPassword">ForgotPassword</a></li><li><a href="global.html#HomeAdmin">HomeAdmin</a></li><li><a href="global.html#HomeEmployee">HomeEmployee</a></li><li><a href="global.html#HomeMember">HomeMember</a></li><li><a href="global.html#LandingPage">LandingPage</a></li><li><a href="global.html#LoginAdmin">LoginAdmin</a></li><li><a href="global.html#LoginEmployee">LoginEmployee</a></li><li><a href="global.html#LoginMember">LoginMember</a></li><li><a href="global.html#Logout">Logout</a></li><li><a href="global.html#Members">Members</a></li><li><a href="global.html#MembersDoughnutChart">MembersDoughnutChart</a></li><li><a href="global.html#NewEmployeeModal">NewEmployeeModal</a></li><li><a href="global.html#NewEntryModal">NewEntryModal</a></li><li><a href="global.html#NewMemberModal">NewMemberModal</a></li><li><a href="global.html#NewOilModal">NewOilModal</a></li><li><a href="global.html#NewSettlementAvailableModal">NewSettlementAvailableModal</a></li><li><a href="global.html#NewSettlementModal">NewSettlementModal</a></li><li><a href="global.html#NewUserModal">NewUserModal</a></li><li><a href="global.html#OilAnalysisDoughnutChart">OilAnalysisDoughnutChart</a></li><li><a href="global.html#OilMember">OilMember</a></li><li><a href="global.html#OilPrices">OilPrices</a></li><li><a href="global.html#Oils">Oils</a></li><li><a href="global.html#OilsEmployee">OilsEmployee</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#Roles">Roles</a></li><li><a href="global.html#SettlementDoughnutChart">SettlementDoughnutChart</a></li><li><a href="global.html#SettlementPDF">SettlementPDF</a></li><li><a href="global.html#Settlements">Settlements</a></li><li><a href="global.html#SettlementsMember">SettlementsMember</a></li><li><a href="global.html#UserProfile">UserProfile</a></li><li><a href="global.html#Users">Users</a></li><li><a href="global.html#authRoutes">authRoutes</a></li><li><a href="global.html#dashboardRoutesAdmin">dashboardRoutesAdmin</a></li><li><a href="global.html#dashboardRoutesEmployee">dashboardRoutesEmployee</a></li><li><a href="global.html#dashboardRoutesMember">dashboardRoutesMember</a></li><li><a href="global.html#entrySchema">entrySchema</a></li><li><a href="global.html#fetchAnalyses">fetchAnalyses</a></li><li><a href="global.html#fetchEntries">fetchEntries</a></li><li><a href="global.html#fetchMembers">fetchMembers</a></li><li><a href="global.html#fetchOils">fetchOils</a></li><li><a href="global.html#fetchRolesAndCounts">fetchRolesAndCounts</a></li><li><a href="global.html#fetchSettlements">fetchSettlements</a></li><li><a href="global.html#fetchUsersByRole">fetchUsersByRole</a></li><li><a href="global.html#fetchUsuarios">fetchUsuarios</a></li><li><a href="global.html#filterUsuarios">filterUsuarios</a></li><li><a href="global.html#formatEuro">formatEuro</a></li><li><a href="global.html#getAnalyses">getAnalyses</a></li><li><a href="global.html#getDepartments">getDepartments</a></li><li><a href="global.html#getEmployees">getEmployees</a></li><li><a href="global.html#getEntries">getEntries</a></li><li><a href="global.html#getMembers">getMembers</a></li><li><a href="global.html#getOilInventories">getOilInventories</a></li><li><a href="global.html#getOilSettlements">getOilSettlements</a></li><li><a href="global.html#getOils">getOils</a></li><li><a href="global.html#getRoles">getRoles</a></li><li><a href="global.html#getSettlements">getSettlements</a></li><li><a href="global.html#getUsers">getUsers</a></li><li><a href="global.html#handleCardClick">handleCardClick</a></li><li><a href="global.html#handleCreate">handleCreate</a></li><li><a href="global.html#handleDelete">handleDelete</a></li><li><a href="global.html#oilSchema">oilSchema</a></li><li><a href="global.html#protectedRoutes">protectedRoutes</a></li><li><a href="global.html#updateSettlements">updateSettlements</a></li><li><a href="global.html#updateUsuarios">updateUsuarios</a></li><li><a href="global.html#userSchema">userSchema</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">pages/Member/Members.jsx</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from "react";
+import { getMembers } from "@services/memberRequests";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Trash2, SquarePen } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+import { useTranslation } from "react-i18next";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useTheme } from "@context/ThemeContext";
+import clsx from "clsx";
+import NewMemberModal from "@pages/Member/NewMemberModal";
+import EditMemberModal from "@pages/Member/EditMemberModal";
+import DeleteMemberModal from "@pages/Member/DeleteMemberModal";
+import { Doughnut } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+// Registrar elementos necesarios para Chart.js
+ChartJS.register(ArcElement, Tooltip, Legend);
+
+/**
+ * Página para gestionar los socios en el sistema.
+ * Incluye búsqueda, filtrado, paginación y gráficos para visualizar la distribución por estado.
+ * Permite crear, editar y eliminar socios mediante modales.
+ *
+ * @page
+ * @returns {JSX.Element} Página de gestión de socios.
+ */
+const Members = () => {
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+  const isDarkMode = theme === "dark";
+
+  /** Lista de todos los socios cargados desde la API */
+  const [members, setMembers] = useState([]);
+
+  /** Socio seleccionado para editar o eliminar */
+  const [selectedMember, setSelectedMember] = useState(null);
+
+  /** Texto del filtro de búsqueda */
+  const [filter, setFilter] = useState("");
+
+  /** Estado de carga */
+  const [loading, setLoading] = useState(false);
+
+  /** Mensaje de error en caso de fallo al obtener socios */
+  const [error, setError] = useState(null);
+
+  /** Página actual del paginador */
+  const [currentPage, setCurrentPage] = useState(1);
+
+  /** Cantidad de socios a mostrar por página */
+  const [membersPerPage, setMembersPerPage] = useState(10);
+
+  /** Controla la visibilidad del modal para crear socios */
+  const [modalNewMemberOpen, setModalNewMemberOpen] = useState(false);
+
+  /** Controla la visibilidad del modal para editar socios */
+  const [modalEditMemberOpen, setModalEditMemberOpen] = useState(false);
+
+  /** Controla la visibilidad del modal para eliminar socios */
+  const [modalDeleteMemberOpen, setModalDeleteMemberOpen] = useState(false);
+
+  /**
+   * Obtiene los socios desde el backend.
+   * Maneja los estados de carga y errores.
+   *
+   * @async
+   * @function
+   */
+  const fetchMembers = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await getMembers();
+      if (response.status === "success" &amp;&amp; Array.isArray(response.data)) {
+        setMembers(response.data);
+      } else {
+        setError("No se pudieron obtener los socios.");
+      }
+    } catch (err) {
+      setError("Hubo un error al cargar los socios.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchMembers();
+  }, []);
+
+  const activeCount = members.filter(
+    (member) => member.user.status === 1
+  ).length;
+  const inactiveCount = members.filter(
+    (member) => member.user.status !== 1
+  ).length;
+
+  /**
+   * Refresca la lista de socios desde el backend.
+   * Se utiliza después de crear, editar o eliminar.
+   */
+  const updateMembers = async () => {
+    await fetchMembers(); // Vuelve a cargar la lista
+  };
+
+  /**
+   * Lista de socios filtrada según el texto ingresado por el usuario.
+   *
+   * Filtra a los socios por nombre, apellidos, email, teléfono, DNI o estado (activo/inactivo).
+   *
+   * @type {Array&lt;Object>}
+   */
+  const filteredMembers = members.filter(
+    (member) =>
+      member.user.first_name.toLowerCase().includes(filter.toLowerCase()) ||
+      member.user.last_name.toLowerCase().includes(filter.toLowerCase()) ||
+      member.user.email.toLowerCase().includes(filter.toLowerCase()) ||
+      member.user.phone.toLowerCase().includes(filter.toLowerCase()) ||
+      member.user.dni.toLowerCase().includes(filter.toLowerCase()) ||
+      (member.user.status === 1 ? "activo" : "inactivo").includes(
+        filter.toLowerCase()
+      )
+  );
+
+  /**
+   * Devuelve un subconjunto de números de página visibles, con elipsis si hay muchas páginas.
+   *
+   * Controla cuántas páginas se muestran en la paginación, mostrando como máximo 5 entradas
+   * y utilizando "..." para acortar la lista cuando sea necesario.
+   *
+   * @function
+   * @returns {Array&lt;number|string>} - Lista de páginas visibles (puede incluir "...").
+   */
+  const getVisiblePageNumbers = () => {
+    const totalPages = pageNumbers.length;
+    const maxVisible = 5;
+    //const pages = [];
+
+    if (totalPages &lt;= maxVisible) {
+      return pageNumbers;
+    }
+
+    if (currentPage &lt;= 3) {
+      return [...pageNumbers.slice(0, 3), "...", totalPages];
+    }
+
+    if (currentPage >= totalPages - 2) {
+      return [1, "...", ...pageNumbers.slice(totalPages - 3)];
+    }
+
+    return [
+      1,
+      "...",
+      currentPage - 1,
+      currentPage,
+      currentPage + 1,
+      "...",
+      totalPages,
+    ];
+  };
+
+  const indexOfLastMember = currentPage * membersPerPage;
+  const indexOfFirstMember = indexOfLastMember - membersPerPage;
+  const currentMembers = filteredMembers.slice(
+    indexOfFirstMember,
+    indexOfLastMember
+  );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const pageNumbers = [];
+  for (
+    let i = 1;
+    i &lt;= Math.ceil(filteredMembers.length / membersPerPage);
+    i++
+  ) {
+    pageNumbers.push(i);
+  }
+
+  /**
+   * Datos para el gráfico circular de socios por estado.
+   *
+   * Se usa para visualizar el total (activos + inactivos).
+   *
+   * @type {Object}
+   */
+  const chartData = {
+    labels: ["Activos", "Inactivos"],
+    datasets: [
+      {
+        data: [activeCount, inactiveCount],
+        backgroundColor: ["#4CAF50", "#F44336"], // verde y rojo
+        hoverBackgroundColor: ["#45A049", "#E53935"],
+      },
+    ],
+  };
+
+  return (
+    &lt;div
+      className={clsx(
+        "p-6 space-y-6",
+        isDarkMode ? "bg-dark-800 text-dark-50" : "bg-white text-olive-800"
+      )}
+    >
+      &lt;div className="flex justify-between items-center">
+        &lt;h1 className="text-2xl font-bold">Gestión de Socios&lt;/h1>
+        &lt;Button
+          className={clsx(
+            "cursor-pointer text-white",
+            isDarkMode
+              ? "bg-dark-600 hover:bg-dark-500"
+              : "bg-olive-500 hover:bg-olive-600"
+          )}
+          onClick={() => setModalNewMemberOpen(true)}
+        >
+          + {t("members.newMember")}
+        &lt;/Button>
+      &lt;/div>
+
+      &lt;NewMemberModal
+        open={modalNewMemberOpen}
+        setOpen={setModalNewMemberOpen}
+        updateMembers={updateMembers}
+      />
+      &lt;EditMemberModal
+        open={modalEditMemberOpen}
+        setOpen={setModalEditMemberOpen}
+        updateMembers={updateMembers}
+        selectedMember={selectedMember}
+      />
+      &lt;DeleteMemberModal
+        open={modalDeleteMemberOpen}
+        setOpen={setModalDeleteMemberOpen}
+        updateMembers={updateMembers}
+        selectedMember={selectedMember}
+      />
+
+      &lt;div className="flex flex-col md:flex-row justify-between items-center gap-4">
+        &lt;Input
+          placeholder={t("members.searchPlaceholder")}
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          className="w-full md:w-1/2"
+        />
+        &lt;div className="flex items-center gap-2">
+          &lt;span className="text-sm text-muted-foreground">Mostrar:&lt;/span>
+          &lt;Select
+            value={String(membersPerPage)}
+            onValueChange={(value) => {
+              setMembersPerPage(Number(value));
+              setCurrentPage(1);
+            }}
+          >
+            &lt;SelectTrigger className="w-[80px]">
+              &lt;SelectValue />
+            &lt;/SelectTrigger>
+            &lt;SelectContent>
+              {[5, 10, 20, 50, 100].map((num) => (
+                &lt;SelectItem key={num} value={String(num)}>
+                  {num}
+                &lt;/SelectItem>
+              ))}
+            &lt;/SelectContent>
+          &lt;/Select>
+        &lt;/div>
+      &lt;/div>
+
+      &lt;Card
+        className={clsx(
+          "rounded-2xl shadow-2xl p-4 w-full border overflow-x-auto",
+          isDarkMode
+            ? "bg-dark-900 border-dark-700 text-dark-50"
+            : "bg-olive-50 border-olive-200 text-olive-800"
+        )}
+      >
+        {loading ? (
+          &lt;div className="space-y-4">
+            {Array.from({ length: membersPerPage }).map((_, i) => (
+              &lt;div
+                key={i}
+                className="flex justify-between items-center space-x-4"
+              >
+                &lt;Skeleton className="h-4 w-1/4" />
+                &lt;Skeleton className="h-4 w-1/4" />
+                &lt;Skeleton className="h-4 w-1/6" />
+                &lt;Skeleton className="h-8 w-1/6" />
+                &lt;Skeleton className="h-10 w-16" />
+              &lt;/div>
+            ))}
+          &lt;/div>
+        ) : error ? (
+          &lt;div className="text-red-600">{error}&lt;/div>
+        ) : (
+          &lt;>
+            {/* Tabla de socios */}
+            &lt;div className="overflow-y-auto">
+              &lt;table className="min-w-full text-sm">
+                &lt;thead>
+                  &lt;tr className="text-left border-b-2">
+                    &lt;th className="p-3 text-lg w-1/4">
+                      {t("userProfile.firstName")}
+                    &lt;/th>
+                    &lt;th className="p-3 text-lg w-1/4">
+                      {t("userProfile.email")}
+                    &lt;/th>
+                    &lt;th className="p-3 text-lg w-1/4 ">
+                      {t("userProfile.phone")}
+                    &lt;/th>
+                    &lt;th className="p-3 text-lg w-1/8 ">
+                      {t("userProfile.dni")}
+                    &lt;/th>
+                    &lt;th className="p-3 text-lg w-1/6 ">
+                      {t("members.memberNumber")}
+                    &lt;/th>
+                    &lt;th className="p-3 text-lg w-1/8">{t("common.status")}&lt;/th>
+                    &lt;th className="p-3 text-center text-lg w-1/6">
+                      {t("common.actions")}
+                    &lt;/th>
+                  &lt;/tr>
+                &lt;/thead>
+                &lt;tbody>
+                  {currentMembers.map((member) => (
+                    &lt;tr
+                      key={member.id}
+                      className={clsx(
+                        "border-b transition-colors",
+                        isDarkMode ? "hover:bg-dark-700" : "hover:bg-olive-100"
+                      )}
+                    >
+                      &lt;td className="p-3">
+                        {member.user.first_name} {member.user.last_name}
+                      &lt;/td>
+                      &lt;td className="p-3">{member.user.email}&lt;/td>
+                      &lt;td className="p-3">{member.user.phone}&lt;/td>
+                      &lt;td className="p-3">{member.user.dni}&lt;/td>
+                      &lt;td className="p-3">{member.member_number}&lt;/td>
+                      &lt;td className="p-3">
+                        &lt;span
+                          className={clsx(
+                            "px-2 py-1 rounded-full text-xs font-semibold",
+                            member.user.status === 1
+                              ? "bg-green-600 text-white"
+                              : "bg-red-600 text-white"
+                          )}
+                        >
+                          {member.user.status === 1 ? "Activo" : "Inactivo"}
+                        &lt;/span>
+                      &lt;/td>
+                      &lt;td className="p-3 text-center">
+                        &lt;div className="inline-flex space-x-2 items-center">
+                          {!member.user.roles.some(
+                            (role) => role.name === "Administrador"
+                          ) &amp;&amp; (
+                            &lt;>
+                              &lt;SquarePen
+                                size={18}
+                                className="cursor-pointer text-blue-700 hover:text-blue-400"
+                                onClick={() => {
+                                  setSelectedMember(member);
+                                  setModalEditMemberOpen(true);
+                                }}
+                              />
+                              &lt;Trash2
+                                size={18}
+                                className="cursor-pointer text-red-700 hover:text-red-400"
+                                onClick={() => {
+                                  setSelectedMember(member);
+                                  setModalDeleteMemberOpen(true);
+                                }}
+                              />
+                            &lt;/>
+                          )}
+                        &lt;/div>
+                      &lt;/td>
+                    &lt;/tr>
+                  ))}
+                &lt;/tbody>
+              &lt;/table>
+            &lt;/div>
+          &lt;/>
+        )}
+      &lt;/Card>
+
+      {/* Paginación */}
+      {pageNumbers.length > 1 &amp;&amp; (
+        &lt;Pagination>
+          &lt;PaginationContent className="overflow-x-auto">
+            &lt;PaginationItem>
+              &lt;PaginationPrevious
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (currentPage > 1) setCurrentPage(currentPage - 1);
+                }}
+              />
+            &lt;/PaginationItem>
+
+            {getVisiblePageNumbers().map((page, index) => (
+              &lt;PaginationItem key={index}>
+                {page === "..." ? (
+                  &lt;PaginationEllipsis />
+                ) : (
+                  &lt;PaginationLink
+                    href="#"
+                    isActive={currentPage === page}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      paginate(Number(page));
+                    }}
+                  >
+                    {page}
+                  &lt;/PaginationLink>
+                )}
+              &lt;/PaginationItem>
+            ))}
+
+            &lt;PaginationItem>
+              &lt;PaginationNext
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (currentPage &lt; pageNumbers.length)
+                    setCurrentPage(currentPage + 1);
+                }}
+              />
+            &lt;/PaginationItem>
+          &lt;/PaginationContent>
+        &lt;/Pagination>
+      )}
+
+      {/* Gráfico circular */}
+      &lt;div className="mt-20 flex justify-center h-100">
+        &lt;div className="w-full max-w-sm rounded-2xl shadow-2xl">
+          &lt;Doughnut
+            data={chartData}
+            options={{
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  position: "bottom",
+                },
+              },
+            }}
+          />
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
+  );
+};
+
+export default Members;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Wed Apr 30 2025 21:16:33 GMT+0200 (hora de verano de Europa central) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

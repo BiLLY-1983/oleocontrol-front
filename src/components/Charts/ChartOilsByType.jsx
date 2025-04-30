@@ -5,25 +5,15 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 
 /**
- * Componente que muestra un gráfico de tipo Doughnut (rosquilla) con la distribución de aceite por tipo.
- * Utiliza `react-chartjs-2` junto con `chart.js` para visualizar la proporción de litros por cada tipo de aceite.
+ * Componente de gráfica tipo donut.
+ * 
+ * Muestra un gráfico Doughnut con la distribución de aceite por tipo.
  *
  * @component
  * @param {Object} props - Propiedades del componente.
  * @param {Object<string, number>} props.oilByType - Objeto con los distintos tipos de aceite como claves y su cantidad en litros como valores.
- *
- * @returns {JSX.Element} Un gráfico de rosquilla con la distribución del aceite por tipo, incluyendo el total acumulado.
- *
- * @example
- * const oilByType = {
- *   "Aceite Virgen": 1200,
- *   "Aceite Extra": 850,
- *   "Lampante": 500,
- * };
- *
- * <ChartOilsByType oilByType={oilByType} />
+ * @returns {JSX.Element} Gráfico Doughnut con la distribución del aceite por tipo.
  */
-
 export default function ChartOilsByType({ oilByType }) {
   const { t } = useTranslation();
   const { theme } = useTheme();
@@ -36,31 +26,17 @@ export default function ChartOilsByType({ oilByType }) {
 
   const [totalOil, setTotalOil] = useState(0);
 
-  /**
-   * useEffect que actualiza los datos del gráfico y calcula el total de litros
-   * cada vez que cambia el objeto `oilByType`.
-   */
   useEffect(() => {
     if (!oilByType || Object.keys(oilByType).length === 0) {
       return;
     }
 
-    /**
-     * Calcula el total de litros de aceite sumando todos los valores del objeto `oilByType`.
-     *
-     * @type {number}
-     */
     const total = Object.values(oilByType).reduce(
       (sum, quantity) => sum + quantity,
       0
     );
     setTotalOil(total);
 
-    /**
-     * Prepara los datos para el gráfico Doughnut con etiquetas, cantidades y colores personalizados.
-     *
-     * @type {import("chart.js").ChartData}
-     */
     const chartData = {
       labels: Object.keys(oilByType),
       datasets: [
@@ -96,12 +72,6 @@ export default function ChartOilsByType({ oilByType }) {
     setOilData(chartData);
   }, [oilByType]);
 
-  /**
-   * Formatea la etiqueta del tooltip para mostrar cantidad en litros con separador de miles.
-   *
-   * @param {import("chart.js").TooltipItem<"doughnut">} tooltipItem - Información del punto del gráfico.
-   * @returns {string} Texto con la cantidad formateada.
-   */
   function formatTooltipLabel(tooltipItem) {
     const quantity = tooltipItem.raw;
     return `${tooltipItem.label}: ${quantity.toLocaleString()} L`;

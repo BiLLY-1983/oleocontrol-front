@@ -20,6 +20,17 @@ const initializeUserData = () => {
     return token ? { token, user } : { token: null, user: null };
 };
 
+/**
+ * Proveedor del contexto del usuario.
+ * 
+ * Gestiona el estado del usuario autenticado, incluyendo el token, los datos del perfil y el manejo de inactividad.
+ * También proporciona funciones para cerrar sesión y actualizar los datos del usuario.
+ *
+ * @component
+ * @param {Object} props - Propiedades del componente.
+ * @param {JSX.Element} props.children - Componentes hijos que estarán envueltos por el proveedor.
+ * @returns {JSX.Element} Proveedor del contexto del usuario.
+ */
 const UserProvider = ({ children }) => {
     const [userData, setUserData] = useState(initializeUserData);
     const [loading, setLoading] = useState(true);

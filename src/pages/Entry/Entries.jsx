@@ -34,14 +34,11 @@ import { EntryWithOilPDF } from "@components/pdf/EntryWithOilPDF";
 import { BiSolidFilePdf } from "react-icons/bi";
 
 /**
- * Componente que maneja la visualización y gestión de las entradas de aceituna y aceite.
- * Permite la visualización de datos, la filtración, la paginación, y las acciones sobre las entradas (editar, eliminar, generar informes).
+ * Página para gestionar las entradas de aceituna y aceite.
+ * Incluye filtrado, paginación, generación de informes en PDF y modales para crear, editar y eliminar entradas.
  *
- * @component
- * @example
- * return (
- *   <Entries />
- * )
+ * @page
+ * @returns {JSX.Element} Página de gestión de entradas.
  */
 const Entries = () => {
   /**

@@ -10,6 +10,15 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
+/**
+ * Página de perfil del usuario.
+ * 
+ * Permite a los usuarios visualizar y actualizar su información personal, como nombre, correo electrónico,
+ * teléfono, DNI y contraseña. También incluye opciones para cambiar el estado del usuario y gestionar la contraseña.
+ *
+ * @component
+ * @returns {JSX.Element} Página de perfil del usuario.
+ */
 const UserProfile = () => {
   const { t } = useTranslation();
   const { userData, setUserData } = useContext(UserContext);

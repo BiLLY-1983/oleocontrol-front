@@ -23,7 +23,7 @@ import "@pnotify/confirm/dist/PNotifyConfirm.css";
  *   <LoginEmployee />
  * );
  *
- * @returns {JSX.Element} El componente LoginAdmin con su formulario de inicio de sesión.
+ * @returns {JSX.Element} El componente LoginEmployee con su formulario de inicio de sesión.
  */
 const LoginEmployee = () => {
   const { t } = useTranslation();

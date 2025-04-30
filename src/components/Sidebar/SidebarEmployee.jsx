@@ -16,25 +16,8 @@ import {
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@context/ThemeContext";
 
-/**
- * Definición de los elementos del menú de la barra lateral.
- * Cada objeto contiene propiedades como `name`, `icon` y `to` que representan 
- * el nombre de la ruta para traducir, el icono que se usará en el menú y la 
- * ruta a la que lleva el enlace.
- * 
- * @type {Array<Object>}
- * @property {string} name - Nombre de la ruta para la traducción.
- * @property {JSX.Element} icon - El ícono correspondiente a la ruta.
- * @property {string} to - La ruta de navegación a la que apunta el enlace.
- */
 const menuItems = [{ name: "navigation.oils", icon: Droplets, to: "oils" }];
 
-/**
- * Diccionario que contiene los menús específicos para cada departamento.
- * @type {Object<string, Array<Object>>}
- * @property {string} department - Nombre del departamento.
- * @property {Array<Object>} menuItems - Elementos de menú asociados a ese departamento.
- */
 const departmentMenus = {
   Contabilidad: [
     { name: "navigation.home", icon: Home, to: "home" },
@@ -65,7 +48,11 @@ const departmentMenus = {
 };
 
 /**
- * Componente Sidebar para los empleados, que muestra un menú de navegación dinámico basado en el departamento del empleado.
+ * Sidebar para empleados con menú dinámico basado en el departamento.
+ * 
+ * Permite a los empleados navegar entre diferentes secciones de la aplicación,
+ * mostrando opciones específicas según el departamento al que pertenecen.
+ *
  * @component
  * @example
  * <SidebarEmployee />
@@ -85,9 +72,6 @@ export default function SidebarEmployee() {
 
   const filteredMenuItems = departmentMenus[departmentName] || menuItems;
 
-  /**
-   * useEffect para detectar cambios en el tamaño de la ventana y ajustar el estado de la vista móvil
-   */
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth <= 768;

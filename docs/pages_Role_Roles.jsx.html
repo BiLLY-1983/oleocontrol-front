@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>pages/Role/Roles.jsx - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AccessDenied">AccessDenied</a></li><li><a href="global.html#Analyses">Analyses</a></li><li><a href="global.html#AnalysesMember">AnalysesMember</a></li><li><a href="global.html#AnalysisPDF">AnalysisPDF</a></li><li><a href="global.html#ChartOilInventory">ChartOilInventory</a></li><li><a href="global.html#DashboardAdmin">DashboardAdmin</a></li><li><a href="global.html#DashboardEmployee">DashboardEmployee</a></li><li><a href="global.html#DashboardMember">DashboardMember</a></li><li><a href="global.html#DeleteEmployeeModal">DeleteEmployeeModal</a></li><li><a href="global.html#DeleteEntryModal">DeleteEntryModal</a></li><li><a href="global.html#DeleteMemberModal">DeleteMemberModal</a></li><li><a href="global.html#DeleteOilModal">DeleteOilModal</a></li><li><a href="global.html#DeleteSettlementMemberModal">DeleteSettlementMemberModal</a></li><li><a href="global.html#DeleteSettlementModal">DeleteSettlementModal</a></li><li><a href="global.html#DeleteUserModal">DeleteUserModal</a></li><li><a href="global.html#DepartmentProtectedRoute">DepartmentProtectedRoute</a></li><li><a href="global.html#Departments">Departments</a></li><li><a href="global.html#EditAnalysisModal">EditAnalysisModal</a></li><li><a href="global.html#EditEmployeeModal">EditEmployeeModal</a></li><li><a href="global.html#EditEntryModal">EditEntryModal</a></li><li><a href="global.html#EditMemberModal">EditMemberModal</a></li><li><a href="global.html#EditOilModal">EditOilModal</a></li><li><a href="global.html#EditSettlementModal">EditSettlementModal</a></li><li><a href="global.html#EditUserModal">EditUserModal</a></li><li><a href="global.html#Employees">Employees</a></li><li><a href="global.html#EmployeesDoughnutChart">EmployeesDoughnutChart</a></li><li><a href="global.html#Entries">Entries</a></li><li><a href="global.html#EntriesMember">EntriesMember</a></li><li><a href="global.html#EntryPDF">EntryPDF</a></li><li><a href="global.html#EntryWithOilPDF">EntryWithOilPDF</a></li><li><a href="global.html#Error404">Error404</a></li><li><a href="global.html#ForgotPassword">ForgotPassword</a></li><li><a href="global.html#HomeAdmin">HomeAdmin</a></li><li><a href="global.html#HomeEmployee">HomeEmployee</a></li><li><a href="global.html#HomeMember">HomeMember</a></li><li><a href="global.html#LandingPage">LandingPage</a></li><li><a href="global.html#LoginAdmin">LoginAdmin</a></li><li><a href="global.html#LoginEmployee">LoginEmployee</a></li><li><a href="global.html#LoginMember">LoginMember</a></li><li><a href="global.html#Logout">Logout</a></li><li><a href="global.html#Members">Members</a></li><li><a href="global.html#MembersDoughnutChart">MembersDoughnutChart</a></li><li><a href="global.html#NewEmployeeModal">NewEmployeeModal</a></li><li><a href="global.html#NewEntryModal">NewEntryModal</a></li><li><a href="global.html#NewMemberModal">NewMemberModal</a></li><li><a href="global.html#NewOilModal">NewOilModal</a></li><li><a href="global.html#NewSettlementAvailableModal">NewSettlementAvailableModal</a></li><li><a href="global.html#NewSettlementModal">NewSettlementModal</a></li><li><a href="global.html#NewUserModal">NewUserModal</a></li><li><a href="global.html#OilAnalysisDoughnutChart">OilAnalysisDoughnutChart</a></li><li><a href="global.html#OilMember">OilMember</a></li><li><a href="global.html#OilPrices">OilPrices</a></li><li><a href="global.html#Oils">Oils</a></li><li><a href="global.html#OilsEmployee">OilsEmployee</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#Roles">Roles</a></li><li><a href="global.html#SettlementDoughnutChart">SettlementDoughnutChart</a></li><li><a href="global.html#SettlementPDF">SettlementPDF</a></li><li><a href="global.html#Settlements">Settlements</a></li><li><a href="global.html#SettlementsMember">SettlementsMember</a></li><li><a href="global.html#UserProfile">UserProfile</a></li><li><a href="global.html#Users">Users</a></li><li><a href="global.html#authRoutes">authRoutes</a></li><li><a href="global.html#dashboardRoutesAdmin">dashboardRoutesAdmin</a></li><li><a href="global.html#dashboardRoutesEmployee">dashboardRoutesEmployee</a></li><li><a href="global.html#dashboardRoutesMember">dashboardRoutesMember</a></li><li><a href="global.html#entrySchema">entrySchema</a></li><li><a href="global.html#fetchAnalyses">fetchAnalyses</a></li><li><a href="global.html#fetchEntries">fetchEntries</a></li><li><a href="global.html#fetchMembers">fetchMembers</a></li><li><a href="global.html#fetchOils">fetchOils</a></li><li><a href="global.html#fetchRolesAndCounts">fetchRolesAndCounts</a></li><li><a href="global.html#fetchSettlements">fetchSettlements</a></li><li><a href="global.html#fetchUsersByRole">fetchUsersByRole</a></li><li><a href="global.html#fetchUsuarios">fetchUsuarios</a></li><li><a href="global.html#filterUsuarios">filterUsuarios</a></li><li><a href="global.html#formatEuro">formatEuro</a></li><li><a href="global.html#getAnalyses">getAnalyses</a></li><li><a href="global.html#getDepartments">getDepartments</a></li><li><a href="global.html#getEmployees">getEmployees</a></li><li><a href="global.html#getEntries">getEntries</a></li><li><a href="global.html#getMembers">getMembers</a></li><li><a href="global.html#getOilInventories">getOilInventories</a></li><li><a href="global.html#getOilSettlements">getOilSettlements</a></li><li><a href="global.html#getOils">getOils</a></li><li><a href="global.html#getRoles">getRoles</a></li><li><a href="global.html#getSettlements">getSettlements</a></li><li><a href="global.html#getUsers">getUsers</a></li><li><a href="global.html#handleCardClick">handleCardClick</a></li><li><a href="global.html#handleCreate">handleCreate</a></li><li><a href="global.html#handleDelete">handleDelete</a></li><li><a href="global.html#oilSchema">oilSchema</a></li><li><a href="global.html#protectedRoutes">protectedRoutes</a></li><li><a href="global.html#updateSettlements">updateSettlements</a></li><li><a href="global.html#updateUsuarios">updateUsuarios</a></li><li><a href="global.html#userSchema">userSchema</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">pages/Role/Roles.jsx</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@components/ui/dialog";
+import { Card } from "@components/ui/card";
+import { Skeleton } from "@components/ui/skeleton";
+import clsx from "clsx";
+import { useTheme } from "@context/ThemeContext";
+import { getRoles } from "@services/roleRequests";
+import { getUsers } from "@services/userRequests";
+import { Doughnut } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+// Registrar los elementos necesarios para Chart.js
+ChartJS.register(ArcElement, Tooltip, Legend);
+
+/**
+ * Página para la gestión de roles en el sistema.
+ * 
+ * Muestra una lista de roles y un gráfico circular que representa la cantidad de usuarios por rol.
+ * Al hacer clic en un rol, se abre un diálogo que muestra los usuarios asociados a ese rol.
+ *
+ * @component
+ * @returns {JSX.Element} Página de gestión de roles.
+ */
+const Roles = () => {
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+  const isDarkMode = theme === "dark";
+
+  const [roles, setRoles] = useState([]);
+  const [selectedRole, setSelectedRole] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [loadingRoles, setLoadingRoles] = useState(true);
+  const [loadingUsers, setLoadingUsers] = useState(false);
+
+  /**
+   * @function fetchRolesAndCounts
+   * @description Función para obtener los roles y la cantidad de usuarios por rol.
+   * 
+   * @returns {void} - Promesa que se resuelve cuando se completan las solicitudes.
+   * @throws {Error} - Si ocurre un error durante la obtención de datos.
+   */
+  const fetchRolesAndCounts = async () => {
+    setLoadingRoles(true);
+    try {
+      const [rolesResult, usersResult] = await Promise.all([
+        getRoles(),
+        getUsers(),
+      ]);
+
+      if (
+        rolesResult.status === "success" &amp;&amp;
+        usersResult.status === "success"
+      ) {
+        const userCountMap = {};
+        usersResult.data.forEach((user) => {
+          if (Array.isArray(user.roles)) {
+            user.roles.forEach((role) => {
+              const roleId = role.id;
+              userCountMap[roleId] = (userCountMap[roleId] || 0) + 1;
+            });
+          }
+        });
+
+        const transformedRoles = rolesResult.data.map((role) => ({
+          id: role.id,
+          name: role.name,
+          label: t(`roles.${role.name}`),
+          userCount: userCountMap[role.id] || 0,
+        }));
+
+        setRoles(transformedRoles);
+      }
+    } catch (error) {
+      console.error("Error fetching roles and counts:", error);
+    } finally {
+      setLoadingRoles(false);
+    }
+  };
+
+  /**
+   * @function fetchUsersByRole
+   * @description Función para obtener los usuarios asociados a un rol específico.
+   * @param {string} roleId - ID del rol para filtrar los usuarios.
+   * @returns {void} - Promesa que se resuelve cuando se completan las solicitudes.
+   * @throws {Error} - Si ocurre un error durante la obtención de datos.
+   */
+  const fetchUsersByRole = async (roleId) => {
+    setLoadingUsers(true);
+    try {
+      const response = await getUsers(`/users`);
+      if (response.status === "success") {
+        const filteredUsers = response.data
+          .filter((user) =>
+            user.roles.some((role) => role.id === roleId)
+          )
+          .sort((a, b) => a.username.localeCompare(b.username)); // Orden ascendente por username
+
+        setUsers(filteredUsers);
+      } else {
+        setUsers([]);
+      }
+    } catch (error) {
+      console.error("Error fetching users by role:", error);
+      setUsers([]);
+    } finally {
+      setLoadingUsers(false);
+    }
+  };
+
+
+  useEffect(() => {
+    fetchRolesAndCounts();
+  }, []);
+
+  /**
+   * @function handleCardClick
+   * @description Función para manejar el clic en una tarjeta de rol.
+   * @param {object} role - Objeto del rol seleccionado.
+   * @returns {void} - Cambia el estado del diálogo y obtiene los usuarios por rol.
+   */
+  const handleCardClick = async (role) => {
+    setSelectedRole(role);
+    fetchUsersByRole(role.id);
+    setDialogOpen(true);
+  };
+
+  // Preparar datos para el gráfico circular
+  const chartData = {
+    labels: roles.map((role) => role.label),
+    datasets: [
+      {
+        data: roles.map((role) => role.userCount),
+        backgroundColor: [
+          "#5A9BD5",
+          "#70AD47",
+          "#A076C4",
+          "#4DCBC4",
+          "#ED7D31",
+          "#8395A7",
+        ],
+        hoverBackgroundColor: [
+          "#4A8BC5",
+          "#609D37",
+          "#9066B4",
+          "#3DBABA",
+          "#DD6D21",
+          "#738597",
+        ],
+      },
+    ],
+  };
+
+  return (
+    &lt;div
+      className={clsx(
+        "p-6 space-y-6",
+        isDarkMode ? "bg-dark-800 text-dark-50" : "bg-white text-olive-800"
+      )}
+    >
+      &lt;div className="flex justify-between items-center">
+        &lt;h1 className="text-2xl font-bold">{t("roles.management")}&lt;/h1>
+      &lt;/div>
+
+      {/* Mostrar Skeleton mientras se cargan los roles */}
+      {loadingRoles ? (
+        &lt;div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+          {Array.from({ length: 4 }).map((_, index) => (
+            &lt;div key={index} className="p-4">
+              &lt;Skeleton className="h-6 w-3/4 mb-4" />
+              &lt;Skeleton className="h-8 w-1/2" />
+            &lt;/div>
+          ))}
+        &lt;/div>
+      ) : (
+        &lt;>
+          &lt;div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+            {roles.map((role) => (
+              &lt;Card
+                key={role.id}
+                className={clsx(
+                  "p-4 rounded-lg shadow-xl cursor-pointer transition-transform transform hover:scale-105 hover:bg-olive-200",
+                  isDarkMode
+                    ? "bg-dark-700 text-dark-50"
+                    : "bg-olive-100 text-olive-800"
+                )}
+                onClick={() => handleCardClick(role)}
+              >
+                &lt;h2 className="text-xl font-semibold">{role.label}&lt;/h2>
+                &lt;p className="text-3xl font-bold">{role.userCount}&lt;/p>
+
+              &lt;/Card>
+            ))}
+          &lt;/div>
+
+          {/* Gráfico circular */}
+          &lt;div className="mt-20 flex justify-center h-100">
+            &lt;div className="w-full max-w-sm rounded-2xl shadow-2xl">
+              &lt;Doughnut
+                data={chartData}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      position: "bottom",
+                    },
+                  },
+                }}
+              />
+            &lt;/div>
+          &lt;/div>
+        &lt;/>
+      )}
+
+      {/* Dialog para mostrar usuarios del rol seleccionado */}
+      &lt;Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        &lt;DialogContent
+          className={clsx(
+            "max-h-[50vh] overflow-y-auto",
+            isDarkMode
+              ? "bg-dark-700 text-dark-50"
+              : "bg-olive-50 text-olive-800"
+          )}
+        >
+          &lt;DialogHeader>
+            &lt;DialogTitle>
+              {t("roles.usersWithRole", { role: selectedRole?.label })}
+            &lt;/DialogTitle>
+          &lt;/DialogHeader>
+          &lt;div className="overflow-x-auto">
+            {loadingUsers ? (
+              &lt;div className="space-y-4">
+                {Array.from({ length: 5 }).map((_, index) => (
+                  &lt;div
+                    key={index}
+                    className="flex justify-between items-center space-x-4"
+                  >
+                    &lt;Skeleton className="h-4 w-1/4" />
+                    &lt;Skeleton className="h-4 w-1/4" />
+                    &lt;Skeleton className="h-4 w-1/6" />
+                    &lt;Skeleton className="h-8 w-1/6" />
+                  &lt;/div>
+                ))}
+              &lt;/div>
+            ) : (
+              &lt;table className="min-w-full text-sm">
+                &lt;thead>
+                  &lt;tr>
+                    &lt;th className="p-3 text-left">
+                      {t("userProfile.firstName")}
+                    &lt;/th>
+                    &lt;th className="p-3 text-left">
+                      {t("userProfile.username")}
+                    &lt;/th>
+                  &lt;/tr>
+                &lt;/thead>
+                &lt;tbody>
+                  {users.length > 0 ? (
+                    users.map((user) => (
+                      &lt;tr
+                        key={user.id}
+                        className={clsx(
+                          "border-b transition-colors",
+                          isDarkMode
+                            ? "hover:bg-dark-700"
+                            : "hover:bg-olive-100"
+                        )}
+                      >
+                        &lt;td className="p-3">
+                          {user.first_name} {user.last_name}
+                        &lt;/td>
+                        &lt;td className="p-3">{user.username}&lt;/td>
+                      &lt;/tr>
+                    ))
+                  ) : (
+                    &lt;tr>
+                      &lt;td colSpan="6" className="p-3 text-center">
+                        {t("common.noData")}
+                      &lt;/td>
+                    &lt;/tr>
+                  )}
+                &lt;/tbody>
+              &lt;/table>
+            )}
+          &lt;/div>
+        &lt;/DialogContent>
+      &lt;/Dialog>
+    &lt;/div>
+  );
+};
+
+export default Roles;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Wed Apr 30 2025 21:16:33 GMT+0200 (hora de verano de Europa central) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

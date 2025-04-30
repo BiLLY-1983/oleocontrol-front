@@ -15,15 +15,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { formatEuro } from "@/utils/formatEuro";
 
 /**
- * Componente HomeAdmin
+ * Página de inicio del Dashboard para administradores.
  * 
- * Página de inicio del Dashboard.
- * 
- * Muestra estadísticas y gráficas relevantes para el administrador del sistema: 
+ * Muestra estadísticas y gráficas relevantes para el administrador del sistema:
  * socios activos, entradas de aceituna, producción de aceite, rendimiento medio y liquidaciones pendientes.
- * 
+ *
  * @component
- * @returns {JSX.Element} El componente HomeAdmin renderizado.
+ * @returns {JSX.Element} Página de inicio para administradores.
  */
 const HomeAdmin = () => {
   const { theme } = useTheme();

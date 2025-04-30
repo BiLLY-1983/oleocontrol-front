@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>components/pdf/AnalysisPDF.jsx - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AccessDenied">AccessDenied</a></li><li><a href="global.html#Analyses">Analyses</a></li><li><a href="global.html#AnalysesMember">AnalysesMember</a></li><li><a href="global.html#AnalysisPDF">AnalysisPDF</a></li><li><a href="global.html#ChartOilInventory">ChartOilInventory</a></li><li><a href="global.html#DashboardAdmin">DashboardAdmin</a></li><li><a href="global.html#DashboardEmployee">DashboardEmployee</a></li><li><a href="global.html#DashboardMember">DashboardMember</a></li><li><a href="global.html#DeleteEmployeeModal">DeleteEmployeeModal</a></li><li><a href="global.html#DeleteEntryModal">DeleteEntryModal</a></li><li><a href="global.html#DeleteMemberModal">DeleteMemberModal</a></li><li><a href="global.html#DeleteOilModal">DeleteOilModal</a></li><li><a href="global.html#DeleteSettlementMemberModal">DeleteSettlementMemberModal</a></li><li><a href="global.html#DeleteSettlementModal">DeleteSettlementModal</a></li><li><a href="global.html#DeleteUserModal">DeleteUserModal</a></li><li><a href="global.html#DepartmentProtectedRoute">DepartmentProtectedRoute</a></li><li><a href="global.html#Departments">Departments</a></li><li><a href="global.html#EditAnalysisModal">EditAnalysisModal</a></li><li><a href="global.html#EditEmployeeModal">EditEmployeeModal</a></li><li><a href="global.html#EditEntryModal">EditEntryModal</a></li><li><a href="global.html#EditMemberModal">EditMemberModal</a></li><li><a href="global.html#EditOilModal">EditOilModal</a></li><li><a href="global.html#EditSettlementModal">EditSettlementModal</a></li><li><a href="global.html#EditUserModal">EditUserModal</a></li><li><a href="global.html#Employees">Employees</a></li><li><a href="global.html#EmployeesDoughnutChart">EmployeesDoughnutChart</a></li><li><a href="global.html#Entries">Entries</a></li><li><a href="global.html#EntriesMember">EntriesMember</a></li><li><a href="global.html#EntryPDF">EntryPDF</a></li><li><a href="global.html#EntryWithOilPDF">EntryWithOilPDF</a></li><li><a href="global.html#Error404">Error404</a></li><li><a href="global.html#ForgotPassword">ForgotPassword</a></li><li><a href="global.html#HomeAdmin">HomeAdmin</a></li><li><a href="global.html#HomeEmployee">HomeEmployee</a></li><li><a href="global.html#HomeMember">HomeMember</a></li><li><a href="global.html#LandingPage">LandingPage</a></li><li><a href="global.html#LoginAdmin">LoginAdmin</a></li><li><a href="global.html#LoginEmployee">LoginEmployee</a></li><li><a href="global.html#LoginMember">LoginMember</a></li><li><a href="global.html#Logout">Logout</a></li><li><a href="global.html#Members">Members</a></li><li><a href="global.html#MembersDoughnutChart">MembersDoughnutChart</a></li><li><a href="global.html#NewEmployeeModal">NewEmployeeModal</a></li><li><a href="global.html#NewEntryModal">NewEntryModal</a></li><li><a href="global.html#NewMemberModal">NewMemberModal</a></li><li><a href="global.html#NewOilModal">NewOilModal</a></li><li><a href="global.html#NewSettlementAvailableModal">NewSettlementAvailableModal</a></li><li><a href="global.html#NewSettlementModal">NewSettlementModal</a></li><li><a href="global.html#NewUserModal">NewUserModal</a></li><li><a href="global.html#OilAnalysisDoughnutChart">OilAnalysisDoughnutChart</a></li><li><a href="global.html#OilMember">OilMember</a></li><li><a href="global.html#OilPrices">OilPrices</a></li><li><a href="global.html#Oils">Oils</a></li><li><a href="global.html#OilsEmployee">OilsEmployee</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#Roles">Roles</a></li><li><a href="global.html#SettlementDoughnutChart">SettlementDoughnutChart</a></li><li><a href="global.html#SettlementPDF">SettlementPDF</a></li><li><a href="global.html#Settlements">Settlements</a></li><li><a href="global.html#SettlementsMember">SettlementsMember</a></li><li><a href="global.html#UserProfile">UserProfile</a></li><li><a href="global.html#Users">Users</a></li><li><a href="global.html#authRoutes">authRoutes</a></li><li><a href="global.html#dashboardRoutesAdmin">dashboardRoutesAdmin</a></li><li><a href="global.html#dashboardRoutesEmployee">dashboardRoutesEmployee</a></li><li><a href="global.html#dashboardRoutesMember">dashboardRoutesMember</a></li><li><a href="global.html#entrySchema">entrySchema</a></li><li><a href="global.html#fetchAnalyses">fetchAnalyses</a></li><li><a href="global.html#fetchEntries">fetchEntries</a></li><li><a href="global.html#fetchMembers">fetchMembers</a></li><li><a href="global.html#fetchOils">fetchOils</a></li><li><a href="global.html#fetchRolesAndCounts">fetchRolesAndCounts</a></li><li><a href="global.html#fetchSettlements">fetchSettlements</a></li><li><a href="global.html#fetchUsersByRole">fetchUsersByRole</a></li><li><a href="global.html#fetchUsuarios">fetchUsuarios</a></li><li><a href="global.html#filterUsuarios">filterUsuarios</a></li><li><a href="global.html#formatEuro">formatEuro</a></li><li><a href="global.html#getAnalyses">getAnalyses</a></li><li><a href="global.html#getDepartments">getDepartments</a></li><li><a href="global.html#getEmployees">getEmployees</a></li><li><a href="global.html#getEntries">getEntries</a></li><li><a href="global.html#getMembers">getMembers</a></li><li><a href="global.html#getOilInventories">getOilInventories</a></li><li><a href="global.html#getOilSettlements">getOilSettlements</a></li><li><a href="global.html#getOils">getOils</a></li><li><a href="global.html#getRoles">getRoles</a></li><li><a href="global.html#getSettlements">getSettlements</a></li><li><a href="global.html#getUsers">getUsers</a></li><li><a href="global.html#handleCardClick">handleCardClick</a></li><li><a href="global.html#handleCreate">handleCreate</a></li><li><a href="global.html#handleDelete">handleDelete</a></li><li><a href="global.html#oilSchema">oilSchema</a></li><li><a href="global.html#protectedRoutes">protectedRoutes</a></li><li><a href="global.html#updateSettlements">updateSettlements</a></li><li><a href="global.html#updateUsuarios">updateUsuarios</a></li><li><a href="global.html#userSchema">userSchema</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">components/pdf/AnalysisPDF.jsx</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  Font,
+  Image,
+} from "@react-pdf/renderer";
+
+Font.register({
+  family: "Roboto",
+  src: "/fonts/Roboto-Regular.ttf",
+});
+
+const styles = StyleSheet.create({
+  page: {
+    padding: 40,
+    fontSize: 12,
+    fontFamily: "Roboto",
+    backgroundColor: "#f3f4f6", 
+  },
+  logoContainer: {
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  logo: {
+    width: 100,
+    marginBottom: 10,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#1f2937", 
+    marginBottom: 30,
+  },
+  card: {
+    backgroundColor: "#ffffff",
+    borderRadius: 8,
+    padding: 16,
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: "#e5e7eb",
+    shadowColor: "#000",
+  },
+  cardTitle: {
+    fontSize: 14,
+    fontWeight: "bold",
+    marginBottom: 8,
+    color: "#111827",
+    borderBottomWidth: 1,
+    borderBottomColor: "#d1d5db",
+    paddingBottom: 4,
+  },
+  row: {
+    marginBottom: 6,
+  },
+  label: {
+    fontWeight: "bold",
+    color: "#374151",
+  },
+  value: {
+    color: "#1f2937",
+  },
+  footer: {
+    marginTop: 30,
+    textAlign: "center",
+    fontSize: 10,
+    color: "#6b7280",
+  },
+});
+
+/**
+ * Componente que genera un documento PDF con los resultados de un análisis de aceituna.
+ * 
+ * Incluye información del socio, empleado y los resultados obtenidos en el laboratorio.
+ *
+ * @component
+ * @param {Object} props - Propiedades del componente.
+ * @param {Object} props.analysis - Objeto que contiene todos los datos del análisis.
+ * @returns {JSX.Element} Documento PDF con el informe del análisis.
+ */
+export const AnalysisPDF = ({ analysis }) => {
+  const estimatedOil =
+    analysis.oil?.name &amp;&amp; analysis.entry?.olive_quantity &amp;&amp; analysis.yield
+      ? ((analysis.entry.olive_quantity * analysis.yield) / 100).toFixed(2)
+      : "-";
+
+  return (
+    &lt;Document>
+      &lt;Page style={styles.page}>
+        {/* Logo y título */}
+        &lt;View style={styles.logoContainer}>
+          &lt;Image style={styles.logo} src="/logo.png" />
+        &lt;/View>
+        &lt;Text style={styles.title}>Informe de Análisis&lt;/Text>
+
+        {/* Card: Datos del socio */}
+        &lt;View style={styles.card}>
+          &lt;Text style={styles.cardTitle}>Datos del Socio&lt;/Text>
+          &lt;View style={styles.row}>
+            &lt;Text style={styles.label}>Nombre: &lt;/Text>
+            &lt;Text style={styles.value}>{analysis.member?.name || "-"}&lt;/Text>
+          &lt;/View>
+          &lt;View style={styles.row}>
+            &lt;Text style={styles.label}>Número de socio: &lt;/Text>
+            &lt;Text style={styles.value}>
+              {analysis.member?.member_number || "-"}
+            &lt;/Text>
+          &lt;/View>
+        &lt;/View>
+
+        {/* Card: Datos del trabajador */}
+        {analysis.employee &amp;&amp; (
+          &lt;View style={styles.card}>
+            &lt;Text style={styles.cardTitle}>Datos del empleado&lt;/Text>
+            &lt;View style={styles.row}>
+              &lt;Text style={styles.label}>Nombre: &lt;/Text>
+              &lt;Text style={styles.value}>{analysis.employee.name}&lt;/Text>
+            &lt;/View>
+            &lt;View style={styles.row}>
+              &lt;Text style={styles.label}>Fecha del análisis: &lt;/Text>
+              &lt;Text style={styles.value}>{analysis.analysis_date || "-"}&lt;/Text>
+            &lt;/View>
+          &lt;/View>
+        )}
+
+        {/* Card: Resultados */}
+        &lt;View style={styles.card}>
+          &lt;Text style={styles.cardTitle}>Resultados&lt;/Text>
+          &lt;View style={styles.row}>
+            &lt;Text style={styles.label}>Cantidad de aceituna: &lt;/Text>
+            &lt;Text style={styles.value}>
+              {analysis.entry?.olive_quantity
+                ? `${analysis.entry.olive_quantity} Kg`
+                : "-"}
+            &lt;/Text>
+          &lt;/View>
+          &lt;View style={styles.row}>
+            &lt;Text style={styles.label}>Acidez: &lt;/Text>
+            &lt;Text style={styles.value}>
+              {analysis.acidity ? `${analysis.acidity}%` : "-"}
+            &lt;/Text>
+          &lt;/View>
+          &lt;View style={styles.row}>
+            &lt;Text style={styles.label}>Humedad: &lt;/Text>
+            &lt;Text style={styles.value}>
+              {analysis.humidity ? `${analysis.humidity}%` : "-"}
+            &lt;/Text>
+          &lt;/View>
+          &lt;View style={styles.row}>
+            &lt;Text style={styles.label}>Rendimiento: &lt;/Text>
+            &lt;Text style={styles.value}>
+              {analysis.yield ? `${analysis.yield}%` : "-"}
+            &lt;/Text>
+          &lt;/View>
+          &lt;View style={styles.row}>
+            &lt;Text style={styles.label}>Cantidad estimada de aceite: &lt;/Text>
+            &lt;Text style={styles.value}>
+              {estimatedOil !== "-" ? `${estimatedOil} L` : "-"}
+            &lt;/Text>
+          &lt;/View>
+          &lt;View style={styles.row}>
+            &lt;Text style={styles.label}>Tipo de aceite: &lt;/Text>
+            &lt;Text style={styles.value}>{analysis.oil?.name || "-"}&lt;/Text>
+          &lt;/View>
+        &lt;/View>
+
+        {/* Footer */}
+        &lt;Text style={styles.footer}>
+          Generado automáticamente por el sistema de gestión de almazara
+          OleoControl © {new Date().getFullYear()}
+        &lt;/Text>
+      &lt;/Page>
+    &lt;/Document>
+  );
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Wed Apr 30 2025 21:16:33 GMT+0200 (hora de verano de Europa central) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

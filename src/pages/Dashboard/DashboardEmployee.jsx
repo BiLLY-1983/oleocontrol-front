@@ -5,11 +5,10 @@ import clsx from "clsx";
 import { useTheme } from "@context/ThemeContext";
 
 /**
- * DashboardEmployee
- * 
- * Componente layout principal para los usuarios con rol de empleado.
- * Incluye la barra lateral específica de empleado, la barra superior y el área de contenido.
- * 
+ * Layout principal para los usuarios con rol de empleado.
+ * Incluye barra lateral, barra superior y área de contenido.
+ *
+ * @page
  * @returns {JSX.Element} Estructura del dashboard de empleado.
  */
 const DashboardEmployee = () => {

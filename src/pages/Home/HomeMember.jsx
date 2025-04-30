@@ -35,15 +35,13 @@ ChartJS.register(
 );
 
 /**
- * Componente HomeMember
- *
- * Página de inicio del Dashboard.
- *
- * Muestra estadísticas y gráficas relevantes para el socios del sistema:
+ * Página de inicio del Dashboard para socios.
+ * 
+ * Muestra estadísticas y gráficas relevantes para los socios del sistema:
  * entradas de aceituna, producción de aceite, rendimiento medio y liquidaciones pendientes.
  *
  * @component
- * @returns {JSX.Element} El componente HomeAdmin renderizado.
+ * @returns {JSX.Element} Página de inicio para socios.
  */
 const HomeMember = () => {
   const { theme } = useTheme();

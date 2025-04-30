@@ -17,17 +17,17 @@ import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
 /**
- * Componente de modal para eliminar una liquidación.
+ * Modal para eliminar una liquidación.
  * 
+ * Permite confirmar y eliminar una liquidación seleccionada.
+ *
  * @component
- * 
- * @param {boolean} props.open - Estado de apertura del modal.
- * @param {function} props.setOpen - Función para cambiar el estado de apertura del modal.
- * @param {boolean} props.isDarkMode - Estado del modo oscuro.
- * @param {function} props.updateSettlements - Función para actualizar la lista de liquidaciones.
- * @param {Object} props.selectedSettlement - Liquidación seleccionada para eliminar.
- * 
- * @returns {JSX.Element} Modal de eliminación de liquidación.
+ * @param {boolean} open - Indica si el modal está abierto.
+ * @param {Function} setOpen - Función para cambiar el estado del modal.
+ * @param {boolean} isDarkMode - Indica si el modo oscuro está activado.
+ * @param {Function} updateSettlements - Función para actualizar la lista de liquidaciones.
+ * @param {Object} selectedSettlement - Liquidación seleccionada para eliminar.
+ * @returns {JSX.Element} Modal para eliminar una liquidación.
  */
 const DeleteSettlementModal = ({
   open,

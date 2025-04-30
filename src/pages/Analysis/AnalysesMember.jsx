@@ -29,15 +29,11 @@ import { AnalysisPDF } from "@components/pdf/AnalysisPDF";
 import { BiSolidFilePdf } from "react-icons/bi";
 
 /**
- * Componente que muestra la gestión de análisis de los socios.
- * Permite filtrar los análisis, visualizar información sobre los análisis pendientes y los rendimientos,
- * y descargar informes en formato PDF.
+ * Página para que los socios visualicen sus análisis de aceituna.
+ * Incluye filtrado, estadísticas y descarga de informes en PDF.
  *
- * @component
- * @example
- * return (
- *   <AnalysesMember />
- * )
+ * @page
+ * @returns {JSX.Element} Página de análisis para socios.
  */
 const AnalysesMember = () => {
   /**

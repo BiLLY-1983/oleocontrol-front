@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>pages/OilPrices/OilPrices.jsx - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AccessDenied">AccessDenied</a></li><li><a href="global.html#Analyses">Analyses</a></li><li><a href="global.html#AnalysesMember">AnalysesMember</a></li><li><a href="global.html#AnalysisPDF">AnalysisPDF</a></li><li><a href="global.html#ChartOilInventory">ChartOilInventory</a></li><li><a href="global.html#DashboardAdmin">DashboardAdmin</a></li><li><a href="global.html#DashboardEmployee">DashboardEmployee</a></li><li><a href="global.html#DashboardMember">DashboardMember</a></li><li><a href="global.html#DeleteEmployeeModal">DeleteEmployeeModal</a></li><li><a href="global.html#DeleteEntryModal">DeleteEntryModal</a></li><li><a href="global.html#DeleteMemberModal">DeleteMemberModal</a></li><li><a href="global.html#DeleteOilModal">DeleteOilModal</a></li><li><a href="global.html#DeleteSettlementMemberModal">DeleteSettlementMemberModal</a></li><li><a href="global.html#DeleteSettlementModal">DeleteSettlementModal</a></li><li><a href="global.html#DeleteUserModal">DeleteUserModal</a></li><li><a href="global.html#DepartmentProtectedRoute">DepartmentProtectedRoute</a></li><li><a href="global.html#Departments">Departments</a></li><li><a href="global.html#EditAnalysisModal">EditAnalysisModal</a></li><li><a href="global.html#EditEmployeeModal">EditEmployeeModal</a></li><li><a href="global.html#EditEntryModal">EditEntryModal</a></li><li><a href="global.html#EditMemberModal">EditMemberModal</a></li><li><a href="global.html#EditOilModal">EditOilModal</a></li><li><a href="global.html#EditSettlementModal">EditSettlementModal</a></li><li><a href="global.html#EditUserModal">EditUserModal</a></li><li><a href="global.html#Employees">Employees</a></li><li><a href="global.html#EmployeesDoughnutChart">EmployeesDoughnutChart</a></li><li><a href="global.html#Entries">Entries</a></li><li><a href="global.html#EntriesMember">EntriesMember</a></li><li><a href="global.html#EntryPDF">EntryPDF</a></li><li><a href="global.html#EntryWithOilPDF">EntryWithOilPDF</a></li><li><a href="global.html#Error404">Error404</a></li><li><a href="global.html#ForgotPassword">ForgotPassword</a></li><li><a href="global.html#HomeAdmin">HomeAdmin</a></li><li><a href="global.html#HomeEmployee">HomeEmployee</a></li><li><a href="global.html#HomeMember">HomeMember</a></li><li><a href="global.html#LandingPage">LandingPage</a></li><li><a href="global.html#LoginAdmin">LoginAdmin</a></li><li><a href="global.html#LoginEmployee">LoginEmployee</a></li><li><a href="global.html#LoginMember">LoginMember</a></li><li><a href="global.html#Logout">Logout</a></li><li><a href="global.html#Members">Members</a></li><li><a href="global.html#MembersDoughnutChart">MembersDoughnutChart</a></li><li><a href="global.html#NewEmployeeModal">NewEmployeeModal</a></li><li><a href="global.html#NewEntryModal">NewEntryModal</a></li><li><a href="global.html#NewMemberModal">NewMemberModal</a></li><li><a href="global.html#NewOilModal">NewOilModal</a></li><li><a href="global.html#NewSettlementAvailableModal">NewSettlementAvailableModal</a></li><li><a href="global.html#NewSettlementModal">NewSettlementModal</a></li><li><a href="global.html#NewUserModal">NewUserModal</a></li><li><a href="global.html#OilAnalysisDoughnutChart">OilAnalysisDoughnutChart</a></li><li><a href="global.html#OilMember">OilMember</a></li><li><a href="global.html#OilPrices">OilPrices</a></li><li><a href="global.html#Oils">Oils</a></li><li><a href="global.html#OilsEmployee">OilsEmployee</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#Roles">Roles</a></li><li><a href="global.html#SettlementDoughnutChart">SettlementDoughnutChart</a></li><li><a href="global.html#SettlementPDF">SettlementPDF</a></li><li><a href="global.html#Settlements">Settlements</a></li><li><a href="global.html#SettlementsMember">SettlementsMember</a></li><li><a href="global.html#UserProfile">UserProfile</a></li><li><a href="global.html#Users">Users</a></li><li><a href="global.html#authRoutes">authRoutes</a></li><li><a href="global.html#dashboardRoutesAdmin">dashboardRoutesAdmin</a></li><li><a href="global.html#dashboardRoutesEmployee">dashboardRoutesEmployee</a></li><li><a href="global.html#dashboardRoutesMember">dashboardRoutesMember</a></li><li><a href="global.html#entrySchema">entrySchema</a></li><li><a href="global.html#fetchAnalyses">fetchAnalyses</a></li><li><a href="global.html#fetchEntries">fetchEntries</a></li><li><a href="global.html#fetchMembers">fetchMembers</a></li><li><a href="global.html#fetchOils">fetchOils</a></li><li><a href="global.html#fetchRolesAndCounts">fetchRolesAndCounts</a></li><li><a href="global.html#fetchSettlements">fetchSettlements</a></li><li><a href="global.html#fetchUsersByRole">fetchUsersByRole</a></li><li><a href="global.html#fetchUsuarios">fetchUsuarios</a></li><li><a href="global.html#filterUsuarios">filterUsuarios</a></li><li><a href="global.html#formatEuro">formatEuro</a></li><li><a href="global.html#getAnalyses">getAnalyses</a></li><li><a href="global.html#getDepartments">getDepartments</a></li><li><a href="global.html#getEmployees">getEmployees</a></li><li><a href="global.html#getEntries">getEntries</a></li><li><a href="global.html#getMembers">getMembers</a></li><li><a href="global.html#getOilInventories">getOilInventories</a></li><li><a href="global.html#getOilSettlements">getOilSettlements</a></li><li><a href="global.html#getOils">getOils</a></li><li><a href="global.html#getRoles">getRoles</a></li><li><a href="global.html#getSettlements">getSettlements</a></li><li><a href="global.html#getUsers">getUsers</a></li><li><a href="global.html#handleCardClick">handleCardClick</a></li><li><a href="global.html#handleCreate">handleCreate</a></li><li><a href="global.html#handleDelete">handleDelete</a></li><li><a href="global.html#oilSchema">oilSchema</a></li><li><a href="global.html#protectedRoutes">protectedRoutes</a></li><li><a href="global.html#updateSettlements">updateSettlements</a></li><li><a href="global.html#updateUsuarios">updateUsuarios</a></li><li><a href="global.html#userSchema">userSchema</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">pages/OilPrices/OilPrices.jsx</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { getOils } from "@services/oilRequests";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Card } from "@components/ui/card";
+import { useTheme } from "@context/ThemeContext";
+import clsx from "clsx";
+
+/**
+ * Página para mostrar los precios de los aceites.
+ * 
+ * Muestra una lista de aceites con su nombre, imagen, precio y descripción.
+ * Los datos se obtienen desde la API y se manejan estados de carga y error.
+ *
+ * @component
+ * @returns {JSX.Element} Página de precios de aceites.
+ */
+const OilPrices = () => {
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+  const isDarkMode = theme === "dark";
+
+  const [oils, setOils] = useState([]);
+  const [loadingOils, setLoadingOils] = useState(true);
+  const [errorOils, setErrorOils] = useState(null);
+
+  /**
+   * Función para obtener los aceites desde la API.
+   * Actualiza el estado de `oils` con los datos obtenidos.
+   *
+   * @returns {void} No retorna ningún valor.
+   */
+  const fetchOils = async () => {
+    setLoadingOils(true);
+    setErrorOils(null);
+    try {
+      const response = await getOils();
+      if (response.status === "success") {
+        setOils(response.data);
+      } else {
+        setErrorOils("Hubo un error al cargar los aceites.");
+      }
+    } catch (error) {
+      setErrorOils("Hubo un error al cargar los aceites.");
+    } finally {
+      setLoadingOils(false);
+    }
+  };
+
+  /**
+   * Obtener los aceites cuando el componente se monte.
+   */
+  useEffect(() => {
+    fetchOils();
+  }, []);
+
+  return (
+    &lt;div
+      className={clsx(
+        "p-6 space-y-6",
+        isDarkMode ? "bg-dark-800 text-dark-50" : "bg-white text-olive-800"
+      )}
+    >
+      &lt;h1 className="text-2xl font-bold">{t("navigation.prices")}&lt;/h1>
+
+      {/* Cards de tipos de aceite */}
+      &lt;div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        {loadingOils ? (
+          &lt;>
+            &lt;Skeleton className="h-24 w-full" />
+            &lt;Skeleton className="h-24 w-full" />
+          &lt;/>
+        ) : errorOils ? (
+          &lt;div className="text-red-600">{errorOils}&lt;/div>
+        ) : (
+          oils.map((oil) => (
+            &lt;Card
+              key={oil.id}
+              className={clsx(
+                "p-6 rounded-lg shadow-2xl transition-transform transform relative",
+                isDarkMode
+                  ? "bg-dark-700 text-dark-50"
+                  : "bg-olive-50 text-olive-800"
+              )}
+            >
+              &lt;div className="flex flex-col items-center">
+                {/* Cabecera con el nombre del aceite */}
+                &lt;h2 className="text-3xl font-semibold">{oil.name}&lt;/h2>
+
+                {/* Imagen del aceite */}
+                {oil.photo_url &amp;&amp; (
+                  &lt;img
+                    src={oil.photo_url}
+                    alt={oil.name}
+                    className="w-full max-w-xs mt-4 rounded-lg"
+                  />
+                )}
+
+                {/* Precio del aceite */}
+                {oil.price &amp;&amp; (
+                  &lt;p className="text-xl mt-4 font-medium"> {t('navigation.price')}: {oil.price} €/L&lt;/p>
+                )}
+
+                {/* Descripción del aceite */}
+                {oil.description &amp;&amp; (
+                  &lt;p className="mt-4 text-sm text-center">{oil.description}&lt;/p>
+                )}
+              &lt;/div>
+            &lt;/Card>
+          ))
+        )}
+      &lt;/div>
+    &lt;/div>
+  );
+};
+
+export default OilPrices;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Wed Apr 30 2025 21:16:33 GMT+0200 (hora de verano de Europa central) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

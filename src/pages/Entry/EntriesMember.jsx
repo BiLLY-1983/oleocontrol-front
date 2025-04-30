@@ -30,10 +30,11 @@ import { EntryWithOilPDF } from "@components/pdf/EntryWithOilPDF";
 import { BiSolidFilePdf } from "react-icons/bi";
 
 /**
- * Componente para la gestión y visualización de entradas de aceitunas para un miembro específico.
- * Este componente permite filtrar, paginar, y generar informes en formato PDF sobre las entradas de aceitunas.
- * 
- * @component
+ * Página para que los socios visualicen sus entradas de aceituna.
+ * Permite filtrar, paginar y generar informes en PDF sobre las entradas.
+ *
+ * @page
+ * @returns {JSX.Element} Página de entradas para socios.
  */
 const EntriesMember = () => {
   const { theme } = useTheme();

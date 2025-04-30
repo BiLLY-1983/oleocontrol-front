@@ -5,11 +5,10 @@ import clsx from "clsx";
 import { useTheme } from "@context/ThemeContext";
 
 /**
- * DashboardAdmin
- * 
- * Componente layout principal para los usuarios con rol de administrador.
- * Incluye la barra lateral específica de admin, la barra superior y el área de contenido.
- * 
+ * Layout principal para los usuarios con rol de administrador.
+ * Incluye barra lateral, barra superior y área de contenido.
+ *
+ * @page
  * @returns {JSX.Element} Estructura del dashboard de administrador.
  */
 const DashboardAdmin = () => {

@@ -7,13 +7,12 @@ import { useTheme } from "@context/ThemeContext";
 import { useTranslation } from "react-i18next";
 
 /**
- * Componente para mostrar los precios de los aceites en la sección de empleados.
- * Utiliza el componente ChartOilPricesBar para mostrar un gráfico de barras con los precios.
+ * Página para mostrar los precios de los aceites en la sección de empleados.
  * 
+ * Utiliza un gráfico de barras para visualizar los precios de los aceites disponibles.
+ *
  * @component
- * 
- * @returns {JSX.Element} Componente que muestra los precios de los aceites.
- * @description Este componente muestra los precios de los aceites disponibles para los empleados.
+ * @returns {JSX.Element} Página de precios de aceites para empleados.
  */
 const OilsEmployee = () => {
   const { theme } = useTheme();

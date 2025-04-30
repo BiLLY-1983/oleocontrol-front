@@ -5,15 +5,18 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "@context/ThemeContext";
 import clsx from "clsx";
 
-// Registramos los componentes necesarios de Chart.js
+
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 /**
- * Componente de Gráfico de Doughnut para los aceites por tipo (Inventarios o Liquidaciones)
+ * Componente de gráfica tipo donut.
+ * 
+ * Muestra un gráfico Doughnut para visualizar la distribución de aceites por tipo (inventarios o liquidaciones).
  *
- * @param {Object} props
+ * @component
+ * @param {Object} props - Propiedades del componente.
  * @param {Array} props.oils - Array de aceites con sus datos para mostrar en el gráfico.
- * @returns {JSX.Element} El componente renderizado con el gráfico.
+ * @returns {JSX.Element} Gráfico Doughnut con la distribución de aceites.
  */
 const ChartOilInventory = ({ oils }) => {
   const { t } = useTranslation();

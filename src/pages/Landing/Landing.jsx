@@ -13,7 +13,6 @@ import clsx from "clsx";
  * tiene un token y un rol asignado, será redirigido automáticamente a su página correspondiente al cargar la página.
  *
  * @component
- *
  * @returns {JSX.Element} La estructura de la página de bienvenida con opciones de inicio de sesión.
  */
 const LandingPage = () => {

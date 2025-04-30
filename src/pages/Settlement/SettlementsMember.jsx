@@ -33,12 +33,13 @@ import { SettlementPDF } from "@components/pdf/SettlementPDF";
 import { BiSolidFilePdf } from "react-icons/bi";
 
 /**
- * Componente que muestra la gestión de liquidaciones del miembro.
- * Incluye un botón para crear una nueva liquidación,
- * un filtro de búsqueda, una tabla con las liquidaciones y un gráfico de liquidaciones.
+ * Página para la gestión de liquidaciones de socios.
  * 
+ * Permite a los socios visualizar sus liquidaciones, crear nuevas, eliminarlas y exportarlas en PDF.
+ * También incluye gráficos para mostrar estadísticas de liquidaciones.
+ *
  * @component
- * @returns {JSX.Element} Componente de liquidaciones del miembro.
+ * @returns {JSX.Element} Página de liquidaciones para socios.
  */
 const SettlementsMember = () => {
   const { theme } = useTheme();

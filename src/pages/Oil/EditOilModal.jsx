@@ -43,28 +43,18 @@ const oilSchema = z.object({
 });
 
 /**
- * EditOilModal - Componente para editar un aceite.
+ * Modal para editar un aceite.
  * 
- * Este modal permite editar la información de un aceite seleccionado.
- * 
+ * Permite modificar la información de un aceite seleccionado, como nombre, descripción y precio.
+ *
  * @component
  * @param {Object} props - Props del componente.
  * @param {boolean} props.open - Estado de apertura del modal.
- * @param {function} props.setOpen - Función para cambiar el estado de apertura del modal.
+ * @param {Function} props.setOpen - Función para cambiar el estado del modal.
  * @param {boolean} props.isDarkMode - Indica si se está utilizando el modo oscuro.
  * @param {Object} props.selectedOil - Datos del aceite seleccionado para editar.
- * @param {Function} props.updateOils - Función para actualizar la lista de aceites después de editar.
- * 
- * @returns {JSX.Element} - Componente del modal de edición de aceite.
- * 
- * @example
- * <EditOilModal
- *   open={modalOpen}
- *   setOpen={setModalOpen}
- *   isDarkMode={true}
- *   selectedOil={selectedOilData}
- *   updateOils={loadOils}
- * />
+ * @param {Function} props.updateOils - Función para actualizar la lista de aceites tras la edición.
+ * @returns {JSX.Element} Modal para editar un aceite.
  */
 const EditOilModal = ({
   open,

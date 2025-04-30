@@ -20,35 +20,22 @@ import OilsEmployee from "@pages/Oil/OilsEmployee";
 import Profile from "@pages/Profile/Profile";
 import Error404 from "@pages/Error/Error404.jsx";
 
-/**
- * Componente que protege las rutas para garantizar que el usuario esté autenticado.
- * Si el usuario está autenticado, renderiza los elementos hijos, de lo contrario, redirige al inicio.
- *
- * @param {Object} props - Propiedades del componente.
- * @param {boolean} props.isAuthenticated - Estado de autenticación del usuario.
- * @param {JSX.Element} props.children - Elementos hijos a renderizar si el usuario está autenticado.
- * @returns {JSX.Element} - Redirección o el contenido protegido.
- */
 function ProtectedRoute({ isAuthenticated, children }) {
   return isAuthenticated ? children : <Navigate to="/" />;
 }
 
 /**
- * Componente principal que gestiona todas las rutas de la aplicación,
- * incluidas las rutas públicas, protegidas y de dashboards.
- * Usa el contexto de usuario para comprobar si el usuario está autenticado.
+ * Componente principal que gestiona todas las rutas de la aplicación.
+ * 
+ * Incluye rutas públicas, protegidas y específicas para dashboards de administradores, empleados y socios.
+ * Usa el contexto de usuario para verificar si el usuario está autenticado.
  *
- * @returns {JSX.Element} - El componente de rutas configurado.
+ * @component
+ * @returns {JSX.Element} El componente de rutas configurado.
  */
 export default function AuthRoutes() {
   const { userData, setUserData } = useContext(UserContext);
 
-  /**
-   * useEffect que se ejecuta al montar el componente para verificar si el usuario ya está autenticado.
-   * Si se encuentra un token de autenticación y los datos del usuario en el almacenamiento local,
-   * se actualizan los datos del usuario en el contexto.
-   *
-   */
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     const user = localStorage.getItem("userData");

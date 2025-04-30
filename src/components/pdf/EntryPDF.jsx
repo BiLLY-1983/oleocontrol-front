@@ -73,25 +73,13 @@ const styles = StyleSheet.create({
 
 /**
  * Componente que genera un documento PDF con el informe de recepción de aceituna.
+ * 
  * Incluye información sobre la fecha de entrada, los datos del socio y los resultados del análisis.
  *
  * @component
  * @param {Object} props - Propiedades del componente.
  * @param {Object} props.entry - Objeto que contiene los datos de la entrada de aceituna.
- * @param {string} props.entry.entry_date - Fecha de entrada de la aceituna.
- * @param {Object} props.entry.member - Información del socio.
- * @param {string} props.entry.member.name - Nombre del socio.
- * @param {string|number} props.entry.member.member_number - Número de socio.
- * @param {number} props.entry.olive_quantity - Cantidad de aceituna en kilogramos.
- *
  * @returns {JSX.Element} Documento PDF con el informe de recepción de aceituna.
- *
- * @example
- * <EntryPDF entry={{
- *   entry_date: "2025-03-22",
- *   member: { name: "Juan Pérez", member_number: 102 },
- *   olive_quantity: 1500
- * }} />
  */
 export const EntryPDF = ({ entry }) => {
   return (

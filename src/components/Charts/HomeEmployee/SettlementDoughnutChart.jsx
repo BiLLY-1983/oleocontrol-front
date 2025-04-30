@@ -2,50 +2,27 @@ import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, Tooltip, Legend } from "chart.js";
 
-// Registramos los componentes necesarios de Chart.js
 ChartJS.register(Tooltip, Legend);
 
 /**
- * Componente que muestra un gráfico Doughnut para visualizar el estado de las liquidaciones.
- * Presenta un resumen visual del número de liquidaciones por estado y su importe total en euros.
+ * Componente de gráfica tipo donut.
+ * 
+ * Muestra un gráfico Doughnut para visualizar el estado de las liquidaciones, incluyendo el número de liquidaciones
+ * por estado y su importe total en euros.
  *
  * @component
  * @param {Object} props - Propiedades del componente.
  * @param {Object} props.doughnutDataSettlements - Datos estructurados para Chart.js (labels, datasets).
  * @param {Object} props.settlementStatusCounts - Recuento total de liquidaciones por estado (Aceptada, Cancelada, Pendiente).
  * @param {Object} props.settlementTotals - Total económico por estado de liquidación, en euros.
- *
- * @returns {JSX.Element} Elemento gráfico Doughnut con estadísticas y tooltips personalizados.
- *
- * @example
- * const data = {
- *   labels: ['Aceptadas', 'Canceladas', 'Pendientes'],
- *   datasets: [{
- *     data: [80, 15, 5],
- *     backgroundColor: ['#70AD47', '#ED7D31', '#4DCBC4'],
- *     hoverBackgroundColor: ['#609D37', '#DD6D21', '#3DBABA']
- *   }]
- * };
- * const statusCounts = { Aceptada: 80, Cancelada: 15, Pendiente: 5 };
- * const totals = { Aceptada: 1200, Cancelada: 300, Pendiente: 0 };
- *
- * <SettlementDoughnutChart
- *   doughnutDataSettlements={data}
- *   settlementStatusCounts={statusCounts}
- *   settlementTotals={totals}
- * />
+ * @returns {JSX.Element} Gráfico Doughnut con estadísticas y tooltips personalizados.
  */
 const SettlementDoughnutChart = ({
   doughnutDataSettlements,
   settlementStatusCounts,
   settlementTotals,
 }) => {
-  /**
-   * Función que genera el texto para el tooltip del gráfico.
-   *
-   * @param {Object} tooltipItem - Información del punto del gráfico.
-   * @returns {string} Texto con el número, porcentaje y total en euros por estado.
-   */
+
   const formatTooltipLabel = (tooltipItem) => {
     const label = tooltipItem.label;
     const count = tooltipItem.raw;

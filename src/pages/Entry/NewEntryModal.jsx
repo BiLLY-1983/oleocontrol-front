@@ -35,7 +35,7 @@ const entrySchema = z.object({
 });
 
 /**
- * Componente de modal para crear una nueva entrada de aceite.
+ * Modal para crear una nueva entrada de aceite.
  * Permite al usuario seleccionar una fecha, cantidad de aceituna, y un miembro.
  * Los datos se validan usando Zod y se envían al backend para su creación.
  *
