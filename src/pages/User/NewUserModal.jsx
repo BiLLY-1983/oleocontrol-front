@@ -148,7 +148,7 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
    */
   const handleCreate = async (data) => {
     try {
-      data.status = true; // Puedes dejar esto si lo usas en tu backend
+      data.status = true; 
 
       // Enviar todos los datos necesarios al backend
       const userResult = await createUser(data);
