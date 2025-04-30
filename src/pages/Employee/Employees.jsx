@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getEmployees } from "@services/EmployeeRequests";
+import { getEmployees } from "@services/employeeRequests";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Trash2, SquarePen } from "lucide-react";
