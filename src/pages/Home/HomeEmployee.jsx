@@ -433,31 +433,6 @@ const HomeEmployee = () => {
           return acc;
         }, {});
 
-        const doughnutOilData = {
-          labels: Object.keys(oilCounts),
-          datasets: [
-            {
-              data: Object.values(oilCounts),
-              backgroundColor: [
-                "#5A9BD5", // Azul Desaturado
-                "#70AD47", // Verde Desaturado
-                "#A076C4", // Púrpura Desaturado
-                "#4DCBC4", // Teal Desaturado
-                "#ED7D31", // Naranja Desaturado (como contraste)
-                "#8395A7", // Gris Azulado
-              ],
-              hoverBackgroundColor: [
-                "#4A8BC5", // Azul un poco más intenso
-                "#609D37", // Verde un poco más intenso
-                "#9066B4", // Púrpura un poco más intenso
-                "#3DBABA", // Teal un poco más intenso
-                "#DD6D21", // Naranja un poco más intenso
-                "#738597", // Gris Azulado un poco más intenso
-              ],
-            },
-          ],
-        };
-
         if (loadingAnalyses) {
           return (
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-4">
@@ -499,7 +474,6 @@ const HomeEmployee = () => {
                   Tipos de aceite resultantes
                 </h2>
                 <AnalysisDoughnutChart oilCounts={oilCounts} />{" "}
-                {/* Aquí pasamos los datos al gráfico */}
               </div>
             </div>
           </>

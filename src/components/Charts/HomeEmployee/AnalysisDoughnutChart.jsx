@@ -53,7 +53,7 @@ const OilAnalysisDoughnutChart = ({ oilCounts }) => {
     const value = tooltipItem.raw;
     const total = Object.values(oilCounts).reduce((a, b) => a + b, 0);
     const percent = ((value / total) * 100).toFixed(1);
-    return `${label}: ${value} ${t('analysis')} (${percent}%)`;
+    return `${label}: ${value} (${percent}%)`;
   };
 
   return (
