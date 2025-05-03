@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="public/readme/logo-color.png" alt="Logo OleoControl" width="300"/>
+  <img src="public/logo-oc.png" alt="Logo OleoControl" width="300"/>
 </p>
 
 # Frontend en React para OleoControl
