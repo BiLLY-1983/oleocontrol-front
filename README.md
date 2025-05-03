@@ -89,7 +89,7 @@ oleocontrol-frontend/
 ├── .env                     # Variables de entorno
 ├── index.html               # HTML base
 ├── package.json             # Dependencias y scripts
-└── vite.config.ts           # Configuración de Vite
+└── vite.config.js           # Configuración de Vite
 ```
 
 ## Autenticación y roles
