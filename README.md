@@ -115,7 +115,7 @@ Roles del sistema:
 ## Créditos
 
 Proyecto desarrollado como parte del ciclo formativo de Desarrollo de Aplicaciones Web (DAW).  
-Autor: [Pedro Jesús Berzosa Ogallar]
+Autor: Pedro Jesús Berzosa Ogallar
 
 ---
 
