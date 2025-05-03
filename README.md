@@ -8,7 +8,7 @@
 Este es el frontend del proyecto **OleoControl**, una aplicación web desarrollada en React que consume una API RESTful proporcionada por Laravel 11.  
 Permite a los usuarios interactuar con el sistema de gestión de almazaras, consultar el historial de entregas de aceituna, visualizar resultados de análisis, generar informes, solicitar liquidaciones y más.
 
-## Tecnologías utilizadas
+## 🔧 Tecnologías utilizadas
 
 - **React**: Librería JavaScript para construir la interfaz de usuario.
 - **Axios**: Cliente HTTP para conectar con la API de Laravel.
@@ -19,12 +19,12 @@ Permite a los usuarios interactuar con el sistema de gestión de almazaras, cons
 - **React Hook Form**: Para formularios y validación.
 - **Chart.js y Recharts**: Para la visualización de gráficos estadísticos.
 
-## Requisitos
+## 📋 Requisitos
 
 - **Node.js >= 16.0**
 - **NPM o Yarn**
 
-## Instalación
+## 🛠️ Instalación
 
 1. Clonar el repositorio:
 
@@ -61,14 +61,14 @@ yarn dev
 
 Esto abrirá la aplicación en `http://localhost:5173` (o el puerto asignado por Vite).
 
-## Scripts disponibles
+## 🖥️ Scripts disponibles
 
 - `npm run dev`: Inicia el servidor de desarrollo.
 - `npm run build`: Compila el proyecto para producción.
 - `npm run preview`: Previsualiza el proyecto compilado.
 - `npm run lint`: Ejecuta el linter para revisar errores de estilo/código.
 
-## Estructura del proyecto
+## 📂 Estructura del proyecto
 
 ```text
 oleocontrol-frontend/
@@ -92,7 +92,7 @@ oleocontrol-frontend/
 └── vite.config.js           # Configuración de Vite
 ```
 
-## Autenticación y roles
+## 🔐 Autenticación y roles
 
 El sistema utiliza **Laravel Sanctum** como mecanismo de autenticación vía tokens.  
 Al iniciar sesión, el frontend guarda el token y lo envía en cada petición protegida.
@@ -103,7 +103,7 @@ Roles del sistema:
 - **empleado**: Registro de entregas de aceituna, análisis, liquidaciones.
 - **Administrador**: Gestión global del sistema.
 
-## Funcionalidades principales
+## 🚀 Funcionalidades principales
 
 - **Login y logout** con manejo de sesiones.
 - **Dashboard personalizado** según el rol del usuario.
@@ -112,14 +112,14 @@ Roles del sistema:
 - **Visualización de informes** con gráficos estadísticos.
 - **Notificaciones en tiempo real** (visual o futura integración con WebSockets).
 
-## Créditos
+## 💳 Créditos
 
 Proyecto desarrollado como parte del ciclo formativo de Desarrollo de Aplicaciones Web (DAW).  
 ---
 
 © 2025 OleoControl. Todos los derechos reservados.
 
-## Autores
+## ✍️ Autores
 
 Este proyecto fue desarrollado por:
 
