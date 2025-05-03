@@ -11,14 +11,13 @@ Permite a los usuarios interactuar con el sistema de gestión de almazaras, cons
 ## Tecnologías utilizadas
 
 - **React**: Librería JavaScript para construir la interfaz de usuario.
-- **TypeScript**: Superset de JavaScript que proporciona tipado estático.
 - **Axios**: Cliente HTTP para conectar con la API de Laravel.
 - **TailwindCSS**: Framework CSS para un diseño moderno y responsivo.
 - **React Router DOM**: Para el manejo de rutas en el frontend.
 - **Vite**: Herramienta de construcción rápida y ligera.
-- **Context API / Zustand**: Para la gestión de estados globales.
-- **React Hook Form y Yup**: Para formularios y validación.
-- **Chart.js o Recharts**: Para la visualización de gráficos estadísticos.
+- **Context API**: Para la gestión de estados globales.
+- **React Hook Form**: Para formularios y validación.
+- **Chart.js y Recharts**: Para la visualización de gráficos estadísticos.
 
 ## Requisitos
 
@@ -27,14 +26,14 @@ Permite a los usuarios interactuar con el sistema de gestión de almazaras, cons
 
 ## Instalación
 
-1. Clona el repositorio:
+1. Clonar el repositorio:
 
 ```bash
 git clone https://github.com/tu-usuario/oleocontrol-frontend.git
 cd oleocontrol-frontend
 ```
 
-2. Instala las dependencias:
+2. Instalar las dependencias:
 
 ```bash
 npm install
@@ -42,7 +41,7 @@ npm install
 yarn install
 ```
 
-3. Configura las variables de entorno:
+3. Configurar las variables de entorno:
 
 Crea un archivo `.env` en la raíz del proyecto con el siguiente contenido:
 
@@ -50,9 +49,9 @@ Crea un archivo `.env` en la raíz del proyecto con el siguiente contenido:
 VITE_API_BASE_URL=http://localhost:8000/api
 ```
 
-Asegúrate de que la URL base coincida con la del backend en Laravel.
+Asegurarse de que la URL base coincida con la del backend en Laravel.
 
-4. Inicia el servidor de desarrollo:
+4. Iniciar el servidor de desarrollo:
 
 ```bash
 npm run dev
@@ -77,15 +76,16 @@ oleocontrol-frontend/
 ├── src/
 │   ├── assets/              # Imágenes y recursos gráficos
 │   ├── components/          # Componentes reutilizables
+│   ├── config/              # Configuración de la conexión Axios con el back-end
 │   ├── hooks/               # Hooks personalizados
 │   ├── pages/               # Páginas principales del sitio (Dashboard, Login, etc.)
 │   ├── services/            # Módulos para conectar con la API (axios)
 │   ├── store/               # Estado global (Context o Zustand)
 │   ├── styles/              # Estilos globales o específicos
 │   ├── utils/               # Funciones utilitarias
-│   ├── App.tsx              # Componente raíz de la app
-│   ├── main.tsx             # Punto de entrada
-│   └── router.tsx           # Definición de rutas (React Router)
+│   ├── routes/              # Definición de rutas (React Router)
+│   ├── App.jsx              # Componente raíz de la app
+│   └── main.jsx             # Punto de entrada
 ├── .env                     # Variables de entorno
 ├── index.html               # HTML base
 ├── package.json             # Dependencias y scripts
@@ -100,8 +100,7 @@ Al iniciar sesión, el frontend guarda el token y lo envía en cada petición pr
 Roles del sistema:
 
 - **Agricultor (socio)**: Consulta de entregas, análisis, solicitudes de liquidación.
-- **Operario**: Registro de entregas de aceituna.
-- **Técnico**: Registro de resultados de laboratorio.
+- **empleado**: Registro de entregas de aceituna, análisis, liquidaciones.
 - **Administrador**: Gestión global del sistema.
 
 ## Funcionalidades principales
@@ -116,7 +115,7 @@ Roles del sistema:
 ## Créditos
 
 Proyecto desarrollado como parte del ciclo formativo de Desarrollo de Aplicaciones Web (DAW).  
-Autor: [Tu Nombre]
+Autor: [Pedro Jesús Berzosa Ogallar]
 
 ---
 
