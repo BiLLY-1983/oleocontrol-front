@@ -115,8 +115,13 @@ Roles del sistema:
 ## Créditos
 
 Proyecto desarrollado como parte del ciclo formativo de Desarrollo de Aplicaciones Web (DAW).  
-Autor: Pedro Jesús Berzosa Ogallar
-
 ---
 
 © 2025 OleoControl. Todos los derechos reservados.
+
+## Autores
+
+Este proyecto fue desarrollado por:
+
+- [@BiLLY-1983](https://www.github.com/BiLLY-1983)
+
