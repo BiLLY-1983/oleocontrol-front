@@ -22,6 +22,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import {
+  getVisiblePageNumbers,
+  getPageNumbers,
+  getPaginatedData,
+} from "@utils/paginationUtils";
 import { getEntriesForMember } from "@services/entryRequests";
 import { useTranslation } from "react-i18next";
 import { PDFDownloadLink } from "@react-pdf/renderer";
@@ -33,7 +38,7 @@ import { BiSolidFilePdf } from "react-icons/bi";
  * Página para que los socios visualicen sus entradas de aceituna.
  * Permite filtrar, paginar y generar informes en PDF sobre las entradas.
  *
- * @page
+ * @component
  * @returns {JSX.Element} Página de entradas para socios.
  */
 const EntriesMember = () => {
@@ -51,14 +56,6 @@ const EntriesMember = () => {
   const [error, setError] = useState(null);
   const [filtro, setFiltro] = useState("");
 
-  /**
-   * Función para obtener las entradas del miembro desde el backend.
-   * Realiza una llamada a la API y actualiza el estado de las entradas.
-   * 
-   * @async
-   * @function fetchEntries
-   * @returns {Promise<void>}
-   */
   const fetchEntries = async () => {
     setLoading(true);
     try {
@@ -80,81 +77,30 @@ const EntriesMember = () => {
     fetchEntries();
   }, []);
 
-  /**
-   * Filtra las entradas por cantidad de aceitunas, según el valor del filtro.
-   * 
-   * @returns {Array} Las entradas filtradas por la cantidad de aceitunas.
-   */
   const entriesFiltered = entries.filter((entry) => {
     const cantidad = Number(filtro);
     if (isNaN(cantidad)) return false;
     return entry.olive_quantity >= cantidad;
   });
 
-  /**
-   * Calcula los números de páginas visibles para la paginación.
-   * 
-   * @returns {Array} Array con los números de página visibles.
-   */
-  const getVisiblePageNumbers = () => {
-    const totalPages = pageNumbers.length;
-    const maxVisible = 5;
-    //const pages = [];
-
-    if (totalPages <= maxVisible) {
-      return pageNumbers;
-    }
-
-    if (currentPage <= 3) {
-      return [...pageNumbers.slice(0, 3), "...", totalPages];
-    }
-
-    if (currentPage >= totalPages - 2) {
-      return [1, "...", ...pageNumbers.slice(totalPages - 3)];
-    }
-
-    return [
-      1,
-      "...",
-      currentPage - 1,
-      currentPage,
-      currentPage + 1,
-      "...",
-      totalPages,
-    ];
-  };
-
-  const indexOfLastEntry = currentPage * entriesPerPage;
-  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-  const currentEntries = entriesFiltered.slice(
-    indexOfFirstEntry,
-    indexOfLastEntry
+  // Cálculos
+  const pageNumbers = getPageNumbers(entriesFiltered.length, entriesPerPage);
+  const currentEntries = getPaginatedData(
+    entriesFiltered,
+    currentPage,
+    entriesPerPage
   );
+  const visiblePageNumbers = getVisiblePageNumbers(pageNumbers, currentPage);
 
-  /**
-   * Función para cambiar la página actual de la paginación.
-   * 
-   * @param {number} pageNumber - El número de la página a mostrar.
-   */
+  // Cambio de página
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const pageNumbers = [];
-  for (
-    let i = 1;
-    i <= Math.ceil(entriesFiltered.length / entriesPerPage);
-    i++
-  ) {
-    pageNumbers.push(i);
-  }
-
-  /** Total de kilos */ 
   const totalKilos = entries.reduce(
     (sum, e) => sum + Number(e.olive_quantity ?? 0),
     0
   );
   const kgTn = totalKilos / 1000;
 
-  /** Total de litros */ 
   const totalLitros = entries.reduce(
     (sum, e) => sum + Number(e.oil_quantity ?? 0),
     0
@@ -354,7 +300,7 @@ const EntriesMember = () => {
               />
             </PaginationItem>
 
-            {getVisiblePageNumbers().map((page, index) => (
+            {visiblePageNumbers.map((page, index) => (
               <PaginationItem key={index}>
                 {page === "..." ? (
                   <PaginationEllipsis />

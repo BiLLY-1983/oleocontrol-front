@@ -23,7 +23,7 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
-/** Validación con Zod */
+// Validación con Zod
 const entrySchema = z.object({
   olive_quantity: z
     .number({ invalid_type_error: "Debe ser un número" })
@@ -51,7 +51,7 @@ const EditEntryModal = ({
   updateEntries,
   selectedEntry,
 }) => {
-  const { t } = useTranslation(); // Hook para traducciones
+  const { t } = useTranslation();
 
   const {
     register,
@@ -70,13 +70,6 @@ const EditEntryModal = ({
     }
   }, [selectedEntry, reset]);
 
-  /**
-   * Función que maneja la edición de la entrada de aceite.
-   * Realiza una solicitud para actualizar la entrada y notifica el resultado.
-   *
-   * @param {Object} data - Los datos de la entrada que se editarán.
-   * @returns {Promise<void>}
-   */
   const handleEdit = async (data) => {
     const result = await updateEntry(selectedEntry.id, data);
 
@@ -86,10 +79,9 @@ const EditEntryModal = ({
         text: t("entries.successEditText"),
         delay: 2000,
       });
-      reset(); // Limpiar formulario
-      setOpen(false); // Cerrar modal
+      reset();
+      setOpen(false);
 
-      // Llama a la función de actualización para la lista
       if (updateEntries) {
         updateEntries();
       }
@@ -115,7 +107,6 @@ const EditEntryModal = ({
         <DialogHeader>
           <DialogTitle>
             {selectedEntry ? t("entries.editEntry") : t("entries.loadingEntry")}{" "}
-            {/* Traducción para "Cargando usuario..." */}
           </DialogTitle>
           <DialogDescription>
             {selectedEntry

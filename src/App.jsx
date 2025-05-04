@@ -5,6 +5,8 @@ import AuthRoutes from '@components/AuthRoutes';
 /**
  * Componente principal de la aplicación.
  * Este componente envuelve la aplicación en un contexto de usuario y define las rutas de autenticación.
+ * 
+ * @component
  */
 const App = () => {
 

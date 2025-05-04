@@ -22,15 +22,6 @@ const LandingPage = () => {
   const isDarkMode = theme === "dark";
   const navigate = useNavigate();
 
-  /**
-   * Hook que redirige al usuario según su rol.
-   *
-   * Si el usuario tiene un token y un rol, se le redirige automáticamente a la página correspondiente:
-   * - "admin" -> "/admin"
-   * - "empleado" -> "/empleado"
-   * - "socio" -> "/socio"
-   * Si no se cumple alguna de estas condiciones, no realiza ninguna acción.
-   */
   useEffect(() => {
     if (userData?.token && userData.user?.role) {
       switch (userData.user.role) {
@@ -67,7 +58,6 @@ const LandingPage = () => {
         </div>
         <h1 className="text-3xl font-semibold mb-2">
           {t("landing.welcome")}{" "}
-          {/* Traducción para "Bienvenido a la plataforma" */}
         </h1>
         <p
           className={clsx(
@@ -76,7 +66,6 @@ const LandingPage = () => {
           )}
         >
           {t("landing.select_login")}{" "}
-          {/* Traducción para "Selecciona cómo deseas iniciar sesión:" */}
         </p>
         <div className="flex flex-col gap-4">
           <button
@@ -88,7 +77,7 @@ const LandingPage = () => {
                 : "bg-olive-600 hover:bg-olive-700 text-white"
             )}
           >
-            {t("landing.admin")} {/* Traducción para "Administrador" */}
+            {t("landing.admin")} 
           </button>
           <button
             onClick={() => navigate("/login/employee")}
@@ -99,7 +88,7 @@ const LandingPage = () => {
                 : "bg-olive-600 hover:bg-olive-700 text-white"
             )}
           >
-            {t("landing.employee")} {/* Traducción para "Empleado" */}
+            {t("landing.employee")}
           </button>
           <button
             onClick={() => navigate("/login/member")}
@@ -110,7 +99,7 @@ const LandingPage = () => {
                 : "bg-olive-600 hover:bg-olive-700 text-white"
             )}
           >
-            {t("landing.member")} {/* Traducción para "Socio" */}
+            {t("landing.member")} 
           </button>
         </div>
       </div>

@@ -22,6 +22,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import {
+  getVisiblePageNumbers,
+  getPageNumbers,
+  getPaginatedData,
+} from "@utils/paginationUtils";
 import { getSettlements } from "@services/settlementRequests";
 import { SquarePen, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -35,7 +40,7 @@ import { BiSolidFilePdf } from "react-icons/bi";
 
 /**
  * Página para la gestión de liquidaciones.
- * 
+ *
  * Permite a los administradores y empleados visualizar, filtrar, crear, editar y eliminar liquidaciones.
  * También incluye gráficos y opciones de exportación en PDF.
  *
@@ -63,13 +68,6 @@ const Settlements = () => {
   const [modalDeleteSettlementOpen, setModalDeleteSettlementOpen] =
     useState(false);
 
-  /**
-   * Función para obtener las liquidaciones desde la API.
-   * Actualiza el estado de las liquidaciones y maneja errores.
-   * 
-   * @async
-   * @function fetchSettlements
-   */
   const fetchSettlements = async () => {
     setLoadingSettlement(true);
     try {
@@ -85,29 +83,14 @@ const Settlements = () => {
     }
   };
 
-  /**
-   * Efecto para cargar las liquidaciones al montar el componente.
-   * Se ejecuta una vez al cargar el componente.
-   */
   useEffect(() => {
     fetchSettlements();
   }, []);
 
-  /**
-   * Función para actualizar las liquidaciones después de realizar una acción.
-   * Se utiliza para refrescar la lista de liquidaciones después de crear, editar o eliminar una liquidación.
-   * 
-   * @async
-   * @function updateSettlements
-   */
   const updateSettlements = async () => {
     await fetchSettlements();
   };
 
-  /**
-   * Filtra las liquidaciones en base al texto introducido en el campo de búsqueda.
-   * @type {Array<Object>}
-   */
   const settlementsFiltered = settlements.filter(
     (settlement) =>
       settlement.member?.name.toLowerCase().includes(filter.toLowerCase()) ||
@@ -118,56 +101,20 @@ const Settlements = () => {
       settlement.oil?.name.toLowerCase().includes(filter.toLowerCase())
   );
 
-  /**
-   * Calcula y devuelve los números de página visibles en la paginación.
-   * @function
-   * @returns {Array<number|string>} Números de página visibles o elípticos ("...").
-   */
-  const getVisiblePageNumbers = () => {
-    const totalPages = pageNumbers.length;
-    const maxVisible = 5;
-    //const pages = [];
-
-    if (totalPages <= maxVisible) {
-      return pageNumbers;
-    }
-
-    if (currentPage <= 3) {
-      return [...pageNumbers.slice(0, 3), "...", totalPages];
-    }
-
-    if (currentPage >= totalPages - 2) {
-      return [1, "...", ...pageNumbers.slice(totalPages - 3)];
-    }
-
-    return [
-      1,
-      "...",
-      currentPage - 1,
-      currentPage,
-      currentPage + 1,
-      "...",
-      totalPages,
-    ];
-  };
-
-  const indexOfLastSettlement = currentPage * settlementsPerPage;
-  const indexOfFirstSettlement = indexOfLastSettlement - settlementsPerPage;
-  const currentSettlements = settlementsFiltered.slice(
-    indexOfFirstSettlement,
-    indexOfLastSettlement
+  // Cálculos
+  const pageNumbers = getPageNumbers(
+    settlementsFiltered.length,
+    settlementsPerPage
   );
+  const currentSettlements = getPaginatedData(
+    settlementsFiltered,
+    currentPage,
+    settlementsPerPage
+  );
+  const visiblePageNumbers = getVisiblePageNumbers(pageNumbers, currentPage);
 
+  // Cambio de página
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  const pageNumbers = [];
-  for (
-    let i = 1;
-    i <= Math.ceil(settlementsFiltered.length / settlementsPerPage);
-    i++
-  ) {
-    pageNumbers.push(i);
-  }
 
   // Contadores globales de liquidaciones por estado
   const pendingSettlements = settlements.filter(
@@ -456,7 +403,7 @@ const Settlements = () => {
               />
             </PaginationItem>
 
-            {getVisiblePageNumbers().map((page, index) => (
+            {visiblePageNumbers.map((page, index) => (
               <PaginationItem key={index}>
                 {page === "..." ? (
                   <PaginationEllipsis />

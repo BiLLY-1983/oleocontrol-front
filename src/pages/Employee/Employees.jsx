@@ -21,6 +21,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import {
+  getVisiblePageNumbers,
+  getPageNumbers,
+  getPaginatedData,
+} from "@utils/paginationUtils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTheme } from "@context/ThemeContext";
 import clsx from "clsx";
@@ -38,7 +43,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
  * Incluye búsqueda, filtrado, paginación y gráficos de distribución por departamento.
  * Permite crear, editar y eliminar empleados mediante modales.
  *
- * @page
+ * @component
  * @returns {JSX.Element} Página de gestión de empleados.
  */
 const Employees = () => {
@@ -46,43 +51,26 @@ const Employees = () => {
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
 
-  /** Lista de todos los empleados cargados desde la API */
   const [employees, setEmployees] = useState([]);
 
-  /** Empleado seleccionado para editar o eliminar */
   const [selectedEmployee, setSelectedEmployee] = useState(null);
 
-  /** Texto del filtro de búsqueda */
   const [filter, setFilter] = useState("");
 
-  /** Estado de carga */
   const [loading, setLoading] = useState(false);
 
-  /** Mensaje de error en caso de fallo al obtener empleados */
   const [error, setError] = useState(null);
 
-  /** Página actual del paginador */
   const [currentPage, setCurrentPage] = useState(1);
 
-  /** Cantidad de empleados a mostrar por página */
   const [employeesPerPage, setEmployeesPerPage] = useState(10);
 
-  /** Controla la visibilidad del modal para crear empleados */
   const [modalNewEmployeeOpen, setModalNewEmployeeOpen] = useState(false);
 
-  /** Controla la visibilidad del modal para editar empleados */
   const [modalEditEmployeeOpen, setModalEditEmployeeOpen] = useState(false);
 
-  /** Controla la visibilidad del modal para eliminar empleados */
   const [modalDeleteEmployeeOpen, setModalDeleteEmployeeOpen] = useState(false);
 
-  /**
-   * Obtiene los empleados desde el backend.
-   * Maneja los estados de carga y errores.
-   *
-   * @async
-   * @function
-   */
   const fetchEmployees = async () => {
     setLoading(true);
     setError(null);
@@ -104,22 +92,10 @@ const Employees = () => {
     fetchEmployees();
   }, []);
 
-  /**
-   * Refresca la lista de empleados desde el backend.
-   * Se utiliza después de crear, editar o eliminar.
-   */
   const updateEmployees = async () => {
     await fetchEmployees(); // Vuelve a cargar la lista
   };
 
-  /**
-   * Lista de empleados filtrada según el texto ingresado por el usuario.
-   *
-   * Filtra a los empleados por nombre, apellidos, email, teléfono, DNI,
-   * nombre del departamento o estado (activo/inactivo).
-   *
-   * @type {Array<Object>}
-   */
   const filteredEmployees = employees.filter(
     (employee) =>
       employee.user.first_name.toLowerCase().includes(filter.toLowerCase()) ||
@@ -133,88 +109,21 @@ const Employees = () => {
       )
   );
 
-  /**
-   * Devuelve un subconjunto de números de página visibles, con elipsis si hay muchas páginas.
-   *
-   * Controla cuántas páginas se muestran en la paginación, mostrando como máximo 5 entradas
-   * y utilizando "..." para acortar la lista cuando sea necesario.
-   *
-   * @function
-   * @returns {Array<number|string>} - Lista de páginas visibles (puede incluir "...").
-   */
-  const getVisiblePageNumbers = () => {
-    const totalPages = pageNumbers.length;
-    const maxVisible = 5;
-    //const pages = [];
-
-    if (totalPages <= maxVisible) {
-      return pageNumbers;
-    }
-
-    if (currentPage <= 3) {
-      return [...pageNumbers.slice(0, 3), "...", totalPages];
-    }
-
-    if (currentPage >= totalPages - 2) {
-      return [1, "...", ...pageNumbers.slice(totalPages - 3)];
-    }
-
-    return [
-      1,
-      "...",
-      currentPage - 1,
-      currentPage,
-      currentPage + 1,
-      "...",
-      totalPages,
-    ];
-  };
-
-  const indexOfLastEmployee = currentPage * employeesPerPage;
-  const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
-
-  /**
-   * Lista de empleados a mostrar en la página actual.
-   *
-   * @type {Array<Object>}
-   */
-  const currentEmployees = filteredEmployees.slice(
-    indexOfFirstEmployee,
-    indexOfLastEmployee
+  // Cálculos
+  const pageNumbers = getPageNumbers(filteredEmployees.length, employeesPerPage);
+  const currentEmployees = getPaginatedData(
+    filteredEmployees,
+    currentPage,
+    employeesPerPage
   );
+  const visiblePageNumbers = getVisiblePageNumbers(pageNumbers, currentPage);
 
-  /**
-   * Cambia la página actual en la paginación.
-   *
-   * @function
-   * @param {number} pageNumber - Número de la página a visualizar.
-   */
+  // Cambio de página
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  /**
-   * Array de números de página basado en la cantidad de empleados filtrados.
-   *
-   * @type {Array<number>}
-   */
-  const pageNumbers = [];
-  for (
-    let i = 1;
-    i <= Math.ceil(filteredEmployees.length / employeesPerPage);
-    i++
-  ) {
-    pageNumbers.push(i);
-  }
 
   // Preparar datos para el gráfico circular
   const [hoveredDepartment, setHoveredDepartment] = useState(null);
 
-  /**
-   * Objeto con el conteo de empleados activos e inactivos por departamento.
-   *
-   * Se utiliza para generar los gráficos de empleados por departamento.
-   *
-   * @type {Object<string, {active: number, inactive: number}>}
-   */
   const departmentCounts = employees.reduce((acc, emp) => {
     const deptName = emp.department.name;
     if (!acc[deptName]) {
@@ -228,13 +137,6 @@ const Employees = () => {
     return acc;
   }, {});
 
-  /**
-   * Datos para el gráfico circular de empleados por departamento.
-   *
-   * Se usa para visualizar el total (activos + inactivos) por departamento.
-   *
-   * @type {Object}
-   */
   const chartData = {
     labels: Object.keys(departmentCounts),
     datasets: [
@@ -269,7 +171,6 @@ const Employees = () => {
       },
     ],
   };
-
 
   return (
     <div
@@ -471,7 +372,7 @@ const Employees = () => {
               />
             </PaginationItem>
 
-            {getVisiblePageNumbers().map((page, index) => (
+            {visiblePageNumbers.map((page, index) => (
               <PaginationItem key={index}>
                 {page === "..." ? (
                   <PaginationEllipsis />

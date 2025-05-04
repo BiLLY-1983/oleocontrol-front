@@ -1,67 +1,94 @@
 import api from '@config/api.js';
 
 /**
- * funciones para manejar las peticiones a la API de los socios
- * Estas funciones realizan solicitudes HTTP a la API para obtener, crear, actualizar y eliminar socios.
+ * Obtiene todos los miembros.
+ *
+ * @returns {Promise<Object[]>} Una promesa que resuelve con un array de miembros.
  */
-
 export const getMembers = async () => {
     try {
         const response = await api.get('/members');
-        return response.data;  // Devuelve los datos de todos los usuarios
+        return response.data;
     } catch (error) {
-        return handleError(error); // Maneja el error si ocurre
+        return handleError(error);
     }
 };
 
+/**
+ * Obtiene los datos de un miembro específico por su ID.
+ *
+ * @param {number|string} id - ID del miembro.
+ * @returns {Promise<Object>} Una promesa que resuelve con los datos del miembro.
+ */
 export const getMember = async (id) => {
     try {
         const response = await api.get(`/members/${id}`);
-        return response.data;  // Devuelve los datos del usuario
+        return response.data;
     } catch (error) {
-        return handleError(error); // Maneja el error si ocurre
+        return handleError(error);
     }
 };
 
+/**
+ * Crea un nuevo miembro.
+ *
+ * @param {Object} memberData - Datos del nuevo miembro.
+ * @returns {Promise<Object>} Una promesa que resuelve con los datos del miembro creado.
+ */
 export const createMember = async (memberData) => {
     try {
         const response = await api.post('/members', memberData);
-        return response.data;  // Devuelve los datos del usuario creado
+        return response.data;
     } catch (error) {
-        return handleError(error); // Maneja el error si ocurre
+        return handleError(error);
     }
 };
 
+/**
+ * Actualiza un miembro existente por su ID.
+ *
+ * @param {number|string} id - ID del miembro a actualizar.
+ * @param {Object} memberData - Nuevos datos del miembro.
+ * @returns {Promise<Object>} Una promesa que resuelve con los datos del miembro actualizado.
+ */
 export const updateMember = async (id, memberData) => {
     try {
         const response = await api.put(`/members/${id}`, memberData);
-        return response.data;  // Devuelve los datos del usuario actualizado
+        return response.data;
     } catch (error) {
-        return handleError(error); // Maneja el error si ocurre
+        return handleError(error);
     }
 };
 
+/**
+ * Elimina un miembro por su ID.
+ *
+ * @param {number|string} id - ID del miembro a eliminar.
+ * @returns {Promise<Object>} Una promesa que resuelve con los datos de la operación de eliminación.
+ */
 export const deleteMember = async (id) => {
     try {
         const response = await api.delete(`/members/${id}`);
-        return response.data;  // Devuelve la respuesta con el estado de la eliminación
+        return response.data;
     } catch (error) {
-        return handleError(error); // Maneja el error si ocurre
+        return handleError(error);
     }
 };
 
-// Manejar errores
+/**
+ * Maneja los errores ocurridos durante las solicitudes HTTP.
+ *
+ * @param {Object} error - Objeto de error capturado.
+ * @returns {Object} Objeto con `success: false` y un mensaje de error.
+ */
 const handleError = (error) => {
     if (error.response) {
-        // Si la respuesta es un error desde el servidor
         console.error('Error en la respuesta:', error.response);
         return { success: false, message: error.response.data.message || 'Error desconocido' };
     } else if (error.request) {
-        // Si no se recibió respuesta del servidor
         console.error('No se recibió respuesta:', error.request);
         return { success: false, message: 'No se recibió respuesta del servidor' };
     } else {
-        // Si ocurrió un error al configurar la solicitud
         console.error('Error al configurar la solicitud:', error.message);
         return { success: false, message: error.message };
     }

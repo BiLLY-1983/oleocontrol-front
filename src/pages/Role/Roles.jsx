@@ -39,13 +39,6 @@ const Roles = () => {
   const [loadingRoles, setLoadingRoles] = useState(true);
   const [loadingUsers, setLoadingUsers] = useState(false);
 
-  /**
-   * @function fetchRolesAndCounts
-   * @description Función para obtener los roles y la cantidad de usuarios por rol.
-   * 
-   * @returns {void} - Promesa que se resuelve cuando se completan las solicitudes.
-   * @throws {Error} - Si ocurre un error durante la obtención de datos.
-   */
   const fetchRolesAndCounts = async () => {
     setLoadingRoles(true);
     try {
@@ -84,13 +77,6 @@ const Roles = () => {
     }
   };
 
-  /**
-   * @function fetchUsersByRole
-   * @description Función para obtener los usuarios asociados a un rol específico.
-   * @param {string} roleId - ID del rol para filtrar los usuarios.
-   * @returns {void} - Promesa que se resuelve cuando se completan las solicitudes.
-   * @throws {Error} - Si ocurre un error durante la obtención de datos.
-   */
   const fetchUsersByRole = async (roleId) => {
     setLoadingUsers(true);
     try {
@@ -119,12 +105,6 @@ const Roles = () => {
     fetchRolesAndCounts();
   }, []);
 
-  /**
-   * @function handleCardClick
-   * @description Función para manejar el clic en una tarjeta de rol.
-   * @param {object} role - Objeto del rol seleccionado.
-   * @returns {void} - Cambia el estado del diálogo y obtiene los usuarios por rol.
-   */
   const handleCardClick = async (role) => {
     setSelectedRole(role);
     fetchUsersByRole(role.id);

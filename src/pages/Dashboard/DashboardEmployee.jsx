@@ -8,21 +8,13 @@ import { useTheme } from "@context/ThemeContext";
  * Layout principal para los usuarios con rol de empleado.
  * Incluye barra lateral, barra superior y área de contenido.
  *
- * @page
+ * @component
  * @returns {JSX.Element} Estructura del dashboard de empleado.
  */
 const DashboardEmployee = () => {
-  /**
-   * Hook para obtener el tema actual (oscuro o claro).
-   * @type {Object}
-   * @property {string} theme - El tema actual, puede ser "dark" o "light".
-   */
+
   const { theme } = useTheme();
-  
-  /**
-   * Determina si el modo oscuro está activado.
-   * @type {boolean}
-   */
+
   const isDarkMode = theme === "dark";
 
   return (

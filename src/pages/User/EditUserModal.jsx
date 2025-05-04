@@ -62,11 +62,8 @@ const EditUserModal = ({
   updateUsuarios,
   usuarioSeleccionado,
 }) => {
-  const { t } = useTranslation(); // Hook para traducciones
+  const { t } = useTranslation();
 
-  /**
-   * useForm hook para manejar el formulario de edición de usuario.
-   */
   const {
     register,
     handleSubmit,
@@ -78,48 +75,30 @@ const EditUserModal = ({
     mode: "all",
   });
 
-  /**
-   * useEffect hook para actualizar el formulario cuando cambia el usuario seleccionado.
-   * Si hay un usuario seleccionado, se actualizan los valores del formulario con los datos del usuario.
-   * 
-   * @param {object} usuarioSeleccionado - Usuario seleccionado para editar.
-   * @param {function} reset - Función para restablecer los valores del formulario.
-   */
   useEffect(() => {
     if (usuarioSeleccionado) {
-      reset(usuarioSeleccionado); // Actualiza los valores del formulario
+      reset(usuarioSeleccionado); 
     }
   }, [usuarioSeleccionado, reset]);
 
-  /**
-   * Función para manejar la edición del usuario.
-   * Se llama cuando se envía el formulario.
-   * 
-   * @param {object} data - Datos del formulario.
-   * @returns {void} - Promesa que se resuelve cuando se completa la edición.
-   * 
-   * @async
-   * @throws {Error} - Si ocurre un error al actualizar el usuario.
-   */
   const handleEdit = async (data) => {
     const result = await updateUser(usuarioSeleccionado.id, data);
 
     if (result.status === "success") {
       success({
-        title: t("users.successEditTitle"), // Traducción para "Usuario actualizado con éxito"
-        text: t("users.successEditText"), // Traducción para "El usuario ha sido actualizado correctamente."
+        title: t("users.successEditTitle"), 
+        text: t("users.successEditText"),
         delay: 2000,
       });
-      reset(); // Limpiar formulario
-      setOpen(false); // Cerrar modal
+      reset();
+      setOpen(false);
 
-      // Llama a la función de actualización para la lista
       if (updateUsuarios) {
         updateUsuarios();
       }
     } else {
       error({
-        title: t("users.errorEditTitle"), // Traducción para "Error al actualizar usuario"
+        title: t("users.errorEditTitle"),
         text: result.message,
         delay: 2000,
       });
@@ -142,8 +121,8 @@ const EditUserModal = ({
                   username: usuarioSeleccionado.username,
                   firstName: usuarioSeleccionado.first_name,
                   lastName: usuarioSeleccionado.last_name,
-                }) // Traducción para "Editar usuario"
-              : t("users.loadingUser")} {/* Traducción para "Cargando usuario..." */}
+                }) 
+              : t("users.loadingUser")} 
           </DialogTitle>
           <DialogDescription>
             {usuarioSeleccionado
@@ -164,7 +143,7 @@ const EditUserModal = ({
         ) : (
           <form onSubmit={handleSubmit(handleEdit)} className="space-y-4">
             <div name="username">
-              <Label className="mb-1">{t("userProfile.username")}</Label> {/* Traducción para "Usuario" */}
+              <Label className="mb-1">{t("userProfile.username")}</Label> 
               <Input
                 type="text"
                 {...register("username")}
@@ -178,7 +157,7 @@ const EditUserModal = ({
             </div>
 
             <div name="first_name">
-              <Label className="mb-1">{t("userProfile.firstName")}</Label> {/* Traducción para "Nombre" */}
+              <Label className="mb-1">{t("userProfile.firstName")}</Label> 
               <Input
                 type="text"
                 {...register("first_name")}
@@ -192,7 +171,7 @@ const EditUserModal = ({
             </div>
 
             <div name="last_name">
-              <Label className="mb-1">{t("userProfile.lastName")}</Label> {/* Traducción para "Apellidos" */}
+              <Label className="mb-1">{t("userProfile.lastName")}</Label> 
               <Input
                 type="text"
                 {...register("last_name")}
@@ -206,7 +185,7 @@ const EditUserModal = ({
             </div>
 
             <div name="dni">
-              <Label className="mb-1">{t("userProfile.dni")}</Label> {/* Traducción para "DNI" */}
+              <Label className="mb-1">{t("userProfile.dni")}</Label>
               <Input
                 type="text"
                 {...register("dni")}
@@ -218,7 +197,7 @@ const EditUserModal = ({
             </div>
 
             <div name="email">
-              <Label className="mb-1">{t("userProfile.email")}</Label> {/* Traducción para "Email" */}
+              <Label className="mb-1">{t("userProfile.email")}</Label> 
               <Input
                 type="email"
                 {...register("email")}
@@ -230,7 +209,7 @@ const EditUserModal = ({
             </div>
 
             <div name="phone">
-              <Label className="mb-1">{t("userProfile.phone")}</Label> {/* Traducción para "Teléfono" */}
+              <Label className="mb-1">{t("userProfile.phone")}</Label> 
               <Input
                 type="text"
                 {...register("phone")}
@@ -264,7 +243,7 @@ const EditUserModal = ({
                   variant="ghost"
                   className="py-2 font-semibold rounded-md focus:outline-none focus:ring-2 cursor-pointer"
                 >
-                  {t("common.cancel")} {/* Traducción para "Cancelar" */}
+                  {t("common.cancel")} 
                 </Button>
               </DialogClose>
               <Button

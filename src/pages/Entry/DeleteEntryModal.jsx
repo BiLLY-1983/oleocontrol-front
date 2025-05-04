@@ -33,12 +33,6 @@ import "@pnotify/confirm/dist/PNotifyConfirm.css";
 const DeleteEntryModal = ({ open, setOpen, isDarkMode, updateEntries, selectedEntry }) => {
   const { t } = useTranslation();
 
-  /**
-   * Función que maneja la eliminación de una entrada seleccionada.
-   *
-   * Realiza una llamada a la API para eliminar la entrada. Si la eliminación es exitosa, muestra una notificación
-   * de éxito y cierra el modal. Si ocurre un error, muestra una notificación de error.
-   */
   const handleDelete = async () => {
     try {
       const result = await deleteEntry(selectedEntry.id);

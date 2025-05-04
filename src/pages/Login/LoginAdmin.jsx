@@ -40,9 +40,6 @@ const LoginAdmin = () => {
 
   const navigate = useNavigate();
 
-  /**
-   * Hook para cargar las credenciales guardadas en localStorage si el usuario ha optado por recordarlas
-   */
   useEffect(() => {
     const savedUsername = localStorage.getItem("rememberedUsername");
     const savedPassword = localStorage.getItem("rememberedPassword");
@@ -55,12 +52,6 @@ const LoginAdmin = () => {
     }
   }, []);
 
-  /**
-   * Función para manejar el envío del formulario de inicio de sesión.
-   * Realiza la autenticación del usuario y maneja el almacenamiento de las credenciales si el usuario opta por recordarlas.
-   *
-   * @param {Event} e - El evento de envío del formulario.
-   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!username || !password) {

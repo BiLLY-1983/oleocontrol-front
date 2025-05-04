@@ -71,7 +71,7 @@ const UserProfile = () => {
         password_confirmation: "",
       }));
       setShowPassword(false);
-      setShowConfirmPassword(false); // Restablecer la visibilidad de la confirmación de la contraseña
+      setShowConfirmPassword(false); 
       setShowPasswordField(false);
     } catch (err) {
       notifyError({

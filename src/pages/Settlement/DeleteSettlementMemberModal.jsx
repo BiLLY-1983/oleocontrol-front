@@ -33,13 +33,6 @@ import "@pnotify/confirm/dist/PNotifyConfirm.css";
 const DeleteSettlementMemberModal = ({ memberId, open, setOpen, isDarkMode, updateSettlements, selectedSettlement }) => {
   const { t } = useTranslation();
 
-  /**
-   * Función para manejar la eliminación de una liquidacion.
-   * Realiza una solicitud para eliminar la liquidacion y muestra un mensaje de éxito o error.
-   * 
-   * @async
-   * @function handleDelete
-   */
   const handleDelete = async () => {
     try {
       const result = await deleteOwnSettlement(memberId, selectedSettlement.id);

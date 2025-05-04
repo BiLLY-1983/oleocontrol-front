@@ -22,6 +22,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import {
+  getVisiblePageNumbers,
+  getPageNumbers,
+  getPaginatedData,
+} from "@utils/paginationUtils";
 import { getEntries } from "@services/entryRequests";
 import { SquarePen, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -37,93 +42,36 @@ import { BiSolidFilePdf } from "react-icons/bi";
  * Página para gestionar las entradas de aceituna y aceite.
  * Incluye filtrado, paginación, generación de informes en PDF y modales para crear, editar y eliminar entradas.
  *
- * @page
+ * @component
  * @returns {JSX.Element} Página de gestión de entradas.
  */
 const Entries = () => {
-  /**
-   * Estado que almacena el tema actual de la aplicación (oscuro o claro).
-   * @type {Object}
-   */
   const { theme } = useTheme();
 
-  /**
-   * Estado que indica si el modo oscuro está activado o no.
-   * @type {boolean}
-   */
   const isDarkMode = theme === "dark";
 
-  /**
-   * Hook para la traducción de textos.
-   * @type {function}
-   */
   const { t } = useTranslation();
 
-  /**
-   * Estado que almacena las entradas de aceituna.
-   * @type {Array<Object>}
-   */
   const [entries, setEntries] = useState([]);
 
-  /**
-   * Estado que almacena la entrada seleccionada para edición o eliminación.
-   * @type {Object|null}
-   */
   const [selectedEntry, setSelectedEntry] = useState(null);
 
-  /**
-   * Estado que indica si las entradas se están cargando.
-   * @type {boolean}
-   */
   const [loading, setLoading] = useState(true);
 
-  /**
-   * Estado que almacena la página actual de la paginación.
-   * @type {number}
-   */
   const [currentPage, setCurrentPage] = useState(1);
 
-  /**
-   * Estado que almacena la cantidad de entradas por página.
-   * @type {number}
-   */
   const [entriesPerPage, setEntriesPerPage] = useState(10);
 
-  /**
-   * Estado que almacena un error en caso de que ocurra al obtener las entradas.
-   * @type {string|null}
-   */
   const [error, setError] = useState(null);
 
-  /**
-   * Estado que almacena el texto de filtrado.
-   * @type {string}
-   */
   const [filtro, setFiltro] = useState("");
 
-  /**
-   * Estado que indica si el modal de nueva entrada está abierto.
-   * @type {boolean}
-   */
   const [modalNewEntryOpen, setModalNewEntryOpen] = useState(false);
 
-  /**
-   * Estado que indica si el modal de edición de entrada está abierto.
-   * @type {boolean}
-   */
   const [modalEditEntryOpen, setModalEditEntryOpen] = useState(false);
 
-  /**
-   * Estado que indica si el modal de eliminación de entrada está abierto.
-   * @type {boolean}
-   */
   const [modalDeleteEntryOpen, setModalDeleteEntryOpen] = useState(false);
 
-  /**
-   * Función para obtener las entradas desde la API.
-   * @async
-   * @function
-   */
   const fetchEntries = async () => {
     setLoading(true);
     try {
@@ -139,80 +87,30 @@ const Entries = () => {
     }
   };
 
-  /**
-   * Efecto que se ejecuta al montar el componente y obtiene las entradas.
-   * 
-   */
   useEffect(() => {
     fetchEntries();
   }, []);
 
-  /**
-   * Actualiza las entradas después de alguna acción como crear, editar o eliminar.
-   * @function
-   */
   const updateEntries = async () => {
     await fetchEntries();
   };
 
-  /**
-   * Filtra las entradas en base al texto introducido en el campo de búsqueda.
-   * @type {Array<Object>}
-   */
   const entriesFiltered = entries.filter((entry) =>
     entry.member?.name.toLowerCase().includes(filtro.toLowerCase())
   );
 
-  /**
-   * Calcula y devuelve los números de página visibles en la paginación.
-   * @returns {Array<number|string>} Números de página visibles o elípticos ("...").
-   */
-  const getVisiblePageNumbers = () => {
-    const totalPages = pageNumbers.length;
-    const maxVisible = 5;
-
-    if (totalPages <= maxVisible) {
-      return pageNumbers;
-    }
-    if (currentPage <= 3) {
-      return [...pageNumbers.slice(0, 3), "...", totalPages];
-    }
-    if (currentPage >= totalPages - 2) {
-      return [1, "...", ...pageNumbers.slice(totalPages - 3)];
-    }
-    return [
-      1,
-      "...",
-      currentPage - 1,
-      currentPage,
-      currentPage + 1,
-      "...",
-      totalPages,
-    ];
-  };
-
-  const indexOfLastEntry = currentPage * entriesPerPage;
-  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-  const currentEntries = entriesFiltered.slice(
-    indexOfFirstEntry,
-    indexOfLastEntry
+  // Cálculos
+  const pageNumbers = getPageNumbers(entriesFiltered.length, entriesPerPage);
+  const currentEntries = getPaginatedData(
+    entriesFiltered,
+    currentPage,
+    entriesPerPage
   );
+  const visiblePageNumbers = getVisiblePageNumbers(pageNumbers, currentPage);
 
+  // Cambio de página
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const pageNumbers = [];
-  for (
-    let i = 1;
-    i <= Math.ceil(entriesFiltered.length / entriesPerPage);
-    i++
-  ) {
-    pageNumbers.push(i);
-  }
-
-  /**
-   * Calcula el total de kilos de aceituna de todas las entradas.
-   * @type {number}
-   */
   const totalKilos = entries.reduce(
     (sum, e) => sum + Number(e.olive_quantity ?? 0),
     0
@@ -491,7 +389,7 @@ const Entries = () => {
               />
             </PaginationItem>
 
-            {getVisiblePageNumbers().map((page, index) => (
+            {visiblePageNumbers.map((page, index) => (
               <PaginationItem key={index}>
                 {page === "..." ? (
                   <PaginationEllipsis />

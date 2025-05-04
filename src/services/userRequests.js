@@ -1,11 +1,10 @@
 import api from '@config/api.js';
 
 /**
- * Funciones para manera las peticiones relacionadas con los usuarios.
- * Estas funciones permiten realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre los usuarios.
+ * Obtiene todos los usuarios. Solo accesible por administradores.
+ *
+ * @returns {Promise<Object[]>} Una promesa que resuelve con un array de usuarios.
  */
-
-// Obtener todos los usuarios (solo accesible por admin)
 export const getUsers = async () => {
     try {
         const response = await api.get('/users');
@@ -15,7 +14,12 @@ export const getUsers = async () => {
     }
 };
 
-// Obtener un usuario por ID
+/**
+ * Obtiene un usuario por su ID.
+ *
+ * @param {number|string} id - ID del usuario a obtener.
+ * @returns {Promise<Object>} Una promesa que resuelve con los datos del usuario.
+ */
 export const getUser = async (id) => {
     try {
         const response = await api.get(`/users/${id}`);
@@ -25,7 +29,12 @@ export const getUser = async (id) => {
     }
 };
 
-// Crear un nuevo usuario (solo accesible por admin)
+/**
+ * Crea un nuevo usuario. Solo accesible por administradores.
+ *
+ * @param {Object} userData - Datos del usuario a crear.
+ * @returns {Promise<Object>} Una promesa que resuelve con los datos del usuario creado.
+ */
 export const createUser = async (userData) => {
     try {
         const response = await api.post('/users', userData);
@@ -36,7 +45,13 @@ export const createUser = async (userData) => {
     }
 };
 
-// Actualizar un usuario (solo accesible por admin)
+/**
+ * Actualiza un usuario existente. Solo accesible por administradores.
+ *
+ * @param {number|string} id - ID del usuario a actualizar.
+ * @param {Object} userData - Nuevos datos del usuario.
+ * @returns {Promise<Object>} Una promesa que resuelve con los datos del usuario actualizado.
+ */
 export const updateUser = async (id, userData) => {
     try {
         const response = await api.put(`/users/${id}`, userData);
@@ -46,7 +61,12 @@ export const updateUser = async (id, userData) => {
     }
 };
 
-// Eliminar un usuario (solo accesible por admin)
+/**
+ * Elimina un usuario. Solo accesible por administradores.
+ *
+ * @param {number|string} id - ID del usuario a eliminar.
+ * @returns {Promise<Object>} Una promesa que resuelve con la respuesta de la eliminación.
+ */
 export const deleteUser = async (id) => {
     try {
         const response = await api.delete(`/users/${id}`);
@@ -56,32 +76,39 @@ export const deleteUser = async (id) => {
     }
 };
 
-// Solicitar restablecimiento de contraseña
+/**
+ * Solicita el restablecimiento de la contraseña de un usuario.
+ *
+ * @param {string} email - Correo electrónico del usuario.
+ * @param {string} username - Nombre de usuario del usuario.
+ * @returns {Promise<Object>} Una promesa que resuelve con la respuesta de la solicitud de restablecimiento.
+ */
 export const requestPasswordReset = async (email, username) => {
     try {
         const response = await api.post('/reset-password-request', {
             email,
             username,
         });
-        return response.data;  
+        return response.data;  // Devuelve la respuesta de la solicitud de restablecimiento de contraseña
     } catch (error) {
-        return handleError(error); 
+        return handleError(error); // Maneja el error si ocurre
     }
 };
 
-
-// Manejar errores
+/**
+ * Maneja los errores ocurridos durante las solicitudes HTTP.
+ *
+ * @param {Object} error - Objeto de error capturado.
+ * @returns {Object} Objeto con `success: false` y un mensaje de error.
+ */
 const handleError = (error) => {
     if (error.response) {
-        // Si la respuesta es un error desde el servidor
         console.error('Error en la respuesta:', error.response);
         return { success: false, message: error.response.data.message || 'Error desconocido' };
     } else if (error.request) {
-        // Si no se recibió respuesta del servidor
         console.error('No se recibió respuesta:', error.request);
         return { success: false, message: 'No se recibió respuesta del servidor' };
     } else {
-        // Si ocurrió un error al configurar la solicitud
         console.error('Error al configurar la solicitud:', error.message);
         return { success: false, message: error.message };
     }

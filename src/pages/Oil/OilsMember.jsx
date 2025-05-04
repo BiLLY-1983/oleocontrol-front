@@ -36,10 +36,6 @@ const OilMember = () => {
     "Aceite de Oliva Lampante",
   ];
 
-  /**
-   * useEffect que se ejecuta al montarse el componente o cuando cambia el `memberId`.
-   * Realiza las solicitudes para obtener los datos de los inventarios de aceite y liquidaciones.
-   */
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);

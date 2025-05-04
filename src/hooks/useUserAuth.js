@@ -31,6 +31,8 @@ export default function useUserAuth() {
     /**
      * Verifica si el usuario tiene un rol específico.
      * 
+     * @function
+     * 
      * @param {string} roleName El nombre del rol que se desea verificar.
      * @returns {boolean} `true` si el usuario tiene el rol, `false` en caso contrario.
      */
@@ -38,6 +40,8 @@ export default function useUserAuth() {
 
     /**
      * Verifica si el usuario pertenece a un departamento específico.
+     * 
+     * @function
      * 
      * @param {string} departmentName El nombre del departamento que se desea verificar.
      * @returns {boolean} `true` si el usuario pertenece al departamento, `false` en caso contrario.

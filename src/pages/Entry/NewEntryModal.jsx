@@ -25,7 +25,7 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
-/** Validación con Zod */
+// Validación con Zod
 const entrySchema = z.object({
   entry_date: z.string().min(1, { message: "La fecha es obligatoria" }),
   olive_quantity: z
@@ -64,9 +64,6 @@ const NewEntryModal = ({ open, setOpen, isDarkMode, updateEntries }) => {
           return fullName.includes(query.toLowerCase());
         });
 
-  /**
-   * Hook de formulario usando react-hook-form para gestionar la validación y los envíos.
-   */
   const {
     register,
     handleSubmit,
@@ -81,9 +78,6 @@ const NewEntryModal = ({ open, setOpen, isDarkMode, updateEntries }) => {
     },
   });
 
-  /**
-   * useEffect para obtener los miembros desde la API cuando el componente se monta.
-   */
   useEffect(() => {
     const fetchMembers = async () => {
       const res = await getMembers();
@@ -92,11 +86,6 @@ const NewEntryModal = ({ open, setOpen, isDarkMode, updateEntries }) => {
     fetchMembers();
   }, []);
 
-  /**
-   * Función que maneja la creación de una nueva entrada. Envía los datos al backend y muestra un mensaje de éxito o error.
-   *
-   * @param {Object} data - Datos del formulario.
-   */
   const handleCreate = async (data) => {
     try {
       data.analysis_status = "Pendiente";

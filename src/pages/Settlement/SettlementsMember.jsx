@@ -22,6 +22,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import {
+  getVisiblePageNumbers,
+  getPageNumbers,
+  getPaginatedData,
+} from "@utils/paginationUtils";
 import { getSettlementsByMember } from "@services/settlementRequests";
 import { Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -34,7 +39,7 @@ import { BiSolidFilePdf } from "react-icons/bi";
 
 /**
  * Página para la gestión de liquidaciones de socios.
- * 
+ *
  * Permite a los socios visualizar sus liquidaciones, crear nuevas, eliminarlas y exportarlas en PDF.
  * También incluye gráficos para mostrar estadísticas de liquidaciones.
  *
@@ -57,15 +62,9 @@ const SettlementsMember = () => {
   const [errorSettlement, setErrorSettlement] = useState(null);
   const [filter, setFilter] = useState("");
   const [modalNewSettlementOpen, setModalNewSettlementOpen] = useState(false);
-  const [modalDeleteSettlementOpen, setModalDeleteSettlementOpen] = useState(false);
+  const [modalDeleteSettlementOpen, setModalDeleteSettlementOpen] =
+    useState(false);
 
-  /**
-   * Función para obtener las liquidaciones del socio.
-   * Se llama a la API para obtener las liquidaciones y se actualiza el estado del componente.
-   * 
-   * @async
-   * @function fetchSettlements
-   */
   const fetchSettlements = async () => {
     setLoadingSettlement(true);
     try {
@@ -85,13 +84,6 @@ const SettlementsMember = () => {
     fetchSettlements();
   }, []);
 
-  /**
-   * Función para actualizar las liquidaciones después de crear o eliminar una liquidación.
-   * Se llama a la función fetchSettlements para obtener las liquidaciones actualizadas.
-   * 
-   * @async
-   * @function updateSettlements
-   */
   const updateSettlements = async () => {
     await fetchSettlements();
   };
@@ -104,52 +96,20 @@ const SettlementsMember = () => {
       settlement.oil?.name.toLowerCase().includes(filter.toLowerCase())
   );
 
-  // Paginación
-  const getVisiblePageNumbers = () => {
-    const totalPages = pageNumbers.length;
-    const maxVisible = 5;
-    //const pages = [];
-
-    if (totalPages <= maxVisible) {
-      return pageNumbers;
-    }
-
-    if (currentPage <= 3) {
-      return [...pageNumbers.slice(0, 3), "...", totalPages];
-    }
-
-    if (currentPage >= totalPages - 2) {
-      return [1, "...", ...pageNumbers.slice(totalPages - 3)];
-    }
-
-    return [
-      1,
-      "...",
-      currentPage - 1,
-      currentPage,
-      currentPage + 1,
-      "...",
-      totalPages,
-    ];
-  };
-
-  const indexOfLastSettlement = currentPage * settlementsPerPage;
-  const indexOfFirstSettlement = indexOfLastSettlement - settlementsPerPage;
-  const currentSettlements = settlementsFiltered.slice(
-    indexOfFirstSettlement,
-    indexOfLastSettlement
+  // Cálculos
+  const pageNumbers = getPageNumbers(
+    settlementsFiltered.length,
+    settlementsPerPage
   );
+  const currentSettlements = getPaginatedData(
+    settlementsFiltered,
+    currentPage,
+    settlementsPerPage
+  );
+  const visiblePageNumbers = getVisiblePageNumbers(pageNumbers, currentPage);
 
+  // Cambio de página
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  const pageNumbers = [];
-  for (
-    let i = 1;
-    i <= Math.ceil(settlementsFiltered.length / settlementsPerPage);
-    i++
-  ) {
-    pageNumbers.push(i);
-  }
 
   // Contadores globales de liquidaciones por estado
   const pendingSettlements = settlements.filter(
@@ -424,7 +384,7 @@ const SettlementsMember = () => {
               />
             </PaginationItem>
 
-            {getVisiblePageNumbers().map((page, index) => (
+            {visiblePageNumbers.map((page, index) => (
               <PaginationItem key={index}>
                 {page === "..." ? (
                   <PaginationEllipsis />

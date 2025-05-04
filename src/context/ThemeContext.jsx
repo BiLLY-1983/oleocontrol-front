@@ -36,6 +36,8 @@ export function ThemeProvider({ children }) {
    * Función para aplicar un tema seleccionado a la aplicación.
    * Esta función agrega o elimina clases del elemento raíz (`html`) para cambiar el tema.
    *
+   * @function
+   * 
    * @param {string} selectedTheme - El tema seleccionado ('dark', 'light' o vacío para predeterminado).
    */
   const applyTheme = (selectedTheme) => {

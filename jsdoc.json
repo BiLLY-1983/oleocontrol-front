@@ -7,13 +7,18 @@
       "src/utils",
       "src/services"
     ],
-    "includePattern": ".+\\.jsx?$",
-    "excludePattern": "(node_modules/|dist/)"
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_"
   },
+  "plugins": ["node_modules/better-docs/component"],
   "opts": {
     "destination": "./docs",
     "recurse": true,
-    "template": "node_modules/docdash"
+    "template": "node_modules/better-docs"
   },
-  "plugins": ["plugins/markdown"]
+  "templates": {
+    "better-docs": {
+      "name": "OleoControl"
+    }
+  }
 }

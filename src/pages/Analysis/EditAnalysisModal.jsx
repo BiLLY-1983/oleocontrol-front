@@ -43,7 +43,7 @@ const calculateOilId = (acidity) => {
 /**
  * Modal para editar un análisis de aceituna.
  *
- * @page
+ * @component
  * @param {Object} props - Propiedades del componente.
  * @param {boolean} props.open - Indica si el modal está abierto.
  * @param {Function} props.setOpen - Función para cambiar el estado del modal.

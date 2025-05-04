@@ -93,13 +93,6 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
     mode: "all",
   });
 
-  /**
-   * Maneja el envío del formulario de creación de socio
-   *
-   * @async
-   * @function
-   * @param {Object} data - Datos del formulario validados
-   */
   const handleCreate = async (data) => {
     try {
       data.status = true;
@@ -111,22 +104,20 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
         throw new Error(memberResult.message || t("users.errorTitle"));
       }
 
-      // Mostrar mensaje de éxito
       success({
         title: t("users.successTitle"),
         text: t("users.successText"),
         delay: 2000,
       });
 
-      reset();        // Limpiar el formulario
-      setOpen(false); // Cerrar el modal
+      reset();        
+      setOpen(false); 
 
       if (updateMembers) {
-        updateMembers(); // Actualizar lista
+        updateMembers(); 
       }
 
     } catch (err) {
-      // Mostrar mensaje de error
       error({
         title: t("users.errorTitle"),
         text: err.message,
@@ -147,10 +138,8 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
       >
         <DialogHeader>
           <DialogTitle>{t("users.newUser")}</DialogTitle>{" "}
-          {/* Traducción para "Crear nuevo usuario" */}
           <DialogDescription>
             {t("users.allFieldsRequired")}{" "}
-            {/* Traducción para "Todos los campos son obligatorios." */}
           </DialogDescription>
         </DialogHeader>
 
@@ -266,7 +255,7 @@ const NewMemberModal = ({ open, setOpen, isDarkMode, updateMembers }) => {
                 variant="ghost"
                 className="py-2 font-semibold rounded-md focus:outline-none focus:ring-2 cursor-pointer"
               >
-                {t("common.cancel")} {/* Traducción para "Cancelar" */}
+                {t("common.cancel")} 
               </Button>
             </DialogClose>
             <Button

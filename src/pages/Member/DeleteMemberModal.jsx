@@ -41,15 +41,6 @@ const DeleteMemberModal = ({
 }) => {
   const { t } = useTranslation(); // Hook para traducciones
 
-  /**
-   * Función para manejar la eliminación del socio seleccionado.
-   * Realiza la llamada a la API para eliminar el socio y muestra una notificación.
-   * Si la eliminación es exitosa, se cierra el modal y se actualiza la lista de socios.
-   *
-   * @async
-   * @function handleDelete
-   * @returns {void}
-   */
   const handleDelete = async () => {
     try {
       const result = await deleteMember(selectedMember.user.id);
@@ -60,23 +51,22 @@ const DeleteMemberModal = ({
           text: t("users.successDeleteText"), // Traducción para "El usuario ha sido eliminado correctamente."
           delay: 2000,
         });
-        setOpen(false); // Cierra el modal
+        setOpen(false); 
 
-        // Llama a la función de actualización para la lista
         if (updateMembers) {
           updateMembers();
         }
       } else {
         error({
-          title: t("users.errorDeleteTitle"), // Traducción para "Error al eliminar usuario"
+          title: t("users.errorDeleteTitle"),
           text: result.message,
           delay: 2000,
         });
       }
     } catch (err) {
       error({
-        title: t("common.error"), // Traducción para "Error"
-        text: t("users.errorDeleteText"), // Traducción para "Hubo un problema al eliminar el usuario."
+        title: t("common.error"), 
+        text: t("users.errorDeleteText"), 
         delay: 2000,
       });
     }
@@ -98,8 +88,8 @@ const DeleteMemberModal = ({
                   username: selectedMember.user.username,
                   firstName: selectedMember.user.first_name,
                   lastName: selectedMember.user.last_name,
-                }) // Traducción para "Eliminar socio {{username}} ({{firstName}} {{lastName}})"
-              : t("users.loadingUser")} {/* Traducción para "Cargando usuario..." */}
+                }) 
+              : t("users.loadingUser")} 
           </DialogTitle>
           <DialogDescription>
             {selectedMember
@@ -114,7 +104,7 @@ const DeleteMemberModal = ({
               variant="ghost"
               className="py-2 font-semibold rounded-md cursor-pointer"
             >
-              {t("common.cancel")} {/* Traducción para "Cancelar" */}
+              {t("common.cancel")}
             </Button>
           </DialogClose>
           <Button
@@ -123,7 +113,7 @@ const DeleteMemberModal = ({
               "py-2 font-semibold rounded-md focus:outline-none focus:ring-2 cursor-pointer bg-red-700 text-white hover:bg-red-500"
             )}
           >
-            {t("users.delete")} {/* Traducción para "Eliminar" */}
+            {t("users.delete")} 
           </Button>
         </DialogFooter>
       </DialogContent>

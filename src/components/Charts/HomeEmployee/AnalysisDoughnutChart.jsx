@@ -18,11 +18,7 @@ ChartJS.register(Tooltip, Legend);
  */
 const OilAnalysisDoughnutChart = ({ oilCounts }) => {
   const { t } = useTranslation();
-  /**
-   * Datos para el gráfico doughnut, generados dinámicamente a partir del objeto `oilCounts`.
-   *
-   * @type {Object}
-   */
+  
   const doughnutOilData = {
     labels: Object.keys(oilCounts),
     datasets: [

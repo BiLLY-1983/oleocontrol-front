@@ -25,9 +25,7 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
-/**
- *  Definir el esquema de validación con Zod
- */
+//Definir el esquema de validación con Zod
 const userSchema = z
   .object({
     dni: z
@@ -73,9 +71,6 @@ const EditEmployeeModal = ({
     mode: "all",
   });
 
-  /**
-   * useEffect para obtener los departamentos al montar el componente
-   */
   useEffect(() => {
     const fetchDepartments = async () => {
       const result = await getDepartments();
@@ -86,35 +81,24 @@ const EditEmployeeModal = ({
     fetchDepartments();
   }, []);
 
-  /**
-   * useEffect para actualizar los valores del formulario cuando empleado cambie
-   * */
   useEffect(() => {
     if (selectedEmployee) {
-      reset(selectedEmployee); // Actualiza los valores del formulario
+      reset(selectedEmployee); 
     }
   }, [selectedEmployee, reset]);
 
-  /**
-   * Maneja el envío del formulario de edición de empleado
-   *
-   * @async
-   * @function
-   * @param {Object} data - Datos del formulario validados
-   */
   const handleEdit = async (data) => {
     const result = await updateEmployee(selectedEmployee.id, data);
 
     if (result.status === "success") {
       success({
-        title: t("users.successEditTitle"), // Traducción para "Usuario actualizado con éxito"
-        text: t("users.successEditText"), // Traducción para "El usuario ha sido actualizado correctamente."
+        title: t("users.successEditTitle"), 
+        text: t("users.successEditText"), 
         delay: 2000,
       });
-      reset(); // Limpiar formulario
-      setOpen(false); // Cerrar modal
+      reset(); 
+      setOpen(false); 
 
-      // Llama a la función de actualización para la lista
       if (updateEmployees) {
         updateEmployees();
       }

@@ -61,11 +61,6 @@ const NewOilModal = ({ open, setOpen, isDarkMode, updateOils }) => {
     mode: "all",
   });
 
-  /** 
-   * Función para manejar la creación de un nuevo aceite.
-   * 
-   * @param {Object} data - Datos del nuevo aceite.
-   */
   const handleCreate = async (data) => {
     try {
       const result = await createOil(data);

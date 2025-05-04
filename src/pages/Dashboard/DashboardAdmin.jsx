@@ -8,7 +8,7 @@ import { useTheme } from "@context/ThemeContext";
  * Layout principal para los usuarios con rol de administrador.
  * Incluye barra lateral, barra superior y área de contenido.
  *
- * @page
+ * @component
  * @returns {JSX.Element} Estructura del dashboard de administrador.
  */
 const DashboardAdmin = () => {
@@ -18,11 +18,7 @@ const DashboardAdmin = () => {
    * @property {string} theme - El tema actual, puede ser "dark" o "light".
    */
   const { theme } = useTheme();
-  
-  /**
-   * Determina si el modo oscuro está activado.
-   * @type {boolean}
-   */
+
   const isDarkMode = theme === "dark";
 
   return (

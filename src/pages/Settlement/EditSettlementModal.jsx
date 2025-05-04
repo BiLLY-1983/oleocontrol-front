@@ -88,10 +88,9 @@ const EditSettlementModal = ({
         text: t("settlements.successEditText"),
         delay: 2000,
       });
-      reset(); // Limpiar formulario
-      setOpen(false); // Cerrar modal
+      reset(); 
+      setOpen(false); 
 
-      // Llama a la función de actualización para la lista
       if (updateSettlements) {
         updateSettlements();
       }
@@ -118,7 +117,6 @@ const EditSettlementModal = ({
             {selectedSettlement
               ? t("settlements.editSettlement")
               : t("settlements.loadingSettlement")}{" "}
-            {/* Traducción para "Cargando usuario..." */}
           </DialogTitle>
           <DialogDescription>
             {selectedSettlement
@@ -163,7 +161,7 @@ const EditSettlementModal = ({
                   variant="ghost"
                   className="py-2 font-semibold rounded-md focus:outline-none focus:ring-2 cursor-pointer"
                 >
-                  {t("common.cancel")} {/* Traducción para "Cancelar" */}
+                  {t("common.cancel")} 
                 </Button>
               </DialogClose>
               <Button

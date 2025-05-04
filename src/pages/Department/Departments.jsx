@@ -22,7 +22,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
  * Página para gestionar los departamentos y visualizar la cantidad de empleados en cada uno.
  * Incluye un gráfico circular y un diálogo con el listado de empleados por departamento.
  *
- * @page
+ * @component
  * @returns {JSX.Element} Página de gestión de departamentos.
  */
 const Departments = () => {
@@ -37,13 +37,6 @@ const Departments = () => {
   const [loadingDepartments, setLoadingDepartments] = useState(true);
   const [loadingEmployees, setLoadingEmployees] = useState(false);
 
-  /**
-   * Obtiene los departamentos y el número de empleados en cada uno.
-   * Actualiza el estado con la información transformada.
-   * @async
-   * @function
-   * @returns {Promise<void>}
-   */
   const fetchDepartmentsAndCounts = async () => {
     setLoadingDepartments(true);
     try {
@@ -83,13 +76,6 @@ const Departments = () => {
     }
   };
 
-  /**
-   * Obtiene empleados filtrados por ID de departamento.
-   * @async
-   * @function
-   * @param {number|string} departmentId - ID del departamento.
-   * @returns {Promise<void>}
-   */
   const fetchEmployeesByDepartment = async (departmentId) => {
     setLoadingEmployees(true);
     try {
@@ -115,12 +101,6 @@ const Departments = () => {
     fetchDepartmentsAndCounts();
   }, []);
 
-  /**
-   * Maneja el evento de clic sobre una tarjeta de departamento.
-   * Establece el departamento seleccionado y abre el diálogo.
-   * @function
-   * @param {object} department - Departamento seleccionado.
-   */
   const handleCardClick = async (department) => {
     setSelectedDepartment(department);
     await fetchEmployeesByDepartment(department.id);

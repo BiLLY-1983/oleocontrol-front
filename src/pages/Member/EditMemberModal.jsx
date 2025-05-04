@@ -24,9 +24,7 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
-/**
- *  Definir el esquema de validación con Zod
- */
+//Definir el esquema de validación con Zod
 const userSchema = z.object({
   user: z.object({
     dni: z.string().regex(/^\d{8}[A-Za-z]$/, {
@@ -70,22 +68,12 @@ const EditMemberModal = ({
     mode: "all",
   });
 
-  /**
-   * useEffect para actualizar los valores del formulario cuando socio cambie
-   * */
   useEffect(() => {
     if (selectedMember) {
-      reset(selectedMember); // Actualiza los valores del formulario
+      reset(selectedMember); 
     }
   }, [selectedMember, reset]);
 
-  /**
-   * Maneja el envío del formulario de edición de socio
-   *
-   * @async
-   * @function
-   * @param {Object} data - Datos del formulario validados
-   */
   const handleEdit = async (data) => {
     const result = await updateMember(selectedMember.id, data);
 

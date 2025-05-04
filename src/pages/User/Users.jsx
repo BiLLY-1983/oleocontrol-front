@@ -21,6 +21,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import {
+  getVisiblePageNumbers,
+  getPageNumbers,
+  getPaginatedData,
+} from "@utils/paginationUtils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTheme } from "@context/ThemeContext";
 import clsx from "clsx";
@@ -64,13 +69,6 @@ const Users = () => {
   const [modalEditUserOpen, setModalEditUserOpen] = useState(false);
   const [modalDeleteUserOpen, setModalDeleteUserOpen] = useState(false);
 
-  /**
-   * Función para obtener la lista de usuarios desde la API.
-   * Maneja el estado de carga y errores durante la solicitud.
-   * 
-   * @async
-   * @function fetchUsuarios
-   */
   const fetchUsuarios = async () => {
     setLoading(true);
     setError(null);
@@ -95,24 +93,10 @@ const Users = () => {
   const activeCount = usuarios.filter((user) => user.status === 1).length;
   const inactiveCount = usuarios.filter((user) => user.status !== 1).length;
 
-  /**
-   * Función para actualizar la lista de usuarios después de realizar cambios.
-   * Se llama después de agregar, editar o eliminar un usuario.
-   * 
-   * @async
-   * @function updateUsuarios
-   */
   const updateUsuarios = async () => {
-    await fetchUsuarios(); // Vuelve a cargar la lista de usuarios
+    await fetchUsuarios();
   };
 
-  /**
-   * Función para filtrar los usuarios según el criterio de búsqueda.
-   * Permite buscar por nombre, apellido, email, teléfono y estado.
-   * 
-   * @function filterUsuarios
-   * @param {string} filtro - Criterio de búsqueda.
-   */
   const usuariosFiltrados = usuarios.filter(
     (usuario) =>
       usuario.first_name.toLowerCase().includes(filtro.toLowerCase()) ||
@@ -127,52 +111,17 @@ const Users = () => {
       )
   );
 
-  // Paginación
-  const getVisiblePageNumbers = () => {
-    const totalPages = pageNumbers.length;
-    const maxVisible = 5;
-    //const pages = [];
-
-    if (totalPages <= maxVisible) {
-      return pageNumbers;
-    }
-
-    if (currentPage <= 3) {
-      return [...pageNumbers.slice(0, 3), "...", totalPages];
-    }
-
-    if (currentPage >= totalPages - 2) {
-      return [1, "...", ...pageNumbers.slice(totalPages - 3)];
-    }
-
-    return [
-      1,
-      "...",
-      currentPage - 1,
+  // Cálculos
+    const pageNumbers = getPageNumbers(usuariosFiltrados.length, usersPerPage);
+    const currentUsers = getPaginatedData(
+      usuariosFiltrados,
       currentPage,
-      currentPage + 1,
-      "...",
-      totalPages,
-    ];
-  };
-
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = usuariosFiltrados.slice(
-    indexOfFirstUser,
-    indexOfLastUser
-  );
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  const pageNumbers = [];
-  for (
-    let i = 1;
-    i <= Math.ceil(usuariosFiltrados.length / usersPerPage);
-    i++
-  ) {
-    pageNumbers.push(i);
-  }
+      usersPerPage
+    );
+    const visiblePageNumbers = getVisiblePageNumbers(pageNumbers, currentPage);
+  
+    // Cambio de página
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   // Preparar datos para el gráfico circular
   const chartData = {
@@ -390,7 +339,7 @@ const Users = () => {
               />
             </PaginationItem>
 
-            {getVisiblePageNumbers().map((page, index) => (
+            {visiblePageNumbers.map((page, index) => (
               <PaginationItem key={index}>
                 {page === "..." ? (
                   <PaginationEllipsis />

@@ -60,10 +60,6 @@ const HomeMember = () => {
 
   const [loading, setLoading] = useState(true);
 
-  /**
-   * useEffect que se ejecuta al montarse el componente o cuando cambia el `memberId`.
-   * Realiza las solicitudes para obtener los datos de las entradas, análisis, liquidaciones y aceites.
-   */
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);

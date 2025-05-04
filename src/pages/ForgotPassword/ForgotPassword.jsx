@@ -37,12 +37,6 @@ const ForgotPassword = () => {
 
   const navigate = useNavigate();
 
-  /**
-   * Maneja la acción de enviar el formulario de recuperación de contraseña.
-   * Realiza una solicitud para restablecer la contraseña y muestra mensajes de éxito o error.
-   *
-   * @param {Event} e El evento del formulario al ser enviado.
-   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 

@@ -62,9 +62,6 @@ const NewSettlementAvailableModal = ({
   const [loading, setLoading] = useState(true);
   const [loadingOils, setLoadingOils] = useState(true);
 
-  /**
-   * Hook de formulario usando react-hook-form para gestionar la validación y los envíos.
-   */
   const {
     register,
     handleSubmit,
@@ -81,13 +78,6 @@ const NewSettlementAvailableModal = ({
     },
   });
 
-  /**
-   * Función para obtener los aceites disponibles desde el backend.
-   * Actualiza el estado de los aceites y maneja errores de carga.
-   * 
-   * @async
-   * @function fetchOils
-   */
   const fetchOils = async () => {
     setLoadingOils(true);
     try {
@@ -103,13 +93,6 @@ const NewSettlementAvailableModal = ({
     }
   };
 
-  /**
-   * Función para obtener las liquidaciones del miembro desde el backend.
-   * Actualiza el estado de las liquidaciones y maneja errores de carga.
-   * 
-   * @async
-   * @function fetchSettlements
-   */
   const fetchSettlements = async () => {
     setLoading(true);
     try {
@@ -130,13 +113,6 @@ const NewSettlementAvailableModal = ({
     fetchSettlements();
   }, []);
 
-  /**
-   * Función para manejar la creación de una nueva liquidación.
-   * Valida si ya existe una liquidación pendiente del mismo tipo de aceite.
-   * 
-   * @async
-   * @function handleCreate
-   */
   const handleCreate = async (data) => {
     try {
       data.member_id = memberId;

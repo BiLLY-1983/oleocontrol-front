@@ -44,12 +44,6 @@ const HomeAdmin = () => {
   const [errorSettlements, setErrorSettlements] = useState(null);
   const [errorOils, setErrorOils] = useState(null);
 
-  /**
-   * useEffect que obtiene la lista de socios.
-   * 
-   * @async
-   * @function fetchMembers
-   */
   const fetchMembers = async () => {
     setLoadingMembers(true);
     setErrorMembers(null);
@@ -67,12 +61,6 @@ const HomeAdmin = () => {
     }
   };
 
-  /**
-   * useEffect que obtiene la lista de entradas.
-   * 
-   * @async
-   * @function fetchEntries
-   */
   const fetchEntries = async () => {
     setLoadingEntries(true);
     setErrorEntries(null);
@@ -90,12 +78,6 @@ const HomeAdmin = () => {
     }
   };
 
-  /**
-   * useEffect que obtiene la lista de análisis.
-   * 
-   * @async
-   * @function fetchAnalyses
-   */
   const fetchAnalyses = async () => {
     setLoadingAnalyses(true);
     setErrorAnalyses(null);
@@ -113,12 +95,6 @@ const HomeAdmin = () => {
     }
   };
 
-  /**
-   * useEffect que obtiene la lista de aceites.
-   * 
-   * @async
-   * @function fetchOils
-   */
   const fetchOils = async () => {
     setLoadingOils(true);
     setErrorOils(null);
@@ -136,12 +112,6 @@ const HomeAdmin = () => {
     }
   };
 
-  /**
-   * useEffect que obtiene la lista de liquidaciones.
-   * 
-   * @async
-   * @function fetchSettlements
-   */
   const fetchSettlements = async () => {
     setLoadingSettlements(true);
     setErrorSettlements(null);
@@ -159,9 +129,6 @@ const HomeAdmin = () => {
     }
   };
 
-  /**
-   * Hook quue carga todas los dstos necesarios (socios, entradas, análisis, liquidaciones y aceites) al cargar el componente.
-   */
   useEffect(() => {
     fetchMembers();
     fetchEntries();

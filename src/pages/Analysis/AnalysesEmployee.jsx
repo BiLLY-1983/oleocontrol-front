@@ -20,6 +20,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import {
+  getVisiblePageNumbers,
+  getPageNumbers,
+  getPaginatedData,
+} from "@utils/paginationUtils";
 import { getAnalyses } from "@services/analysisRequests";
 import { SquarePen } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -28,90 +33,36 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import { AnalysisPDF } from "@components/pdf/AnalysisPDF";
 import { BiSolidFilePdf } from "react-icons/bi";
 
-
 /**
  * Página para que los empleados gestionen los análisis de aceituna.
  * Permite filtrado, paginación y descarga de informes en PDF.
  *
- * @page
+ * @component
  * @returns {JSX.Element} Página de gestión de análisis para empleados.
  */
 const Analyses = () => {
-  /**
-   * Hook para obtener el tema actual (oscuro o claro).
-   * @type {Object}
-   * @property {string} theme - El tema actual, puede ser "dark" o "light".
-   */
   const { theme } = useTheme();
 
-  /**
-   * Determina si el modo oscuro está activado.
-   * @type {boolean}
-   */
   const isDarkMode = theme === "dark";
 
-  /**
-   * Hook para gestionar la traducción de textos.
-   * @type {Object}
-   * @property {function} t - Función de traducción.
-   */
   const { t } = useTranslation();
 
-  /**
-   * Estado que guarda los análisis recuperados desde el servidor.
-   * @type {Array}
-   */
   const [analyses, setAnalyses] = useState([]);
 
-  /**
-   * Estado que guarda el análisis seleccionado para editar.
-   * @type {Object|null}
-   */
   const [selectedAnalysis, setSelectedAnalysis] = useState(null);
 
-  /**
-   * Estado que maneja el estado de carga de los análisis.
-   * @type {boolean}
-   */
   const [loadingAnalyses, setLoadingAnalyses] = useState(true);
 
-  /**
-   * Estado que mantiene la página actual para la paginación.
-   * @type {number}
-   */
   const [currentPage, setCurrentPage] = useState(1);
 
-  /**
-   * Estado que establece la cantidad de análisis por página en la paginación.
-   * @type {number}
-   */
   const [analysesPerPage, setAnalysesPerPage] = useState(10);
 
-  /**
-   * Estado que maneja los errores de carga de los análisis.
-   * @type {string|null}
-   */
   const [errorAnalyses, setErrorAnalyses] = useState(null);
 
-  /**
-   * Estado que guarda el filtro de búsqueda de los análisis.
-   * @type {string}
-   */
   const [filtro, setFiltro] = useState("");
 
-  /**
-   * Estado que controla la visibilidad del modal de edición de análisis.
-   * @type {boolean}
-   */
   const [modalEditAnalysisOpen, setModalEditAnalysisOpen] = useState(false);
 
-  /**
-   * Función para recuperar los análisis desde el servidor.
-   * Actualiza el estado de `analyses` y maneja errores.
-   *
-   * @async
-   * @returns {Promise<void>}
-   */
   const fetchAnalyses = async () => {
     setLoadingAnalyses(true);
     try {
@@ -131,111 +82,34 @@ const Analyses = () => {
     fetchAnalyses();
   }, []);
 
-  /**
-   * Función para actualizar la lista de análisis.
-   * Llama a `fetchAnalyses` para recargar los análisis.
-   *
-   * @async
-   * @returns {Promise<void>}
-   */
   const updateAnalyses = async () => {
     await fetchAnalyses();
   };
 
-  /**
-   * Filtra los análisis según el filtro de búsqueda (por miembro o tipo de aceite).
-   * @type {Array}
-   */
   const analysesFiltered = analyses.filter(
     (analysis) =>
       analysis.member?.name.toLowerCase().includes(filtro.toLowerCase()) ||
       analysis.oil?.name.toLowerCase().includes(filtro.toLowerCase())
   );
 
-  /**
-   * Calcula los números de página visibles para la paginación.
-   * @returns {Array} Arreglo de números de página visibles o puntos suspensivos.
-   */
-  const getVisiblePageNumbers = () => {
-    const totalPages = pageNumbers.length;
-    const maxVisible = 5;
-
-    if (totalPages <= maxVisible) {
-      return pageNumbers;
-    }
-
-    if (currentPage <= 3) {
-      return [...pageNumbers.slice(0, 3), "...", totalPages];
-    }
-
-    if (currentPage >= totalPages - 2) {
-      return [1, "...", ...pageNumbers.slice(totalPages - 3)];
-    }
-
-    return [
-      1,
-      "...",
-      currentPage - 1,
-      currentPage,
-      currentPage + 1,
-      "...",
-      totalPages,
-    ];
-  };
-
-  /**
-   * Calcula los índices del primer y último análisis a mostrar en la página actual.
-   * @type {number}
-   */
-  const indexOfLastAnalysis = currentPage * analysesPerPage;
-  const indexOfFirstAnalysis = indexOfLastAnalysis - analysesPerPage;
-
-  /**
-   * Lista de los análisis que deben ser mostrados en la página actual.
-   * @type {Array}
-   */
-  const currentAnalyses = analysesFiltered.slice(
-    indexOfFirstAnalysis,
-    indexOfLastAnalysis
+  // Cálculos
+  const pageNumbers = getPageNumbers(analysesFiltered.length, analysesPerPage);
+  const currentAnalyses = getPaginatedData(
+    analysesFiltered,
+    currentPage,
+    analysesPerPage
   );
+  const visiblePageNumbers = getVisiblePageNumbers(pageNumbers, currentPage);
 
-  /**
-   * Función que maneja el cambio de página en la paginación.
-   * @param {number} pageNumber - El número de la página a mostrar.
-   */
+  // Cambio de página
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  /**
-   * Lista de números de página generados según el total de análisis y la cantidad por página.
-   * @type {Array}
-   */
-  const pageNumbers = [];
-  for (
-    let i = 1;
-    i <= Math.ceil(analysesFiltered.length / analysesPerPage);
-    i++
-  ) {
-    pageNumbers.push(i);
-  }
-
-  /**
-   * Lista de análisis pendientes (sin fecha de análisis).
-   * @type {Array}
-   */
   const pendingAnalyses = analyses.filter((a) => !a.analysis_date);
 
-  /**
-   * Lista de análisis con rendimiento definido.
-   * @type {Array}
-   */
   const analysesWithYield = analyses.filter(
     (a) => a.yield !== null && a.yield !== undefined
   );
 
-  /**
-   * Promedio del rendimiento de los análisis con rendimiento disponible.
-   * @type {number}
-   */
   const averageYield =
     analysesWithYield.length > 0
       ? analysesWithYield.reduce((sum, a) => sum + Number(a.yield), 0) /
@@ -479,7 +353,7 @@ const Analyses = () => {
               />
             </PaginationItem>
 
-            {getVisiblePageNumbers().map((page, index) => (
+            {visiblePageNumbers.map((page, index) => (
               <PaginationItem key={index}>
                 {page === "..." ? (
                   <PaginationEllipsis />

@@ -34,15 +34,6 @@ import "@pnotify/confirm/dist/PNotifyConfirm.css";
 const DeleteEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees, selectedEmployee }) => {
   const { t } = useTranslation(); // Hook para traducciones
 
-  /**
-   * Función para manejar la eliminación del empleado seleccionado.
-   * Realiza la llamada a la API para eliminar el empleado y muestra una notificación.
-   * Si la eliminación es exitosa, se cierra el modal y se actualiza la lista de empleados.
-   *
-   * @async
-   * @function handleDelete
-   * @returns {void}
-   */
   const handleDelete = async () => {
     try {
       const result = await deleteEmployee(selectedEmployee.user.id);

@@ -39,40 +39,32 @@ const DeleteUserModal = ({
 }) => {
   const { t } = useTranslation(); // Hook para traducciones
 
-  /**
-   * Función que maneja la eliminación del usuario seleccionado.
-   * Realiza una solicitud para eliminar el usuario y muestra un mensaje de éxito o error.
-   * 
-   * @async
-   * @function handleDelete
-   */
   const handleDelete = async () => {
     try {
       const result = await deleteUser(usuarioSeleccionado.id);
 
       if (result.status === "success") {
         success({
-          title: t("users.successDeleteTitle"), // Traducción para "Usuario eliminado"
-          text: t("users.successDeleteText"), // Traducción para "El usuario ha sido eliminado correctamente."
+          title: t("users.successDeleteTitle"), 
+          text: t("users.successDeleteText"), 
           delay: 2000,
         });
-        setOpen(false); // Cierra el modal
+        setOpen(false); 
 
-        // Llama a la función de actualización para la lista
         if (updateUsuarios) {
           updateUsuarios();
         }
       } else {
         error({
-          title: t("users.errorDeleteTitle"), // Traducción para "Error al eliminar usuario"
+          title: t("users.errorDeleteTitle"), 
           text: result.message,
           delay: 2000,
         });
       }
     } catch (err) {
       error({
-        title: t("common.error"), // Traducción para "Error"
-        text: t("users.errorDeleteText"), // Traducción para "Hubo un problema al eliminar el usuario."
+        title: t("common.error"), 
+        text: t("users.errorDeleteText"),
         delay: 2000,
       });
     }
@@ -94,8 +86,8 @@ const DeleteUserModal = ({
                   username: usuarioSeleccionado.username,
                   firstName: usuarioSeleccionado.first_name,
                   lastName: usuarioSeleccionado.last_name,
-                }) // Traducción para "Eliminar usuario {{username}} ({{firstName}} {{lastName}})"
-              : t("users.loadingUser")} {/* Traducción para "Cargando usuario..." */}
+                }) 
+              : t("users.loadingUser")}
           </DialogTitle>
           <DialogDescription>
             {usuarioSeleccionado
@@ -110,7 +102,7 @@ const DeleteUserModal = ({
               variant="ghost"
               className="py-2 font-semibold rounded-md cursor-pointer"
             >
-              {t("common.cancel")} {/* Traducción para "Cancelar" */}
+              {t("common.cancel")} 
             </Button>
           </DialogClose>
           <Button
@@ -119,7 +111,7 @@ const DeleteUserModal = ({
               "py-2 font-semibold rounded-md focus:outline-none focus:ring-2 cursor-pointer bg-red-700 text-white hover:bg-red-500"
             )}
           >
-            {t("users.delete")} {/* Traducción para "Eliminar" */}
+            {t("users.delete")} 
           </Button>
         </DialogFooter>
       </DialogContent>

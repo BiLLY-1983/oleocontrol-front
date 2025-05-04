@@ -12,6 +12,8 @@ const INACTIVITY_TIMEOUT = 60 * 60 * 1000; // -> 1 hora
  * Inicializa los datos del usuario desde localStorage.
  * Recupera el token de autenticación y la información del usuario.
  * 
+ * @function
+ * 
  * @returns {Object} Objeto con el token y los datos del usuario.
  */
 const initializeUserData = () => {
@@ -40,6 +42,8 @@ const UserProvider = ({ children }) => {
     /**
      * Función para cerrar sesión y limpiar los datos almacenados.
      * También realiza la redirección al inicio (ruta '/').
+     * 
+     * @function
      */
     const logout = useCallback(async () => {
         const token = localStorage.getItem('authToken');
@@ -58,6 +62,8 @@ const UserProvider = ({ children }) => {
     /**
      * Función para reiniciar el temporizador de inactividad. 
      * Se reinicia cada vez que el usuario interactúa con la página (movimiento, teclas, clics, desplazamiento).
+     * 
+     * @function
      */
     const resetInactivityTimer = useCallback(() => {
         if (inactivityTimer.current) clearTimeout(inactivityTimer.current);
@@ -76,6 +82,8 @@ const UserProvider = ({ children }) => {
      * 
      * Se ejecuta una vez al montar el componente y se limpia al desmontarse o
      * cuando cambian las dependencias.
+     * 
+     * @effect
      */
     useEffect(() => {
         const events = ['mousemove', 'keydown', 'click', 'scroll'];
@@ -99,6 +107,8 @@ const UserProvider = ({ children }) => {
      * 
      * Este efecto también depende de la función `logout`, que se utiliza para cerrar sesión
      * en caso de error.
+     * 
+     * @effect
      */
     useEffect(() => {
         const fetchProfileData = async () => {

@@ -1,0 +1,3002 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> exports</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">OleoControl</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="AccessDenied.html">AccessDenied</a></li><li><a href="Analyses.html">Analyses</a></li><li><a href="AnalysesMember.html">AnalysesMember</a></li><li><a href="AnalysisPDF.html">AnalysisPDF</a></li><li><a href="ChartOilInventory.html">ChartOilInventory</a></li><li><a href="DashboardAdmin.html">DashboardAdmin</a></li><li><a href="DashboardEmployee.html">DashboardEmployee</a></li><li><a href="DashboardMember.html">DashboardMember</a></li><li><a href="DeleteEmployeeModal.html">DeleteEmployeeModal</a></li><li><a href="DeleteEntryModal.html">DeleteEntryModal</a></li><li><a href="DeleteMemberModal.html">DeleteMemberModal</a></li><li><a href="DeleteOilModal.html">DeleteOilModal</a></li><li><a href="DeleteSettlementMemberModal.html">DeleteSettlementMemberModal</a></li><li><a href="DeleteSettlementModal.html">DeleteSettlementModal</a></li><li><a href="DeleteUserModal.html">DeleteUserModal</a></li><li><a href="DepartmentProtectedRoute.html">DepartmentProtectedRoute</a></li><li><a href="Departments.html">Departments</a></li><li><a href="EditAnalysisModal.html">EditAnalysisModal</a></li><li><a href="EditEmployeeModal.html">EditEmployeeModal</a></li><li><a href="EditEntryModal.html">EditEntryModal</a></li><li><a href="EditMemberModal.html">EditMemberModal</a></li><li><a href="EditOilModal.html">EditOilModal</a></li><li><a href="EditSettlementModal.html">EditSettlementModal</a></li><li><a href="EditUserModal.html">EditUserModal</a></li><li><a href="Employees.html">Employees</a></li><li><a href="EmployeesDoughnutChart.html">EmployeesDoughnutChart</a></li><li><a href="Entries.html">Entries</a></li><li><a href="EntriesMember.html">EntriesMember</a></li><li><a href="EntryPDF.html">EntryPDF</a></li><li><a href="EntryWithOilPDF.html">EntryWithOilPDF</a></li><li><a href="Error404.html">Error404</a></li><li><a href="ForgotPassword.html">ForgotPassword</a></li><li><a href="HomeAdmin.html">HomeAdmin</a></li><li><a href="HomeEmployee.html">HomeEmployee</a></li><li><a href="HomeMember.html">HomeMember</a></li><li><a href="LandingPage.html">LandingPage</a></li><li><a href="LoginAdmin.html">LoginAdmin</a></li><li><a href="LoginEmployee.html">LoginEmployee</a></li><li><a href="LoginMember.html">LoginMember</a></li><li><a href="Logout.html">Logout</a></li><li><a href="Members.html">Members</a></li><li><a href="MembersDoughnutChart.html">MembersDoughnutChart</a></li><li><a href="NewEmployeeModal.html">NewEmployeeModal</a></li><li><a href="NewEntryModal.html">NewEntryModal</a></li><li><a href="NewMemberModal.html">NewMemberModal</a></li><li><a href="NewOilModal.html">NewOilModal</a></li><li><a href="NewSettlementAvailableModal.html">NewSettlementAvailableModal</a></li><li><a href="NewSettlementModal.html">NewSettlementModal</a></li><li><a href="NewUserModal.html">NewUserModal</a></li><li><a href="OilAnalysisDoughnutChart.html">OilAnalysisDoughnutChart</a></li><li><a href="OilMember.html">OilMember</a></li><li><a href="OilPrices.html">OilPrices</a></li><li><a href="Oils.html">Oils</a></li><li><a href="OilsEmployee.html">OilsEmployee</a></li><li><a href="ProtectedRoute.html">ProtectedRoute</a></li><li><a href="Roles.html">Roles</a></li><li><a href="SettlementDoughnutChart.html">SettlementDoughnutChart</a></li><li><a href="SettlementPDF.html">SettlementPDF</a></li><li><a href="Settlements.html">Settlements</a></li><li><a href="SettlementsMember.html">SettlementsMember</a></li><li><a href="UserProfile.html">UserProfile</a></li><li><a href="Users.html">Users</a></li><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#createAnalysis">createAnalysis</a></li><li><a href="global.html#createDepartment">createDepartment</a></li><li><a href="global.html#createEmployee">createEmployee</a></li><li><a href="global.html#createEntry">createEntry</a></li><li><a href="global.html#createMember">createMember</a></li><li><a href="global.html#createOil">createOil</a></li><li><a href="global.html#createOilInventory">createOilInventory</a></li><li><a href="global.html#createOilSettlement">createOilSettlement</a></li><li><a href="global.html#createRole">createRole</a></li><li><a href="global.html#createSettlement">createSettlement</a></li><li><a href="global.html#createSettlementAvailable">createSettlementAvailable</a></li><li><a href="global.html#createUser">createUser</a></li><li><a href="global.html#deleteAnalysis">deleteAnalysis</a></li><li><a href="global.html#deleteDepartment">deleteDepartment</a></li><li><a href="global.html#deleteEmployee">deleteEmployee</a></li><li><a href="global.html#deleteEntry">deleteEntry</a></li><li><a href="global.html#deleteMember">deleteMember</a></li><li><a href="global.html#deleteOil">deleteOil</a></li><li><a href="global.html#deleteOwnSettlement">deleteOwnSettlement</a></li><li><a href="global.html#deleteRole">deleteRole</a></li><li><a href="global.html#deleteSettlement">deleteSettlement</a></li><li><a href="global.html#deleteUser">deleteUser</a></li><li><a href="global.html#getAnalyses">getAnalyses</a></li><li><a href="global.html#getAnalysesForMember">getAnalysesForMember</a></li><li><a href="global.html#getAnalysis">getAnalysis</a></li><li><a href="global.html#getAuthHeaders">getAuthHeaders</a></li><li><a href="global.html#getDepartment">getDepartment</a></li><li><a href="global.html#getDepartments">getDepartments</a></li><li><a href="global.html#getEmployee">getEmployee</a></li><li><a href="global.html#getEmployees">getEmployees</a></li><li><a href="global.html#getEntries">getEntries</a></li><li><a href="global.html#getEntriesForMember">getEntriesForMember</a></li><li><a href="global.html#getEntry">getEntry</a></li><li><a href="global.html#getMember">getMember</a></li><li><a href="global.html#getMembers">getMembers</a></li><li><a href="global.html#getOil">getOil</a></li><li><a href="global.html#getOilInventories">getOilInventories</a></li><li><a href="global.html#getOilInventoriesForMember">getOilInventoriesForMember</a></li><li><a href="global.html#getOilSettlements">getOilSettlements</a></li><li><a href="global.html#getOilSettlementsForMember">getOilSettlementsForMember</a></li><li><a href="global.html#getOils">getOils</a></li><li><a href="global.html#getProfileRequest">getProfileRequest</a></li><li><a href="global.html#getRole">getRole</a></li><li><a href="global.html#getRoles">getRoles</a></li><li><a href="global.html#getSettlement">getSettlement</a></li><li><a href="global.html#getSettlements">getSettlements</a></li><li><a href="global.html#getSettlementsByMember">getSettlementsByMember</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#getUsers">getUsers</a></li><li><a href="global.html#handleError">handleError</a></li><li><a href="global.html#loginRequest">loginRequest</a></li><li><a href="global.html#logoutRequest">logoutRequest</a></li><li><a href="global.html#requestPasswordReset">requestPasswordReset</a></li><li><a href="global.html#updateAnalysis">updateAnalysis</a></li><li><a href="global.html#updateDepartment">updateDepartment</a></li><li><a href="global.html#updateEmployee">updateEmployee</a></li><li><a href="global.html#updateEntry">updateEntry</a></li><li><a href="global.html#updateMember">updateMember</a></li><li><a href="global.html#updateOil">updateOil</a></li><li><a href="global.html#updateProfileRequest">updateProfileRequest</a></li><li><a href="global.html#updateRole">updateRole</a></li><li><a href="global.html#updateSettlement">updateSettlement</a></li><li><a href="global.html#updateUser">updateUser</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Components</p>
+                    <h1>exports</h1>
+                </header>
+                
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            &ltexports  /&gt
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="exports">
+        <a class="href-link" href="#exports">#</a>
+        
+        <span class="code-name">
+            
+                &ltexports  /&gt
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Componente principal que gestiona todas las rutas de la aplicación.Incluye rutas públicas, protegidas y específicas para dashboards de administradores, empleados y socios.Usa el contexto de usuario para verificar si el usuario está autenticado.
+    </div>
+    
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_AuthRoutes.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_AuthRoutes.jsx.html">components/AuthRoutes.jsx</a>, <a href="components_AuthRoutes.jsx.html#line36">line 36</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>El componente de rutas configurado.</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+        
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            &ltexports  /&gt
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="exports">
+        <a class="href-link" href="#exports">#</a>
+        
+        <span class="code-name">
+            
+                &ltexports  /&gt
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Componente de gráfica de barras.Muestra un gráfico de barras que representa la evolución mensual de las entradas de aceituna durante los últimos 12 meses.Cada barra representa el total de kilos registrados en ese mes, agrupados y convertidos a toneladas para su visualización.
+    </div>
+    
+
+
+
+
+
+
+
+    
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>props</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Object</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Propiedades del componente.</td>
+</tr>
+
+  
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>entries</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Array.&lt;Object></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Lista de entradas de aceituna. Cada objeto debe contener: - `entry_date` (string): Fecha de la entrada, en formato ISO. - `olive_quantity` (number): Cantidad de aceituna en kilogramos.</td>
+</tr>
+
+  
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_Charts_ChartEntries.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_Charts_ChartEntries.jsx.html">components/Charts/ChartEntries.jsx</a>, <a href="components_Charts_ChartEntries.jsx.html#line28">line 28</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>Gráfico de barras con la evolución mensual de las entradas de aceituna.</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+        
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            &ltexports  /&gt
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="exports">
+        <a class="href-link" href="#exports">#</a>
+        
+        <span class="code-name">
+            
+                &ltexports  /&gt
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Componente de gráfica de barras.Muestra un gráfico de barras comparando el precio del aceite entre diferentes tipos de aceite.
+    </div>
+    
+
+
+
+
+
+
+
+    
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>props</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Object</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Propiedades del componente.</td>
+</tr>
+
+  
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>oils</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Array.&lt;{name: string, price: number}></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Lista de aceites, cada elemento debe contener un nombre (`name`) y un precio (`price`).</td>
+</tr>
+
+  
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_Charts_ChartOilPricesBar.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_Charts_ChartOilPricesBar.jsx.html">components/Charts/ChartOilPricesBar.jsx</a>, <a href="components_Charts_ChartOilPricesBar.jsx.html#line25">line 25</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>Gráfico de barras con los precios de los aceites.</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+        
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            &ltexports  /&gt
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="exports">
+        <a class="href-link" href="#exports">#</a>
+        
+        <span class="code-name">
+            
+                &ltexports  /&gt
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Componente de gráfica tipo donut.Muestra un gráfico Doughnut con la distribución de aceite por tipo.
+    </div>
+    
+
+
+
+
+
+
+
+    
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>props</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Object</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Propiedades del componente.</td>
+</tr>
+
+  
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>oilByType</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Object.&lt;string, number></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Objeto con los distintos tipos de aceite como claves y su cantidad en litros como valores.</td>
+</tr>
+
+  
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_Charts_ChartOilsByType.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_Charts_ChartOilsByType.jsx.html">components/Charts/ChartOilsByType.jsx</a>, <a href="components_Charts_ChartOilsByType.jsx.html#line17">line 17</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>Gráfico Doughnut con la distribución del aceite por tipo.</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+        
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            &ltexports  /&gt
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="exports">
+        <a class="href-link" href="#exports">#</a>
+        
+        <span class="code-name">
+            
+                &ltexports  /&gt
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Componente de gráfica de barras.Muestra un gráfico de barras con la evolución mensual de las liquidaciones aceptadas y canceladas durante los últimos 12 meses.
+    </div>
+    
+
+
+
+
+
+
+
+    
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>props</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Object</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Propiedades del componente.</td>
+</tr>
+
+  
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>settlements</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Array</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Array de objetos de liquidación, donde cada uno debe incluir: - `settlement_date_res`: Fecha de resolución de la liquidación. - `settlement_status`: Estado de la liquidación ("Aceptada" o "Cancelada"). - `amount`: Cantidad de aceite liquidada. - `price`: Precio por litro.</td>
+</tr>
+
+  
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_Charts_ChartSettlements.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_Charts_ChartSettlements.jsx.html">components/Charts/ChartSettlements.jsx</a>, <a href="components_Charts_ChartSettlements.jsx.html#line30">line 30</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>Gráfico de barras con la evolución mensual de las liquidaciones.</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+        
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            &ltexports  /&gt
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="exports">
+        <a class="href-link" href="#exports">#</a>
+        
+        <span class="code-name">
+            
+                &ltexports  /&gt
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Componente de gráfica circular (Pie Chart).Muestra un gráfico circular con el estado actual de las liquidaciones: Pendientes, Aceptadas y Canceladas.También muestra el total en euros de las liquidaciones aceptadas.
+    </div>
+    
+
+
+
+
+
+
+
+    
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>props</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Object</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Propiedades del componente.</td>
+</tr>
+
+  
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>settlements</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Array</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Array de objetos de liquidación. Cada objeto debe contener: - `settlement_status`: Estado de la liquidación ("Pendiente", "Aceptada" o "Cancelada"). - `amount`: Cantidad de aceite liquidada. - `price`: Precio por litro. - `created_at`: Fecha de creación de la liquidación.</td>
+</tr>
+
+  
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_Charts_ChartSettlementsHome.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_Charts_ChartSettlementsHome.jsx.html">components/Charts/ChartSettlementsHome.jsx</a>, <a href="components_Charts_ChartSettlementsHome.jsx.html#line25">line 25</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>Gráfico circular con la distribución de los estados de liquidación.</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+        
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            &ltexports  /&gt
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="exports">
+        <a class="href-link" href="#exports">#</a>
+        
+        <span class="code-name">
+            
+                &ltexports  /&gt
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Componente de gráfica tipo donut.Muestra un gráfico Doughnut con la distribución de los aceites obtenidos a partir de los análisis de rendimiento de las aceitunas.También muestra el total de litros de aceite obtenidos.
+    </div>
+    
+
+
+
+
+
+
+
+    
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>props</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Object</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Propiedades del componente.</td>
+</tr>
+
+  
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>oils</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Array</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Array de aceites disponibles. Cada objeto debe contener: - `name`: Nombre del aceite. - `price`: Precio por litro.</td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>analyses</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Array</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Array de análisis. Cada objeto debe contener: - `yield`: Porcentaje de rendimiento del análisis. - `entry.olive_quantity`: Cantidad de aceituna analizada. - `oil.name`: Nombre del aceite resultante del análisis.</td>
+</tr>
+
+  
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_Charts_ChartsOils.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_Charts_ChartsOils.jsx.html">components/Charts/ChartsOils.jsx</a>, <a href="components_Charts_ChartsOils.jsx.html#line27">line 27</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>Gráfico Doughnut con la distribución de los aceites.</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+        
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            &ltexports  /&gt
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="exports">
+        <a class="href-link" href="#exports">#</a>
+        
+        <span class="code-name">
+            
+                &ltexports  /&gt
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Sidebar de administración con funcionalidad de colapsar y cambiar entre temas.Permite a los administradores navegar entre diferentes secciones de la aplicación,como usuarios, roles, empleados, departamentos, socios, entradas, análisis, liquidaciones y aceites.
+    </div>
+    
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_Sidebar_SidebarAdmin.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_Sidebar_SidebarAdmin.jsx.html">components/Sidebar/SidebarAdmin.jsx</a>, <a href="components_Sidebar_SidebarAdmin.jsx.html#line46">line 46</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>El sidebar con la navegación para los administradores.</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        
+
+<div id='component0'></div>
+
+<script>
+  ReactDOM.render(ReactWrapper({
+    example: "<SidebarAdmin />",
+    uniqId: "component0",
+  }), document.getElementById('component0'));
+</script>
+    
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+        
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            &ltexports  /&gt
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="exports">
+        <a class="href-link" href="#exports">#</a>
+        
+        <span class="code-name">
+            
+                &ltexports  /&gt
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Sidebar para empleados con menú dinámico basado en el departamento.Permite a los empleados navegar entre diferentes secciones de la aplicación,mostrando opciones específicas según el departamento al que pertenecen.
+    </div>
+    
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_Sidebar_SidebarEmployee.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_Sidebar_SidebarEmployee.jsx.html">components/Sidebar/SidebarEmployee.jsx</a>, <a href="components_Sidebar_SidebarEmployee.jsx.html#line62">line 62</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>El sidebar con la navegación para los empleados.</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        
+
+<div id='component0'></div>
+
+<script>
+  ReactDOM.render(ReactWrapper({
+    example: "<SidebarEmployee />",
+    uniqId: "component0",
+  }), document.getElementById('component0'));
+</script>
+    
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+        
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            &ltexports  /&gt
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="exports">
+        <a class="href-link" href="#exports">#</a>
+        
+        <span class="code-name">
+            
+                &ltexports  /&gt
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Sidebar para socios con opciones de navegación específicas.Permite a los socios navegar entre diferentes secciones de la aplicación,como inicio, entradas, análisis, liquidaciones, aceites y precios.Incluye funcionalidad para colapsar el menú y adaptarse a dispositivos móviles.
+    </div>
+    
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_Sidebar_SidebarMember.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_Sidebar_SidebarMember.jsx.html">components/Sidebar/SidebarMember.jsx</a>, <a href="components_Sidebar_SidebarMember.jsx.html#line39">line 39</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>El sidebar con la navegación para los socios.</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        
+
+<div id='component0'></div>
+
+<script>
+  ReactDOM.render(ReactWrapper({
+    example: "<SidebarMember />",
+    uniqId: "component0",
+  }), document.getElementById('component0'));
+</script>
+    
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+        
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            &ltexports  /&gt
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="exports">
+        <a class="href-link" href="#exports">#</a>
+        
+        <span class="code-name">
+            
+                &ltexports  /&gt
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Componente de tarjeta de estadísticas.Muestra un título, un valor y un subtexto opcional. El estilo y el texto son sensibles al tema actual (oscuro o claro).
+    </div>
+    
+
+
+
+
+
+
+
+    
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+            <th>Attributes</th>
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>props</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Object</code>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last">Propiedades del componente.</td>
+</tr>
+
+  
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>title</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last">Título de la tarjeta, que se traduce usando el hook de i18n.</td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>value</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+|
+
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last">Valor que se muestra de forma destacada en la tarjeta.</td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>subtext</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">string</code>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last">Subtexto opcional que se muestra debajo del valor, también traducido.</td>
+</tr>
+
+  
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_StatCard.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_StatCard.jsx.html">components/StatCard.jsx</a>, <a href="components_StatCard.jsx.html#line18">line 18</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>Componente de tarjeta con el título, valor y subtexto (si se proporciona).</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+        
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            &ltexports  /&gt
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="exports">
+        <a class="href-link" href="#exports">#</a>
+        
+        <span class="code-name">
+            
+                &ltexports  /&gt
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Componente Topbar que representa la barra superior de navegación en la interfaz de usuario.Contiene opciones para cambiar la apariencia (modo claro/oscuro), idioma (español/inglés) y acceder al perfil del usuario.También permite cerrar sesión mediante el componente Logout.
+    </div>
+    
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_Topbar.jsx.html" class="button">View Source</a>
+            <span>
+                <a href="components_Topbar.jsx.html">components/Topbar.jsx</a>, <a href="components_Topbar.jsx.html#line30">line 30</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>El componente Topbar renderizado.</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">JSX.Element</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        
+
+<div id='component0'></div>
+
+<script>
+  ReactDOM.render(ReactWrapper({
+    example: "<Topbar />",
+    uniqId: "component0",
+  }), document.getElementById('component0'));
+</script>
+    
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+        
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

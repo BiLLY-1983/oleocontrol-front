@@ -24,12 +24,6 @@ const OilPrices = () => {
   const [loadingOils, setLoadingOils] = useState(true);
   const [errorOils, setErrorOils] = useState(null);
 
-  /**
-   * Función para obtener los aceites desde la API.
-   * Actualiza el estado de `oils` con los datos obtenidos.
-   *
-   * @returns {void} No retorna ningún valor.
-   */
   const fetchOils = async () => {
     setLoadingOils(true);
     setErrorOils(null);
@@ -47,9 +41,6 @@ const OilPrices = () => {
     }
   };
 
-  /**
-   * Obtener los aceites cuando el componente se monte.
-   */
   useEffect(() => {
     fetchOils();
   }, []);

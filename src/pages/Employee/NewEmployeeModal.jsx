@@ -24,9 +24,8 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
-/**
- *  Definir el esquema de validación con Zod
- */
+
+// Definir el esquema de validación con Zod
 const userSchema = z
   .object({
     /*     username: z
@@ -118,9 +117,6 @@ const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
     mode: "all",
   });
 
-  /**
-   * useEffect para obtener los departamentos al montar el componente
-   */
   useEffect(() => {
     const fetchDepartments = async () => {
       const result = await getDepartments();
@@ -131,39 +127,29 @@ const NewEmployeeModal = ({ open, setOpen, isDarkMode, updateEmployees }) => {
     fetchDepartments();
   }, []);
 
-  /**
-   * Maneja el envío del formulario de creación de empleado
-   *
-   * @async
-   * @function
-   * @param {Object} data - Datos del formulario validados
-   */
   const handleCreate = async (data) => {
     try {
       data.status = true;
 
-      // Enviar todos los datos necesarios al backend
       const employeeResult = await createEmployee(data);
 
       if (employeeResult.status !== "success") {
         throw new Error(employeeResult.message || t("users.errorTitle"));
       }
 
-      // Mostrar mensaje de éxito
       success({
         title: t("users.successTitle"),
         text: t("users.successText"),
         delay: 2000,
       });
 
-      reset(); // Limpiar el formulario
-      setOpen(false); // Cerrar el modal
+      reset();
+      setOpen(false); 
 
       if (updateEmployees) {
-        updateEmployees(); // Actualizar lista
+        updateEmployees(); 
       }
     } catch (err) {
-      // Mostrar mensaje de error
       error({
         title: t("users.errorTitle"),
         text: err.message,

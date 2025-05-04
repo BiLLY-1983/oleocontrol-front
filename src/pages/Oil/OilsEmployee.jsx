@@ -23,13 +23,6 @@ const OilsEmployee = () => {
   const [loadingOils, setLoadingOils] = useState(true);
   const [errorOils, setErrorOils] = useState(null);
 
-  /**
-   * Función para obtener los aceites desde la API.
-   * Se actualiza el estado de loadingOils y errorOils según la respuesta de la API.
-   * También maneja la lógica de actualización del estado de los aceites.
-   * 
-   * @returns {void} No retorna ningún valor.
-   */
   const fetchOils = async () => {
     setLoadingOils(true);
     setErrorOils(null);
@@ -47,10 +40,6 @@ const OilsEmployee = () => {
     }
   };
 
-  /**
-   * Efecto para cargar los aceites al montar el componente.
-   * Se ejecuta una vez cuando el componente se monta.
-   */
   useEffect(() => {
     fetchOils();
   }, []);

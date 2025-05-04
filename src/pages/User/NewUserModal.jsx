@@ -24,7 +24,7 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
-/** Definir el esquema de validación con Zod */
+// Definir el esquema de validación con Zod
 const userSchema = z
   .object({
     /*     username: z
@@ -112,13 +112,6 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
     mode: "all",
   });
 
-  /**
-   * useEffect para obtener los departamentos al cargar el componente.
-   * Se ejecuta una vez al montar el componente.
-   * 
-   * @function
-   * @returns {void}
-   */
   useEffect(() => {
     const fetchDepartments = async () => {
       const result = await getDepartments();
@@ -129,22 +122,6 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
     fetchDepartments();
   }, []);
 
-  /**
-   * Función para manejar la creación de un nuevo usuario.
-   * Se encarga de enviar los datos al backend y manejar la respuesta.
-   * 
-   * @param {string} data.first_name - Nombre del usuario.
-   * @param {string} data.last_name - Apellido del usuario.
-   * @param {string} data.dni - DNI del usuario.
-   * @param {string} data.email - Email del usuario.
-   * @param {string} data.password - Contraseña del usuario.
-   * @param {string} data.phone - Teléfono del usuario.
-   * @param {string} data.user_type - Tipo de usuario.
-   * @param {string} data.department_id - ID del departamento del usuario.
-   * 
-   * @returns {void}
-   * @throws {Error} - Si ocurre un error al crear el usuario.
-   */
   const handleCreate = async (data) => {
     try {
       data.status = true; 
@@ -156,22 +133,20 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
         throw new Error(userResult.message || t("users.errorTitle"));
       }
 
-      // Mostrar mensaje de éxito
       success({
         title: t("users.successTitle"),
         text: t("users.successText"),
         delay: 2000,
       });
 
-      reset();        // Limpiar el formulario
-      setOpen(false); // Cerrar el modal
+      reset();        
+      setOpen(false);
 
       if (updateUsuarios) {
-        updateUsuarios(); // Actualizar lista
+        updateUsuarios(); 
       }
 
     } catch (err) {
-      // Mostrar mensaje de error
       error({
         title: t("users.errorTitle"),
         text: err.message,
@@ -192,10 +167,8 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
       >
         <DialogHeader>
           <DialogTitle>{t("users.newUser")}</DialogTitle>{" "}
-          {/* Traducción para "Crear nuevo usuario" */}
           <DialogDescription>
             {t("users.allFieldsRequired")}{" "}
-            {/* Traducción para "Todos los campos son obligatorios." */}
           </DialogDescription>
         </DialogHeader>
 
@@ -293,7 +266,6 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
 
           <div name="phone">
             <Label className="mb-1">{t("userProfile.phone")}</Label>{" "}
-            {/* Traducción para "Teléfono" */}
             <Input
               type="text"
               {...register("phone")}
@@ -352,7 +324,7 @@ const NewUserModal = ({ open, setOpen, isDarkMode, updateUsuarios }) => {
                 variant="ghost"
                 className="py-2 font-semibold rounded-md focus:outline-none focus:ring-2 cursor-pointer"
               >
-                {t("common.cancel")} {/* Traducción para "Cancelar" */}
+                {t("common.cancel")}
               </Button>
             </DialogClose>
             <Button

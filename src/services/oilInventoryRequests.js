@@ -1,22 +1,25 @@
 import api from '@config/api.js';
 
 /**
- * Funciones para manejar los inventarios de aceite en la API.
- * Estas funciones permiten obtener, crear, actualizar y eliminar inventarios de aceite.
+ * Obtiene todos los inventarios de aceite.
+ *
+ * @returns {Promise<Object[]>} Una promesa que resuelve con un array de inventarios de aceite.
  */
-
-// Obtener todos los inventarios de aceite
 export const getOilInventories = async () => {
     try {
         const response = await api.get('/oil-inventories');
         return response.data;  // Devuelve los datos de todos los inventarios de aceite
     } catch (error) {
-        return handleError(error); // Maneja el error si ocurre
+        return handleError(error);  // Maneja el error si ocurre
     }
 };
 
-
-// Obtener los inventarios de aceite para un socio específico
+/**
+ * Obtiene los inventarios de aceite para un socio específico.
+ *
+ * @param {number|string} memberId - ID del socio.
+ * @returns {Promise<Object[]>} Una promesa que resuelve con los datos de los inventarios de aceite del socio.
+ */
 export const getOilInventoriesForMember = async (memberId) => {
     try {
         const response = await api.get(`/members/${memberId}/oil-inventories`);
@@ -26,29 +29,35 @@ export const getOilInventoriesForMember = async (memberId) => {
     }
 };
 
-// Crear un nuevo inventario de aceite
+/**
+ * Crea un nuevo inventario de aceite.
+ *
+ * @param {Object} oilInventoryData - Datos del nuevo inventario de aceite.
+ * @returns {Promise<Object>} Una promesa que resuelve con los datos del inventario de aceite creado.
+ */
 export const createOilInventory = async (oilInventoryData) => {
     try {
         const response = await api.post('/oil-inventories', oilInventoryData);
         return response.data;  // Devuelve los datos del inventario de aceite creado
     } catch (error) {
-        return handleError(error); // Maneja el error si ocurre
+        return handleError(error);  // Maneja el error si ocurre
     }
 };
 
-
-// Manejar errores
+/**
+ * Maneja los errores ocurridos durante las solicitudes HTTP.
+ *
+ * @param {Object} error - Objeto de error capturado.
+ * @returns {Object} Objeto con `success: false` y un mensaje de error.
+ */
 const handleError = (error) => {
     if (error.response) {
-        // Si la respuesta es un error desde el servidor
         console.error('Error en la respuesta:', error.response);
         return { success: false, message: error.response.data.message || 'Error desconocido' };
     } else if (error.request) {
-        // Si no se recibió respuesta del servidor
         console.error('No se recibió respuesta:', error.request);
         return { success: false, message: 'No se recibió respuesta del servidor' };
     } else {
-        // Si ocurrió un error al configurar la solicitud
         console.error('Error al configurar la solicitud:', error.message);
         return { success: false, message: error.message };
     }

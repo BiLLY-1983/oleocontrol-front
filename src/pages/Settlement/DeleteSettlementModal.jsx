@@ -38,13 +38,6 @@ const DeleteSettlementModal = ({
 }) => {
   const { t } = useTranslation();
 
-  /**
-   * Función para manejar la eliminación de una liquidación.
-   * Realiza una solicitud para eliminar la liquidación seleccionada y muestra un mensaje de éxito o error.
-   * 
-   * @async
-   * @function handleDelete
-   */
   const handleDelete = async () => {
     try {
       const result = await deleteSettlement(selectedSettlement.id);
