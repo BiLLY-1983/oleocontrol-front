@@ -28,11 +28,20 @@ import "@pnotify/confirm/dist/PNotifyConfirm.css";
 //Definir el esquema de validación con Zod
 const userSchema = z.object({
   user: z.object({
+    username: z.string().max(255, { message: "Máximo 255 caracteres" }),
+    first_name: z.string().max(255, { message: "Máximo 255 caracteres" }),
+    last_name: z.string().max(255, { message: "Máximo 255 caracteres" }),
     dni: z.string().regex(/^\d{8}[A-Za-z]$/, {
       message: "El DNI debe tener 8 números seguidos de una letra",
     }),
-    status: z.boolean().optional(), 
+    email: z
+      .string()
+      .email({ message: "El email no es válido" })
+      .max(255, { message: "Máximo 255 caracteres" }),
+    phone: z.string().max(20, { message: "Máximo 20 caracteres" }),
+    status: z.union([z.boolean(), z.number()]).transform((val) => Boolean(val)),
   }),
+  department_id: z.coerce.string().min(1, { message: "El departamento es obligatorio" }),
 });
 
 /**
@@ -83,11 +92,15 @@ const EditEmployeeModal = ({
 
   useEffect(() => {
     if (selectedEmployee) {
-      reset(selectedEmployee);
+      reset({
+        ...selectedEmployee,
+        department_id: selectedEmployee.department?.id ?? "",
+      });
     }
   }, [selectedEmployee, reset]);
 
   const handleEdit = async (data) => {
+    console.log(data);
     const result = await updateEmployee(selectedEmployee.id, data);
 
     if (result.status === "success") {
@@ -236,7 +249,7 @@ const EditEmployeeModal = ({
             <div name="department">
               <Label className="mb-1">{t("departments.management")}</Label>
               <select
-                {...register("department.id")}
+                {...register("department_id")}
                 className="w-full px-3 py-2 border rounded-md"
               >
                 <option value="">{t("common.select")}</option>
@@ -246,9 +259,9 @@ const EditEmployeeModal = ({
                   </option>
                 ))}
               </select>
-              {errors.department?.id && (
+              {errors.department_id && (
                 <p className="text-red-500 text-sm">
-                  {errors.department.id.message}
+                  {errors.department_id.message}
                 </p>
               )}
             </div>

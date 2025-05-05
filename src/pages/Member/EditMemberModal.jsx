@@ -27,10 +27,22 @@ import "@pnotify/confirm/dist/PNotifyConfirm.css";
 //Definir el esquema de validación con Zod
 const userSchema = z.object({
   user: z.object({
+    username: z.string().max(255, { message: "Máximo 255 caracteres" }),
+    first_name: z.string().max(255, { message: "Máximo 255 caracteres" }),
+    last_name: z.string().max(255, { message: "Máximo 255 caracteres" }),
     dni: z.string().regex(/^\d{8}[A-Za-z]$/, {
       message: "El DNI debe tener 8 números seguidos de una letra",
     }),
-    status: z.boolean().optional(), 
+    email: z
+      .string()
+      .email({ message: "El email no es válido" })
+      .max(255, { message: "Máximo 255 caracteres" }),
+    phone: z.string().max(20, { message: "Máximo 20 caracteres" }),
+    status: z.union([z.boolean(), z.number()]).transform((val) => Boolean(val)),
+  }),
+  member_number: z.coerce.number({
+    required_error: "Este campo es obligatorio",
+    invalid_type_error: "Debe ser un número",
   }),
 });
 
@@ -71,7 +83,7 @@ const EditMemberModal = ({
 
   useEffect(() => {
     if (selectedMember) {
-      reset(selectedMember); 
+      reset(selectedMember);
     }
   }, [selectedMember, reset]);
 
@@ -144,9 +156,9 @@ const EditMemberModal = ({
                 {...register("user.username")}
                 className="w-full px-3 py-2 border rounded-md"
               />
-              {errors.username && (
+              {errors.user?.username && (
                 <p className="text-red-500 text-sm">
-                  {errors.username.message}
+                  {errors.user?.username.message}
                 </p>
               )}
             </div>
@@ -158,9 +170,9 @@ const EditMemberModal = ({
                 {...register("user.first_name")}
                 className="w-full px-3 py-2 border rounded-md"
               />
-              {errors.first_name && (
+              {errors.user?.first_name && (
                 <p className="text-red-500 text-sm">
-                  {errors.first_name.message}
+                  {errors.user?.first_name.message}
                 </p>
               )}
             </div>
@@ -173,9 +185,9 @@ const EditMemberModal = ({
                 {...register("user.last_name")}
                 className="w-full px-3 py-2 border rounded-md"
               />
-              {errors.last_name && (
+              {errors.user?.last_name && (
                 <p className="text-red-500 text-sm">
-                  {errors.last_name.message}
+                  {errors.user?.last_name.message}
                 </p>
               )}
             </div>
@@ -188,8 +200,10 @@ const EditMemberModal = ({
                 {...register("user.dni")}
                 className="w-full px-3 py-2 border rounded-md"
               />
-              {errors.dni && (
-                <p className="text-red-500 text-sm">{errors.dni.message}</p>
+              {errors.user?.dni && (
+                <p className="text-red-500 text-sm">
+                  {errors.user?.dni.message}
+                </p>
               )}
             </div>
 
@@ -201,8 +215,10 @@ const EditMemberModal = ({
                 {...register("user.email")}
                 className="w-full px-3 py-2 border rounded-md"
               />
-              {errors.email && (
-                <p className="text-red-500 text-sm">{errors.email.message}</p>
+              {errors.user?.email && (
+                <p className="text-red-500 text-sm">
+                  {errors.user?.email.message}
+                </p>
               )}
             </div>
 
@@ -214,8 +230,10 @@ const EditMemberModal = ({
                 {...register("user.phone")}
                 className="w-full px-3 py-2 border rounded-md"
               />
-              {errors.phone && (
-                <p className="text-red-500 text-sm">{errors.phone.message}</p>
+              {errors.user?.phone && (
+                <p className="text-red-500 text-sm">
+                  {errors.user?.phone.message}
+                </p>
               )}
             </div>
 
@@ -227,7 +245,7 @@ const EditMemberModal = ({
                 {...register("member_number")}
                 className="w-full px-3 py-2 border rounded-md"
               />
-              {errors.phone && (
+              {errors.member_number && (
                 <p className="text-red-500 text-sm">
                   {errors.member_number.message}
                 </p>
@@ -246,8 +264,10 @@ const EditMemberModal = ({
                     : "accent-olive-600 bg-gray-100 border-gray-300 focus:ring-olive-500"
                 )}
               />
-              {errors.phone && (
-                <p className="text-red-500 text-sm">{errors.status.message}</p>
+              {errors.user?.status && (
+                <p className="text-red-500 text-sm">
+                  {errors.user?.status.message}
+                </p>
               )}
             </div>
 
