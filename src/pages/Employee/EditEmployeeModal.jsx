@@ -26,14 +26,14 @@ import "@pnotify/core/dist/BrightTheme.css";
 import "@pnotify/confirm/dist/PNotifyConfirm.css";
 
 //Definir el esquema de validación con Zod
-const userSchema = z
-  .object({
-    dni: z
-      .string()
-      .regex(/^\d{8}[A-Za-z]$/, {
-        message: "El DNI debe tener 8 números seguidos de una letra",
-      }),
-  });
+const userSchema = z.object({
+  user: z.object({
+    dni: z.string().regex(/^\d{8}[A-Za-z]$/, {
+      message: "El DNI debe tener 8 números seguidos de una letra",
+    }),
+    status: z.boolean().optional(), 
+  }),
+});
 
 /**
  * Modal para editar los datos de un empleado.
@@ -83,7 +83,7 @@ const EditEmployeeModal = ({
 
   useEffect(() => {
     if (selectedEmployee) {
-      reset(selectedEmployee); 
+      reset(selectedEmployee);
     }
   }, [selectedEmployee, reset]);
 
@@ -92,12 +92,12 @@ const EditEmployeeModal = ({
 
     if (result.status === "success") {
       success({
-        title: t("users.successEditTitle"), 
-        text: t("users.successEditText"), 
+        title: t("users.successEditTitle"),
+        text: t("users.successEditText"),
         delay: 2000,
       });
-      reset(); 
-      setOpen(false); 
+      reset();
+      setOpen(false);
 
       if (updateEmployees) {
         updateEmployees();

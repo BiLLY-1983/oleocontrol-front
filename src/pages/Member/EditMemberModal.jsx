@@ -30,6 +30,7 @@ const userSchema = z.object({
     dni: z.string().regex(/^\d{8}[A-Za-z]$/, {
       message: "El DNI debe tener 8 números seguidos de una letra",
     }),
+    status: z.boolean().optional(), 
   }),
 });
 

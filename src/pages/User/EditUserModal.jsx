@@ -40,6 +40,7 @@ const userSchema = z
       .email({ message: "El email no es válido" })
       .max(255, { message: "Máximo 255 caracteres" }),
     phone: z.string().max(20, { message: "Máximo 20 caracteres" }),
+    status: z.boolean().optional(), 
   });
 
 /**
